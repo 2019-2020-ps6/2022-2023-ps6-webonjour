@@ -14,6 +14,7 @@
     "@angular/platform-browser-dynamic": "~15.2.0",
     "@angular/router": "~15.2.0",
     "@nrwl/angular": "15.8.5",
+    "@nx-tools/container-metadata": "^4.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
@@ -37,6 +38,7 @@
     "@nrwl/linter": "15.8.5",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/workspace": "15.8.5",
+    "@nx-tools/nx-container": "^4.0.3",
     "@schematics/angular": "~15.2.0",
     "@types/jest": "^29.4.0",
     "@types/node": "16.11.7",
