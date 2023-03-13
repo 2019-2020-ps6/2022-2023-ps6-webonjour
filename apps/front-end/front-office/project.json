@@ -1,25 +1,25 @@
 {
-  "name": "front-office",
+  "name": "front-end-front-office",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/front-office/src",
+  "sourceRoot": "apps/front-end/front-office/src",
   "prefix": "webonjour",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/front-office",
-        "index": "apps/front-office/src/index.html",
-        "main": "apps/front-office/src/main.ts",
+        "outputPath": "dist/apps/front-end/front-office",
+        "index": "apps/front-end/front-office/src/index.html",
+        "main": "apps/front-end/front-office/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/front-office/tsconfig.app.json",
+        "tsConfig": "apps/front-end/front-office/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "apps/front-office/src/favicon.ico",
-          "apps/front-office/src/assets"
+          "apps/front-end/front-office/src/favicon.ico",
+          "apps/front-end/front-office/src/assets"
         ],
-        "styles": ["apps/front-office/src/styles.scss"],
+        "styles": ["apps/front-end/front-office/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -53,10 +53,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "front-office:build:production"
+          "browserTarget": "front-end-front-office:build:production"
         },
         "development": {
-          "browserTarget": "front-office:build:development"
+          "browserTarget": "front-end-front-office:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -64,7 +64,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "front-office:build"
+        "browserTarget": "front-end-front-office:build"
       }
     },
     "lint": {
@@ -72,8 +72,8 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "apps/front-office/**/*.ts",
-          "apps/front-office/**/*.html"
+          "apps/front-end/front-office/**/*.ts",
+          "apps/front-end/front-office/**/*.html"
         ]
       }
     },
@@ -81,7 +81,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/front-office/jest.config.ts",
+        "jestConfig": "apps/front-end/front-office/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
