@@ -1,25 +1,25 @@
 {
-  "name": "front-end-front-office",
+  "name": "front-end-back-office",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/front-end/front-office/src",
+  "sourceRoot": "apps/front-end/back-office/src",
   "prefix": "webonjour",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/front-end/front-office",
-        "index": "apps/front-end/front-office/src/index.html",
-        "main": "apps/front-end/front-office/src/main.ts",
+        "outputPath": "dist/apps/front-end/back-office",
+        "index": "apps/front-end/back-office/src/index.html",
+        "main": "apps/front-end/back-office/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/front-end/front-office/tsconfig.app.json",
+        "tsConfig": "apps/front-end/back-office/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "apps/front-end/front-office/src/favicon.ico",
-          "apps/front-end/front-office/src/assets"
+          "apps/front-end/back-office/src/favicon.ico",
+          "apps/front-end/back-office/src/assets"
         ],
-        "styles": ["apps/front-end/front-office/src/styles.scss"],
+        "styles": ["apps/front-end/back-office/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -53,10 +53,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "front-end-front-office:build:production"
+          "browserTarget": "front-end-back-office:build:production"
         },
         "development": {
-          "browserTarget": "front-end-front-office:build:development"
+          "browserTarget": "front-end-back-office:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -64,7 +64,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "front-end-front-office:build"
+        "browserTarget": "front-end-back-office:build"
       }
     },
     "lint": {
@@ -72,8 +72,8 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "apps/front-end/front-office/**/*.ts",
-          "apps/front-end/front-office/**/*.html"
+          "apps/front-end/back-office/**/*.ts",
+          "apps/front-end/back-office/**/*.html"
         ]
       }
     },
@@ -81,7 +81,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/front-end/front-office/jest.config.ts",
+        "jestConfig": "apps/front-end/back-office/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -98,7 +98,7 @@
         "push": true,
         "metadata": {
           "images": [
-            "ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/front-end-front-office"
+            "ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/front-end-back-office"
           ],
           "tags": [
             "type=schedule",
