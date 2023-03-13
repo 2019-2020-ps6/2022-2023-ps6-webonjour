@@ -12,8 +12,6 @@ jobs:
         with:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v3
-        with:
-          main-branch-name: master
       - run: npm ci
 
       - run: npx nx format:check
