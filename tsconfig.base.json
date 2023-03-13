@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@webonjour/front-end/shared/common": [
+        "libs/front-end/shared/common/src/index.ts"
+      ],
+      "@webonjour/util-interface": ["libs/util-interface/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
