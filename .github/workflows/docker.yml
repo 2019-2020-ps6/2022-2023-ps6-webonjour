@@ -1,9 +1,10 @@
 name: Docker Build and Push to ghcr.io
 on:
   push:
-    - master
-    - develop
-    - us-*
+    branches:
+      - master
+      - develop
+      - us-*
   workflow_dispatch:
 
 jobs:
