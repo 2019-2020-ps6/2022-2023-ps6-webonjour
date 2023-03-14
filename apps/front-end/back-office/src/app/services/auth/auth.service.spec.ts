@@ -78,8 +78,8 @@ describe('AuthService', () => {
     expect(service.refreshToken).toBeTruthy();
     expect(service.jwtPayload).toBeTruthy();
     service.logout();
-    expect(service.accessToken).toBeNull();
-    expect(service.refreshToken).toBeNull();
-    expect(service.jwtPayload).toEqual(null);
+    expect(service.accessToken).toBeUndefined();
+    expect(service.refreshToken).toBeUndefined();
+    expect(service.jwtPayload).toBeUndefined();
   });
 });
