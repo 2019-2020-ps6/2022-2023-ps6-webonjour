@@ -8,9 +8,9 @@ import jwt_decode from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthService {
-  public accessToken: string | null = null;
-  public refreshToken: string | null = null;
-  public jwtPayload: Auth.JWTPayload | null = null;
+  public accessToken?: string;
+  public refreshToken?: string;
+  public jwtPayload?: Auth.JWTPayload;
   AUTH_URL = 'http://localhost:3333';
 
   constructor(private httpClient: HttpClient) {}
@@ -31,9 +31,9 @@ export class AuthService {
   }
 
   logout(): void {
-    this.accessToken = null;
-    this.refreshToken = null;
-    this.jwtPayload = null;
+    this.accessToken = undefined;
+    this.refreshToken = undefined;
+    this.jwtPayload = undefined;
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
   }
