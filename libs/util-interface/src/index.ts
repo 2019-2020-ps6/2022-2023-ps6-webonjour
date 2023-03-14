@@ -1,1 +1,1 @@
-export * from './lib/util-interface';
+export * as Auth from './lib/auth/index';
