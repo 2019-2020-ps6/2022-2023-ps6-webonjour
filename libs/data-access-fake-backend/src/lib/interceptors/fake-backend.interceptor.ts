@@ -16,8 +16,8 @@ import {
   of,
   throwError,
 } from 'rxjs';
-import { credentials, response } from '../services/auth/auth.service.spec';
 import { Auth } from '@webonjour/util-interface';
+import { credentials, response } from '../mocks/auth';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
