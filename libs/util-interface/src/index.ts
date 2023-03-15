@@ -1,6 +1,6 @@
 export * as Auth from './lib/auth/index';
 
-enum RequestStatus {
+export enum RequestStatus {
   SUCCESS = 'success',
   ERROR = 'error',
 }
