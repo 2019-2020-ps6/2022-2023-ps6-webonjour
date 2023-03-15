@@ -32,6 +32,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function handleRoute() {
       if (url.endsWith('/login') && method === 'POST') {
         return login();
+      } else if (url.endsWith('/refresh') && method === 'POST') {
+        return refresh();
       } else {
         return next.handle(request);
       }
@@ -44,6 +46,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return ok(response);
       }
       return error('Invalid email or password');
+    }
+
+    function refresh() {
+      const refreshToken = (body as Auth.RefreshSchema).refreshToken;
+      if (refreshToken == response.refreshToken) {
+        return ok(response);
+      }
+      return error('Invalid refresh token');
     }
 
     // helper functions

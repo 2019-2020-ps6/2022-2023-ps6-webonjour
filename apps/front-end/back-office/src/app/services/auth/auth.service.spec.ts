@@ -111,4 +111,21 @@ describe('AuthService', () => {
       message: 'error message',
     });
   });
+
+  it('should refresh token', function () {
+    service.refresh().subscribe({
+      next: (res: RequestWrapper<Auth.LoginResponse>) => {
+        expect(res.status).toEqual('success');
+        expect(res.data.accessToken).toEqual(response.accessToken);
+        expect(res.data.refreshToken).toEqual(response.refreshToken);
+      },
+    });
+    const req = httpMock.expectOne(`${service.AUTH_URL}/refresh`);
+    expect(req.request.method).toBe('POST');
+    req.flush({
+      status: 'success',
+      data: response,
+      message: 'Refresh successful',
+    });
+  });
 });

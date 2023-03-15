@@ -28,16 +28,32 @@ export class AuthService {
       )
       .pipe(
         map((response: RequestWrapper<Auth.LoginResponse>) => {
-          if (response.status !== 'success') {
-            throw new Error(response.message);
-          }
+          return this.extractJWT(response);
+        })
+      );
+  }
 
-          this.accessToken = response.data.accessToken;
-          this.refreshToken = response.data.refreshToken;
-          localStorage.setItem('accessToken', this.accessToken);
-          localStorage.setItem('refreshToken', this.refreshToken);
-          this.jwtPayload = jwt_decode<Auth.JWTPayload>(this.accessToken);
-          return response;
+  private extractJWT(response: RequestWrapper<Auth.LoginResponse>) {
+    if (response.status !== 'success') {
+      throw new Error(response.message);
+    }
+
+    this.accessToken = response.data.accessToken;
+    this.refreshToken = response.data.refreshToken;
+    localStorage.setItem('accessToken', this.accessToken);
+    localStorage.setItem('refreshToken', this.refreshToken);
+    this.jwtPayload = jwt_decode<Auth.JWTPayload>(this.accessToken);
+    return response;
+  }
+
+  refresh(): Observable<RequestWrapper<Auth.LoginResponse>> {
+    return this.httpClient
+      .post<RequestWrapper<Auth.LoginResponse>>(this.AUTH_URL + '/refresh', {
+        refreshToken: this.refreshToken,
+      })
+      .pipe(
+        map((response: RequestWrapper<Auth.LoginResponse>) => {
+          return this.extractJWT(response);
         })
       );
   }
