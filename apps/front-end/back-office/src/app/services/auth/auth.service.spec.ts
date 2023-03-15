@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Auth } from '@webonjour/util-interface';
+import { Auth, RequestWrapper } from '@webonjour/util-interface';
 import { AuthService } from './auth.service';
 import {
   HttpClientTestingModule,
@@ -36,12 +36,22 @@ describe('AuthService', () => {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoicmVmcmVzaCJ9.rzQhdqE2VpiJ8mdD24FghBZ71D64CWMwQR5_c3_z-w0',
     };
 
-    service.login(credentials).subscribe((res: Auth.LoginResponse) => {
-      expect(res).toEqual(response);
-    });
+    // test that service login returns the api response
+    service
+      .login(credentials)
+      .subscribe((res: RequestWrapper<Auth.LoginResponse>) => {
+        expect(res.status).toEqual('success');
+        expect(res.data.accessToken).toEqual(response.accessToken);
+        expect(res.data.refreshToken).toEqual(response.refreshToken);
+      });
+
     const req = httpMock.expectOne(`${service.AUTH_URL}/login`);
     expect(req.request.method).toBe('POST');
-    req.flush(response);
+    req.flush({
+      status: 'success',
+      data: response,
+      message: 'Login successful',
+    });
 
     expect(service.accessToken).toEqual(response.accessToken);
     expect(service.refreshToken).toEqual(response.refreshToken);
@@ -68,12 +78,17 @@ describe('AuthService', () => {
       refreshToken:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoicmVmcmVzaCJ9.rzQhdqE2VpiJ8mdD24FghBZ71D64CWMwQR5_c3_z-w0',
     };
+    // test that service login returns the api response
+    service.login(credentials).subscribe();
 
-    service.login(credentials).subscribe((res: Auth.LoginResponse) => {
-      expect(res).toEqual(response);
-    });
     const req = httpMock.expectOne(`${service.AUTH_URL}/login`);
-    req.flush(response);
+    expect(req.request.method).toBe('POST');
+    req.flush({
+      status: 'success',
+      data: response,
+      message: 'Login successful',
+    });
+
     expect(service.accessToken).toBeTruthy();
     expect(service.refreshToken).toBeTruthy();
     expect(service.jwtPayload).toBeTruthy();
@@ -81,5 +96,23 @@ describe('AuthService', () => {
     expect(service.accessToken).toBeUndefined();
     expect(service.refreshToken).toBeUndefined();
     expect(service.jwtPayload).toBeUndefined();
+  });
+
+  it('should load token from local storage', function () {
+    localStorage.setItem(
+      'accessToken',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoiYWNjZXNzIn0.SWw75nUVldk2qUs1wiTx7ZIpjPAMLuGwOnxs_NMVUJM'
+    );
+    localStorage.setItem(
+      'refreshToken',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoicmVmcmVzaCJ9.rzQhdqE2VpiJ8mdD24FghBZ71D64CWMwQR5_c3_z-w0'
+    );
+    service.loadTokenFromLocalStorage();
+    expect(service.accessToken).toEqual(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoiYWNjZXNzIn0.SWw75nUVldk2qUs1wiTx7ZIpjPAMLuGwOnxs_NMVUJM'
+    );
+    expect(service.refreshToken).toEqual(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoicmVmcmVzaCJ9.rzQhdqE2VpiJ8mdD24FghBZ71D64CWMwQR5_c3_z-w0'
+    );
   });
 });
