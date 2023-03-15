@@ -1,6 +1,7 @@
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
+import { fakeBackendProvider } from './interceptors/fake-backend.interceptor';
 
 @Component({
   standalone: true,
@@ -8,6 +9,10 @@ import { Component } from '@angular/core';
   selector: 'webonjour-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: [
+    // provider used to create fake backend
+    fakeBackendProvider,
+  ],
 })
 export class AppComponent {
   title = 'front-end-back-office';

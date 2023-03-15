@@ -1,0 +1,82 @@
+import { Injectable } from '@angular/core';
+import {
+  HTTP_INTERCEPTORS,
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
+import {
+  delay,
+  dematerialize,
+  materialize,
+  Observable,
+  of,
+  throwError,
+} from 'rxjs';
+import { credentials, response } from '../services/auth/auth.service.spec';
+import { Auth } from '@webonjour/util-interface';
+
+@Injectable()
+export class FakeBackendInterceptor implements HttpInterceptor {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    const { url, method, body } = request;
+
+    return handleRoute();
+
+    function handleRoute() {
+      if (url.endsWith('/login') && method === 'POST') {
+        return login();
+      } else {
+        return next.handle(request);
+      }
+    }
+
+    // route functions
+    function login() {
+      const givenCredentials = body as Auth.LoginSchema;
+      if (givenCredentials == credentials) {
+        return ok(response);
+      }
+      return error('Invalid email or password');
+    }
+
+    // helper functions
+    function ok(body?: unknown) {
+      return of(
+        new HttpResponse({
+          status: 200,
+          body: {
+            status: 'success',
+            data: body,
+            message: 'OK',
+          },
+        })
+      ).pipe(delay(500)); // delay observable to simulate server api call
+    }
+
+    function error(message: string) {
+      return throwError(() => {
+        return new HttpErrorResponse({
+          status: 400,
+          error: {
+            status: 'error',
+            message: message,
+          },
+        });
+      }).pipe(materialize(), delay(500), dematerialize()); // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648);
+    }
+  }
+}
+
+export const fakeBackendProvider = {
+  // use fake backend in place of Http service for backend-less development
+  provide: HTTP_INTERCEPTORS,
+  useClass: FakeBackendInterceptor,
+  multi: true,
+};
