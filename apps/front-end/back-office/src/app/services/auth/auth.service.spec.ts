@@ -9,6 +9,16 @@ import {
 describe('AuthService', () => {
   let service: AuthService;
   let httpMock: HttpTestingController;
+  const credentials: Auth.LoginSchema = {
+    email: 'email@email.com',
+    password: 'password',
+  };
+  const response: Auth.LoginResponse = {
+    accessToken:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoiYWNjZXNzIn0.SWw75nUVldk2qUs1wiTx7ZIpjPAMLuGwOnxs_NMVUJM',
+    refreshToken:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoicmVmcmVzaCJ9.rzQhdqE2VpiJ8mdD24FghBZ71D64CWMwQR5_c3_z-w0',
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,25 +35,17 @@ describe('AuthService', () => {
 
   // mock the http client and test the login method
   it('should login', () => {
-    const credentials: Auth.LoginSchema = {
-      email: 'email@email.com',
-      password: 'password',
-    };
-    const response: Auth.LoginResponse = {
-      accessToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoiYWNjZXNzIn0.SWw75nUVldk2qUs1wiTx7ZIpjPAMLuGwOnxs_NMVUJM',
-      refreshToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoicmVmcmVzaCJ9.rzQhdqE2VpiJ8mdD24FghBZ71D64CWMwQR5_c3_z-w0',
-    };
-
     // test that service login returns the api response
-    service
-      .login(credentials)
-      .subscribe((res: RequestWrapper<Auth.LoginResponse>) => {
+    service.login(credentials).subscribe({
+      next: (res: RequestWrapper<Auth.LoginResponse>) => {
         expect(res.status).toEqual('success');
         expect(res.data.accessToken).toEqual(response.accessToken);
         expect(res.data.refreshToken).toEqual(response.refreshToken);
-      });
+      },
+      error: () => {
+        fail('error should not be called');
+      },
+    });
 
     const req = httpMock.expectOne(`${service.AUTH_URL}/login`);
     expect(req.request.method).toBe('POST');
@@ -68,16 +70,6 @@ describe('AuthService', () => {
   });
 
   it('should logout', function () {
-    const credentials: Auth.LoginSchema = {
-      email: 'email@email.com',
-      password: 'password',
-    };
-    const response: Auth.LoginResponse = {
-      accessToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoiYWNjZXNzIn0.SWw75nUVldk2qUs1wiTx7ZIpjPAMLuGwOnxs_NMVUJM',
-      refreshToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoicmVmcmVzaCJ9.rzQhdqE2VpiJ8mdD24FghBZ71D64CWMwQR5_c3_z-w0',
-    };
     // test that service login returns the api response
     service.login(credentials).subscribe();
 
@@ -99,20 +91,29 @@ describe('AuthService', () => {
   });
 
   it('should load token from local storage', function () {
-    localStorage.setItem(
-      'accessToken',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoiYWNjZXNzIn0.SWw75nUVldk2qUs1wiTx7ZIpjPAMLuGwOnxs_NMVUJM'
-    );
-    localStorage.setItem(
-      'refreshToken',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoicmVmcmVzaCJ9.rzQhdqE2VpiJ8mdD24FghBZ71D64CWMwQR5_c3_z-w0'
-    );
+    localStorage.setItem('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
     service.loadTokenFromLocalStorage();
-    expect(service.accessToken).toEqual(
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoiYWNjZXNzIn0.SWw75nUVldk2qUs1wiTx7ZIpjPAMLuGwOnxs_NMVUJM'
-    );
-    expect(service.refreshToken).toEqual(
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoicmVmcmVzaCJ9.rzQhdqE2VpiJ8mdD24FghBZ71D64CWMwQR5_c3_z-w0'
-    );
+    expect(service.accessToken).toEqual(response.accessToken);
+    expect(service.refreshToken).toEqual(response.refreshToken);
+  });
+
+  it('should propagate error', function () {
+    service.login(credentials).subscribe({
+      next: () => {
+        fail('should not be called');
+      },
+      error: (err: RequestWrapper<Auth.LoginResponse>) => {
+        expect(err.message).toEqual('error message');
+      },
+    });
+    const req = httpMock.expectOne(`${service.AUTH_URL}/login`);
+    expect(req.request.method).toBe('POST');
+
+    req.flush({
+      status: 'error',
+      data: null,
+      message: 'error message',
+    });
   });
 });
