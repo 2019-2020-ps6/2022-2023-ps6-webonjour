@@ -1,8 +1,7 @@
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
-import { fakeBackendProvider } from './interceptors/fake-backend.interceptor';
-
+import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
 @Component({
   standalone: true,
   imports: [NxWelcomeComponent, RouterModule],
