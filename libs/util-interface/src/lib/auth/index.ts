@@ -8,6 +8,10 @@ export interface LoginResponse {
   refreshToken: string;
 }
 
+export interface RefreshSchema {
+  refreshToken: string;
+}
+
 export interface JWTPayload {
   sub: string;
   name: string;
