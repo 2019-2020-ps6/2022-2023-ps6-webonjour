@@ -9,9 +9,16 @@ import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
 import { LoginComponent } from './components/auth/login/login.component';
 import { LoginFormComponent } from './components/auth/login-form/login-form.component';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -23,10 +30,18 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
-    MatInputModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
-    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatButtonModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatIconModule,
   ],
   providers: [
     // provider used to create fake backend

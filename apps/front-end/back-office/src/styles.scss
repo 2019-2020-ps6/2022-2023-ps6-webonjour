@@ -1,85 +1,33 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat.core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$front-end-back-office-primary: mat.define-palette(mat.$indigo-palette);
-$front-end-back-office-accent: mat.define-palette(
-  mat.$pink-palette,
-  A200,
-  A100,
-  A400
-);
-
-// The warn palette is optional (defaults to red).
-$front-end-back-office-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$front-end-back-office-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $front-end-back-office-primary,
-      accent: $front-end-back-office-accent,
-      warn: $front-end-back-office-warn,
-    ),
-  )
-);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($front-end-back-office-theme);
-
-/* You can add global styles to this file, and also import other style files */
-
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 html,
 body {
   height: 100%;
-  width: 100%;
+}
+body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
-
-// Define a dark theme
-$dark-theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: mat.define-palette(mat.$pink-palette),
-      accent: mat.define-palette(mat.$blue-grey-palette),
-    ),
-    // Only include `typography` and `density` in the default dark theme.
-    typography: mat.define-typography-config(),
-    density: 0,
-  )
-);
-
-// Define a light theme
-$light-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: mat.define-palette(mat.$indigo-palette),
-      accent: mat.define-palette(mat.$pink-palette),
-    ),
-  )
-);
-
-// Apply the dark theme by default
-@include mat.core-theme($dark-theme);
-@include mat.button-theme($dark-theme);
-
-// Apply the light theme only when the user prefers light themes.
-@media (prefers-color-scheme: light) {
-  // Use the `-color` mixins to only apply color styles without reapplying the same
-  // typography and density styles.
-  @include mat.core-color($light-theme);
-  @include mat.button-color($light-theme);
+form {
+  width: 420px;
+  margin: 35px auto 100px;
+  display: block;
+  float: none;
+}
+.mat-form-field {
+  width: 100%;
+}
+.misc-bottom-padding {
+  margin: 8px 0 20px;
+}
+.misc-bottom-padding mat-label {
+  margin-right: 15px;
+}
+.mat-radio-label {
+  margin: 0 15px 0 0;
+}
+.title-center {
+  margin: 0 auto;
+}
+.button-wrapper {
+  margin-top: 10px;
 }

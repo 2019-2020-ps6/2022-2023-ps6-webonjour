@@ -1,32 +1,55 @@
-<!--login form-->
-<mat-card class="login-form" fxLayout="column" fxLayoutAlign="center center">
-  <mat-card-title>Login</mat-card-title>
+<mat-card class="login-card">
+  <mat-card-title>
+    <h1 class="login-title">Login</h1>
+  </mat-card-title>
   <mat-card-content>
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form [formGroup]="form" (ngSubmit)="saveDetails(form)">
       <mat-form-field appearance="fill">
-        <mat-label>Username</mat-label>
-        <input matInput type="text" formControlName="username" />
-        <mat-error *ngIf="form.get('username').hasError('required')">
-          Username is <strong>required</strong>
-        </mat-error>
+        <mat-label>Email Address:</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          placeholder="Your email"
+        />
+        <mat-icon matSuffix>mail_outline</mat-icon>
+        <mat-hint>Input the fully qualified email address</mat-hint>
+        <mat-error *ngIf="form.controls['email'].errors?.['required']"
+          >Email is required</mat-error
+        >
+        <mat-error *ngIf="form.controls['email'].errors?.['pattern']"
+          >Please enter valid email</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" />
-        <mat-error *ngIf="form.get('password').hasError('required')">
-          Password is <strong>required</strong>
-        </mat-error>
+        <input
+          matInput
+          [type]="flag ? 'password' : 'text'"
+          placeholder="Enter your password"
+          formControlName="password"
+        />
+        <mat-icon (click)="flag = !flag" matSuffix>{{
+          flag ? 'visibility' : 'visibility_off'
+        }}</mat-icon>
+        <mat-error *ngIf="form.controls['password'].errors?.['required']"
+          >Password is required</mat-error
+        >
+        <mat-error *ngIf="form.controls['password'].errors?.['minlength']"
+          >Please enter more than 6 character</mat-error
+        >
       </mat-form-field>
-
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="form.invalid"
-      >
-        Login
-      </button>
     </form>
   </mat-card-content>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!form.valid"
+    >
+      Login
+    </button>
+  </mat-card-actions>
 </mat-card>
