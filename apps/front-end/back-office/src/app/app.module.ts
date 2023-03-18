@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { AlertComponent } from './components/util/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     NxWelcomeComponent,
     LoginComponent,
     LoginFormComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,14 +36,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    MatNativeDateModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatCardModule,
-    MatIconModule,
   ],
   providers: [
     // provider used to create fake backend
