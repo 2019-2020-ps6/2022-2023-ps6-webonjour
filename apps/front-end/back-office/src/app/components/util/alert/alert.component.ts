@@ -7,7 +7,6 @@ import { AlertService } from '../../../services/util/alert.service';
 @Component({
   selector: 'webonjour-alert',
   templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss'],
 })
 export class AlertComponent implements OnInit, OnDestroy {
   @Input() id = 'default-alert';

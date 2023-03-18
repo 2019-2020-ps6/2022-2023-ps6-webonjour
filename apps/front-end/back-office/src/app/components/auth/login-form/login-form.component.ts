@@ -9,7 +9,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'webonjour-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
   form!: FormGroup;
