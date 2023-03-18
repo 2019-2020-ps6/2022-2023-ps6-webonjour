@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { first } from 'rxjs';
@@ -20,7 +20,8 @@ export class LoginFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private zone: NgZone
   ) {}
 
   ngOnInit() {
@@ -58,11 +59,13 @@ export class LoginFormComponent implements OnInit {
           // get return url from query parameters or default to dashboard
           const returnUrl =
             this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-          this.router.navigateByUrl(returnUrl).then((r) => console.log(r));
+          // redirect to return url
+          this.zone
+            .run(() => this.router.navigateByUrl(returnUrl))
+            .then((r) => console.log(r));
         },
         error: (error: HttpErrorResponse) => {
           this.alertService.error(error.error?.message);
-          console.error(error);
           this.loading = false;
         },
       });
