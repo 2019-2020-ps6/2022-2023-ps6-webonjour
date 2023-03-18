@@ -42,7 +42,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     // route functions
     function login() {
       const givenCredentials = body as Auth.LoginSchema;
-      if (givenCredentials == credentials) {
+      if (
+        givenCredentials.email === credentials.email &&
+        givenCredentials.password === credentials.password
+      ) {
         return ok(response);
       }
       return error('Invalid email or password');

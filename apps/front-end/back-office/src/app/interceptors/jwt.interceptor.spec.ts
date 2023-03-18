@@ -14,6 +14,8 @@ import { authMocks } from '@webonjour/data-access-fake-backend';
 import { AuthService } from '../services/auth/auth.service';
 import { Observable } from 'rxjs';
 import { RequestStatus } from '@webonjour/util-interface';
+import { RouterTestingModule } from '@angular/router/testing';
+import { LoginComponent } from '../components/auth/login/login.component';
 
 describe('JwtInterceptor', () => {
   let client: HttpClient;
@@ -22,7 +24,15 @@ describe('JwtInterceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([
+          {
+            path: 'login',
+            component: LoginComponent,
+          },
+        ]),
+      ],
       providers: [
         // register our interceptor with the testing module
         {
