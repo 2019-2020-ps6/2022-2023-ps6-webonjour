@@ -10,7 +10,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestStatus } from '@webonjour/util-interface';
-import { response } from '../../../../../../../../libs/data-access-fake-backend/src/lib/mocks/auth';
+import { authMocks } from '@webonjour/data-access-fake-backend';
 import { HttpErrorResponse } from '@angular/common/http';
 
 describe('LoginFormComponent', () => {
@@ -109,7 +109,7 @@ describe('LoginFormComponent', () => {
       return new Observable((observer) => {
         observer.next({
           status: RequestStatus.SUCCESS,
-          data: response,
+          data: authMocks.response,
           message: 'message',
         });
         observer.complete();
