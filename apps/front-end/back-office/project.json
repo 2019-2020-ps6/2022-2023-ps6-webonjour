@@ -19,10 +19,7 @@
           "apps/front-end/back-office/src/favicon.ico",
           "apps/front-end/back-office/src/assets"
         ],
-        "styles": [
-          "@angular/material/prebuilt-themes/indigo-pink.css",
-          "apps/front-end/back-office/src/styles.scss"
-        ],
+        "styles": ["apps/front-end/back-office/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
