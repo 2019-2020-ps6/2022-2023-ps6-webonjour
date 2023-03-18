@@ -69,7 +69,7 @@ describe('LoginFormComponent', () => {
     expect(component.form).toBeTruthy();
   });
   it('should return controls', () => {
-    expect(component.f).toEqual(component.form.controls);
+    expect(component.formControls).toEqual(component.form.controls);
   });
   it('should set submitted to true', () => {
     component.onSubmit();
