@@ -1,0 +1,19 @@
+.button {
+  padding: 30px;
+  border-radius: 20px;
+  margin: 15px;
+  min-width: 500px;
+}
+
+.button > p {
+  font-size: 4rem;
+  text-align: center;
+}
+
+.hovered {
+  background-color: var(--primary-color-dark);
+}
+
+.selected {
+  outline: 10px solid var(--dark-color);
+}
