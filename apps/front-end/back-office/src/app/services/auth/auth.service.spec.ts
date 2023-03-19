@@ -56,12 +56,7 @@ describe('AuthService', () => {
     expect(localStorage.getItem('accessToken')).toEqual(response.accessToken);
     expect(localStorage.getItem('refreshToken')).toEqual(response.refreshToken);
 
-    expect(service.jwtPayload).toEqual({
-      sub: '1234567890',
-      name: 'John Doe',
-      iat: 1516239022,
-      type: 'access',
-    });
+    expect(service.jwtPayload).toEqual(authMocks.decodedAccessToken);
   });
 
   it('should logout', function () {
