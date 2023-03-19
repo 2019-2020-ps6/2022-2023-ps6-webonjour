@@ -17,3 +17,7 @@
 .selected {
   outline: 10px solid var(--dark-color);
 }
+
+.disabled {
+  opacity: 0.5;
+}
