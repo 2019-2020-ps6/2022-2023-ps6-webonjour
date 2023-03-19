@@ -1,0 +1,33 @@
+<div
+  class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
+  style="width: 280px; height: 100%"
+>
+  <a
+    href="/dashboard"
+    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+  >
+    <img src="assets/logo.svg" class="bi me-2" width="40" height="32" alt="" />
+    <span class="fs-4">PolyQuiz</span>
+  </a>
+  <hr class="mb-3 mt-5" />
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item" *ngFor="let navItem of mappedNavItems">
+      <a
+        href="{{ navItem.path }}"
+        class="{{ navItem.cssClass }}"
+        aria-current="page"
+      >
+        <img
+          src="{{ navItem.icon }}"
+          class="bi me-2"
+          width="20"
+          height="20"
+          alt=""
+        />
+        {{ navItem.name }}
+      </a>
+    </li>
+  </ul>
+  <hr />
+  <webonjour-profile></webonjour-profile>
+</div>

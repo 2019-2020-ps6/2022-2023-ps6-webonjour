@@ -11,6 +11,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from './components/util/alert/alert.component';
+import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
+import { SideNavComponent } from './components/dashboard/side-nav/side-nav/side-nav.component';
+import { ProfileComponent } from './components/dashboard/side-nav/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import { AlertComponent } from './components/util/alert/alert.component';
     LoginComponent,
     LoginFormComponent,
     AlertComponent,
+    DashboardComponent,
+    SideNavComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
