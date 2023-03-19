@@ -1,3 +1,3 @@
-<div class="button primary" (mouseover)="hover = true" (mouseout)="hover = false" (click)="clicked=true" [ngClass]="{ hovered: hover, selected: clicked }">
+<div class="button primary" (mouseenter)="onHover(true)" (mouseleave)="onHover(false)" (click)="onClick()" [ngClass]="{ hovered: hover, selected: clicked, disabled: disabled }">
   <p>{{ answer }}</p>
 </div>

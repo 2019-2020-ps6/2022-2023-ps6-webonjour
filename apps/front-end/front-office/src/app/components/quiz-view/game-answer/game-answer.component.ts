@@ -9,8 +9,25 @@ export class GameAnswerComponent {
   @Input() answer!: string;
   hover = false;
   clicked = false;
+  disabled = false;
 
   constructor() {
     this.answer = 'Hello World';
+  }
+
+  onClick() {
+    if (this.disabled) {
+      return;
+    }
+
+    this.clicked = true;
+  }
+
+  onHover(hover: boolean) {
+    if (this.disabled) {
+      return;
+    }
+
+    this.hover = hover;
   }
 }
