@@ -1,8 +1,8 @@
 <section class="question">
-  <h1 class="question-title">{{ title }}</h1>
+  <h1 class="question-title">{{ question.title }}</h1>
   <div class="answer-container">
     <webonjour-game-answer
-      *ngFor="let answer of answers"
+      *ngFor="let answer of question.answers"
       [answer]="answer"
     ></webonjour-game-answer>
   </div>

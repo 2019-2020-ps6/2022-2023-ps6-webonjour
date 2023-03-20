@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Answer } from '../../../models/answer.model';
 
 @Component({
   selector: 'webonjour-game-answer',
@@ -6,14 +7,10 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./game-answer.component.scss'],
 })
 export class GameAnswerComponent {
-  @Input() answer!: string;
+  @Input() answer!: Answer;
   hover = false;
   clicked = false;
   disabled = false;
-
-  constructor() {
-    this.answer = 'Hello World';
-  }
 
   onClick() {
     if (this.disabled) {
