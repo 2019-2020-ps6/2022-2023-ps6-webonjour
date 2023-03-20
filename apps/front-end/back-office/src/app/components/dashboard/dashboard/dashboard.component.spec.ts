@@ -9,7 +9,11 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DashboardComponent, SideNavMockComponent],
+      declarations: [
+        DashboardComponent,
+        SideNavMockComponent,
+        DashboardHeaderMockComponent,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
@@ -27,3 +31,9 @@ describe('DashboardComponent', () => {
   template: '',
 })
 export class SideNavMockComponent {}
+
+@Component({
+  selector: 'webonjour-dashboard-header',
+  template: '',
+})
+export class DashboardHeaderMockComponent {}
