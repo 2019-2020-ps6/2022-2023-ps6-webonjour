@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'webonjour-dashboard-header',
@@ -8,4 +9,10 @@ import { Component, Input } from '@angular/core';
 export class DashboardHeaderComponent {
   @Input()
   title!: string;
+
+  constructor(private location: Location) {}
+
+  onclick() {
+    this.location.back();
+  }
 }
