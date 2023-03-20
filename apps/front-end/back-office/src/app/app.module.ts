@@ -14,6 +14,7 @@ import { AlertComponent } from './components/util/alert/alert.component';
 import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
 import { SideNavComponent } from './components/dashboard/side-nav/side-nav/side-nav.component';
 import { ProfileComponent } from './components/dashboard/side-nav/profile/profile.component';
+import { DashboardHeaderComponent } from './components/dashboard/dashboard-header/dashboard-header.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ProfileComponent } from './components/dashboard/side-nav/profile/profil
     DashboardComponent,
     SideNavComponent,
     ProfileComponent,
+    DashboardHeaderComponent,
   ],
   imports: [
     BrowserModule,
