@@ -4,6 +4,18 @@ export enum DiseaseStage {
   STAGE_3 = 3,
   STAGE_4 = 4,
   STAGE_5 = 5,
+  STAGE_6 = 6,
+  STAGE_7 = 7,
+}
+
+export interface Question {
+  title: string;
+  answers: Answer[];
+}
+
+export interface Answer {
+  value: string;
+  isCorrect: boolean;
 }
 
 export interface Quiz {
@@ -11,4 +23,5 @@ export interface Quiz {
   title: string;
   imageUrl: string;
   stage: DiseaseStage;
+  questions: Question[];
 }
