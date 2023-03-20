@@ -1,8 +1,6 @@
 name: SonarQube Scan
 
 on:
-  push:
-    branches: [master, develop, us-*]
   pull_request:
     branches: [master, develop, us-*]
   workflow_dispatch:
