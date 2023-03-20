@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {Answer} from "../../../models/answer.model";
+import { Answer } from '../../../models/answer.model';
 
 @Component({
   selector: 'webonjour-game-answer',
