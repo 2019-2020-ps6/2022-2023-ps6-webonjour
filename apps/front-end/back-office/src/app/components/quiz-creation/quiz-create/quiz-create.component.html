@@ -11,7 +11,7 @@
                         Le nom du quiz est requis
                     </div>
                     <div *ngIf="formControls['quiz_name']['errors']['minlength']">
-                        Le stade
+                        Le nom du quiz doit contenir au moins 6 caractères
                     </div>
                 </div>
             </div>
@@ -24,8 +24,8 @@
                     <div *ngIf="formControls['recommended_stage']['errors']['required']">
                         Le stade recommandé est requis
                     </div>
-                    <div *ngIf="formControls['recommended_stage']['errors']['minlength']">
-                        Le stade recommandé doit faire au moins 3 caractères
+                    <div *ngIf="formControls['recommended_stage']['errors']['invalidStage']">
+                        Le stade recommandé doit être compris entre 3 et 7
                     </div>
                 </div>
             </div>
