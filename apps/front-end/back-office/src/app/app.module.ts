@@ -22,7 +22,7 @@ import { QuizCreateComponent } from './components/quiz-creation/quiz-create/quiz
     LoginComponent,
     LoginFormComponent,
     AlertComponent,
-    QuizCreateComponent
+    QuizCreateComponent,
   ],
   imports: [
     BrowserModule,

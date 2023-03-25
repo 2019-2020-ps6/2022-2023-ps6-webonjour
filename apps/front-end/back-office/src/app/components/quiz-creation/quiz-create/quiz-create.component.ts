@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 
 export function validateStage(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const allowed = ['3', '4', '5', '6', '7'];
     const forbidden = !allowed.includes(control.value);
-    return forbidden ? { 'invalidStage': { value: control.value } } : null;
-  }
+    return forbidden ? { invalidStage: { value: control.value } } : null;
+  };
 }
 
 @Component({
@@ -24,8 +30,8 @@ export class QuizCreateComponent {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      "quiz_name": ['', [Validators.required, Validators.minLength(6)]],
-      "recommended_stage": ['', [Validators.required, validateStage()]],
+      quiz_name: ['', [Validators.required, Validators.minLength(6)]],
+      recommended_stage: ['', [Validators.required, validateStage()]],
     });
   }
 
