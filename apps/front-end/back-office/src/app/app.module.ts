@@ -20,6 +20,7 @@ import { QuestionDetailComponent } from './components/quiz-creation/question-det
 import { QuestionDetailMainComponent } from './components/quiz-creation/question-detail-main/question-detail-main.component';
 import { QuestionDetailAnswersComponent } from './components/quiz-creation/question-detail-answers/question-detail-answers.component';
 import { QuestionDetailCluesComponent } from './components/quiz-creation/question-detail-clues/question-detail-clues.component';
+import { QuestionDetailClueComponent } from './components/quiz-creation/question-detail-clue/question-detail-clue.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { QuestionDetailCluesComponent } from './components/quiz-creation/questio
     QuestionDetailMainComponent,
     QuestionDetailAnswersComponent,
     QuestionDetailCluesComponent,
+    QuestionDetailClueComponent,
   ],
   imports: [
     BrowserModule,
