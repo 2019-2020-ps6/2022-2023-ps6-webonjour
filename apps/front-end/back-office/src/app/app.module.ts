@@ -16,6 +16,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { QuizCreateComponent } from './components/quiz-creation/quiz-create/quiz-create.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { QuestionDetailComponent } from './components/quiz-creation/question-detail/question-detail.component';
+import { QuestionDetailMainComponent } from './components/quiz-creation/question-detail-main/question-detail-main.component';
+import { QuestionDetailAnswersComponent } from './components/quiz-creation/question-detail-answers/question-detail-answers.component';
+import { QuestionDetailCluesComponent } from './components/quiz-creation/question-detail-clues/question-detail-clues.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +29,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     LoginFormComponent,
     AlertComponent,
     QuizCreateComponent,
+    QuestionDetailComponent,
+    QuestionDetailMainComponent,
+    QuestionDetailAnswersComponent,
+    QuestionDetailCluesComponent,
   ],
   imports: [
     BrowserModule,
