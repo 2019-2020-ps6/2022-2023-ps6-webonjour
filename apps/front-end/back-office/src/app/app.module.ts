@@ -36,7 +36,6 @@ import { MatRippleModule } from '@angular/material/core';
     MatTableModule,
     MatPaginatorModule,
     CdkAccordionModule,
-    MatRippleModule,
   ],
   providers: [
     // provider used to create fake backend
