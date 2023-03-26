@@ -12,9 +12,7 @@ export class DashboardHeaderComponent {
   constructor(
     private location: Location,
     private activatedRoute: ActivatedRoute
-  ) {
-    console.log(this.activatedRoute.snapshot);
-  }
+  ) {}
 
   onclick() {
     this.location.back();
