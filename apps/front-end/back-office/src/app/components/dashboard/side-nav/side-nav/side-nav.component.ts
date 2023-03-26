@@ -32,26 +32,13 @@ export class SideNavComponent {
 
   constructor(private activatedRoute: ActivatedRoute) {}
 
-  get mappedNavItems() {
-    return this.navItems.map((navItem) => {
-      // dashboard is a nested route, so we need to check the parent route as well
-      return {
-        ...navItem,
-        active:
-          this.activatedRoute.snapshot?.firstChild?.routeConfig?.path ===
-            navItem.path ||
-          this.activatedRoute.snapshot.parent?.routeConfig?.path ===
-            navItem.path,
-        cssClass:
-          this.commonCssClass +
-          (this.activatedRoute.snapshot?.firstChild?.routeConfig?.path ===
-            navItem.path ||
-          this.activatedRoute.snapshot.parent?.routeConfig?.path ===
-            navItem.path
-            ? ' active'
-            : ''),
-        path: `dashboard/${navItem.path}`,
-      };
-    });
+  getCssClass(path: string) {
+    return (
+      this.commonCssClass +
+      (this.activatedRoute.snapshot?.firstChild?.routeConfig?.path === path ||
+      this.activatedRoute.snapshot.parent?.routeConfig?.path === path
+        ? ' active'
+        : '')
+    );
   }
 }

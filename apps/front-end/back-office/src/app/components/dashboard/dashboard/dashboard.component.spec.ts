@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
 import { Component } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -14,6 +15,7 @@ describe('DashboardComponent', () => {
         SideNavMockComponent,
         DashboardHeaderMockComponent,
       ],
+      imports: [RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);

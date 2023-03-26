@@ -65,9 +65,8 @@ describe('SideNavComponent', () => {
   });
 
   it('should have the active route as active', () => {
-    const mappedNavItems = component.mappedNavItems;
-    // Assert
-    expect(mappedNavItems[0].active).toBeTruthy();
+    const css = component.getCssClass('quiz');
+    expect(css).toContain('active');
   });
 });
 

@@ -9,16 +9,9 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
-    children: [
-      {
-        path: 'quiz',
-        component: DashboardComponent,
-      },
-      {
-        path: 'patients',
-        component: DashboardComponent,
-      },
-    ],
+    loadChildren: () =>
+      import('./components/dashboard/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
   },
 ];
