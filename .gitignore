@@ -43,3 +43,7 @@ Thumbs.db
 
 .idea/codestream.xml
 .idea/sonarlint
+
+.devenv*
+pnpm-lock.yaml
+.direnv
