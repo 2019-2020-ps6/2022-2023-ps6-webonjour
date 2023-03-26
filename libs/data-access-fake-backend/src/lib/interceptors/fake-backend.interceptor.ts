@@ -18,6 +18,7 @@ import {
 } from 'rxjs';
 import { Auth } from '@webonjour/util-interface';
 import { credentials, response } from '../mocks/auth';
+import { quizList } from '../mocks/quiz';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -29,11 +30,17 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     return handleRoute();
 
+    function getAllQuiz() {
+      return ok(quizList);
+    }
+
     function handleRoute() {
       if (url.endsWith('/login') && method === 'POST') {
         return login();
       } else if (url.endsWith('/refresh') && method === 'POST') {
         return refresh();
+      } else if (url.endsWith('/quiz') && method === 'GET') {
+        return getAllQuiz();
       } else {
         return next.handle(request);
       }
