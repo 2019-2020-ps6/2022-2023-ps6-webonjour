@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from './components/util/alert/alert.component';
+import { QuizEditionComponent } from './components/quiz-edition/quiz-edition.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +19,7 @@ import { AlertComponent } from './components/util/alert/alert.component';
     LoginComponent,
     LoginFormComponent,
     AlertComponent,
+    QuizEditionComponent,
   ],
   imports: [
     BrowserModule,
