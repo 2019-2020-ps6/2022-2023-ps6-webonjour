@@ -2,7 +2,9 @@
   "name": "webonjour",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky install"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~15.2.0",
@@ -17,6 +19,8 @@
     "@angular/router": "~15.2.0",
     "@nrwl/angular": "15.8.5",
     "@nx-tools/container-metadata": "^4.0.3",
+    "bootstrap": "5.3.0-alpha2",
+    "bootstrap-icons": "^1.10.3",
     "jwt-decode": "^3.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
