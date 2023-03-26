@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'webonjour-dashboard-header',
@@ -7,12 +9,17 @@ import { Location } from '@angular/common';
   styleUrls: ['./dashboard-header.component.scss'],
 })
 export class DashboardHeaderComponent {
-  @Input()
-  title!: string;
-
-  constructor(private location: Location) {}
+  constructor(
+    private location: Location,
+    private activatedRoute: ActivatedRoute
+  ) {
+    console.log(this.activatedRoute.snapshot);
+  }
 
   onclick() {
     this.location.back();
+  }
+  get title() {
+    return this.activatedRoute?.snapshot?.firstChild?.routeConfig?.title;
   }
 }
