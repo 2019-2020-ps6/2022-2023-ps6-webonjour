@@ -3,30 +3,33 @@
   align-items: center; /* centrer verticalement */
   justify-content: center; /* centrer horizontalement */
   margin: 0 auto; /* centrer la div */
-  max-width: 400px; /* largeur maximale de la div */
   border-radius: 10px;
+  width: 100%;
 }
 
 .quiz-item-button {
   display: flex;
   align-items: center; /* centrer verticalement */
   background: #1abc9c;
-  width: 400px;
-  height: 100px;
+  width: 100%;
   border-radius: 10px;
   justify-content: space-around;
+  cursor: pointer;
 }
 
 svg {
-  max-width: 90%; /* taille maximale de l'image */
-  max-height: 30px;
-  width: 100px;
+  height: 4rem;
+  padding-left: 20px;
 }
 
 h3 {
   flex: 1; /* pousser le titre vers la droite */
-  text-align: center; /* aligner le texte à gauche */
-  width: 300px;
-  font-family: Roboto, sans-serif;
+  text-align: center;
   font-weight: bold;
+  font-size: 4rem;
+  padding: 20px;
+}
+
+.hovered {
+  background: var(--primary-color-dark);
 }

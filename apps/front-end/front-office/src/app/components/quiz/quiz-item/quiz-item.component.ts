@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
+
 @Component({
   selector: 'webonjour-quiz-item',
   templateUrl: './quiz-item.component.html',
@@ -7,6 +8,7 @@ import { Quiz } from '@webonjour/util-interface';
 })
 export class QuizItemComponent {
   @Input() quiz!: Quiz.Quiz;
+  hover = false;
 
   get quizTitle(): string {
     return this.quiz.title;
@@ -14,10 +16,6 @@ export class QuizItemComponent {
 
   get quizImageUrl(): string {
     return this.quiz.imageUrl;
-  }
-
-  selectQuiz(): void {
-    console.log('selectQuiz', this.quiz);
   }
 
   constructor() {
@@ -29,5 +27,13 @@ export class QuizItemComponent {
       stage: 1,
       questions: [],
     };
+  }
+
+  onHover(hover: boolean) {
+    this.hover = hover;
+  }
+
+  onClick() {
+    console.log('selectQuiz', this.quiz);
   }
 }

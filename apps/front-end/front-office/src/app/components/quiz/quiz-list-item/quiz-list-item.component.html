@@ -1,5 +1,7 @@
-<div class="list-item">
-  <div class="list-item-container" *ngFor="let quiz of listQuizzes">
-    <webonjour-quiz-item [quiz]="quiz"></webonjour-quiz-item>
-  </div>
+<div class="quiz-list-container">
+  <webonjour-quiz-item
+    *ngFor="let quiz of listQuizzes"
+    [quiz]="quiz"
+    class="quiz-list-item"
+  ></webonjour-quiz-item>
 </div>
