@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GamePageComponent } from './game-page.component';
+import { Component, Input } from '@angular/core';
+import { Quiz } from '@webonjour/util-interface';
 
 describe('GamePageComponent', () => {
   let component: GamePageComponent;
@@ -8,7 +10,7 @@ describe('GamePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GamePageComponent],
+      declarations: [GamePageComponent, MockGameQuestionComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(GamePageComponent);
@@ -20,3 +22,11 @@ describe('GamePageComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+@Component({
+  selector: 'webonjour-game-question',
+  template: '',
+})
+class MockGameQuestionComponent {
+  @Input() question = {} as Quiz.Question;
+}

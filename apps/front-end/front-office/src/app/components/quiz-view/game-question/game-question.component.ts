@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Question } from '../../../models/question.model';
-import { Answer } from '../../../models/answer.model';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-game-question',
@@ -8,14 +7,17 @@ import { Answer } from '../../../models/answer.model';
   styleUrls: ['./game-question.component.scss'],
 })
 export class GameQuestionComponent {
-  question: Question;
+  question: Quiz.Question;
 
   constructor() {
-    this.question = new Question(
-      'De quelle couleur est le cheval blanc de Henri IV?',
-      ['Blanc', 'Noir', 'Rouge', 'Vert'].map(
-        (answer) => new Answer(answer, answer === 'Blanc')
-      )
-    );
+    this.question = {
+      title: 'De quelle couleur est le cheval blanc de Henri IV?',
+      answers: [
+        { value: 'Blanc', isCorrect: true },
+        { value: 'Noir', isCorrect: false },
+        { value: 'Rouge', isCorrect: false },
+        { value: 'Vert', isCorrect: false },
+      ],
+    };
   }
 }

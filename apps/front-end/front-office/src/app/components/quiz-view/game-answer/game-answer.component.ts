@@ -1,13 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { Answer } from '../../../models/answer.model';
-
+import { Quiz } from '@webonjour/util-interface';
 @Component({
   selector: 'webonjour-game-answer',
   templateUrl: './game-answer.component.html',
   styleUrls: ['./game-answer.component.scss'],
 })
 export class GameAnswerComponent {
-  @Input() answer!: Answer;
+  @Input() answer: Quiz.Answer = { value: '', isCorrect: false };
   hover = false;
   clicked = false;
   disabled = false;
