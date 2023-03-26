@@ -21,6 +21,7 @@ import { QuestionDetailMainComponent } from './components/quiz-creation/question
 import { QuestionDetailAnswersComponent } from './components/quiz-creation/question-detail-answers/question-detail-answers.component';
 import { QuestionDetailCluesComponent } from './components/quiz-creation/question-detail-clues/question-detail-clues.component';
 import { QuestionDetailClueComponent } from './components/quiz-creation/question-detail-clue/question-detail-clue.component';
+import { QuestionDetailAnswerComponent } from './components/quiz-creation/question-detail-answer/question-detail-answer.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { QuestionDetailClueComponent } from './components/quiz-creation/question
     QuestionDetailAnswersComponent,
     QuestionDetailCluesComponent,
     QuestionDetailClueComponent,
+    QuestionDetailAnswerComponent,
   ],
   imports: [
     BrowserModule,

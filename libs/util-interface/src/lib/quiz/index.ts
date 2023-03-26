@@ -11,7 +11,7 @@ export enum DiseaseStage {
 export interface Clue {
   text?: string;
   image?: string;
-}
+}3
 
 export interface Question {
   title: string;
@@ -20,7 +20,8 @@ export interface Question {
 }
 
 export interface Answer {
-  value: string;
+  text?: string;
+  image?: string;
   isCorrect: boolean;
 }
 
