@@ -15,6 +15,7 @@ export interface Clue {
 
 export interface Question {
   title: string;
+  image?: string;
   answers: Answer[];
   clues: Clue[];
 }
