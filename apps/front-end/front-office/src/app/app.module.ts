@@ -14,6 +14,7 @@ import { QuizListItemComponent } from './components/quiz/quiz-list-item/quiz-lis
 import { HelpPageComponent } from './components/quiz-view/help-page/help-page.component';
 import { HelpPageHeaderComponent } from './components/quiz-view/help-page/help-page-header/help-page-header.component';
 import { HelpPageHintComponent } from './components/quiz-view/help-page/help-page-hint/help-page-hint.component';
+import { HelpPageReturnComponent } from './components/quiz-view/help-page/help-page-return/help-page-return.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HelpPageHintComponent } from './components/quiz-view/help-page/help-pag
     HelpPageComponent,
     HelpPageHeaderComponent,
     HelpPageHintComponent,
+    HelpPageReturnComponent,
   ],
   imports: [
     BrowserModule,
