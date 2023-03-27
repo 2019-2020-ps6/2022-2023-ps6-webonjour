@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import { QuizListItemComponent } from './components/quiz/quiz-list-item/quiz-list-item.component';
 import { GamePageComponent } from './components/quiz-view/game-page/game-page.component';
 import { CardContainerComponent } from './components/homepage/card-container/card-container.component';
-import {QuizResultsComponent} from "./components/quiz-view/quiz-results/quiz-results.component";
+import { QuizResultsComponent } from './components/quiz-view/quiz-results/quiz-results.component';
 
 export const appRoutes: Route[] = [
   {
@@ -20,5 +20,5 @@ export const appRoutes: Route[] = [
   {
     path: 'result',
     component: QuizResultsComponent,
-  }
+  },
 ];
