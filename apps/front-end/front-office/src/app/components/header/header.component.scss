@@ -26,12 +26,10 @@
   height: 50px;
   border-radius: 10px;
   // change the font in roboto
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
   color: white;
 }
 
 .hovered {
   background: var(--dark-color-dark);
 }
-
-

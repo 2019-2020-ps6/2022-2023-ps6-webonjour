@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'webonjour-header',
@@ -6,7 +6,6 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-
   @Input() showCareGiver: boolean;
 
   hover = false;
@@ -19,5 +18,4 @@ export class HeaderComponent {
   onHover(hover: boolean) {
     this.hover = hover;
   }
-
 }
