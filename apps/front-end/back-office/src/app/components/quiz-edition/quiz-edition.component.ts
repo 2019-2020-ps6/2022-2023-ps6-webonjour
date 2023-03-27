@@ -34,13 +34,20 @@ export class QuizEditionComponent implements OnInit, AfterViewInit {
   }
 
   onAddQuestion() {
-    this.dataSource = new MatTableDataSource<Quiz.Question>([
-      ...this.dataSource.data,
-      {
-        title: 'quiz ajouté',
-        answers: [],
-      },
-    ]);
+    let newQuestion: Quiz.Question = {
+      title: 'quiz ajouté',
+      answers: [],
+    };
+
+    this.quizService
+      .addQuestion(this.quiz.id, newQuestion)
+      .subscribe((quiz) => {
+        this.quiz = quiz.data;
+        this.dataSource = new MatTableDataSource<Quiz.Question>(
+          this.quiz.questions
+        );
+        this.dataSource.paginator = this.paginator;
+      });
   }
 
   ngAfterViewInit() {
