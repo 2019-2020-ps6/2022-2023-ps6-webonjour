@@ -2,8 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuizItemComponent } from './quiz-item.component';
 
-import { Quiz } from '@webonjour/util-interface';
-
 describe('QuizItemComponent', () => {
   let component: QuizItemComponent;
   let fixture: ComponentFixture<QuizItemComponent>;
@@ -26,32 +24,33 @@ describe('QuizItemComponent', () => {
   });
 
   it('should have a quiz title', () => {
-    const quiz: Quiz.Quiz = {
+    component.quiz = {
       id: '1',
       title: 'Test Quiz',
       imageUrl: '',
-      stage: 1
+      stage: 1,
+      questions: [],
     };
-    component.quiz = quiz;
     expect(component.quizTitle).toEqual('Test Quiz');
   });
 
   it('should have a quiz image URL', () => {
-    const quiz: Quiz.Quiz = {
+    component.quiz = {
       id: '1',
       title: '',
       imageUrl: 'http://example.com/image.jpg',
-      stage: 1
+      stage: 1,
+      questions: [],
     };
-    component.quiz = quiz;
     expect(component.quizImageUrl).toEqual('http://example.com/image.jpg');
   });
 
-  it('should call selectQuiz() method when quiz is clicked', () => {
-    spyOn(component, 'selectQuiz');
-    const quizElement = fixture.nativeElement.querySelector('.quiz-item');
+  it('should call onClick() method when quiz is clicked', () => {
+    jest.spyOn(component, 'onClick');
+    const quizElement =
+      fixture.nativeElement.querySelector('.quiz-item-button');
     quizElement.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    expect(component.selectQuiz).toHaveBeenCalled();
+    expect(component.onClick).toHaveBeenCalled();
   });
 });
