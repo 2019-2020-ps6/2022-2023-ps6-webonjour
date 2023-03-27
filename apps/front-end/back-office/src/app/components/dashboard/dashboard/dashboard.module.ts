@@ -32,4 +32,4 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   bootstrap: [DashboardComponent],
 })
-export class DashboardModule { }
+export class DashboardModule {}

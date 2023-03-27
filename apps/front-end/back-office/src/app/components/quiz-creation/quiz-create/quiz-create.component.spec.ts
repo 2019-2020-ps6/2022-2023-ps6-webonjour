@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { QuizCreateComponent } from './quiz-create.component';
 
@@ -9,6 +11,7 @@ describe('QuizCreationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuizCreateComponent],
+      imports: [MatDialogModule, ReactiveFormsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(QuizCreateComponent);

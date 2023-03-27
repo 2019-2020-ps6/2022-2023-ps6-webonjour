@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class QuizService {
   API_URL = 'http://localhost:3333';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<RequestWrapper<Quiz.Quiz[]>> {
     return this.httpClient.get<RequestWrapper<Quiz.Quiz[]>>(
