@@ -35,8 +35,7 @@ export class SideNavComponent {
   getCssClass(path: string) {
     return (
       this.commonCssClass +
-      (this.activatedRoute.snapshot?.firstChild?.routeConfig?.path === path ||
-      this.activatedRoute.snapshot.parent?.routeConfig?.path === path
+      (this.activatedRoute.snapshot?.firstChild?.data['navPath'] === path
         ? ' active'
         : '')
     );

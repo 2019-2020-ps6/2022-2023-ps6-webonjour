@@ -21,14 +21,25 @@ describe('SideNavComponent', () => {
           {
             path: 'dashboard',
             component: DashboardComponent,
+            data: {
+              navPath: 'dashboard',
+            },
             children: [
               {
                 path: 'quiz',
                 component: DashboardComponent,
+                title: 'Quiz',
+                data: {
+                  navPath: 'quiz',
+                },
               },
               {
                 path: 'patients',
                 component: DashboardComponent,
+                title: 'Les Patients',
+                data: {
+                  navPath: 'Les patients',
+                },
               },
             ],
           },
@@ -42,6 +53,9 @@ describe('SideNavComponent', () => {
               firstChild: {
                 routeConfig: {
                   path: 'quiz',
+                },
+                data: {
+                  navPath: 'patients',
                 },
               },
             },
@@ -65,7 +79,7 @@ describe('SideNavComponent', () => {
   });
 
   it('should have the active route as active', () => {
-    const css = component.getCssClass('quiz');
+    const css = component.getCssClass('patients');
     expect(css).toContain('active');
   });
 });

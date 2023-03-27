@@ -11,11 +11,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from './components/util/alert/alert.component';
-import { QuizListComponent } from './components/dashboard/quiz/quiz-list/quiz-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import { MatRippleModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +21,6 @@ import { MatRippleModule } from '@angular/material/core';
     LoginComponent,
     LoginFormComponent,
     AlertComponent,
-    QuizListComponent,
   ],
   imports: [
     BrowserModule,

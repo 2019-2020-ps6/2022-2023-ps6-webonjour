@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { QuizEditionComponent } from '../../quiz-edition/quiz-edition.component';
+import { QuizListComponent } from '../quiz/quiz-list/quiz-list.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { CdkOverlayOrigin } from '@angular/cdk/overlay';
     SideNavComponent,
     ProfileComponent,
     DashboardHeaderComponent,
+    QuizEditionComponent,
+    QuizListComponent,
   ],
   imports: [
     CommonModule,
