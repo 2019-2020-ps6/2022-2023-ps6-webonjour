@@ -10,6 +10,7 @@ import { GamePageComponent } from './components/quiz-view/game-page/game-page.co
 import { GameQuestionComponent } from './components/quiz-view/game-question/game-question.component';
 import { GameAnswerComponent } from './components/quiz-view/game-answer/game-answer.component';
 import { QuizItemComponent } from './components/quiz/quiz-item/quiz-item.component';
+import { QuizListItemComponent } from './components/quiz/quiz-list-item/quiz-list-item.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { QuizItemComponent } from './components/quiz/quiz-item/quiz-item.compone
     GamePageComponent,
     GameQuestionComponent,
     GameAnswerComponent,
-    QuizItemComponent
+    QuizItemComponent,
+    QuizListItemComponent,
   ],
   imports: [
     BrowserModule,

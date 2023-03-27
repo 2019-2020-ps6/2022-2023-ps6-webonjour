@@ -8,6 +8,7 @@ import { Quiz } from '@webonjour/util-interface';
 })
 export class QuizItemComponent {
   @Input() quiz!: Quiz.Quiz;
+  hover = false;
 
   get quizTitle(): string {
     return this.quiz.title;
@@ -17,10 +18,6 @@ export class QuizItemComponent {
     return this.quiz.imageUrl;
   }
 
-  selectQuiz(): void {
-    console.log('selectQuiz', this.quiz);
-  }
-
   constructor() {
     this.quiz = {
       id: '1',
@@ -28,6 +25,15 @@ export class QuizItemComponent {
       imageUrl:
         'https://images.unsplash.com/photo-1589985851119-8e1f2e1b2e1c?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hldmF4fGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80',
       stage: 1,
+      questions: [],
     };
+  }
+
+  onHover(hover: boolean) {
+    this.hover = hover;
+  }
+
+  onClick() {
+    console.log('selectQuiz', this.quiz);
   }
 }

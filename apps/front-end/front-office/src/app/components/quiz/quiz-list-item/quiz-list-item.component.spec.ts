@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GamePageComponent } from './game-page.component';
+import { QuizListItemComponent } from './quiz-list-item.component';
 import { Component, Input } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 
-describe('GamePageComponent', () => {
-  let component: GamePageComponent;
-  let fixture: ComponentFixture<GamePageComponent>;
+describe('QuizListItemComponent', () => {
+  let component: QuizListItemComponent;
+  let fixture: ComponentFixture<QuizListItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GamePageComponent, MockGameQuestionComponent],
+      declarations: [QuizListItemComponent, MockQuizItemComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GamePageComponent);
+    fixture = TestBed.createComponent(QuizListItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -24,9 +24,9 @@ describe('GamePageComponent', () => {
 });
 
 @Component({
-  selector: 'webonjour-game-question',
   template: '',
+  selector: 'webonjour-quiz-item',
 })
-class MockGameQuestionComponent {
-  @Input() question = {} as Quiz.Question;
+class MockQuizItemComponent {
+  @Input() quiz = {} as Quiz.Quiz;
 }
