@@ -34,7 +34,7 @@ export class QuizEditionComponent implements OnInit, AfterViewInit {
   }
 
   onAddQuestion() {
-    let newQuestion: Quiz.Question = {
+    const newQuestion: Quiz.Question = {
       title: 'quiz ajouté',
       answers: [],
     };
