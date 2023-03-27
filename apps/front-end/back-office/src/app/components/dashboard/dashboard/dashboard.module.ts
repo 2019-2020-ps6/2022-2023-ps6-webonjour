@@ -6,6 +6,9 @@ import { DashboardHeaderComponent } from '../dashboard-header/dashboard-header.c
 import { RouterModule } from '@angular/router';
 import { dashboardRoutes } from './dashboard.routes';
 import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,13 @@ import { CommonModule } from '@angular/common';
     ProfileComponent,
     DashboardHeaderComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(dashboardRoutes)],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(dashboardRoutes),
+    MatTableModule,
+    MatPaginatorModule,
+    CdkOverlayOrigin,
+  ],
   bootstrap: [DashboardComponent],
 })
 export class DashboardModule {}
