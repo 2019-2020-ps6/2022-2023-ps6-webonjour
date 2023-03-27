@@ -11,6 +11,9 @@ import { GameQuestionComponent } from './components/quiz-view/game-question/game
 import { GameAnswerComponent } from './components/quiz-view/game-answer/game-answer.component';
 import { QuizItemComponent } from './components/quiz/quiz-item/quiz-item.component';
 import { QuizListItemComponent } from './components/quiz/quiz-list-item/quiz-list-item.component';
+import { HelpPageComponent } from './components/quiz-view/help-page/help-page.component';
+import { HelpPageHeaderComponent } from './components/quiz-view/help-page/help-page-header/help-page-header.component';
+import { HelpPageHintComponent } from './components/quiz-view/help-page/help-page-hint/help-page-hint.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,9 @@ import { QuizListItemComponent } from './components/quiz/quiz-list-item/quiz-lis
     GameAnswerComponent,
     QuizItemComponent,
     QuizListItemComponent,
+    HelpPageComponent,
+    HelpPageHeaderComponent,
+    HelpPageHintComponent,
   ],
   imports: [
     BrowserModule,

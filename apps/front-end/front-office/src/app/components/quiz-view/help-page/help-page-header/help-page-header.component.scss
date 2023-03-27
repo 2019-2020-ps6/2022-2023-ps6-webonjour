@@ -1,0 +1,25 @@
+.header-help {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(22, 160, 133, 0.3);
+  width: 100%;
+  height: 317px;
+}
+
+.header-help-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+// .header-help-title should be under .header-help-text
+
+.header-help-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
