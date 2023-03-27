@@ -2,6 +2,6 @@
 
 {
   # https://devenv.sh/packages/
-  packages = with pkgs; [ git nodejs-slim nodePackages_latest.pnpm ];
+  packages = with pkgs; [ git nodejs nodePackages_latest.pnpm ];
   languages.typescript.enable = true;
 }
