@@ -1,5 +1,12 @@
-<!-- build a header for each page with title "Webonjour" -->
+
 <header class="header-title">
-  <h1 class ="title">Webonjour</h1>
+  <h1 class ="title">🖐WeBonjour</h1>
+  <button class="btn"
+          [class.active]="isToggled"
+          (click)="isToggled = !isToggled"
+          (mouseenter)="onHover(true)"
+          (mouseleave)="onHover(false)"
+          [ngClass]="{hovered: hover}"
+  >Espace Soignant</button>
 </header>
 
