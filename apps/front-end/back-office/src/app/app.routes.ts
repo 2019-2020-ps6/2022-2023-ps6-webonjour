@@ -15,8 +15,4 @@ export const appRoutes: Route[] = [
         (m) => m.DashboardModule
       ),
   },
-  {
-    path: 'edit/:id',
-    component: QuizEditionComponent,
-  },
 ];
