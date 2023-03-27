@@ -12,6 +12,8 @@ import { GameAnswerComponent } from './components/quiz-view/game-answer/game-ans
 import { QuizItemComponent } from './components/quiz/quiz-item/quiz-item.component';
 import { QuizListItemComponent } from './components/quiz/quiz-list-item/quiz-list-item.component';
 import { HeaderComponent } from './components/header/header.component';
+import { CardContainerComponent } from './components/homepage/card-container/card-container.component';
+import { CardComponent } from './components/homepage/card/card.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { HeaderComponent } from './components/header/header.component';
     QuizItemComponent,
     QuizListItemComponent,
     HeaderComponent,
+    CardContainerComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
