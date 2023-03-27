@@ -41,6 +41,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return refresh();
       } else if (url.endsWith('/quiz') && method === 'GET') {
         return getAllQuiz();
+      }
+      // quizz detail
+      else if (url.match(/\/quiz\/\d+$/) && method === 'GET') {
+        const id = url.split('/').pop();
+        const quiz = quizList.find((x) => x.id === id);
+        return ok(quiz);
       } else {
         return next.handle(request);
       }

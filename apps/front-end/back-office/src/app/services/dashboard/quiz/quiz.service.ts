@@ -16,4 +16,10 @@ export class QuizService {
       this.API_URL + '/quiz'
     );
   }
+
+  getById(id: string): Observable<RequestWrapper<Quiz.Quiz>> {
+    return this.httpClient.get<RequestWrapper<Quiz.Quiz>>(
+      this.API_URL + '/quiz/' + id
+    );
+  }
 }
