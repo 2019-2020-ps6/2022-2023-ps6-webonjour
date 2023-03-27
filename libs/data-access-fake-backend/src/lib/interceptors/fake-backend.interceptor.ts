@@ -34,6 +34,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok(quizList);
     }
 
+    function createQuiz(quiz: Quiz.Quiz) {
+      quizList.push(quiz);
+      return ok();
+    }
+
     function handleRoute() {
       if (url.endsWith('/login') && method === 'POST') {
         return login();
@@ -53,6 +58,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const quiz = quizList.find((x) => x.id === id);
         quiz?.questions.push(body as Quiz.Question);
         return ok(quizList.find((x) => x.id === id));
+      } else if (url.endsWith('/quiz') && method === 'POST') {
+        return createQuiz(body as Quiz.Quiz);
       } else {
         return next.handle(request);
       }

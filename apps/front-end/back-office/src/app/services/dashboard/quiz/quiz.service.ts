@@ -32,4 +32,11 @@ export class QuizService {
       question
     );
   }
+
+  create(quiz: Quiz.Quiz): Observable<RequestWrapper<null>> {
+    return this.httpClient.post<RequestWrapper<null>>(
+      this.API_URL + '/quiz',
+      quiz
+    );
+  }
 }

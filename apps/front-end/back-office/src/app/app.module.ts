@@ -14,6 +14,8 @@ import { AlertComponent } from './components/util/alert/alert.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { QuizCreateComponent } from './components/quiz-creation/quiz-create/quiz-create.component';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +23,7 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
     LoginComponent,
     LoginFormComponent,
     AlertComponent,
+    QuizCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
     MatTableModule,
     MatPaginatorModule,
     CdkAccordionModule,
+    MatDialogModule,
   ],
   providers: [
     // provider used to create fake backend

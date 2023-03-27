@@ -1,7 +1,5 @@
 import { Route } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
-import { QuizEditionComponent } from './components/quiz-edition/quiz-edition.component';
 
 export const appRoutes: Route[] = [
   {

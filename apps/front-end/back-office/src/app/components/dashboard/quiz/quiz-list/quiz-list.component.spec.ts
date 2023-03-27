@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('QuizListComponent', () => {
   let component: QuizListComponent;
@@ -18,6 +19,7 @@ describe('QuizListComponent', () => {
         MatPaginatorModule,
         MatTableModule,
         RouterTestingModule,
+        MatDialogModule,
       ],
       providers: [
         {
