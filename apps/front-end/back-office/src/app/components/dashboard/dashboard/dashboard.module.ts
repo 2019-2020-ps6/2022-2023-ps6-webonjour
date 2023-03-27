@@ -11,6 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { QuizEditionComponent } from '../../quiz-edition/quiz-edition.component';
 import { QuizListComponent } from '../quiz/quiz-list/quiz-list.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { QuizListComponent } from '../quiz/quiz-list/quiz-list.component';
     MatTableModule,
     MatPaginatorModule,
     CdkOverlayOrigin,
+    MatDialogModule,
   ],
   bootstrap: [DashboardComponent],
 })
-export class DashboardModule {}
+export class DashboardModule { }

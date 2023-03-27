@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 import { QuizService } from '../../../../services/dashboard/quiz/quiz.service';
 import { Quiz } from '@webonjour/util-interface';
+import { QuizCreateComponent } from '../../../quiz-creation/quiz-create/quiz-create.component';
 
 @Component({
   selector: 'webonjour-quiz-list',
@@ -15,7 +17,7 @@ export class QuizListComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private quizService: QuizService) {
+  constructor(private quizService: QuizService, public dialog: MatDialog) {
     this.refresh();
   }
 
@@ -32,5 +34,16 @@ export class QuizListComponent implements AfterViewInit {
 
   goToQuiz(quiz: Quiz.Quiz) {
     console.log(quiz);
+  }
+
+  onAddQuiz() {
+    const dialogRef = this.dialog.open(QuizCreateComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      const quiz = result.form;
+      this.quizService.create(quiz).subscribe(() => {
+        this.refresh();
+      });
+    });
   }
 }

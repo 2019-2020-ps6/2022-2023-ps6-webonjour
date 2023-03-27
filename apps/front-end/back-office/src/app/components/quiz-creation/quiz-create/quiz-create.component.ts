@@ -7,6 +7,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { Quiz } from '@webonjour/util-interface';
 
 export function validateStage(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -25,6 +26,7 @@ export class QuizCreateComponent {
   form!: FormGroup;
   loading = false;
   submitted = false;
+  quiz?: Quiz.Quiz;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -41,13 +43,12 @@ export class QuizCreateComponent {
   }
 
   onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.form.invalid) {
-      return;
-    }
-
-    this.loading = true;
+    this.quiz = {
+      title: this.form.controls['quiz_name'].value,
+      questions: [],
+      stage: this.form.controls['recommended_stage'].value,
+      id: '1',
+      imageUrl: '',
+    };
   }
 }

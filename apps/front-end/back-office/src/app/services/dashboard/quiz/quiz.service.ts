@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class QuizService {
   API_URL = 'http://localhost:3333';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<RequestWrapper<Quiz.Quiz[]>> {
     return this.httpClient.get<RequestWrapper<Quiz.Quiz[]>>(
@@ -30,6 +30,13 @@ export class QuizService {
     return this.httpClient.post<RequestWrapper<Quiz.Quiz>>(
       this.API_URL + '/quiz/' + id + '/question',
       question
+    );
+  }
+
+  create(quiz: Quiz.Quiz): Observable<RequestWrapper<null>> {
+    return this.httpClient.post<RequestWrapper<null>>(
+      this.API_URL + '/quiz',
+      quiz
     );
   }
 }
