@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  ComponentFixtureAutoDetect,
+  TestBed,
+} from '@angular/core/testing';
 
 import { QuestionDetailAnswersComponent } from './question-detail-answers.component';
 
@@ -13,6 +17,11 @@ describe('QuestionDetailAnswersComponent', () => {
 
     fixture = TestBed.createComponent(QuestionDetailAnswersComponent);
     component = fixture.componentInstance;
+    component.question = {
+      answers: [],
+      clues: [],
+      title: 'test',
+    };
     fixture.detectChanges();
   });
 

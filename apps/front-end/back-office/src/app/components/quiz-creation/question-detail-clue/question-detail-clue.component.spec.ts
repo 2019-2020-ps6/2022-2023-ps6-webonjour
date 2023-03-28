@@ -13,6 +13,9 @@ describe('QuestionDetailClueComponent', () => {
 
     fixture = TestBed.createComponent(QuestionDetailClueComponent);
     component = fixture.componentInstance;
+    component.clue = {
+      text: 'test',
+    };
     fixture.detectChanges();
   });
 

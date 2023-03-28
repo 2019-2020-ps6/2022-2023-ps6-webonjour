@@ -13,6 +13,10 @@ describe('QuestionDetailAnswerComponent', () => {
 
     fixture = TestBed.createComponent(QuestionDetailAnswerComponent);
     component = fixture.componentInstance;
+    component.answer = {
+      text: 'test',
+      isCorrect: false,
+    };
     fixture.detectChanges();
   });
 
