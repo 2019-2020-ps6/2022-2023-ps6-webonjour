@@ -7,7 +7,7 @@
     [answer]="answer"
   ></webonjour-question-detail-answer>
 </div>
-<div *ngIf="question.answers.length == 0">
+<div *ngIf="question.answers.length === 0">
   <div class="alert alert-warning" role="alert">
     Aucune réponse n'a été ajoutée pour le moment.
   </div>
