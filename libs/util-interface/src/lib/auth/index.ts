@@ -1,3 +1,5 @@
+import { Patient, Person } from '../patient';
+
 export interface LoginSchema {
   email: string;
   password: string;
