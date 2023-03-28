@@ -11,7 +11,7 @@ export enum DiseaseStage {
 export interface Clue {
   text?: string;
   image?: string;
-}3
+}
 
 export interface Question {
   title: string;

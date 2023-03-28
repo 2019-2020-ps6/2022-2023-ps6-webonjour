@@ -14,8 +14,4 @@ export const appRoutes: Route[] = [
         (m) => m.DashboardModule
       ),
   },
-  {
-    path: 'question/:quiz/:question',
-    component: QuestionDetailComponent,
-  },
 ];

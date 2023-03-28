@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Quiz } from '@webonjour/util-interface';
 import { QuizService } from '../../services/dashboard/quiz/quiz.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatCellDef, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
