@@ -3,6 +3,7 @@ import { DashboardComponent } from './dashboard.component';
 import { QuizListComponent } from '../quiz/quiz-list/quiz-list.component';
 import { LoginComponent } from '../../auth/login/login.component';
 import { QuizEditionComponent } from '../../quiz-edition/quiz-edition.component';
+import { QuestionDetailComponent } from '../../quiz-creation/question-detail/question-detail.component';
 
 export const dashboardRoutes: Route[] = [
   {
@@ -20,6 +21,10 @@ export const dashboardRoutes: Route[] = [
         component: QuizEditionComponent,
         title: 'Edition Quiz',
         data: { navPath: 'quiz' },
+      },
+      {
+        path: 'quiz/:id/:questionId',
+        component: QuestionDetailComponent,
       },
       {
         path: 'patients',
