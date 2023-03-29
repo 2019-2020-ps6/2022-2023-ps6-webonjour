@@ -1,0 +1,30 @@
+<div
+  class="d-flex flex-column flex-shrink-0 text-white bg-dark side-nav-container"
+>
+  <a
+    routerLink="/dashboard"
+    class="d-flex align-items-start justify-content-start text-white text-decoration-none p-4"
+  >
+    <img src="assets/logo.svg" class="bi me-2" width="40" height="32" alt="" />
+    <span class="fs-3"><b>PolyQuiz</b></span>
+  </a>
+  <ul class="nav nav-pills flex-column mb-auto pt-4">
+    <li class="nav-item" *ngFor="let navItem of navItems">
+      <a
+        routerLink="{{ navItem.path }}"
+        class="{{ getCssClass(navItem.path) }}"
+        aria-current="page"
+      >
+        <img
+          src="{{ navItem.icon }}"
+          class="bi me-2"
+          width="20"
+          height="20"
+          alt=""
+        />
+        {{ navItem.name }}
+      </a>
+    </li>
+  </ul>
+  <webonjour-profile class="p-3"></webonjour-profile>
+</div>

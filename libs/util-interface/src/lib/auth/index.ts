@@ -14,7 +14,8 @@ export interface RefreshSchema {
 
 export interface JWTPayload {
   sub: string;
-  name: string;
   iat: number;
   type: string;
+  profilePicture: string;
+  name: string;
 }
