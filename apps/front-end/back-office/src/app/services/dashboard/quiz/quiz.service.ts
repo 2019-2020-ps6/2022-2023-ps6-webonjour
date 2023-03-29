@@ -39,4 +39,10 @@ export class QuizService {
       quiz
     );
   }
+
+  delete(id: string) {
+    return this.httpClient.delete<RequestWrapper<null>>(
+      this.API_URL + '/quiz/' + id
+    );
+  }
 }

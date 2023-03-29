@@ -12,7 +12,13 @@ import { QuizCreateComponent } from '../../../quiz-creation/quiz-create/quiz-cre
   styleUrls: ['./quiz-list.component.scss'],
 })
 export class QuizListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['Nom du Quiz', 'Nombre de questions', 'stage'];
+  displayedColumns: string[] = [
+    'Nom du Quiz',
+    'Nombre de questions',
+    'stage',
+    'edit',
+    'delete',
+  ];
   dataSource = new MatTableDataSource<Quiz.Quiz>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -44,6 +50,12 @@ export class QuizListComponent implements AfterViewInit {
       this.quizService.create(quiz).subscribe(() => {
         this.refresh();
       });
+    });
+  }
+
+  onDeleteQuiz(id: string) {
+    this.quizService.delete(id).subscribe(() => {
+      this.refresh();
     });
   }
 }
