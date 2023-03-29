@@ -63,11 +63,11 @@ export class PatientService {
 
   addPatientFamily(
     id: string,
-    familyId: string
+    familyMember: Patient.FamilyMember
   ): Observable<RequestWrapper<Patient.FamilyMember>> {
     return this.http.post<RequestWrapper<Patient.FamilyMember>>(
-      this.API_URL + '/patients/' + id + '/family/' + familyId,
-      null
+      this.API_URL + '/patients/' + id + '/family',
+      familyMember
     );
   }
 
@@ -79,6 +79,7 @@ export class PatientService {
       this.API_URL + '/patients/' + id + '/family/' + familyId
     );
   }
+
   getPatientAccommodation(
     id: string
   ): Observable<RequestWrapper<Patient.Accommodation[]>> {

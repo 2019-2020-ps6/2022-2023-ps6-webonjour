@@ -86,6 +86,115 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return error('Patient not found');
     }
 
+    function addQuizToPatient() {
+      const split = url.split('/');
+      const patientId = split[split.length - 3];
+      const quizId = split[split.length - 1];
+      patientQuizMocks[patientId] = patientQuizMocks[patientId] || [];
+      patientQuizMocks[patientId].push(quizId);
+      return ok();
+    }
+
+    function deleteQuizPatient() {
+      const split = url.split('/');
+      const patientId = split[split.length - 3];
+      const quizId = split[split.length - 1];
+      patientQuizMocks[patientId] = patientQuizMocks[patientId] || [];
+      patientQuizMocks[patientId].splice(
+        patientQuizMocks[patientId].indexOf(quizId),
+        1
+      );
+      return ok();
+    }
+
+    function deletePatient() {
+      const id = url.split('/').pop();
+      const patient = patientMocks.find((x) => x.id === id);
+      if (patient) {
+        patientMocks.splice(patientMocks.indexOf(patient), 1);
+        return ok();
+      }
+      return error('Patient not found');
+    }
+
+    function deletePatientQuiz() {
+      const split = url.split('/');
+      const patientId = split[split.length - 2];
+      const quizIds = patientQuizMocks[patientId] || [];
+      const quizzes = quizList.filter((x) => quizIds.includes(x.id));
+      return ok(quizzes);
+    }
+
+    function getPatientFamily() {
+      const split = url.split('/');
+      const patientId = split[split.length - 2];
+      const familyMembersIds = familyMemberPatientMocks[patientId] || [];
+      const familyMembers = familyMemberMocks.filter((x) =>
+        familyMembersIds.includes(x.id)
+      );
+      return ok(familyMembers);
+    }
+
+    function addPatientFamily() {
+      const split = url.split('/');
+      const patientId = split[split.length - 2];
+      const familyMember = body as Patient.FamilyMember;
+      familyMember.id = familyMemberMocks.length + 1 + '';
+      familyMemberMocks.push(familyMember);
+      familyMemberPatientMocks[patientId] =
+        familyMemberPatientMocks[patientId] || [];
+      familyMemberPatientMocks[patientId].push(familyMember.id);
+      return ok(familyMember);
+    }
+
+    function deletePatientFamily() {
+      const split = url.split('/');
+      const patientId = split[split.length - 3];
+      const familyMemberId = split[split.length - 1];
+      familyMemberPatientMocks[patientId] =
+        familyMemberPatientMocks[patientId] || [];
+      familyMemberPatientMocks[patientId].splice(
+        familyMemberPatientMocks[patientId].indexOf(familyMemberId),
+        1
+      );
+      return ok();
+    }
+
+    function getAccommodation() {
+      const split = url.split('/');
+      const patientId = split[split.length - 2];
+      const accommodationIds = accommodationPatientMocks[patientId] || [];
+      const accommodations = accommodationMocks.filter((x) =>
+        accommodationIds.includes(x.id)
+      );
+      return ok(accommodations);
+    }
+
+    function addAccommodationPatient() {
+      const split = url.split('/');
+      const patientId = split[split.length - 2];
+      const accommodation = body as Patient.Accommodation;
+      accommodation.id = accommodationMocks.length + 1 + '';
+      accommodationMocks.push(accommodation);
+      accommodationPatientMocks[patientId] =
+        accommodationPatientMocks[patientId] || [];
+      accommodationPatientMocks[patientId].push(accommodation.id);
+      return ok(accommodation);
+    }
+
+    function deleteAccommodationPatient() {
+      const split = url.split('/');
+      const patientId = split[split.length - 3];
+      const accommodationId = split[split.length - 1];
+      accommodationPatientMocks[patientId] =
+        accommodationPatientMocks[patientId] || [];
+      accommodationPatientMocks[patientId].splice(
+        accommodationPatientMocks[patientId].indexOf(accommodationId),
+        1
+      );
+      return ok();
+    }
+
     function handleRoute() {
       if (url.endsWith('/login') && method === 'POST') {
         return login();
@@ -113,110 +222,41 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       } else if (url.match(/\/patient\/\d+$/) && method === 'PUT') {
         return updatePatient(body as Patient.Patient);
       } else if (url.match(/\/patient\/\d+$/) && method === 'DELETE') {
-        const id = url.split('/').pop();
-        const patient = patientMocks.find((x) => x.id === id);
-        if (patient) {
-          patientMocks.splice(patientMocks.indexOf(patient), 1);
-          return ok();
-        }
-        return error('Patient not found');
+        return deletePatient();
       } else if (url.match(/\/patient\/\d+\/quiz\/\d+$/) && method === 'POST') {
-        const split = url.split('/');
-        const patientId = split[split.length - 3];
-        const quizId = split[split.length - 1];
-        patientQuizMocks[patientId] = patientQuizMocks[patientId] || [];
-        patientQuizMocks[patientId].push(quizId);
-        return ok();
+        return addQuizToPatient();
       } else if (
         url.match(/\/patient\/\d+\/quiz\/\d+$/) &&
         method === 'DELETE'
       ) {
-        const split = url.split('/');
-        const patientId = split[split.length - 3];
-        const quizId = split[split.length - 1];
-        patientQuizMocks[patientId] = patientQuizMocks[patientId] || [];
-        patientQuizMocks[patientId].splice(
-          patientQuizMocks[patientId].indexOf(quizId),
-          1
-        );
-        return ok();
+        return deleteQuizPatient();
       } else if (url.match(/\/patient\/\d+\/quiz$/) && method === 'GET') {
-        const split = url.split('/');
-        const patientId = split[split.length - 2];
-        const quizIds = patientQuizMocks[patientId] || [];
-        const quizzes = quizList.filter((x) => quizIds.includes(x.id));
-        return ok(quizzes);
+        return deletePatientQuiz();
       }
       // family members
       else if (url.match(/\/patient\/\d+\/family$/) && method === 'GET') {
-        const split = url.split('/');
-        const patientId = split[split.length - 2];
-        const familyMembersIds = familyMemberPatientMocks[patientId] || [];
-        const familyMembers = familyMemberMocks.filter((x) =>
-          familyMembersIds.includes(x.id)
-        );
-        return ok(familyMembers);
+        return getPatientFamily();
       } else if (url.match(/\/patient\/\d+\/family$/) && method === 'POST') {
-        const split = url.split('/');
-        const patientId = split[split.length - 2];
-        const familyMember = body as Patient.FamilyMember;
-        familyMember.id = familyMemberMocks.length + 1 + '';
-        familyMemberMocks.push(familyMember);
-        familyMemberPatientMocks[patientId] =
-          familyMemberPatientMocks[patientId] || [];
-        familyMemberPatientMocks[patientId].push(familyMember.id);
-        return ok(familyMember);
+        return addPatientFamily();
       } else if (
         url.match(/\/patient\/\d+\/family\/\d+$/) &&
         method === 'DELETE'
       ) {
-        const split = url.split('/');
-        const patientId = split[split.length - 3];
-        const familyMemberId = split[split.length - 1];
-        familyMemberPatientMocks[patientId] =
-          familyMemberPatientMocks[patientId] || [];
-        familyMemberPatientMocks[patientId].splice(
-          familyMemberPatientMocks[patientId].indexOf(familyMemberId),
-          1
-        );
-        return ok();
+        return deletePatientFamily();
       }
       // patient accommodation
       else if (url.match(/\/patient\/\d+\/accomodation$/) && method === 'GET') {
-        const split = url.split('/');
-        const patientId = split[split.length - 2];
-        const accommodationIds = accommodationPatientMocks[patientId] || [];
-        const accommodations = accommodationMocks.filter((x) =>
-          accommodationIds.includes(x.id)
-        );
-        return ok(accommodations);
+        return getAccommodation();
       } else if (
         url.match(/\/patient\/\d+\/accomodation$/) &&
         method === 'POST'
       ) {
-        const split = url.split('/');
-        const patientId = split[split.length - 2];
-        const accommodation = body as Patient.Accommodation;
-        accommodation.id = accommodationMocks.length + 1 + '';
-        accommodationMocks.push(accommodation);
-        accommodationPatientMocks[patientId] =
-          accommodationPatientMocks[patientId] || [];
-        accommodationPatientMocks[patientId].push(accommodation.id);
-        return ok(accommodation);
+        return addAccommodationPatient();
       } else if (
         url.match(/\/patient\/\d+\/accomodation\/\d+$/) &&
         method === 'DELETE'
       ) {
-        const split = url.split('/');
-        const patientId = split[split.length - 3];
-        const accommodationId = split[split.length - 1];
-        accommodationPatientMocks[patientId] =
-          accommodationPatientMocks[patientId] || [];
-        accommodationPatientMocks[patientId].splice(
-          accommodationPatientMocks[patientId].indexOf(accommodationId),
-          1
-        );
-        return ok();
+        return deleteAccommodationPatient();
       } else {
         return next.handle(request);
       }
