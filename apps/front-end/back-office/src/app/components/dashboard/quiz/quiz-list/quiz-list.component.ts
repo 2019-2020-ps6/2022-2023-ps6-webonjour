@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { QuizService } from '../../../../services/dashboard/quiz/quiz.service';
 import { Quiz } from '@webonjour/util-interface';
 import { QuizCreateComponent } from '../../../quiz-creation/quiz-create/quiz-create.component';
+import { mergeMap } from 'rxjs';
 
 @Component({
   selector: 'webonjour-quiz-list',
@@ -43,14 +44,17 @@ export class QuizListComponent implements AfterViewInit {
   }
 
   onAddQuiz() {
-    const dialogRef = this.dialog.open(QuizCreateComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      const quiz = result.form;
-      this.quizService.create(quiz).subscribe(() => {
-        this.refresh();
-      });
+    const dialogRef = this.dialog.open(QuizCreateComponent, {
+      disableClose: true,
     });
+    dialogRef.componentInstance.id = (
+      this.dataSource.data.length + 1
+    ).toString();
+
+    dialogRef
+      .afterClosed()
+      .pipe(mergeMap((quiz) => this.quizService.create(quiz)))
+      .subscribe(() => this.refresh());
   }
 
   onDeleteQuiz(id: string) {
