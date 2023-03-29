@@ -39,6 +39,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok();
     }
 
+    function deleteQuiz(id: string) {
+      const index = quizList.findIndex((x) => x.id === id);
+      quizList.splice(index, 1);
+      return ok();
+    }
+
     function handleRoute() {
       if (url.endsWith('/login') && method === 'POST') {
         return login();
@@ -52,6 +58,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const id = url.split('/').pop();
         const quiz = quizList.find((x) => x.id === id);
         return ok(quiz);
+      } else if (url.match(/\/quiz\/\d+$/) && method === 'DELETE') {
+        const id = url.split('/').pop();
+        return deleteQuiz(id as string);
       } else if (url.match(/\/quiz\/\d+\/question$/) && method === 'POST') {
         const split = url.split('/');
         const id = split[split.length - 2];
