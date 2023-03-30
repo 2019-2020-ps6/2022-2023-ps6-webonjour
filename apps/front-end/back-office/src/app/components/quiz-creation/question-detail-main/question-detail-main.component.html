@@ -1,21 +1,41 @@
-<h1>Question</h1>
+<div id="quesition_div">
+  <h3>Question</h3>
 
-<div class="form-group">
-  <label for="question-text">Texte</label>
-  <input
-    id="question-text"
-    class="form-control"
-    placeholder="Question"
-    [(ngModel)]="question.title"
-  />
-</div>
+  <div class="form-group">
+    <label for="question-text">Question</label>
+    <input
+      id="question-text"
+      class="form-control"
+      placeholder="Question"
+      [(ngModel)]="question.title"
+    />
+  </div>
 
-<div class="form-group">
-  <label for="question-image">Image</label>
-  <input
-    type="file"
-    accept="image/*"
-    class="form-control"
-    id="exampleFormControlFile1"
-  />
+  <div class="form-group">
+    <label for="question-image">Image</label>
+    <br />
+    <img
+      *ngIf="!question.image"
+      [src]="
+        'https://www.ville-sathonaycamp.fr/wp-content/uploads/2021/06/placeholder-1.png'
+      "
+      alt="question image"
+    />
+    <img
+      *ngIf="question.image"
+      [src]="question.image"
+      alt="Image de la question"
+    />
+    <br />
+    <label for="exampleFormControlFile1" class="custom-file-upload"
+      >Choisir un fichier</label
+    >
+    <input
+      class="form-control"
+      id="exampleFormControlFile1"
+      type="file"
+      accept="image/*"
+      (change)="onFileSelected($event)"
+    />
+  </div>
 </div>
