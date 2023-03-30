@@ -6,7 +6,7 @@ import { Quiz } from '@webonjour/util-interface';
   styleUrls: ['./game-answer.component.scss'],
 })
 export class GameAnswerComponent {
-  @Input() answer: Quiz.Answer = { value: '', isCorrect: false };
+  @Input() answer: Quiz.Answer = { text: '', isCorrect: false };
   hover = false;
   clicked = false;
   disabled = false;
