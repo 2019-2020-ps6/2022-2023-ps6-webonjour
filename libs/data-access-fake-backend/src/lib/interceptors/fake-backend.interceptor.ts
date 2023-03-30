@@ -16,8 +16,9 @@ import {
   of,
   throwError,
 } from 'rxjs';
-import { Auth } from '@webonjour/util-interface';
+import { Auth, Quiz } from '@webonjour/util-interface';
 import { credentials, response } from '../mocks/auth';
+import { quizList } from '../mocks/quiz';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -29,11 +30,45 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     return handleRoute();
 
+    function getAllQuiz() {
+      return ok(quizList);
+    }
+
+    function createQuiz(quiz: Quiz.Quiz) {
+      quizList.push(quiz);
+      return ok();
+    }
+
+    function deleteQuiz(id: string) {
+      const index = quizList.findIndex((x) => x.id === id);
+      quizList.splice(index, 1);
+      return ok();
+    }
+
     function handleRoute() {
       if (url.endsWith('/login') && method === 'POST') {
         return login();
       } else if (url.endsWith('/refresh') && method === 'POST') {
         return refresh();
+      } else if (url.endsWith('/quiz') && method === 'GET') {
+        return getAllQuiz();
+      }
+      // quiz detail
+      else if (url.match(/\/quiz\/\d+$/) && method === 'GET') {
+        const id = url.split('/').pop();
+        const quiz = quizList.find((x) => x.id === id);
+        return ok(quiz);
+      } else if (url.match(/\/quiz\/\d+$/) && method === 'DELETE') {
+        const id = url.split('/').pop();
+        return deleteQuiz(id as string);
+      } else if (url.match(/\/quiz\/\d+\/question$/) && method === 'POST') {
+        const split = url.split('/');
+        const id = split[split.length - 2];
+        const quiz = quizList.find((x) => x.id === id);
+        quiz?.questions.push(body as Quiz.Question);
+        return ok(quizList.find((x) => x.id === id));
+      } else if (url.endsWith('/quiz') && method === 'POST') {
+        return createQuiz(body as Quiz.Quiz);
       } else {
         return next.handle(request);
       }
