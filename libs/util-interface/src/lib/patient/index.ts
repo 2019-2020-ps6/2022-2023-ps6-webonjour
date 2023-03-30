@@ -12,10 +12,14 @@ export interface Person {
 
 export interface Patient extends Person {
   diseaseStage: DiseaseStage;
-  quizzes: Quiz[];
-  family: FamilyMember[];
 }
 
 export interface FamilyMember extends Person {
   relation: string;
+  patientId: string;
+}
+
+export interface Accommodation {
+  id: string;
+  title: string;
 }
