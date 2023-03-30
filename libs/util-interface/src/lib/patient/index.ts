@@ -1,4 +1,4 @@
-import { DiseaseStage, Quiz } from '../quiz';
+import { DiseaseStage } from '../quiz';
 
 export interface Person {
   id: string;
@@ -12,6 +12,8 @@ export interface Person {
 
 export interface Patient extends Person {
   diseaseStage: DiseaseStage;
+  lastQuizDate: Date;
+  successRate: number;
 }
 
 export interface FamilyMember extends Person {

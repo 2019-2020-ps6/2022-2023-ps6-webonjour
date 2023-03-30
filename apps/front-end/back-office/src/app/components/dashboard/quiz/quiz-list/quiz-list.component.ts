@@ -24,6 +24,7 @@ export class QuizListComponent implements AfterViewInit {
   refresh() {
     this.quizService.getAll().subscribe((quizList) => {
       this.dataSource = new MatTableDataSource<Quiz.Quiz>(quizList.data);
+      this.dataSource.paginator = this.paginator;
       console.log(quizList.data);
     });
   }

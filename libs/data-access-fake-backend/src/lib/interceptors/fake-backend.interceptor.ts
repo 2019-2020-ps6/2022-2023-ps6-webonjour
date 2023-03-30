@@ -213,47 +213,53 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
 
       // patient
-      else if (url.endsWith('/patient') && method === 'GET') {
+      else if (url.endsWith('/patients') && method === 'GET') {
         return getAllPatient();
-      } else if (url.endsWith('/patient') && method === 'POST') {
+      } else if (url.endsWith('/patients') && method === 'POST') {
         return createPatient(body as Patient.Patient);
-      } else if (url.match(/\/patient\/\d+$/) && method === 'GET') {
+      } else if (url.match(/\/patients\/\d+$/) && method === 'GET') {
         return getPatientDetail();
-      } else if (url.match(/\/patient\/\d+$/) && method === 'PUT') {
+      } else if (url.match(/\/patients\/\d+$/) && method === 'PUT') {
         return updatePatient(body as Patient.Patient);
-      } else if (url.match(/\/patient\/\d+$/) && method === 'DELETE') {
+      } else if (url.match(/\/patients\/\d+$/) && method === 'DELETE') {
         return deletePatient();
-      } else if (url.match(/\/patient\/\d+\/quiz\/\d+$/) && method === 'POST') {
+      } else if (
+        url.match(/\/patients\/\d+\/quiz\/\d+$/) &&
+        method === 'POST'
+      ) {
         return addQuizToPatient();
       } else if (
-        url.match(/\/patient\/\d+\/quiz\/\d+$/) &&
+        url.match(/\/patients\/\d+\/quiz\/\d+$/) &&
         method === 'DELETE'
       ) {
         return deleteQuizPatient();
-      } else if (url.match(/\/patient\/\d+\/quiz$/) && method === 'GET') {
+      } else if (url.match(/\/patients\/\d+\/quiz$/) && method === 'GET') {
         return deletePatientQuiz();
       }
       // family members
-      else if (url.match(/\/patient\/\d+\/family$/) && method === 'GET') {
+      else if (url.match(/\/patients\/\d+\/family$/) && method === 'GET') {
         return getPatientFamily();
-      } else if (url.match(/\/patient\/\d+\/family$/) && method === 'POST') {
+      } else if (url.match(/\/patients\/\d+\/family$/) && method === 'POST') {
         return addPatientFamily();
       } else if (
-        url.match(/\/patient\/\d+\/family\/\d+$/) &&
+        url.match(/\/patients\/\d+\/family\/\d+$/) &&
         method === 'DELETE'
       ) {
         return deletePatientFamily();
       }
       // patient accommodation
-      else if (url.match(/\/patient\/\d+\/accomodation$/) && method === 'GET') {
+      else if (
+        url.match(/\/patients\/\d+\/accomodation$/) &&
+        method === 'GET'
+      ) {
         return getAccommodation();
       } else if (
-        url.match(/\/patient\/\d+\/accomodation$/) &&
+        url.match(/\/patients\/\d+\/accomodation$/) &&
         method === 'POST'
       ) {
         return addAccommodationPatient();
       } else if (
-        url.match(/\/patient\/\d+\/accomodation\/\d+$/) &&
+        url.match(/\/patients\/\d+\/accomodation\/\d+$/) &&
         method === 'DELETE'
       ) {
         return deleteAccommodationPatient();
