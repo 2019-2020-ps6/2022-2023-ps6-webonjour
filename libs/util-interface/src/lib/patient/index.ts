@@ -19,6 +19,8 @@ export interface Patient extends Person {
 export interface FamilyMember extends Person {
   relation: string;
   patientId: string;
+  phone?: string;
+  email?: string;
 }
 
 export interface Accommodation {
