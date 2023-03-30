@@ -1,0 +1,28 @@
+<div class="card container">
+  <div class="card-body row">
+    <div class="col-6">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Réponse textuelle"
+        [(ngModel)]="answer.text"
+      />
+    </div>
+    <div class="col-6">
+      <img
+        *ngIf
+        answer.image
+        [src]=""
+        class="img-fluid"
+        alt="Image de la réponse"
+      />
+      <input
+        *ngIf="!answer.image"
+        type="file"
+        accept="image/*"
+        class="form-control"
+        id="exampleFormControlFile1"
+      />
+    </div>
+  </div>
+</div>
