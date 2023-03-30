@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageComponent implements OnInit {
   message =
-    'Ils ne faut pas avoir peur de se tromper \ud83d\ude09 N\'hésitez pas à utiliser le bouton "Aide"';
+    'Ils ne faut pas avoir peur de se tromper \ud83d\ude09  N\'hésitez pas à utiliser le bouton "Aide"';
   showMessage = false;
 
   ngOnInit() {

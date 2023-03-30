@@ -19,4 +19,21 @@ describe('MessageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set showMessage to true after 5 seconds', () => {
+    jasmine.clock().install();
+    expect(component.showMessage).toBeFalsy();
+    fixture.detectChanges();
+    jasmine.clock().tick(5000);
+    expect(component.showMessage).toBeTruthy();
+    jasmine.clock().uninstall();
+  });
+
+  it('should display the message when showMessage is true', () => {
+    component.showMessage = true;
+    fixture.detectChanges();
+    const messageElement = fixture.nativeElement.querySelector('.message');
+    expect(messageElement).not.toBeNull();
+    expect(messageElement.textContent).toContain(component.message);
+  });
 });
