@@ -16,6 +16,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { QuizCreateComponent } from './components/quiz-creation/quiz-create/quiz-create.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PatientListComponent } from './components/dashboard/patient/patient-list/patient-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     LoginFormComponent,
     AlertComponent,
     QuizCreateComponent,
+    PatientListComponent,
   ],
   imports: [
     BrowserModule,

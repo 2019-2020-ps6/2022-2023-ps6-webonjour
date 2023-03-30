@@ -10,6 +10,8 @@ export const patientMocks: Patient.Patient[] = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.',
     diseaseStage: Quiz.DiseaseStage.STAGE_1,
+    lastQuizDate: new Date(),
+    successRate: 0.5,
   },
   {
     id: '2',
@@ -20,6 +22,8 @@ export const patientMocks: Patient.Patient[] = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.',
     diseaseStage: Quiz.DiseaseStage.STAGE_2,
+    lastQuizDate: new Date(),
+    successRate: 0.8,
   },
   {
     id: '3',
@@ -30,6 +34,8 @@ export const patientMocks: Patient.Patient[] = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.',
     diseaseStage: Quiz.DiseaseStage.STAGE_3,
+    lastQuizDate: new Date(new Date().setDate(new Date().getDate() - 1)),
+    successRate: 0.2,
   },
 ];
 
