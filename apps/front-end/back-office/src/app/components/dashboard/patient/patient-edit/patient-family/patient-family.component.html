@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Tous les membres de la famille</h3>
+  </div>
+  <div class="card-body">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      aria-label="Liste des membres de la famille"
+    >
+      <ng-container matColumnDef="Nom">
+        <th mat-header-cell *matHeaderCellDef>Nom</th>
+        <td mat-cell *matCellDef="let family">
+          <div
+            class="d-flex align-items-center justify-content-start flex-column flex-md-row"
+          >
+            <div class="mr-3 p-3">
+              <img
+                src="{{ family.profilePictureUrl }}"
+                alt="image"
+                width="50px"
+                height="50px"
+                class="img-fluid rounded-circle"
+              />
+            </div>
+            <div class="text-center text-md-left">
+              {{ family.firstName }} {{ family.lastName }}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Contact">
+        <th mat-header-cell *matHeaderCellDef>Contact</th>
+        <td mat-cell *matCellDef="let family">
+          {{ family.phone }}<br />{{ family.email }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Relation">
+        <th mat-header-cell *matHeaderCellDef>Relation</th>
+        <td mat-cell *matCellDef="let family">
+          {{ family.relation }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [routerLink]="[row.id]"
+        class="row-hover"
+      ></tr>
+    </table>
+
+    <mat-paginator [pageSize]="10" aria-label="Paginator"> </mat-paginator>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-end" style="height: 100%; width: 100%">
+      <button class="btn btn-primary">Ajouter un membre de la famille</button>
+    </div>
+  </div>
+</div>
