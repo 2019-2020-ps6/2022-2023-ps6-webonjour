@@ -3,6 +3,7 @@ import { DashboardComponent } from './dashboard.component';
 import { QuizListComponent } from '../quiz/quiz-list/quiz-list.component';
 import { QuizEditionComponent } from '../../quiz-edition/quiz-edition.component';
 import { PatientListComponent } from '../patient/patient-list/patient-list.component';
+import { PatientEditGeneralComponent } from '../patient/patient-edit/patient-edit-general/patient-edit-general.component';
 
 export const dashboardRoutes: Route[] = [
   {
@@ -24,6 +25,12 @@ export const dashboardRoutes: Route[] = [
       {
         path: 'patients',
         component: PatientListComponent,
+        title: 'Patients',
+        data: { navPath: 'patients' },
+      },
+      {
+        path: 'patients/:id',
+        component: PatientEditGeneralComponent,
         title: 'Patients',
         data: { navPath: 'patients' },
       },

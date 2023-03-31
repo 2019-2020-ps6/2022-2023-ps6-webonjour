@@ -17,6 +17,9 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { QuizCreateComponent } from './components/quiz-creation/quiz-create/quiz-create.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PatientListComponent } from './components/dashboard/patient/patient-list/patient-list.component';
+import { PatientEditGeneralComponent } from './components/dashboard/patient/patient-edit/patient-edit-general/patient-edit-general.component';
+import { NgOptimizedImage } from '@angular/common';
+import { PatientCreateComponent } from './components/dashboard/patient/patient-create/patient-create.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +29,8 @@ import { PatientListComponent } from './components/dashboard/patient/patient-lis
     AlertComponent,
     QuizCreateComponent,
     PatientListComponent,
+    PatientEditGeneralComponent,
+    PatientCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +44,7 @@ import { PatientListComponent } from './components/dashboard/patient/patient-lis
     MatPaginatorModule,
     CdkAccordionModule,
     MatDialogModule,
+    NgOptimizedImage,
   ],
   providers: [
     // provider used to create fake backend
