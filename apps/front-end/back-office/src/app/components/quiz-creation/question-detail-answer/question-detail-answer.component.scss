@@ -41,32 +41,9 @@ input[type='file'] {
   background-color: $hover;
 }
 
-select {
-  background-color: $light-gray;
-  border: none;
-  border-radius: 0.1em;
-}
-
 img {
   width: 18.75em;
   height: auto;
-  margin: 0;
+  margin: 1em;
   border-radius: 0.5em;
-}
-
-// .parentImage{
-//     position: relative;
-//     height: 20em;
-// }
-
-// .children {
-//     position: absolute;
-//     bottom: 0;
-//     right: 0;
-//     width: auto;
-//     height: 12.5em;
-// }
-
-#delete-question-button {
-  border: 1px red;
 }
