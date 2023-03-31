@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { PatientService } from '@webonjour/front-end/shared/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Patient } from '@webonjour/util-interface';
+import { PatientEditGeneralComponent } from '../patient-edit/patient-edit-general/patient-edit-general.component';
 
 @Component({
   selector: 'webonjour-patient-list',
@@ -40,5 +41,13 @@ export class PatientListComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  onAddPatient() {
+    this.dialog.open(PatientEditGeneralComponent);
+
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.refresh();
+    });
   }
 }

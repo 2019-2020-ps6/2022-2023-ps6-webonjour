@@ -24,7 +24,7 @@ export class PatientService {
   }
 
   createPatient(
-    patient: RequestWrapper<Patient.Patient>
+    patient: Patient.Patient
   ): Observable<RequestWrapper<Patient.Patient>> {
     return this.http.post<RequestWrapper<Patient.Patient>>(
       this.API_URL + '/patients',
@@ -33,10 +33,10 @@ export class PatientService {
   }
 
   updatePatient(
-    patient: RequestWrapper<Patient.Patient>
+    patient: Patient.Patient
   ): Observable<RequestWrapper<Patient.Patient>> {
     return this.http.put<RequestWrapper<Patient.Patient>>(
-      this.API_URL + '/patients/' + patient.data.id,
+      this.API_URL + '/patients/' + patient.id,
       patient
     );
   }

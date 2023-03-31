@@ -17,6 +17,7 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { QuizCreateComponent } from './components/quiz-creation/quiz-create/quiz-create.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PatientListComponent } from './components/dashboard/patient/patient-list/patient-list.component';
+import { PatientEditGeneralComponent } from './components/dashboard/patient/patient-edit/patient-edit-general/patient-edit-general.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ import { PatientListComponent } from './components/dashboard/patient/patient-lis
     AlertComponent,
     QuizCreateComponent,
     PatientListComponent,
+    PatientEditGeneralComponent,
   ],
   imports: [
     BrowserModule,

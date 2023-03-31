@@ -66,8 +66,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function createPatient(body1: Patient.Patient) {
+      // get new patient id
+      const newPatientId = Math.max(...patientMocks.map((x) => +x.id)) + 1;
+      body1.id = newPatientId.toString();
       patientMocks.push(body1);
-      return ok();
+      return ok(body1);
     }
 
     function getPatientDetail() {
