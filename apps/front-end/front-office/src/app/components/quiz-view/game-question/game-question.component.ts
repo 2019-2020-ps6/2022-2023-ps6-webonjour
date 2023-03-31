@@ -13,11 +13,12 @@ export class GameQuestionComponent {
     this.question = {
       title: 'De quelle couleur est le cheval blanc de Henri IV?',
       answers: [
-        { value: 'Blanc', isCorrect: true },
-        { value: 'Noir', isCorrect: false },
-        { value: 'Rouge', isCorrect: false },
-        { value: 'Vert', isCorrect: false },
+        { text: 'Blanc', isCorrect: true },
+        { text: 'Noir', isCorrect: false },
+        { text: 'Rouge', isCorrect: false },
+        { text: 'Vert', isCorrect: false },
       ],
+      clues: [{ text: "C'est une couleur" }, { text: "C'est une couleur" }],
     };
   }
 }

@@ -10,7 +10,7 @@
 .quiz-item-button {
   display: flex;
   align-items: center; /* centrer verticalement */
-  background: #1abc9c;
+  background: var(--primary-color);
   width: 100%;
   border-radius: 10px;
   justify-content: space-around;
