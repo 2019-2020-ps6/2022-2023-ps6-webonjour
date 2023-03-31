@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'webonjour-game-question',
@@ -9,7 +10,7 @@ import { Quiz } from '@webonjour/util-interface';
 export class GameQuestionComponent {
   question: Quiz.Question;
 
-  constructor() {
+  constructor(private router: Router) {
     this.question = {
       title: 'De quelle couleur est le cheval blanc de Henri IV?',
       answers: [
@@ -20,5 +21,9 @@ export class GameQuestionComponent {
       ],
       clues: [{ text: "C'est la couleur de la neige" }],
     };
+  }
+
+  public onClick(): void {
+    this.router.navigate(['/help-page']);
   }
 }

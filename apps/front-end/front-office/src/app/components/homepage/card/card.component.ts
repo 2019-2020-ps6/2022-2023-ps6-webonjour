@@ -21,7 +21,6 @@ export class CardComponent {
 
   constructor(private router: Router) {}
 
-
   onHover(hovered: boolean) {
     if (hovered) {
       this.card_selected = '-dark';
