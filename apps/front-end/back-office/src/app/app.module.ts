@@ -18,6 +18,8 @@ import { QuizCreateComponent } from './components/quiz-creation/quiz-create/quiz
 import { MatDialogModule } from '@angular/material/dialog';
 import { PatientListComponent } from './components/dashboard/patient/patient-list/patient-list.component';
 import { PatientEditGeneralComponent } from './components/dashboard/patient/patient-edit/patient-edit-general/patient-edit-general.component';
+import { NgOptimizedImage } from '@angular/common';
+import { PatientCreateComponent } from './components/dashboard/patient/patient-create/patient-create.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +30,7 @@ import { PatientEditGeneralComponent } from './components/dashboard/patient/pati
     QuizCreateComponent,
     PatientListComponent,
     PatientEditGeneralComponent,
+    PatientCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { PatientEditGeneralComponent } from './components/dashboard/patient/pati
     MatPaginatorModule,
     CdkAccordionModule,
     MatDialogModule,
+    NgOptimizedImage,
   ],
   providers: [
     // provider used to create fake backend
