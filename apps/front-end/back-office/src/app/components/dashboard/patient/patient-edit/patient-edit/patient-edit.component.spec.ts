@@ -13,6 +13,7 @@ describe('PatientEditComponent', () => {
         PatientEditComponent,
         PatientEditGeneralMockComponent,
         PatientFamilyMockComponent,
+        PatientEditQuizMockComponent,
       ],
     }).compileComponents();
 
@@ -37,3 +38,9 @@ export class PatientEditGeneralMockComponent {}
   template: '',
 })
 export class PatientFamilyMockComponent {}
+
+@Component({
+  selector: 'webonjour-patient-edit-quiz',
+  template: '',
+})
+export class PatientEditQuizMockComponent {}

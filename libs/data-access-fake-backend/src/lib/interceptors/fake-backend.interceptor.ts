@@ -99,9 +99,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function deleteQuizPatient() {
+      console.log('deleteQuizPatient');
       const split = url.split('/');
       const patientId = split[split.length - 3];
       const quizId = split[split.length - 1];
+
       patientQuizMocks[patientId] = patientQuizMocks[patientId] || [];
       patientQuizMocks[patientId].splice(
         patientQuizMocks[patientId].indexOf(quizId),
@@ -118,14 +120,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return ok();
       }
       return error('Patient not found');
-    }
-
-    function deletePatientQuiz() {
-      const split = url.split('/');
-      const patientId = split[split.length - 2];
-      const quizIds = patientQuizMocks[patientId] || [];
-      const quizzes = quizList.filter((x) => quizIds.includes(x.id));
-      return ok(quizzes);
     }
 
     function getPatientFamily() {
@@ -198,13 +192,20 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok();
     }
 
+    function getPatientQuiz() {
+      const split = url.split('/');
+      const patientId = split[split.length - 2];
+      console.log('patientId', patientId);
+      const quizIds = patientQuizMocks[patientId] || [];
+      const quizzes = quizList.filter((x) => quizIds.includes(x.id));
+      return ok(quizzes);
+    }
+
     function handleRoute() {
       if (url.endsWith('/login') && method === 'POST') {
         return login();
       } else if (url.endsWith('/refresh') && method === 'POST') {
         return refresh();
-      } else if (url.endsWith('/quiz') && method === 'GET') {
-        return getAllQuiz();
       }
       // quiz
       else if (url.match(/\/quiz\/\d+$/) && method === 'GET') {
@@ -237,7 +238,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       ) {
         return deleteQuizPatient();
       } else if (url.match(/\/patients\/\d+\/quiz$/) && method === 'GET') {
-        return deletePatientQuiz();
+        return getPatientQuiz();
       }
       // family members
       else if (url.match(/\/patients\/\d+\/family$/) && method === 'GET') {
@@ -266,6 +267,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         method === 'DELETE'
       ) {
         return deleteAccommodationPatient();
+      } else if (url.endsWith('/quiz') && method === 'GET') {
+        return getAllQuiz();
       } else {
         return next.handle(request);
       }

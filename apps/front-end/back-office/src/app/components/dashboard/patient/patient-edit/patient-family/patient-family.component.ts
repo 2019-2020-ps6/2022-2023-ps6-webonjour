@@ -38,7 +38,6 @@ export class PatientFamilyComponent implements AfterViewInit {
           familyList.data
         );
         this.dataSource.paginator = this.paginator;
-        console.log(familyList.data);
       });
   }
 

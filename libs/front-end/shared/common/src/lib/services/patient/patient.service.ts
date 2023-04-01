@@ -53,6 +53,25 @@ export class PatientService {
     );
   }
 
+  addPatientQuiz(
+    id: string,
+    quizId: string
+  ): Observable<RequestWrapper<Quiz.Quiz>> {
+    return this.http.post<RequestWrapper<Quiz.Quiz>>(
+      this.API_URL + '/patients/' + id + '/quiz/' + quizId,
+      { quizId }
+    );
+  }
+
+  deletePatientQuiz(
+    id: string,
+    quizId: string
+  ): Observable<RequestWrapper<Quiz.Quiz>> {
+    return this.http.delete<RequestWrapper<Quiz.Quiz>>(
+      this.API_URL + '/patients/' + id + '/quiz/' + quizId
+    );
+  }
+
   getPatientFamily(
     id: string
   ): Observable<RequestWrapper<Patient.FamilyMember[]>> {

@@ -22,6 +22,8 @@ import { NgOptimizedImage } from '@angular/common';
 import { PatientCreateComponent } from './components/dashboard/patient/patient-create/patient-create.component';
 import { PatientEditComponent } from './components/dashboard/patient/patient-edit/patient-edit/patient-edit.component';
 import { DashboardModule } from './components/dashboard/dashboard/dashboard.module';
+import { PatientEditQuizComponent } from './components/dashboard/patient/patient-edit/patient-edit-quiz/patient-edit-quiz.component';
+import { PatientEditQuizAddPopupComponent } from './components/dashboard/patient/patient-edit/patient-edit-quiz-add-popup/patient-edit-quiz-add-popup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +36,8 @@ import { DashboardModule } from './components/dashboard/dashboard/dashboard.modu
     PatientEditGeneralComponent,
     PatientCreateComponent,
     PatientEditComponent,
+    PatientEditQuizComponent,
+    PatientEditQuizAddPopupComponent,
   ],
   imports: [
     BrowserModule,

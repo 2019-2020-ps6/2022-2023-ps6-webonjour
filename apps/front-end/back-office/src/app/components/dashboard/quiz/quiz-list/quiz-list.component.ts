@@ -25,16 +25,11 @@ export class QuizListComponent implements AfterViewInit {
     this.quizService.getAll().subscribe((quizList) => {
       this.dataSource = new MatTableDataSource<Quiz.Quiz>(quizList.data);
       this.dataSource.paginator = this.paginator;
-      console.log(quizList.data);
     });
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-  }
-
-  goToQuiz(quiz: Quiz.Quiz) {
-    console.log(quiz);
   }
 
   onAddQuiz() {
