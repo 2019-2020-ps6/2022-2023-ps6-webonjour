@@ -8,7 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./game-answer.component.scss'],
 })
 export class GameAnswerComponent {
+  @Input() diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   @Input() answer: Quiz.Answer = { text: '', isCorrect: false };
+  @Input() img_enabled = false;
+  @Output() displayImageEvent = new EventEmitter<boolean>();
   @Output() show_modal_help = new EventEmitter<boolean>();
   hover = false;
   clicked = false;
@@ -25,6 +28,7 @@ export class GameAnswerComponent {
     if (this.answer.isCorrect) {
       this.router.navigate(['/result']);
     } else {
+      this.handleAnswerError();
       this.disabled = true;
       this.show_modal_help.emit(true);
     }
@@ -36,5 +40,17 @@ export class GameAnswerComponent {
     }
 
     this.hover = hover;
+  }
+
+  handleAnswerError() {
+    if (this.diseaseStage == Quiz.DiseaseStage.STAGE_3) {
+      this.disabled = true;
+    } else if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_4) {
+      this.displayImageEvent.emit(true);
+    }
+  }
+
+  setImageEnabled(enabled: boolean) {
+    this.img_enabled = enabled;
   }
 }

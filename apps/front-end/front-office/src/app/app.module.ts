@@ -6,7 +6,6 @@ import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 
-import { GamePageComponent } from './components/quiz-view/game-page/game-page.component';
 import { GameQuestionComponent } from './components/quiz-view/game-question/game-question.component';
 import { GameAnswerComponent } from './components/quiz-view/game-answer/game-answer.component';
 import { QuizItemComponent } from './components/quiz/quiz-item/quiz-item.component';
@@ -26,7 +25,6 @@ import { HelpPopupComponent } from './components/quiz-view/help-popup/help-popup
   declarations: [
     AppComponent,
     NxWelcomeComponent,
-    GamePageComponent,
     GameQuestionComponent,
     GameAnswerComponent,
     QuizItemComponent,

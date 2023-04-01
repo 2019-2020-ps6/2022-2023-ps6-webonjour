@@ -6,4 +6,5 @@
   [ngClass]="{ hovered: hover, selected: clicked, disabled: disabled }"
 >
   <p>{{ answer.text }}</p>
+  <img *ngIf="img_enabled" [src]="answer.image" />
 </div>

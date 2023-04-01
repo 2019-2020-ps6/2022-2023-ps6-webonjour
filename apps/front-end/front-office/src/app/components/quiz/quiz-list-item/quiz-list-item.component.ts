@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Quiz } from '@webonjour/util-interface';
 
 @Component({
@@ -7,9 +8,14 @@ import { Quiz } from '@webonjour/util-interface';
   styleUrls: ['./quiz-list-item.component.scss'],
 })
 export class QuizListItemComponent {
+  diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   listQuizzes: Quiz.Quiz[];
 
-  constructor() {
+  constructor(activeRoute: ActivatedRoute) {
+    activeRoute.params.subscribe((params) => {
+      this.diseaseStage = params['diseaseStage'];
+    });
+
     this.listQuizzes = [
       {
         id: '1',
