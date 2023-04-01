@@ -48,8 +48,6 @@ export class PatientService {
   }
 
   getPatientQuiz(id: string): Observable<RequestWrapper<Quiz.Quiz[]>> {
-    console.log('getPatientQuiz');
-    console.log(this.API_URL + '/patients/' + id + '/quiz');
     return this.http.get<RequestWrapper<Quiz.Quiz[]>>(
       this.API_URL + '/patients/' + id + '/quiz'
     );
