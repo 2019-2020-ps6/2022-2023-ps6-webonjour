@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class GameQuestionComponent {
   question: Quiz.Question;
+  show_help = false;
 
   constructor(private router: Router) {
     this.question = {
@@ -25,5 +26,13 @@ export class GameQuestionComponent {
 
   public onClick(): void {
     this.router.navigate(['/help-page']);
+  }
+
+  show_modal_help($show_modal: boolean) {
+    this.show_help = $show_modal;
+    const interval = setInterval(() => {
+      this.show_help = false;
+      clearInterval(interval);
+    }, 3000);
   }
 }

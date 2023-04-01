@@ -20,6 +20,7 @@ import { CardContainerComponent } from './components/homepage/card-container/car
 import { CardComponent } from './components/homepage/card/card.component';
 import { QuizResultsComponent } from './components/quiz-view/quiz-results/quiz-results.component';
 import { MessageComponent } from './components/quiz-view/message/message.component';
+import { HelpPopupComponent } from './components/quiz-view/help-popup/help-popup.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MessageComponent } from './components/quiz-view/message/message.compone
     CardComponent,
     QuizResultsComponent,
     MessageComponent,
+    HelpPopupComponent,
   ],
   imports: [
     BrowserModule,

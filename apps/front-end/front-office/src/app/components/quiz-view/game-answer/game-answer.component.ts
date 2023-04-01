@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class GameAnswerComponent {
   @Input() answer: Quiz.Answer = { text: '', isCorrect: false };
+  @Output() show_modal_help = new EventEmitter<boolean>();
   hover = false;
   clicked = false;
   disabled = false;
@@ -25,6 +26,7 @@ export class GameAnswerComponent {
       this.router.navigate(['/result']);
     } else {
       this.disabled = true;
+      this.show_modal_help.emit(true);
     }
   }
 
