@@ -26,6 +26,8 @@ import { PatientEditQuizComponent } from './components/dashboard/patient/patient
 import { PatientEditQuizAddPopupComponent } from './components/dashboard/patient/patient-edit/patient-edit-quiz-add-popup/patient-edit-quiz-add-popup.component';
 import { PatientEditAccommodationComponent } from './components/dashboard/patient/patient-edit/patient-edit-accommodation/patient-edit-accommodation.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PatientEditStatsComponent } from './components/dashboard/patient/patient-edit/patient-edit-stats/patient-edit-stats.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     PatientEditQuizComponent,
     PatientEditQuizAddPopupComponent,
     PatientEditAccommodationComponent,
+    PatientEditStatsComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NgOptimizedImage,
     DashboardModule,
     MatCheckboxModule,
+    NgApexchartsModule,
   ],
   providers: [
     // provider used to create fake backend

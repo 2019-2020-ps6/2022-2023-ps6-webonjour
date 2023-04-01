@@ -13,6 +13,7 @@ import { QuizEditionComponent } from '../../quiz-edition/quiz-edition.component'
 import { QuizListComponent } from '../quiz/quiz-list/quiz-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PatientFamilyComponent } from '../patient/patient-edit/patient-family/patient-family.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { PatientFamilyComponent } from '../patient/patient-edit/patient-family/p
     MatPaginatorModule,
     CdkOverlayOrigin,
     MatDialogModule,
+    NgApexchartsModule,
   ],
   bootstrap: [DashboardComponent],
   exports: [PatientFamilyComponent],
