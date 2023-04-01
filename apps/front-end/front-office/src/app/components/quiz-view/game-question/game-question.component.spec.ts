@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GameQuestionComponent } from './game-question.component';
 import { Component, Input } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('GameQuestionComponent', () => {
   let component: GameQuestionComponent;
@@ -11,6 +12,7 @@ describe('GameQuestionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [GameQuestionComponent, MockGameAnswerComponent],
+      imports: [RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(GameQuestionComponent);
