@@ -12,6 +12,7 @@ export class GameAnswerComponent {
   @Input() answer: Quiz.Answer = { text: '', isCorrect: false };
   @Input() img_enabled = false;
   @Output() displayImageEvent = new EventEmitter<boolean>();
+  @Output() show_modal_help = new EventEmitter<boolean>();
   hover = false;
   clicked = false;
   disabled = false;
@@ -28,6 +29,8 @@ export class GameAnswerComponent {
       this.router.navigate(['/result']);
     } else {
       this.handleAnswerError();
+      this.disabled = true;
+      this.show_modal_help.emit(true);
     }
   }
 

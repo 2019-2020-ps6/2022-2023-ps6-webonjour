@@ -10,13 +10,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class GameQuestionComponent {
   diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   question: Quiz.Question;
+  show_help = false;
   image_enabled = false;
 
   constructor(activatedRoute: ActivatedRoute, private router: Router) {
     activatedRoute.params.subscribe((params) => {
       this.diseaseStage = params['diseaseStage'];
     });
-
+  
     this.question = {
       title: 'De quelle couleur est le cheval blanc de Henri IV?',
       answers: [
@@ -55,5 +56,13 @@ export class GameQuestionComponent {
 
   onImageEnable(event: boolean) {
     this.image_enabled = event;
+  }
+
+  show_modal_help($show_modal: boolean) {
+    this.show_help = $show_modal;
+    const interval = setInterval(() => {
+      this.show_help = false;
+      clearInterval(interval);
+    }, 3000);
   }
 }

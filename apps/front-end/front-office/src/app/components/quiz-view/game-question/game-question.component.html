@@ -7,6 +7,7 @@
       [img_enabled]="image_enabled"
       [diseaseStage]="diseaseStage"
       (displayImageEvent)="onImageEnable($event)"
+      (show_modal_help)="show_modal_help($event)"
     ></webonjour-game-answer>
   </div>
   <div class="help-container">
@@ -22,4 +23,8 @@
       <p>Aide</p>
     </div>
   </div>
+  <webonjour-help-popup
+    [help_message]="question.clues[0].text || ''"
+    [show_help]="show_help"
+  ></webonjour-help-popup>
 </section>
