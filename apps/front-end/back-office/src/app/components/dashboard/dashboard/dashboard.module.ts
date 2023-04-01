@@ -33,5 +33,6 @@ import { PatientFamilyComponent } from '../patient/patient-edit/patient-family/p
     MatDialogModule,
   ],
   bootstrap: [DashboardComponent],
+  exports: [PatientFamilyComponent],
 })
 export class DashboardModule {}

@@ -20,6 +20,8 @@ import { PatientListComponent } from './components/dashboard/patient/patient-lis
 import { PatientEditGeneralComponent } from './components/dashboard/patient/patient-edit/patient-edit-general/patient-edit-general.component';
 import { NgOptimizedImage } from '@angular/common';
 import { PatientCreateComponent } from './components/dashboard/patient/patient-create/patient-create.component';
+import { PatientEditComponent } from './components/dashboard/patient/patient-edit/patient-edit/patient-edit.component';
+import { DashboardModule } from './components/dashboard/dashboard/dashboard.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +33,7 @@ import { PatientCreateComponent } from './components/dashboard/patient/patient-c
     PatientListComponent,
     PatientEditGeneralComponent,
     PatientCreateComponent,
+    PatientEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { PatientCreateComponent } from './components/dashboard/patient/patient-c
     CdkAccordionModule,
     MatDialogModule,
     NgOptimizedImage,
+    DashboardModule,
   ],
   providers: [
     // provider used to create fake backend
