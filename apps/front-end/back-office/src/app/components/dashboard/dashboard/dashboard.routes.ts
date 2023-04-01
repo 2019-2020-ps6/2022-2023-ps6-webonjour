@@ -19,12 +19,14 @@ export const dashboardRoutes: Route[] = [
       {
         path: 'quiz/:id',
         component: QuizEditionComponent,
-        title: 'Edition Quiz',
+        title: 'Édition de quiz',
         data: { navPath: 'quiz' },
       },
       {
         path: 'quiz/:id/:questionId',
         component: QuestionDetailComponent,
+        title: 'Édition de question',
+        data: { navPath: 'quiz' },
       },
       {
         path: 'patients',
