@@ -21,7 +21,9 @@ export class GameAnswerComponent {
     }
 
     this.clicked = true;
-    //add the route with this.router.navigate(['route']);
+    if (this.answer.isCorrect) {
+      this.router.navigate(['/result']);
+    }
   }
 
   onHover(hover: boolean) {
