@@ -112,8 +112,8 @@ export class PatientService {
     accommodationId: string
   ): Observable<RequestWrapper<Patient.Accommodation>> {
     return this.http.post<RequestWrapper<Patient.Accommodation>>(
-      this.API_URL + '/patients/' + id + '/accommodation/' + accommodationId,
-      null
+      this.API_URL + '/patients/' + id + '/accommodation',
+      { id: accommodationId }
     );
   }
 
@@ -123,6 +123,12 @@ export class PatientService {
   ): Observable<RequestWrapper<Patient.Accommodation>> {
     return this.http.delete<RequestWrapper<Patient.Accommodation>>(
       this.API_URL + '/patients/' + id + '/accommodation/' + accommodationId
+    );
+  }
+
+  getAllAccommodations(): Observable<RequestWrapper<Patient.Accommodation[]>> {
+    return this.http.get<RequestWrapper<Patient.Accommodation[]>>(
+      this.API_URL + '/accommodation'
     );
   }
 }

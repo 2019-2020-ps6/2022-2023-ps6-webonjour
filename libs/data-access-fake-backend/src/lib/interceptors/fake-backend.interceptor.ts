@@ -99,7 +99,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function deleteQuizPatient() {
-      console.log('deleteQuizPatient');
       const split = url.split('/');
       const patientId = split[split.length - 3];
       const quizId = split[split.length - 1];
@@ -157,7 +156,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok();
     }
 
-    function getAccommodation() {
+    function getPatientAccommodation() {
       const split = url.split('/');
       const patientId = split[split.length - 2];
       const accommodationIds = accommodationPatientMocks[patientId] || [];
@@ -171,8 +170,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       const split = url.split('/');
       const patientId = split[split.length - 2];
       const accommodation = body as Patient.Accommodation;
-      accommodation.id = accommodationMocks.length + 1 + '';
-      accommodationMocks.push(accommodation);
       accommodationPatientMocks[patientId] =
         accommodationPatientMocks[patientId] || [];
       accommodationPatientMocks[patientId].push(accommodation.id);
@@ -195,13 +192,17 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function getPatientQuiz() {
       const split = url.split('/');
       const patientId = split[split.length - 2];
-      console.log('patientId', patientId);
       const quizIds = patientQuizMocks[patientId] || [];
       const quizzes = quizList.filter((x) => quizIds.includes(x.id));
       return ok(quizzes);
     }
 
+    function getAllAccommodation() {
+      return ok(accommodationMocks);
+    }
+
     function handleRoute() {
+      console.log('handleRoute', url, method);
       if (url.endsWith('/login') && method === 'POST') {
         return login();
       } else if (url.endsWith('/refresh') && method === 'POST') {
@@ -217,11 +218,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
 
       // patient
-      else if (url.endsWith('/patients') && method === 'GET') {
-        return getAllPatient();
-      } else if (url.endsWith('/patients') && method === 'POST') {
-        return createPatient(body as Patient.Patient);
-      } else if (url.match(/\/patients\/\d+$/) && method === 'GET') {
+      else if (url.match(/\/patients\/\d+$/) && method === 'GET') {
         return getPatientDetail();
       } else if (url.match(/\/patients\/\d+$/) && method === 'PUT') {
         return updatePatient(body as Patient.Patient);
@@ -253,22 +250,30 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
       // patient accommodation
       else if (
-        url.match(/\/patients\/\d+\/accomodation$/) &&
-        method === 'GET'
-      ) {
-        return getAccommodation();
-      } else if (
-        url.match(/\/patients\/\d+\/accomodation$/) &&
+        url.match(/\/patients\/\d+\/accommodation$/) &&
         method === 'POST'
       ) {
         return addAccommodationPatient();
       } else if (
-        url.match(/\/patients\/\d+\/accomodation\/\d+$/) &&
+        url.match(/\/patients\/\d+\/accommodation$/) &&
+        method === 'GET'
+      ) {
+        return getPatientAccommodation();
+      } else if (
+        url.match(/\/patients\/\d+\/accommodation\/\d+$/) &&
         method === 'DELETE'
       ) {
         return deleteAccommodationPatient();
       } else if (url.endsWith('/quiz') && method === 'GET') {
         return getAllQuiz();
+      } else if (url.endsWith('/patients') && method === 'GET') {
+        return getAllPatient();
+      } else if (url.endsWith('/patients') && method === 'POST') {
+        return createPatient(body as Patient.Patient);
+      }
+      // get all accommodations
+      else if (url.endsWith('/accommodation') && method === 'GET') {
+        return getAllAccommodation();
       } else {
         return next.handle(request);
       }
