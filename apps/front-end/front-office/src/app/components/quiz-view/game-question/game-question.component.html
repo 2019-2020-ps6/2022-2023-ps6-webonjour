@@ -5,6 +5,7 @@
       *ngFor="let answer of question.answers"
       [answer]="answer"
       [img_enabled]="image_enabled"
+      [diseaseStage]="diseaseStage"
       (displayImageEvent)="onImageEnable($event)"
     ></webonjour-game-answer>
   </div>

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class QuizItemComponent {
   @Input() quiz!: Quiz.Quiz;
+  @Input() diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   hover = false;
 
   get quizTitle(): string {
@@ -35,6 +36,6 @@ export class QuizItemComponent {
   }
 
   onClick() {
-    this.router.navigate(['/quiz-answer']);
+    this.router.navigate([`/quiz-answer/${this.diseaseStage}`]);
   }
 }

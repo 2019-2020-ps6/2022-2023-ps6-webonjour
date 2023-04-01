@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'webonjour-game-question',
@@ -8,10 +8,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./game-question.component.scss'],
 })
 export class GameQuestionComponent {
+  diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   question: Quiz.Question;
   image_enabled = false;
 
-  constructor(private router: Router) {
+  constructor(activatedRoute: ActivatedRoute, private router: Router) {
+    activatedRoute.params.subscribe((params) => {
+      this.diseaseStage = params['diseaseStage'];
+    });
+
     this.question = {
       title: 'De quelle couleur est le cheval blanc de Henri IV?',
       answers: [
