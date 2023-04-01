@@ -9,15 +9,36 @@ import { Router } from '@angular/router';
 })
 export class GameQuestionComponent {
   question: Quiz.Question;
+  image_enabled = false;
 
   constructor(private router: Router) {
     this.question = {
       title: 'De quelle couleur est le cheval blanc de Henri IV?',
       answers: [
-        { text: 'Blanc', isCorrect: true },
-        { text: 'Noir', isCorrect: false },
-        { text: 'Rouge', isCorrect: false },
-        { text: 'Vert', isCorrect: false },
+        {
+          text: 'Blanc',
+          image:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Solid_white_bordered.svg/800px-Solid_white_bordered.svg.png',
+          isCorrect: true,
+        },
+        {
+          text: 'Noir',
+          image:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Solid_black.svg/2048px-Solid_black.svg.png',
+          isCorrect: false,
+        },
+        {
+          text: 'Rouge',
+          image:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Solid_red.svg/512px-Solid_red.svg.png',
+          isCorrect: false,
+        },
+        {
+          text: 'Vert',
+          image:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Solid_green.svg/2048px-Solid_green.svg.png',
+          isCorrect: false,
+        },
       ],
       clues: [{ text: "C'est la couleur de la neige" }],
     };
@@ -25,5 +46,9 @@ export class GameQuestionComponent {
 
   public onClick(): void {
     this.router.navigate(['/help-page']);
+  }
+
+  onImageEnable(event: boolean) {
+    this.image_enabled = event;
   }
 }

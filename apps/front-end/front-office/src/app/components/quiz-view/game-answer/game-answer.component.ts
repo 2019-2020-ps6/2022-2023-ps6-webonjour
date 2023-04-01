@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { Router } from '@angular/router';
+import { DiseaseStage } from 'libs/util-interface/src/lib/quiz';
 
 @Component({
   selector: 'webonjour-game-answer',
@@ -8,7 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./game-answer.component.scss'],
 })
 export class GameAnswerComponent {
+  @Input() stage: Quiz.DiseaseStage = DiseaseStage.STAGE_3;
   @Input() answer: Quiz.Answer = { text: '', isCorrect: false };
+  @Input() img_enabled = false;
+  @Output() displayImageEvent = new EventEmitter<boolean>();
   hover = false;
   clicked = false;
   disabled = false;
@@ -24,7 +28,7 @@ export class GameAnswerComponent {
     if (this.answer.isCorrect) {
       this.router.navigate(['/result']);
     } else {
-      this.disabled = true;
+      this.handleAnswerError();
     }
   }
 
@@ -34,5 +38,17 @@ export class GameAnswerComponent {
     }
 
     this.hover = hover;
+  }
+
+  handleAnswerError() {
+    if (this.stage == DiseaseStage.STAGE_3) {
+      this.disabled = true;
+    } else if (this.stage >= DiseaseStage.STAGE_4) {
+      this.displayImageEvent.emit(true);
+    }
+  }
+
+  setImageEnabled(enabled: boolean) {
+    this.img_enabled = enabled;
   }
 }

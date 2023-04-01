@@ -4,11 +4,23 @@
   margin: 15px;
   min-width: 500px;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
 }
 
 .button > p {
   font-size: 4rem;
   text-align: center;
+}
+
+.button > img {
+  width: 100%;
+  height: 100%;
+  max-width: 13vw;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 .hovered {
