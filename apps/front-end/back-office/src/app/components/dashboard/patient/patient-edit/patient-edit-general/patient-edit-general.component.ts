@@ -38,7 +38,6 @@ export class PatientEditGeneralComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.patientService.getPatient(params['id']).subscribe((patient) => {
         this.patient = patient.data;
-        console.log(this.patient);
         this.form.patchValue({
           first_name: this.patient.firstName,
           last_name: this.patient.lastName,
@@ -72,7 +71,6 @@ export class PatientEditGeneralComponent implements OnInit {
     if (this.patient.id === '') {
       this.patientService.createPatient(this.patient).subscribe((patient) => {
         this.patient = patient.data;
-        console.log(this.patient);
         this.form.patchValue({
           first_name: this.patient.firstName,
           last_name: this.patient.lastName,
@@ -86,7 +84,6 @@ export class PatientEditGeneralComponent implements OnInit {
     } else {
       this.patientService.updatePatient(this.patient).subscribe((patient) => {
         this.patient = patient.data;
-        console.log(this.patient);
         this.form.patchValue({
           first_name: this.patient.firstName,
           last_name: this.patient.lastName,

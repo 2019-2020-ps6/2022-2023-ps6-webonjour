@@ -48,8 +48,29 @@ export class PatientService {
   }
 
   getPatientQuiz(id: string): Observable<RequestWrapper<Quiz.Quiz[]>> {
+    console.log('getPatientQuiz');
+    console.log(this.API_URL + '/patients/' + id + '/quiz');
     return this.http.get<RequestWrapper<Quiz.Quiz[]>>(
       this.API_URL + '/patients/' + id + '/quiz'
+    );
+  }
+
+  addPatientQuiz(
+    id: string,
+    quizId: string
+  ): Observable<RequestWrapper<Quiz.Quiz>> {
+    return this.http.post<RequestWrapper<Quiz.Quiz>>(
+      this.API_URL + '/patients/' + id + '/quiz/' + quizId,
+      { quizId }
+    );
+  }
+
+  deletePatientQuiz(
+    id: string,
+    quizId: string
+  ): Observable<RequestWrapper<Quiz.Quiz>> {
+    return this.http.delete<RequestWrapper<Quiz.Quiz>>(
+      this.API_URL + '/patients/' + id + '/quiz/' + quizId
     );
   }
 
