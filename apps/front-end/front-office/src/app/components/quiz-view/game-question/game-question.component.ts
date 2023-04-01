@@ -17,7 +17,7 @@ export class GameQuestionComponent {
     activatedRoute.params.subscribe((params) => {
       this.diseaseStage = params['diseaseStage'];
     });
-  
+
     this.question = {
       title: 'De quelle couleur est le cheval blanc de Henri IV?',
       answers: [
