@@ -19,6 +19,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { CardContainerComponent } from './components/homepage/card-container/card-container.component';
 import { CardComponent } from './components/homepage/card/card.component';
 import { QuizResultsComponent } from './components/quiz-view/quiz-results/quiz-results.component';
+import { MessageComponent } from './components/quiz-view/message/message.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { QuizResultsComponent } from './components/quiz-view/quiz-results/quiz-r
     CardContainerComponent,
     CardComponent,
     QuizResultsComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

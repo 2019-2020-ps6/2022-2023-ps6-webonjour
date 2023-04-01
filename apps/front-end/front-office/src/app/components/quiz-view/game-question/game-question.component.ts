@@ -18,7 +18,7 @@ export class GameQuestionComponent {
         { text: 'Rouge', isCorrect: false },
         { text: 'Vert', isCorrect: false },
       ],
-      clues: [{ text: "C'est une couleur" }, { text: "C'est une couleur" }],
+      clues: [{ text: "C'est la couleur de la neige" }],
     };
   }
 }
