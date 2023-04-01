@@ -23,6 +23,8 @@ export class GameAnswerComponent {
     this.clicked = true;
     if (this.answer.isCorrect) {
       this.router.navigate(['/result']);
+    } else {
+      this.disabled = true;
     }
   }
 
