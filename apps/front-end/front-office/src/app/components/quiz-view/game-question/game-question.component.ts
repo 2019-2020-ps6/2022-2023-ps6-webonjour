@@ -28,8 +28,8 @@ export class GameQuestionComponent {
     this.router.navigate(['/help-page']);
   }
 
-  show_modal_help($event: boolean) {
-    this.show_help = $event.valueOf();
+  show_modal_help($show_modal: boolean) {
+    this.show_help = $show_modal;
     const interval = setInterval(() => {
       this.show_help = false;
       clearInterval(interval);
