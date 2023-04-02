@@ -29,8 +29,6 @@ export class GameAnswerComponent {
       this.router.navigate(['/result']);
     } else {
       this.handleAnswerError();
-      this.disabled = true;
-      this.show_modal_help.emit(true);
     }
   }
 
@@ -43,9 +41,15 @@ export class GameAnswerComponent {
   }
 
   handleAnswerError() {
-    if (this.diseaseStage == Quiz.DiseaseStage.STAGE_3) {
+    if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_3) {
       this.disabled = true;
-    } else if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_4) {
+    }
+
+    if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_4) {
+      this.show_modal_help.emit(true);
+    }
+
+    if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_5) {
       this.displayImageEvent.emit(true);
     }
   }

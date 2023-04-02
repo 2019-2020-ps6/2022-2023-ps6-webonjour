@@ -2,12 +2,15 @@
   padding: 30px;
   width: 15vw;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 
-.card-image {
+.card-img {
+  display: inline-block;
   width: 100%;
   border-radius: 50%;
   margin-bottom: 30px;
+  object-fit: contain;
 }
 
 .card-title {

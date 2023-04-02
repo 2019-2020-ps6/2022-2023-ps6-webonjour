@@ -22,6 +22,11 @@
   align-items: center;
 }
 
+img {
+  max-height: 20vh;
+  object-fit: contain;
+}
+
 .hint-title svg {
   height: 10rem;
   margin-left: 10px;

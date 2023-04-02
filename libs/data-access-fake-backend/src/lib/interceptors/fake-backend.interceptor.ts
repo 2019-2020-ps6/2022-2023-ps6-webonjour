@@ -321,7 +321,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             message: 'OK',
           },
         })
-      ).pipe(delay(500)); // delay observable to simulate server api call
+      ).pipe(delay(200)); // delay observable to simulate server api call
     }
 
     function error(message: string) {

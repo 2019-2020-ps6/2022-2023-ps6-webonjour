@@ -23,7 +23,7 @@ export const appRoutes: Route[] = [
     component: QuizResultsComponent,
   },
   {
-    path: 'help-page',
+    path: 'help-page/:diseaseStage',
     component: HelpPageComponent,
   },
 ];

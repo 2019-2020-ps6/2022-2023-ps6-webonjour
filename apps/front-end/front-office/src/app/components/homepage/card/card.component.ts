@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Quiz } from '@webonjour/util-interface';
+import { Patient } from '@webonjour/util-interface';
+import { patientMocks } from '@webonjour/data-access-fake-backend';
 
 enum CardColor {
   primary = 'primary',
@@ -15,11 +16,9 @@ enum CardColor {
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
+  @Input() patient: Patient.Patient = patientMocks.patientMocks[0];
   @Input() card_color = CardColor.dark;
-  @Input() stage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   card_selected = '';
-
-  @Input() card_title = 'Card Title';
 
   constructor(private router: Router) {}
 
@@ -32,6 +31,6 @@ export class CardComponent {
   }
 
   onClick() {
-    this.router.navigate([`/list-quiz/${this.stage}`]);
+    this.router.navigate([`/list-quiz/${this.patient.diseaseStage.valueOf()}`]);
   }
 }
