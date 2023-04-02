@@ -12,6 +12,8 @@ import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { QuizEditionComponent } from '../../quiz-edition/quiz-edition.component';
 import { QuizListComponent } from '../quiz/quiz-list/quiz-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PatientFamilyComponent } from '../patient/patient-edit/patient-family/patient-family.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     DashboardHeaderComponent,
     QuizEditionComponent,
     QuizListComponent,
+    PatientFamilyComponent,
   ],
   imports: [
     CommonModule,
@@ -29,7 +32,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatPaginatorModule,
     CdkOverlayOrigin,
     MatDialogModule,
+    NgApexchartsModule,
   ],
   bootstrap: [DashboardComponent],
+  exports: [PatientFamilyComponent],
 })
 export class DashboardModule {}

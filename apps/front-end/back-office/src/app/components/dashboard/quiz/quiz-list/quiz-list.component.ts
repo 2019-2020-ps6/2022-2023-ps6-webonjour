@@ -31,16 +31,12 @@ export class QuizListComponent implements AfterViewInit {
   refresh() {
     this.quizService.getAll().subscribe((quizList) => {
       this.dataSource = new MatTableDataSource<Quiz.Quiz>(quizList.data);
-      console.log(quizList.data);
+      this.dataSource.paginator = this.paginator;
     });
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-  }
-
-  goToQuiz(quiz: Quiz.Quiz) {
-    console.log(quiz);
   }
 
   onAddQuiz() {

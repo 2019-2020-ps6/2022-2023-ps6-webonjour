@@ -1,8 +1,10 @@
 import { Route } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { QuizListComponent } from '../quiz/quiz-list/quiz-list.component';
-import { LoginComponent } from '../../auth/login/login.component';
 import { QuizEditionComponent } from '../../quiz-edition/quiz-edition.component';
+import { PatientListComponent } from '../patient/patient-list/patient-list.component';
+import { PatientEditGeneralComponent } from '../patient/patient-edit/patient-edit-general/patient-edit-general.component';
+import { PatientEditComponent } from '../patient/patient-edit/patient-edit/patient-edit.component';
 import { QuestionDetailComponent } from '../../quiz-creation/question-detail/question-detail.component';
 
 export const dashboardRoutes: Route[] = [
@@ -28,7 +30,13 @@ export const dashboardRoutes: Route[] = [
       },
       {
         path: 'patients',
-        component: LoginComponent,
+        component: PatientListComponent,
+        title: 'Patients',
+        data: { navPath: 'patients' },
+      },
+      {
+        path: 'patients/:id',
+        component: PatientEditComponent,
         title: 'Patients',
         data: { navPath: 'patients' },
       },

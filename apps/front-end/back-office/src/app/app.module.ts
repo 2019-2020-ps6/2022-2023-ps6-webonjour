@@ -16,6 +16,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { QuizCreateComponent } from './components/quiz-creation/quiz-create/quiz-create.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PatientListComponent } from './components/dashboard/patient/patient-list/patient-list.component';
+import { PatientEditGeneralComponent } from './components/dashboard/patient/patient-edit/patient-edit-general/patient-edit-general.component';
+import { NgOptimizedImage } from '@angular/common';
+import { PatientCreateComponent } from './components/dashboard/patient/patient-create/patient-create.component';
+import { PatientEditComponent } from './components/dashboard/patient/patient-edit/patient-edit/patient-edit.component';
+import { DashboardModule } from './components/dashboard/dashboard/dashboard.module';
+import { PatientEditQuizComponent } from './components/dashboard/patient/patient-edit/patient-edit-quiz/patient-edit-quiz.component';
+import { PatientEditQuizAddPopupComponent } from './components/dashboard/patient/patient-edit/patient-edit-quiz-add-popup/patient-edit-quiz-add-popup.component';
+import { PatientEditAccommodationComponent } from './components/dashboard/patient/patient-edit/patient-edit-accommodation/patient-edit-accommodation.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PatientEditStatsComponent } from './components/dashboard/patient/patient-edit/patient-edit-stats/patient-edit-stats.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 import { QuestionDetailComponent } from './components/quiz-creation/question-detail/question-detail.component';
 import { QuestionDetailMainComponent } from './components/quiz-creation/question-detail-main/question-detail-main.component';
 import { QuestionDetailAnswersComponent } from './components/quiz-creation/question-detail-answers/question-detail-answers.component';
@@ -31,6 +43,14 @@ import { QuestionDetailAnswerComponent } from './components/quiz-creation/questi
     LoginFormComponent,
     AlertComponent,
     QuizCreateComponent,
+    PatientListComponent,
+    PatientEditGeneralComponent,
+    PatientCreateComponent,
+    PatientEditComponent,
+    PatientEditQuizComponent,
+    PatientEditQuizAddPopupComponent,
+    PatientEditAccommodationComponent,
+    PatientEditStatsComponent,
     QuestionDetailComponent,
     QuestionDetailMainComponent,
     QuestionDetailAnswersComponent,
@@ -50,6 +70,10 @@ import { QuestionDetailAnswerComponent } from './components/quiz-creation/questi
     MatPaginatorModule,
     CdkAccordionModule,
     MatDialogModule,
+    NgOptimizedImage,
+    DashboardModule,
+    MatCheckboxModule,
+    NgApexchartsModule,
   ],
   providers: [
     // provider used to create fake backend
