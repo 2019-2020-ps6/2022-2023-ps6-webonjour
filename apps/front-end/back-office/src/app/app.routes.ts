@@ -14,4 +14,10 @@ export const appRoutes: Route[] = [
         (m) => m.DashboardModule
       ),
   },
+
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
 ];

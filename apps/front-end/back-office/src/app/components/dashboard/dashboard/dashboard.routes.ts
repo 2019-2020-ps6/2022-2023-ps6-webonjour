@@ -3,13 +3,12 @@ import { DashboardComponent } from './dashboard.component';
 import { QuizListComponent } from '../quiz/quiz-list/quiz-list.component';
 import { QuizEditionComponent } from '../../quiz-edition/quiz-edition.component';
 import { PatientListComponent } from '../patient/patient-list/patient-list.component';
-import { PatientEditGeneralComponent } from '../patient/patient-edit/patient-edit-general/patient-edit-general.component';
 import { PatientEditComponent } from '../patient/patient-edit/patient-edit/patient-edit.component';
 import { QuestionDetailComponent } from '../../quiz-creation/question-detail/question-detail.component';
 
 export const dashboardRoutes: Route[] = [
   {
-    path: '',
+    path: 'dashboard',
     component: DashboardComponent,
     children: [
       {
@@ -41,6 +40,11 @@ export const dashboardRoutes: Route[] = [
         component: PatientEditComponent,
         title: 'Patients',
         data: { navPath: 'patients' },
+      },
+      {
+        path: '',
+        redirectTo: 'quiz',
+        pathMatch: 'full',
       },
     ],
   },
