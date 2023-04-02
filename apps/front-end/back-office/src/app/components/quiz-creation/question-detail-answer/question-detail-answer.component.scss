@@ -1,0 +1,49 @@
+$border-color: #eeeff4;
+$light-gray: #f8fafc;
+$blue: #1876d0;
+$hover: #1462aa;
+
+.card {
+  border: none;
+  border-bottom: 3px solid $border-color;
+  border-radius: 0;
+}
+
+input {
+  background-color: $light-gray;
+  border: none;
+  border-radius: 0.1em;
+}
+
+input[type='file'] {
+  display: none;
+}
+
+.custom-file-upload {
+  background-color: $blue;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-left: 1em;
+  border-radius: 0.5em;
+  color: white;
+  box-shadow: 0 0 10px #ccc;
+  border: 1px solid #ccc;
+}
+
+.custom-file-upload::before {
+  content: '⇧ ';
+  color: white;
+  // font-weight: bold;
+}
+
+.custom-file-upload:hover {
+  background-color: $hover;
+}
+
+img {
+  width: 18.75em;
+  height: auto;
+  margin: 1em;
+  border-radius: 0.5em;
+}

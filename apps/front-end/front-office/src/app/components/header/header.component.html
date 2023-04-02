@@ -1,0 +1,12 @@
+<header class="header-title">
+  <h1 class="title" [routerLink]="['/']">🖐WeBonjour</h1>
+  <a
+    class="btn"
+    href="/dashboard"
+    (mouseenter)="onHover(true)"
+    (mouseleave)="onHover(false)"
+    [ngClass]="{ hovered: hover }"
+  >
+    Espace Soignant
+  </a>
+</header>

@@ -1,0 +1,18 @@
+<div
+  (mouseenter)="onHover(true)"
+  (mouseleave)="onHover(false)"
+  (click)="onClick()"
+  class="card {{ card_color }}{{ card_selected }}"
+>
+  <div>
+    <img
+      class="card-img"
+      [src]="patient.profilePictureUrl"
+      [ngClass]="{ img_dark: card_color === 'dark' }"
+      alt="Card image cap"
+    />
+    <h1 class="card-title" [ngClass]="{ text_light: card_color === 'dark' }">
+      {{ patient.firstName }}
+    </h1>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div
+  class="modal_container"
+  [ngClass]="{ hidden: !show_help }"
+  (click)="show_help = false"
+>
+  <div class="modal">
+    <h2 *ngIf="randomClue.text">{{ randomClue.text }}</h2>
+    <img *ngIf="randomClue.image" [src]="randomClue.image" />
+  </div>
+</div>
