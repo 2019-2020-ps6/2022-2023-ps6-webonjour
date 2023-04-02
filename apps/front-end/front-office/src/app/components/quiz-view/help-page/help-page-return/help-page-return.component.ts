@@ -8,9 +8,5 @@ import { Quiz } from '@webonjour/util-interface';
   styleUrls: ['./help-page-return.component.scss'],
 })
 export class HelpPageReturnComponent {
-  @Input() stade: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
-  constructor(private router: Router) {}
-  onClick() {
-    this.router.navigate(['/quiz-answer']);
-  }
+  @Input() diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
 }

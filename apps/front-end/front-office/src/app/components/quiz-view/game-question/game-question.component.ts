@@ -14,16 +14,12 @@ export class GameQuestionComponent {
   show_help = false;
   image_enabled = false;
 
-  constructor(activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(activatedRoute: ActivatedRoute) {
     activatedRoute.params.subscribe((params) => {
       this.diseaseStage = params['diseaseStage'];
     });
 
     this.question = quizMocks.quizList[0].questions[0];
-  }
-
-  public onClick(): void {
-    this.router.navigate(['/help-page']);
   }
 
   onImageEnable(event: boolean) {
