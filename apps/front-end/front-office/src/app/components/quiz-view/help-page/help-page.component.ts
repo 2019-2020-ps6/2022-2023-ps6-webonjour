@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Quiz } from '@webonjour/util-interface';
+import { quizMocks } from '@webonjour/data-access-fake-backend';
 
 @Component({
   selector: 'webonjour-help-page',
@@ -6,6 +8,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./help-page.component.scss'],
 })
 export class HelpPageComponent {
-  @Input() clue =
-    "Cette couleur ne fait pas partie de l'arc-en-ciel mais en est la combinaison.";
+  @Input() question: Quiz.Question = quizMocks.quizList[0].questions[0];
+  @Input() stade: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
 }

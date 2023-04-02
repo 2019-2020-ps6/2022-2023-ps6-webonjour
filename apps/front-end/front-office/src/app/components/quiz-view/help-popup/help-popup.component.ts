@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-help-popup',
@@ -6,6 +7,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./help-popup.component.scss'],
 })
 export class HelpPopupComponent {
-  @Input() help_message = 'This is a help message';
+  @Input() question!: Quiz.Question;
   @Input() show_help = false;
+  protected readonly Math = Math;
 }

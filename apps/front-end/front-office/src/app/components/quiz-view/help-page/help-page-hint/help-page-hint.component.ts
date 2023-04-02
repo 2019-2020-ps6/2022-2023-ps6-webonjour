@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-help-page-hint',
@@ -6,5 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./help-page-hint.component.scss'],
 })
 export class HelpPageHintComponent {
-  @Input() clue!: string;
+  @Input() question!: Quiz.Question;
+  protected readonly Math = Math;
 }
