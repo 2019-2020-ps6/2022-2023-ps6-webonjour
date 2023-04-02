@@ -1,17 +1,13 @@
-import {
-  AfterViewInit,
-  Component,
-  Inject,
-  Input,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { QuizService } from '../../../../../services/dashboard/quiz/quiz.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute } from '@angular/router';
-import { PatientService } from '@webonjour/front-end/shared/common';
+import {
+  PatientService,
+  QuizService,
+} from '@webonjour/front-end/shared/common';
 @Component({
   selector: 'webonjour-patient-edit-quiz-add-popup',
   templateUrl: './patient-edit-quiz-add-popup.component.html',
