@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { QuizService } from '../../../../services/dashboard/quiz/quiz.service';
 import { Quiz } from '@webonjour/util-interface';
 import { QuizCreateComponent } from '../../../quiz-creation/quiz-create/quiz-create.component';
+import { mergeMap } from 'rxjs';
 
 @Component({
   selector: 'webonjour-quiz-list',
@@ -12,7 +13,13 @@ import { QuizCreateComponent } from '../../../quiz-creation/quiz-create/quiz-cre
   styleUrls: ['./quiz-list.component.scss'],
 })
 export class QuizListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['Nom du Quiz', 'Nombre de questions', 'stage'];
+  displayedColumns: string[] = [
+    'Nom du Quiz',
+    'Nombre de questions',
+    'stage',
+    'edit',
+    'delete',
+  ];
   dataSource = new MatTableDataSource<Quiz.Quiz>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -33,13 +40,22 @@ export class QuizListComponent implements AfterViewInit {
   }
 
   onAddQuiz() {
-    const dialogRef = this.dialog.open(QuizCreateComponent);
+    const dialogRef = this.dialog.open(QuizCreateComponent, {
+      disableClose: true,
+    });
+    dialogRef.componentInstance.id = (
+      this.dataSource.data.length + 1
+    ).toString();
 
-    dialogRef.afterClosed().subscribe((result) => {
-      const quiz = result.form;
-      this.quizService.create(quiz).subscribe(() => {
-        this.refresh();
-      });
+    dialogRef
+      .afterClosed()
+      .pipe(mergeMap((quiz) => this.quizService.create(quiz)))
+      .subscribe(() => this.refresh());
+  }
+
+  onDeleteQuiz(id: string) {
+    this.quizService.delete(id).subscribe(() => {
+      this.refresh();
     });
   }
 }

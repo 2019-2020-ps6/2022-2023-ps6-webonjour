@@ -201,6 +201,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok(accommodationMocks);
     }
 
+    function deleteQuiz(id: string) {
+      const index = quizList.findIndex((x) => x.id === id);
+      quizList.splice(index, 1);
+      return ok();
+    }
+
     function handleRoute() {
       console.log('handleRoute', url, method);
       if (url.endsWith('/login') && method === 'POST') {
@@ -210,7 +216,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
       // quiz
       else if (url.match(/\/quiz\/\d+$/) && method === 'GET') {
-        return getQuizDetail();
+        const id = url.split('/').pop();
+        const quiz = quizList.find((x) => x.id === id);
+        return ok(quiz);
+      } else if (url.match(/\/quiz\/\d+$/) && method === 'DELETE') {
+        const id = url.split('/').pop();
+        return deleteQuiz(id as string);
       } else if (url.match(/\/quiz\/\d+\/question$/) && method === 'POST') {
         return addQuestionToQuiz();
       } else if (url.endsWith('/quiz') && method === 'POST') {
