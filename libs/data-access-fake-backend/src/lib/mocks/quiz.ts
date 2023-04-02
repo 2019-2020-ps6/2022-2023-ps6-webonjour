@@ -192,4 +192,104 @@ export const quizList: Quiz.Quiz[] = [
       },
     ],
   },
+  {
+    id: '3',
+    title: 'Quiz autobiographique de Marcelino',
+    imageUrl:
+      'https://cdn4.iconfinder.com/data/icons/user-people-2/48/6-512.png',
+    stage: Quiz.DiseaseStage.STAGE_4,
+    questions: [
+      {
+        title: 'Quel est le nom de mon premier chien ?',
+        answers: [
+          {
+            text: 'Rex',
+            isCorrect: true,
+          },
+          {
+            text: 'Ramses',
+            isCorrect: false,
+          },
+          {
+            text: 'Rudolph',
+            isCorrect: false,
+          },
+        ],
+        clues: [
+          {
+            text: 'Ca commence par R',
+          },
+        ],
+      },
+      {
+        title: 'Quel est le prénom de votre fille ?',
+        answers: [
+          {
+            text: 'Marcela',
+            isCorrect: true,
+          },
+          {
+            text: 'Marion',
+            isCorrect: false,
+          },
+          {
+            text: 'Maurice',
+            isCorrect: false,
+          },
+        ],
+        clues: [
+          {
+            text: 'Ca commence par M',
+          },
+        ],
+      },
+      {
+        title: 'Quelle était la couleur de votre première voiture ?',
+        answers: [
+          {
+            text: 'Rouge',
+            isCorrect: true,
+          },
+          {
+            text: 'Verte',
+            isCorrect: false,
+          },
+          {
+            text: 'Bleue',
+            isCorrect: false,
+          },
+        ],
+        clues: [
+          {
+            text: 'Ca commence par R',
+          },
+        ],
+      },
+      {
+        title: 'A quoi ressemble votre maison ?',
+        answers: [
+          {
+            image:
+              'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.xR4aEMBVqQ58YhNZsu2w3wHaEu%26pid%3DApi&f=1&ipt=f6eb3ce7363d3a0f4567593fbfbeda97cb2d4416efd1e5f599ca78e0dc067d02&ipo=images',
+            isCorrect: true,
+          },
+          {
+            image:
+              'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.xcZZ6O4BH2xaGmA55md6dAHaHa%26pid%3DApi&f=1&ipt=12cd54c9f28ed22500d71a4a41f0c58d1282e9d3bb7e740fa67d19abdf1f03cf&ipo=images',
+            isCorrect: false,
+          },
+          {
+            image:
+              'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.hNnTtcmM9AZ8dgRs0zksNwHaHe%26pid%3DApi&f=1&ipt=b6b100038c7fa259cbf0f7eb48c9362eb3686cb4839d926f16845d8ff133d490&ipo=images',
+            isCorrect: false,
+          },
+        ],
+        clues: [
+          {
+            text: 'Ca commence par R',
+          },
+        ],
+      },
+    ],
+  },
 ];

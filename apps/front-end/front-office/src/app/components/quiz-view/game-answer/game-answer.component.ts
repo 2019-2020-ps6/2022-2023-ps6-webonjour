@@ -69,5 +69,8 @@ export class GameAnswerComponent implements OnInit {
 
   ngOnInit() {
     this.diseaseStage = this.gameService.patient.diseaseStage;
+    if (!this.answer.text) {
+      this.displayImageEvent.emit(true);
+    }
   }
 }
