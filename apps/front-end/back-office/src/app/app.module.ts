@@ -28,6 +28,7 @@ import { PatientEditAccommodationComponent } from './components/dashboard/patien
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PatientEditStatsComponent } from './components/dashboard/patient/patient-edit/patient-edit-stats/patient-edit-stats.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { PatientFamilyAddPopupComponent } from './components/dashboard/patient/patient-edit/patient-family-add-popup/patient-family-add-popup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     PatientEditQuizAddPopupComponent,
     PatientEditAccommodationComponent,
     PatientEditStatsComponent,
+    PatientFamilyAddPopupComponent,
   ],
   imports: [
     BrowserModule,

@@ -201,6 +201,20 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok(accommodationMocks);
     }
 
+    function updatePatientFamily() {
+      const split = url.split('/');
+      const familyMemberId = split[split.length - 1];
+      const familyMember = familyMemberMocks.find(
+        (x) => x.id === familyMemberId
+      ) as Patient.FamilyMember;
+      if (familyMember) {
+        familyMemberMocks[familyMemberMocks.indexOf(familyMember)] =
+          body as Patient.FamilyMember;
+        return ok(familyMemberMocks.find((x) => x.id === familyMemberId));
+      }
+      return error('Family member not found');
+    }
+
     function handleRoute() {
       console.log('handleRoute', url, method);
       if (url.endsWith('/login') && method === 'POST') {
@@ -242,6 +256,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return getPatientFamily();
       } else if (url.match(/\/patients\/\d+\/family$/) && method === 'POST') {
         return addPatientFamily();
+      } else if (
+        url.match(/\/patients\/\d+\/family\/\d+$/) &&
+        method === 'PUT'
+      ) {
+        return updatePatientFamily();
       } else if (
         url.match(/\/patients\/\d+\/family\/\d+$/) &&
         method === 'DELETE'
@@ -310,7 +329,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             message: 'OK',
           },
         })
-      ).pipe(delay(500)); // delay observable to simulate server api call
+      ).pipe(delay(10)); // delay observable to simulate server api call
     }
 
     function error(message: string) {
@@ -322,7 +341,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             message: message,
           },
         });
-      }).pipe(materialize(), delay(500), dematerialize()); // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648);
+      }).pipe(materialize(), delay(10), dematerialize()); // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648);
     }
   }
 }
