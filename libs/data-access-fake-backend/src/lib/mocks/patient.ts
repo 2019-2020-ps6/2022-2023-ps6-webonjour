@@ -62,6 +62,8 @@ export const familyMemberMocks: Patient.FamilyMember[] = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.',
     relation: 'Son',
     patientId: '1',
+    email: 'example@gamil.com',
+    phone: '1234567890',
   },
   {
     id: '2',
@@ -73,6 +75,8 @@ export const familyMemberMocks: Patient.FamilyMember[] = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.',
     relation: 'Daughter',
     patientId: '1',
+    email: 'xasqwe@gmail.com',
+    phone: '1234567890',
   },
   {
     id: '3',
@@ -84,6 +88,8 @@ export const familyMemberMocks: Patient.FamilyMember[] = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.',
     relation: 'Son',
     patientId: '2',
+    email: 'xasqwe@gmail.com',
+    phone: '1234567890',
   },
   {
     id: '4',
@@ -95,6 +101,8 @@ export const familyMemberMocks: Patient.FamilyMember[] = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.',
     relation: 'Daughter',
     patientId: '2',
+    email: 'xasqwe@gmail.com',
+    phone: '1234567890',
   },
 ];
 

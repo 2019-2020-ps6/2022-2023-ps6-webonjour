@@ -35,6 +35,7 @@ import { QuestionDetailCluesComponent } from './components/quiz-creation/questio
 import { QuestionDetailClueComponent } from './components/quiz-creation/question-detail-clue/question-detail-clue.component';
 import { QuestionDetailAnswerComponent } from './components/quiz-creation/question-detail-answer/question-detail-answer.component';
 
+import { PatientFamilyAddPopupComponent } from './components/dashboard/patient/patient-edit/patient-family-add-popup/patient-family-add-popup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,7 @@ import { QuestionDetailAnswerComponent } from './components/quiz-creation/questi
     QuestionDetailCluesComponent,
     QuestionDetailClueComponent,
     QuestionDetailAnswerComponent,
+    PatientFamilyAddPopupComponent,
   ],
   imports: [
     BrowserModule,

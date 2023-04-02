@@ -1,6 +1,6 @@
 <div class="card container">
-  <div class="card-body row">
-    <div class="col-2">
+  <div class="card-body row d-flex align-items-center">
+    <div class="col">
       <select class="form-control">
         <option value="stage_3">Stade 3</option>
         <option value="stage_4">Stade 4</option>
@@ -8,7 +8,7 @@
         <option value="stage_6">Stade 6</option>
       </select>
     </div>
-    <div class="col-5">
+    <div class="col">
       <input
         type="text"
         class="form-control"
@@ -16,21 +16,32 @@
         [(ngModel)]="clue.text"
       />
     </div>
-    <div class="col-5">
+    <div class="col d-flex align-items-start parentImage">
       <img
-        *ngIf
-        clue.image
-        [src]=""
-        class="img-fluid"
+        *ngIf="clue.image"
+        [src]="clue.image"
+        class="img-fluid children"
         alt="Image de l'indice"
       />
+      <button
+        *ngIf="clue.image"
+        id="delete-question-button"
+        class="children"
+        (click)="deleteImage()"
+      >
+        -
+      </button>
       <input
         *ngIf="!clue.image"
         type="file"
         accept="image/*"
         class="form-control"
-        id="exampleFormControlFile1"
+        id="imageClue"
+        (change)="onFileSelected($event)"
       />
+      <label *ngIf="!clue.image" for="imageClue" class="custom-file-upload"
+        >Upload</label
+      >
     </div>
   </div>
 </div>

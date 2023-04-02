@@ -131,4 +131,11 @@ export class PatientService {
       this.API_URL + '/accommodation'
     );
   }
+
+  updateFamilyPatient(patientId: string, familyMember: Patient.FamilyMember) {
+    return this.http.put<RequestWrapper<Patient.FamilyMember>>(
+      this.API_URL + '/patients/' + patientId + '/family/' + familyMember.id,
+      familyMember
+    );
+  }
 }

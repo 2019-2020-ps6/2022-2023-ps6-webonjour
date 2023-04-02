@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Quiz } from '@webonjour/util-interface';
-import { QuizService } from '../../../services/dashboard/quiz/quiz.service';
+import { QuizService } from '@webonjour/front-end/shared/common';
 
 @Component({
   selector: 'webonjour-question-detail',

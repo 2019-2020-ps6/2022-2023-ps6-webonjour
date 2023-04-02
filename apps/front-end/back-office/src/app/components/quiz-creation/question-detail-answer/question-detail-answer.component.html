@@ -1,6 +1,6 @@
 <div class="card container">
   <div class="card-body row">
-    <div class="col-6">
+    <div class="col-6 d-flex align-items-center">
       <input
         type="text"
         class="form-control"
@@ -10,9 +10,8 @@
     </div>
     <div class="col-6">
       <img
-        *ngIf
-        answer.image
-        [src]=""
+        *ngIf="answer.image"
+        [src]="answer.image"
         class="img-fluid"
         alt="Image de la réponse"
       />
@@ -21,8 +20,12 @@
         type="file"
         accept="image/*"
         class="form-control"
-        id="exampleFormControlFile1"
+        id="imageAnswer"
+        (change)="onFileSelected($event)"
       />
+      <label *ngIf="!answer.image" for="imageAnswer" class="custom-file-upload"
+        >Upload</label
+      >
     </div>
   </div>
 </div>
