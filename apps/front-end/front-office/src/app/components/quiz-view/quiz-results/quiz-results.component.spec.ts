@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuizResultsComponent } from './quiz-results.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('QuizResultsComponent', () => {
   let component: QuizResultsComponent;
@@ -9,6 +10,7 @@ describe('QuizResultsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuizResultsComponent],
+      imports: [HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(QuizResultsComponent);

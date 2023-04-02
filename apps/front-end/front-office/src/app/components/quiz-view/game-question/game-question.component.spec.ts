@@ -4,6 +4,7 @@ import { GameQuestionComponent } from './game-question.component';
 import { Component, Input } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('GameQuestionComponent', () => {
   let component: GameQuestionComponent;
@@ -12,7 +13,7 @@ describe('GameQuestionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [GameQuestionComponent, MockGameAnswerComponent],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(GameQuestionComponent);

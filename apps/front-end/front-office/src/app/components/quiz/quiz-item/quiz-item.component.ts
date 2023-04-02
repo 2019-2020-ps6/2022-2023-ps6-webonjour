@@ -9,7 +9,13 @@ import { GameService } from '@webonjour/front-end/shared/common';
   styleUrls: ['./quiz-item.component.scss'],
 })
 export class QuizItemComponent {
-  @Input() quiz!: Quiz.Quiz;
+  @Input() quiz: Quiz.Quiz = {
+    id: '',
+    title: '',
+    imageUrl: '',
+    stage: Quiz.DiseaseStage.STAGE_1,
+    questions: [],
+  };
   @Input() diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   hover = false;
 
