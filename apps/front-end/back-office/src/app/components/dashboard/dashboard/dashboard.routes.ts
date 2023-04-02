@@ -5,6 +5,7 @@ import { QuizEditionComponent } from '../../quiz-edition/quiz-edition.component'
 import { PatientListComponent } from '../patient/patient-list/patient-list.component';
 import { PatientEditGeneralComponent } from '../patient/patient-edit/patient-edit-general/patient-edit-general.component';
 import { PatientEditComponent } from '../patient/patient-edit/patient-edit/patient-edit.component';
+import { QuestionDetailComponent } from '../../quiz-creation/question-detail/question-detail.component';
 
 export const dashboardRoutes: Route[] = [
   {
@@ -22,6 +23,10 @@ export const dashboardRoutes: Route[] = [
         component: QuizEditionComponent,
         title: 'Edition Quiz',
         data: { navPath: 'quiz' },
+      },
+      {
+        path: 'quiz/:id/:questionId',
+        component: QuestionDetailComponent,
       },
       {
         path: 'patients',

@@ -18,7 +18,12 @@
               class="d-flex justify-content-end"
               style="height: 100%; width: 100%"
             >
-              <a href="#" class="btn btn-primary">Éditer</a>
+              <button
+                class="btn btn-primary"
+                [routerLink]="[quiz.questions.indexOf(element)]"
+              >
+                Éditer
+              </button>
             </div>
           </td>
         </ng-container>

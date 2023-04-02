@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -24,9 +24,7 @@ export function validateStage(): ValidatorFn {
 })
 export class QuizCreateComponent {
   form!: FormGroup;
-  loading = false;
-  submitted = false;
-  quiz?: Quiz.Quiz;
+  @Input() id!: string;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -42,13 +40,15 @@ export class QuizCreateComponent {
     return this.form.controls;
   }
 
-  onSubmit() {
-    this.quiz = {
+  getQuiz(): Quiz.Quiz {
+    const stage = this.form.controls['recommended_stage']
+      .value as Quiz.DiseaseStage;
+    return {
       title: this.form.controls['quiz_name'].value,
       questions: [],
-      stage: this.form.controls['recommended_stage'].value,
-      id: '1',
-      imageUrl: '',
+      stage: stage,
+      id: this.id,
+      imageUrl: 'https://picsum.photos/200',
     };
   }
 }

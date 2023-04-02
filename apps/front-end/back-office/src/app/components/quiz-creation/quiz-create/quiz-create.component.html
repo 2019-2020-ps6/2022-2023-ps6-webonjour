@@ -1,7 +1,7 @@
 <mat-dialog-content class="mat-typography">
   <div id="root" class="row" role="dialog">
     <div class="col-9">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <form [formGroup]="form">
         <div class="mb-3">
           <label class="form-label">Nom du quiz</label>
           <input
@@ -9,11 +9,11 @@
             formControlName="quiz_name"
             class="form-control"
             [ngClass]="{
-              'is-invalid': submitted && formControls['quiz_name'].errors
+              'is-invalid': formControls['quiz_name'].errors
             }"
           />
           <div
-            *ngIf="submitted && formControls['quiz_name'].errors"
+            *ngIf="formControls['quiz_name'].errors"
             class="invalid-feedback"
           >
             <div *ngIf="formControls['quiz_name']['errors']['required']">
@@ -31,12 +31,11 @@
             formControlName="recommended_stage"
             class="form-control"
             [ngClass]="{
-              'is-invalid':
-                submitted && formControls['recommended_stage'].errors
+              'is-invalid': formControls['recommended_stage'].errors
             }"
           />
           <div
-            *ngIf="submitted && formControls['recommended_stage'].errors"
+            *ngIf="formControls['recommended_stage'].errors"
             class="invalid-feedback"
           >
             <div
@@ -71,16 +70,14 @@
 <mat-dialog-actions align="end">
   <button
     mat-button
-    [mat-dialog-close]="true"
+    [mat-dialog-close]="getQuiz()"
     cdkFocusInitial
-    [disabled]="loading"
+    [disabled]="
+      formControls['quiz_name'].errors ||
+      formControls['recommended_stage'].errors
+    "
     class="btn btn-primary"
   >
-    <span
-      *ngIf="loading"
-      class="spinner-border spinner-border-sm me-1"
-      data-dismiss="modal"
-    ></span>
     Créer
   </button>
 </mat-dialog-actions>

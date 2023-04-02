@@ -1,0 +1,35 @@
+.quiz-item {
+  display: flex;
+  align-items: center; /* centrer verticalement */
+  justify-content: center; /* centrer horizontalement */
+  margin: 0 auto; /* centrer la div */
+  border-radius: 10px;
+  width: 100%;
+}
+
+.quiz-item-button {
+  display: flex;
+  align-items: center; /* centrer verticalement */
+  background: var(--primary-color);
+  width: 100%;
+  border-radius: 10px;
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+svg {
+  height: 4rem;
+  padding-left: 20px;
+}
+
+h3 {
+  flex: 1; /* pousser le titre vers la droite */
+  text-align: center;
+  font-weight: bold;
+  font-size: 4rem;
+  padding: 20px;
+}
+
+.hovered {
+  background: var(--primary-color-dark);
+}

@@ -37,7 +37,6 @@
         <th mat-header-cell *matHeaderCellDef>Stade recommandé</th>
         <td mat-cell *matCellDef="let element">
           <div
-            class="rounded"
             style="
               background-color: #f5f5f5;
               width: fit-content;
@@ -51,11 +50,38 @@
           </div>
         </td>
       </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div
+            class="d-flex justify-content-end"
+            style="height: 100%; width: 100%"
+          >
+            <button class="btn btn-primary" [routerLink]="[element.id]">
+              Éditer
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div
+            class="d-flex justify-content-end"
+            style="height: 100%; width: 100%"
+          >
+            <button class="btn btn-danger" (click)="onDeleteQuiz(element.id)">
+              Supprimer
+            </button>
+          </div>
+        </td>
+      </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr
         mat-row
         *matRowDef="let row; columns: displayedColumns"
-        [routerLink]="[row.id]"
         class="row-hover"
       ></tr>
     </table>

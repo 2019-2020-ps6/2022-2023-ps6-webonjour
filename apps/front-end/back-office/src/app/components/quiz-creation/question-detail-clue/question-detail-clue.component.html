@@ -1,0 +1,36 @@
+<div class="card container">
+  <div class="card-body row">
+    <div class="col-2">
+      <select class="form-control">
+        <option value="stage_3">Stade 3</option>
+        <option value="stage_4">Stade 4</option>
+        <option value="stage_5">Stade 5</option>
+        <option value="stage_6">Stade 6</option>
+      </select>
+    </div>
+    <div class="col-5">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Indice textuel"
+        [(ngModel)]="clue.text"
+      />
+    </div>
+    <div class="col-5">
+      <img
+        *ngIf
+        clue.image
+        [src]=""
+        class="img-fluid"
+        alt="Image de l'indice"
+      />
+      <input
+        *ngIf="!clue.image"
+        type="file"
+        accept="image/*"
+        class="form-control"
+        id="exampleFormControlFile1"
+      />
+    </div>
+  </div>
+</div>

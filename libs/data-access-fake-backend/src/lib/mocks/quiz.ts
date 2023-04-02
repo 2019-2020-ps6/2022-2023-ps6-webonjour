@@ -11,35 +11,37 @@ export const quizList: Quiz.Quiz[] = [
         title: 'Question 1',
         answers: [
           {
-            value: 'Answer 1',
+            text: 'Answer 1',
             isCorrect: true,
           },
           {
-            value: 'Answer 2',
+            text: 'Answer 2',
             isCorrect: false,
           },
           {
-            value: 'Answer 3',
+            text: 'Answer 3',
             isCorrect: false,
           },
         ],
+        clues: [],
       },
       {
         title: 'Question 2',
         answers: [
           {
-            value: 'Answer 1',
+            text: 'Answer 1',
             isCorrect: false,
           },
           {
-            value: 'Answer 2',
+            text: 'Answer 2',
             isCorrect: true,
           },
           {
-            value: 'Answer 3',
+            text: 'Answer 3',
             isCorrect: false,
           },
         ],
+        clues: [],
       },
     ],
   },
@@ -53,35 +55,37 @@ export const quizList: Quiz.Quiz[] = [
         title: 'Question 1',
         answers: [
           {
-            value: 'Answer 1',
+            text: 'Answer 1',
             isCorrect: true,
           },
           {
-            value: 'Answer 2',
+            text: 'Answer 2',
             isCorrect: false,
           },
           {
-            value: 'Answer 3',
+            text: 'Answer 3',
             isCorrect: false,
           },
         ],
+        clues: [],
       },
       {
         title: 'Question 2',
         answers: [
           {
-            value: 'Answer 1',
+            text: 'Answer 1',
             isCorrect: false,
           },
           {
-            value: 'Answer 2',
+            text: 'Answer 2',
             isCorrect: true,
           },
           {
-            value: 'Answer 3',
+            text: 'Answer 3',
             isCorrect: false,
           },
         ],
+        clues: [],
       },
     ],
   },
