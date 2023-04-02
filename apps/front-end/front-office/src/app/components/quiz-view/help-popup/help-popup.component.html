@@ -1,9 +1,5 @@
 <div class="modal_container" [ngClass]="{ hidden: !show_help }">
   <div class="modal">
-    <h2>
-      {{
-        question.clues[Math.floor(Math.random() * question.clues.length)].text
-      }}
-    </h2>
+    <h2>{{ randomClue }}</h2>
   </div>
 </div>
