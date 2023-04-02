@@ -6,12 +6,13 @@
 >
   <div>
     <img
-      src="https://writestylesonline.com/wp-content/uploads/2016/08/Follow-These-Steps-for-a-Flawless-Professional-Profile-Picture.jpg"
-      alt=""
-      class="card-image"
+      class="card-img"
+      [src]="patient.profilePictureUrl"
+      [ngClass]="{ img_dark: card_color === 'dark' }"
+      alt="Card image cap"
     />
     <h1 class="card-title" [ngClass]="{ text_light: card_color === 'dark' }">
-      {{ card_title }}
+      {{ patient.firstName }}
     </h1>
   </div>
 </div>

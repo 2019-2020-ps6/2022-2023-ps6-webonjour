@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Quiz } from '@webonjour/util-interface';
+import { Patient } from '@webonjour/util-interface';
+import { patientMocks } from '@webonjour/data-access-fake-backend';
+import { GameService } from '@webonjour/front-end/shared/common';
 
 enum CardColor {
   primary = 'primary',
@@ -15,13 +17,11 @@ enum CardColor {
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
+  @Input() patient: Patient.Patient = patientMocks.patientMocks[0];
   @Input() card_color = CardColor.dark;
-  @Input() stage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   card_selected = '';
 
-  @Input() card_title = 'Card Title';
-
-  constructor(private router: Router) {}
+  constructor(private router: Router, private gameService: GameService) {}
 
   onHover(hovered: boolean) {
     if (hovered) {
@@ -32,6 +32,7 @@ export class CardComponent {
   }
 
   onClick() {
-    this.router.navigate([`/list-quiz/${this.stage}`]);
+    this.gameService.setCurrentPatient(this.patient);
+    this.router.navigate(['/list-quiz']);
   }
 }

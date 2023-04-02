@@ -11,11 +11,11 @@ export const appRoutes: Route[] = [
     component: CardContainerComponent,
   },
   {
-    path: 'list-quiz/:diseaseStage',
+    path: 'list-quiz',
     component: QuizListItemComponent,
   },
   {
-    path: 'quiz-answer/:diseaseStage',
+    path: 'quiz-answer',
     component: GameQuestionComponent,
   },
   {

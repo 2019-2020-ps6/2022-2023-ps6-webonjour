@@ -1,13 +1,12 @@
 <header class="header-title">
-  <h1 class="title">🖐WeBonjour</h1>
-  <button
+  <h1 class="title" [routerLink]="['/']">🖐WeBonjour</h1>
+  <a
     class="btn"
-    [class.active]="isToggled"
-    (click)="isToggled = !isToggled"
+    href="/dashboard"
     (mouseenter)="onHover(true)"
     (mouseleave)="onHover(false)"
     [ngClass]="{ hovered: hover }"
   >
     Espace Soignant
-  </button>
+  </a>
 </header>

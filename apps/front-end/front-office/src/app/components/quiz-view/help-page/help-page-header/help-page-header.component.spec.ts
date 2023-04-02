@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HelpPageHeaderComponent } from './help-page-header.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('HelpPageHeaderComponent', () => {
   let component: HelpPageHeaderComponent;
@@ -9,6 +10,8 @@ describe('HelpPageHeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HelpPageHeaderComponent],
+
+      imports: [HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HelpPageHeaderComponent);
