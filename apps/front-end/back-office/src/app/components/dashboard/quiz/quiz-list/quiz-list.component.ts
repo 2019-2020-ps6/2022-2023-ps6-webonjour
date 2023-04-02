@@ -2,10 +2,10 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { QuizService } from '../../../../services/dashboard/quiz/quiz.service';
 import { Quiz } from '@webonjour/util-interface';
 import { QuizCreateComponent } from '../../../quiz-creation/quiz-create/quiz-create.component';
 import { mergeMap } from 'rxjs';
+import { QuizService } from '@webonjour/front-end/shared/common';
 
 @Component({
   selector: 'webonjour-quiz-list',

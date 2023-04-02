@@ -20,7 +20,8 @@
           "apps/front-end/back-office/src/assets"
         ],
         "styles": ["apps/front-end/back-office/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "allowedCommonJsDependencies": ["apexcharts"]
       },
       "configurations": {
         "production": {
@@ -28,7 +29,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "5mb"
             },
             {
               "type": "anyComponentStyle",
