@@ -1,0 +1,7 @@
+<div class="card-container">
+  <webonjour-card
+    *ngFor="let user of patients"
+    [card_title]="user.name"
+    [stage]="user.stage"
+  ></webonjour-card>
+</div>

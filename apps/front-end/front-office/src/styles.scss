@@ -1,1 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+  --primary-color-rgb: 26, 188, 156;
+  --primary-color: rgb(var(--primary-color-rgb));
+
+  --primary-color-dark-rgb: 22, 160, 133;
+  --primary-color-dark: rgb(var(--primary-color-dark-rgb));
+
+  --secondary-color-rgb: 241, 196, 15;
+  --secondary-color: rgb(var(--secondary-color-rgb));
+
+  --light-color-rgb: 236, 240, 241;
+  --light-color: rgb(var(--light-color-rgb));
+
+  --light-color-dark-rgb: 189, 195, 199;
+  --light-color-dark: rgb(var(--light-color-dark-rgb));
+
+  --dark-color-rgb: 52, 73, 94;
+  --dark-color: rgb(var(--dark-color-rgb));
+
+  --dark-color-dark-rgb: 44, 62, 80;
+  --dark-color-dark: rgb(var(--dark-color-dark-rgb));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--light-color);
+}
+
+.primary {
+  background-color: var(--primary-color);
+}
+
+.primary-dark {
+  background-color: var(--primary-color-dark);
+}
+
+.secondary {
+  background-color: var(--secondary-color);
+}
+
+.secondary-dark {
+  background-color: var(--secondary-color-dark);
+}
+
+.light {
+  background-color: var(--light-color);
+}
+
+.light-dark {
+  background-color: var(--light-color-dark);
+}
+
+.dark {
+  background-color: var(--dark-color);
+}
+
+.dark-dark {
+  background-color: var(--dark-color-dark);
+}
+
+.card {
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+}
