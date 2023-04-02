@@ -22,14 +22,7 @@ export class QuizItemComponent {
   }
 
   constructor(private router: Router, private gameService: GameService) {
-    this.quiz = {
-      id: '1',
-      title: 'Les Chevaux Célèbres',
-      imageUrl:
-        'https://images.unsplash.com/photo-1589985851119-8e1f2e1b2e1c?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hldmF4fGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80',
-      stage: 1,
-      questions: [],
-    };
+    this.quiz = this.gameService.getCurrentQuiz();
   }
 
   onHover(hover: boolean) {
@@ -38,6 +31,6 @@ export class QuizItemComponent {
 
   onClick() {
     this.gameService.selectQuiz(this.quiz.id);
-    this.router.navigate([`/quiz-answer/${this.diseaseStage}`]);
+    this.router.navigate(['/quiz-answer']);
   }
 }

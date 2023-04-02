@@ -33,6 +33,6 @@ export class CardComponent {
 
   onClick() {
     this.gameService.setCurrentPatient(this.patient);
-    this.router.navigate([`/list-quiz/${this.patient.diseaseStage.valueOf()}`]);
+    this.router.navigate(['/list-quiz']);
   }
 }

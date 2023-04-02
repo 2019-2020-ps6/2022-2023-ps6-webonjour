@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
-import { quizMocks } from '@webonjour/data-access-fake-backend';
 import { GameService } from '@webonjour/front-end/shared/common';
 
 @Component({
@@ -9,22 +7,16 @@ import { GameService } from '@webonjour/front-end/shared/common';
   templateUrl: './quiz-list-item.component.html',
   styleUrls: ['./quiz-list-item.component.scss'],
 })
-export class QuizListItemComponent {
+export class QuizListItemComponent implements OnInit {
   diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
-  gameService: GameService;
-  activeRoute: ActivatedRoute;
 
-  constructor(activeRoute: ActivatedRoute, gameService: GameService) {
-    this.activeRoute = activeRoute;
-
-    activeRoute.params.subscribe((params) => {
-      this.diseaseStage = params['diseaseStage'];
-    });
-
-    this.gameService = gameService;
-  }
+  constructor(private gameService: GameService) {}
 
   get listQuizzes() {
     return this.gameService.quizzesList;
+  }
+
+  ngOnInit() {
+    this.diseaseStage = this.gameService.patient.diseaseStage;
   }
 }

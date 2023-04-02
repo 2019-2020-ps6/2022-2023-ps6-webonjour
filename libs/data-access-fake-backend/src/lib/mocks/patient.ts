@@ -108,26 +108,35 @@ export const familyMemberPatientMocks: Record<string, string[]> = {
 export const accommodationMocks: Patient.Accommodation[] = [
   {
     id: '1',
-    title: 'Accommodation 1',
+    title: 'Peut recommencer le quiz',
   },
   {
     id: '2',
-    title: 'Accommodation 2',
+    title: 'Reposer la question de manière plus simple',
   },
   {
     id: '3',
-    title: 'Accommodation 3',
+    title: '',
   },
   {
     id: '4',
-    title: 'Accommodation 4',
+    title: 'Reposer la question avec un contexte, ou un contexte different',
+  },
+  {
+    id: '5',
+    title: 'Taille de la police plus grande',
+  },
+  {
+    id: '6',
+    title: 'Affiche le score à la fin du quiz',
   },
 ];
 
 export const accommodationPatientMocks: Record<string, string[]> = {
   '1': ['1', '2'],
   '2': ['1', '2', '3'],
-  '3': ['1', '2', '3', '4'],
+  '3': ['1', '2', '3', '4', '5', '6'],
+  '4': ['1', '5', '6'],
 };
 
 export const patientQuizMocks: Record<string, string[]> = {

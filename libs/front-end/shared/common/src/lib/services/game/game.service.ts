@@ -2,6 +2,7 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { quizMocks } from '@webonjour/data-access-fake-backend';
 import { Quiz } from '@webonjour/util-interface';
 import { Patient } from '@webonjour/util-interface';
+import { PatientService } from '../patient/patient.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,9 @@ export class GameService {
   score = 0;
   currentPlayer!: Patient.Patient;
   @Output() currentQuestion = new EventEmitter<Quiz.Question>();
+  accomodation!: Patient.Accommodation[];
 
-  constructor() {
+  constructor(private patientService: PatientService) {
     this.quizzes = quizMocks.quizList;
     this.currentQuizIndex = '0';
     this.currentQuestionIndex = 0;
@@ -78,6 +80,11 @@ export class GameService {
 
   setCurrentPatient(patient: Patient.Patient) {
     this.currentPlayer = patient;
+    this.patientService
+      .getPatientAccommodation(patient.id)
+      .subscribe((accomodation) => {
+        this.accomodation = accomodation.data;
+      });
   }
 
   get patient() {

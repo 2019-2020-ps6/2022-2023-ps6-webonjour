@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { Router } from '@angular/router';
 import { GameService } from '@webonjour/front-end/shared/common';
@@ -8,7 +8,7 @@ import { GameService } from '@webonjour/front-end/shared/common';
   templateUrl: './game-answer.component.html',
   styleUrls: ['./game-answer.component.scss'],
 })
-export class GameAnswerComponent {
+export class GameAnswerComponent implements OnInit {
   @Input() diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   @Input() answer: Quiz.Answer = { text: '', isCorrect: false };
   @Input() img_enabled = false;
@@ -65,5 +65,9 @@ export class GameAnswerComponent {
 
   setImageEnabled(enabled: boolean) {
     this.img_enabled = enabled;
+  }
+
+  ngOnInit() {
+    this.diseaseStage = this.gameService.patient.diseaseStage;
   }
 }
