@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { GameService } from '@webonjour/front-end/shared/common';
 
 @Component({
