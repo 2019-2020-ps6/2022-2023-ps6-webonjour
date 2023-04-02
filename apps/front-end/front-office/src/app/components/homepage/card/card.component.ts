@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Patient } from '@webonjour/util-interface';
+import { patientMocks } from '@webonjour/data-access-fake-backend';
 
 enum CardColor {
   primary = 'primary',
@@ -15,7 +16,7 @@ enum CardColor {
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
-  @Input() patient!: Patient.Patient;
+  @Input() patient: Patient.Patient = patientMocks.patientMocks[0];
   @Input() card_color = CardColor.dark;
   card_selected = '';
 
