@@ -13,7 +13,11 @@ export class QuizListItemComponent implements OnInit {
   constructor(private gameService: GameService) {}
 
   get listQuizzes() {
-    return this.gameService.quizzesList;
+    if (this.gameService.patient.firstName != 'Marcelino') {
+      return this.gameService.quizzesList.filter((quiz) => quiz.id != '3');
+    } else {
+      return this.gameService.quizzesList;
+    }
   }
 
   ngOnInit() {
