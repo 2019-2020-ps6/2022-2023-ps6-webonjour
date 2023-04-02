@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GameAnswerComponent } from './game-answer.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
 
 describe('GameAnswerComponent', () => {
   let component: GameAnswerComponent;
@@ -9,6 +11,8 @@ describe('GameAnswerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [GameAnswerComponent],
+      imports: [HttpClientTestingModule],
+      providers: [fakeBackendProvider],
     }).compileComponents();
 
     fixture = TestBed.createComponent(GameAnswerComponent);
