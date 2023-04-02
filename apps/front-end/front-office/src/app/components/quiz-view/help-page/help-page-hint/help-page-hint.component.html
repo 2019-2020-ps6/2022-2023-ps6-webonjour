@@ -8,7 +8,8 @@
     </svg>
     <h2>
       <strong>Indices:</strong>
-      {{ randomClue }}
+      <p *ngIf="randomClue.text">{{ randomClue.text }}</p>
+      <img *ngIf="randomClue.image" [src]="randomClue.image" />
     </h2>
   </div>
 </div>

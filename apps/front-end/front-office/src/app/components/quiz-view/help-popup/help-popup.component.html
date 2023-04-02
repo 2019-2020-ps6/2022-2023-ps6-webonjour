@@ -1,5 +1,6 @@
 <div class="modal_container" [ngClass]="{ hidden: !show_help }">
   <div class="modal">
-    <h2>{{ randomClue }}</h2>
+    <h2 *ngIf="randomClue.text">{{ randomClue.text }}</h2>
+    <img *ngIf="randomClue.image" [src]="randomClue.image" />
   </div>
 </div>

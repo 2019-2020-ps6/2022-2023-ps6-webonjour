@@ -10,12 +10,12 @@ import { quizMocks } from '@webonjour/data-access-fake-backend';
 export class HelpPageHintComponent implements OnInit {
   @Input() question: Quiz.Question = quizMocks.quizList[0].questions[0];
   protected readonly Math = Math;
-  randomClue = '';
+  randomClue!: Quiz.Clue;
 
   ngOnInit() {
     this.randomClue =
       this.question.clues[
         Math.floor(Math.random() * this.question.clues.length)
-      ].text || '';
+      ];
   }
 }
