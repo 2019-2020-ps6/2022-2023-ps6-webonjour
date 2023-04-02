@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { quizMocks } from '@webonjour/data-access-fake-backend';
+import { GameService } from '@webonjour/front-end/shared/common';
 
 @Component({
   selector: 'webonjour-game-question',
@@ -14,12 +15,19 @@ export class GameQuestionComponent {
   show_help = false;
   image_enabled = false;
 
-  constructor(activatedRoute: ActivatedRoute) {
+  constructor(
+    activatedRoute: ActivatedRoute,
+    private gameService: GameService
+  ) {
     activatedRoute.params.subscribe((params) => {
       this.diseaseStage = params['diseaseStage'];
     });
 
-    this.question = quizMocks.quizList[0].questions[0];
+    gameService.currentQuestion.subscribe((question) => {
+      this.question = question;
+    });
+
+    this.question = gameService.getCurrentQuestion();
   }
 
   onImageEnable(event: boolean) {

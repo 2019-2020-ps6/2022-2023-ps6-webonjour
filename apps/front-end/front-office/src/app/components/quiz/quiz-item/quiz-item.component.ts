@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { Router } from '@angular/router';
+import { GameService } from '@webonjour/front-end/shared/common';
 
 @Component({
   selector: 'webonjour-quiz-item',
@@ -20,7 +21,7 @@ export class QuizItemComponent {
     return this.quiz.imageUrl;
   }
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private gameService: GameService) {
     this.quiz = {
       id: '1',
       title: 'Les Chevaux Célèbres',
@@ -36,6 +37,7 @@ export class QuizItemComponent {
   }
 
   onClick() {
+    this.gameService.selectQuiz(this.quiz.id);
     this.router.navigate([`/quiz-answer/${this.diseaseStage}`]);
   }
 }

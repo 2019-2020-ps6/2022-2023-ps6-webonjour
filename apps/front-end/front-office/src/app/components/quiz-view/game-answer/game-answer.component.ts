@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { Router } from '@angular/router';
+import { GameService } from '@webonjour/front-end/shared/common';
 
 @Component({
   selector: 'webonjour-game-answer',
@@ -17,7 +18,7 @@ export class GameAnswerComponent {
   clicked = false;
   disabled = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private gameService: GameService) {}
 
   onClick() {
     if (this.disabled) {
@@ -25,8 +26,16 @@ export class GameAnswerComponent {
     }
 
     this.clicked = true;
+
     if (this.answer.isCorrect) {
-      this.router.navigate(['/result']);
+      this.gameService.incrementScore();
+      if (this.gameService.isLastQuestion()) {
+        this.router.navigate(['/result']);
+        return;
+      } else {
+        this.gameService.nextQuestion();
+        return;
+      }
     } else {
       this.handleAnswerError();
     }
