@@ -75,4 +75,12 @@ export class GameService {
       this.getCurrentQuiz().questions.length - 1
     );
   }
+
+  setCurrentPatient(patient: Patient.Patient) {
+    this.currentPlayer = patient;
+  }
+
+  get patient() {
+    return this.currentPlayer;
+  }
 }
