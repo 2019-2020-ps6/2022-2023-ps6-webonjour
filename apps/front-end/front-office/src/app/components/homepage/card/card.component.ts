@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Quiz, Patient } from '@webonjour/util-interface';
+import { Patient } from '@webonjour/util-interface';
 
 enum CardColor {
   primary = 'primary',

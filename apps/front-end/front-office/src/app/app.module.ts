@@ -20,7 +20,7 @@ import { CardComponent } from './components/homepage/card/card.component';
 import { QuizResultsComponent } from './components/quiz-view/quiz-results/quiz-results.component';
 import { MessageComponent } from './components/quiz-view/message/message.component';
 import { HelpPopupComponent } from './components/quiz-view/help-popup/help-popup.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
 
 @NgModule({

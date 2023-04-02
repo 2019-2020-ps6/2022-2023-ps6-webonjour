@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { quizMocks } from '@webonjour/data-access-fake-backend';
