@@ -27,7 +27,7 @@ module.exports = async function () {
   // wait for the server to start
   while (true) {
     try {
-      await axios.get(`/health`);
+      await axios.get(`/`);
       break;
     } catch (e) {
       console.log('Waiting for server to start...');
