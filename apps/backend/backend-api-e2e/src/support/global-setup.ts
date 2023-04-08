@@ -1,6 +1,6 @@
 /* eslint-disable */
 var __TEARDOWN_MESSAGE__: string;
-import { subProcess, subProcessSync } from 'subspawn';
+import { subProcess } from 'subspawn';
 
 module.exports = async function () {
   // Start services that the app needs to run (e.g. database, docker-compose, etc.).
