@@ -17,3 +17,17 @@ describe('GET /health', () => {
     expect(res.data).toEqual({ message: 'OK' });
   });
 });
+
+describe('unknown route', () => {
+  it('should return a 404', async () => {
+    try {
+      await axios.get(`/unknown`);
+    } catch (e) {
+      expect(e.response.status).toBe(404);
+      expect(e.response.data).toEqual({
+        status: 'error',
+        message: 'Route /unknown not found',
+      });
+    }
+  });
+});
