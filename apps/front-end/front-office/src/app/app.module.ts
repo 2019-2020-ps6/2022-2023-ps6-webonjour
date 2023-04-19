@@ -22,6 +22,7 @@ import { MessageComponent } from './components/quiz-view/message/message.compone
 import { HelpPopupComponent } from './components/quiz-view/help-popup/help-popup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
+import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
     QuizResultsComponent,
     MessageComponent,
     HelpPopupComponent,
+    DragAndDropComponent,
   ],
   imports: [
     BrowserModule,
