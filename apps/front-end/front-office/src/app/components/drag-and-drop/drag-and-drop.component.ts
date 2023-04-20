@@ -22,11 +22,7 @@ export class DragAndDropComponent {
     { name: 'Action 3', order: 3 },
     { name: 'Action 4', order: 4 },
   ];
-  sortedActions: Action[] = [
-    { name: 'Action 5', order: 5 },
-    { name: 'Action 6', order: 6 },
-    { name: 'Action 7', order: 7 },
-  ];
+  sortedActions: Action[] = [{ name: 'Action 5', order: 5 }];
 
   onDrop(event: CdkDragDrop<Action[]>) {
     if (event.previousContainer === event.container) {
@@ -44,6 +40,18 @@ export class DragAndDropComponent {
         event.previousIndex,
         event.currentIndex
       );
+    }
+    this.validateOrder();
+  }
+
+  validateOrder() {
+    const isValidOrder = this.sortedActions.every(
+      (action, index) => action.order === index + 1
+    );
+    if (isValidOrder) {
+      console.log('Order is valid');
+    } else {
+      console.log('Order is not valid');
     }
   }
 }
