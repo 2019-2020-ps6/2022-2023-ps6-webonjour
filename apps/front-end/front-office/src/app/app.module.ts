@@ -26,6 +26,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromGame from './reducers/game/game.reducer';
 import { GameEffects } from './reducers/game/game.effects';
+import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { GameEffects } from './reducers/game/game.effects';
     QuizResultsComponent,
     MessageComponent,
     HelpPopupComponent,
+    DragAndDropComponent,
   ],
   imports: [
     BrowserModule,
