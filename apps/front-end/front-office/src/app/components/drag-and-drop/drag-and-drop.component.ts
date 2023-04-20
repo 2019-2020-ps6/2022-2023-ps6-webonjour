@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -23,6 +23,15 @@ export class DragAndDropComponent {
     { name: 'Action 4', order: 4 },
   ];
   sortedActions: Action[] = [{ name: 'Action 5', order: 5 }];
+
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
+  ngOnInit() {
+    this.shuffle();
+  }
+
+  shuffle() {
+    this.actions = this.actions.sort(() => Math.random() - 0.5);
+  }
 
   onDrop(event: CdkDragDrop<Action[]>) {
     if (event.previousContainer === event.container) {
