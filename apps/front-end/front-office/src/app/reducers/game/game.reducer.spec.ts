@@ -50,24 +50,32 @@ describe('Game Reducer', () => {
     });
 
     it('correctAnswer should set score', () => {
-      const action = GameActions.correctAnswer();
+      const action = GameActions.correctAnswer({ delta: 1000 });
 
       const result = gameReducer(initialGameState, action);
 
       expect(result).toEqual({
         ...initialGameState,
         score: 1,
+        times: [1000],
       });
     });
 
     it('wrongAnswer should set score', () => {
-      const action = GameActions.wrongAnswer();
+      const action = GameActions.wrongAnswer({ delta: 1000 });
 
-      const result = gameReducer(initialGameState, action);
+      const result = gameReducer(
+        {
+          ...initialGameState,
+          score: 0,
+        },
+        action
+      );
 
       expect(result).toEqual({
         ...initialGameState,
         score: -1,
+        times: [1000],
       });
     });
   });
