@@ -2,22 +2,28 @@
   <h2>Question title</h2>
 </div>
 <div class="quiz-container">
-  <div class="action-list">
-    <div
-      class="action"
-      *ngFor="let action of actions"
-      cdkDrag
-      [cdkDragData]="action"
-    >
-      action possible
+  <div
+    class="action-list"
+    cdkDropList
+    #left="cdkDropList"
+    [cdkDropListData]="actions"
+    [cdkDropListConnectedTo]="[right]"
+    (cdkDropListDropped)="onDrop($event)"
+  >
+    <div class="action" *ngFor="let action of actions" cdkDrag>
+      {{ action.name }}
     </div>
   </div>
   <div
     class="drop-zone"
     cdkDropList
+    #right="cdkDropList"
+    [cdkDropListData]="sortedActions"
+    [cdkDropListConnectedTo]="[left]"
     (cdkDropListDropped)="onDrop($event)"
-    [cdkDropListData]="'sortedActions'"
   >
-    <div class="action" *ngFor="let action of sortedActions">drop zone</div>
+    <div class="action" *ngFor="let action of sortedActions" cdkDrag>
+      {{ action.name }}
+    </div>
   </div>
 </div>

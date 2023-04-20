@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 
 interface Action {
   name: string;
@@ -12,16 +16,34 @@ interface Action {
   styleUrls: ['./drag-and-drop.component.scss'],
 })
 export class DragAndDropComponent {
-  actions = [
-    { name: 'action1', order: 1 },
-    { name: 'action2', order: 2 },
-    { name: 'action3', order: 3 },
-    { name: 'action4', order: 4 },
+  actions: Action[] = [
+    { name: 'Action 1', order: 1 },
+    { name: 'Action 2', order: 2 },
+    { name: 'Action 3', order: 3 },
+    { name: 'Action 4', order: 4 },
   ];
-  sortedActions = [];
+  sortedActions: Action[] = [
+    { name: 'Action 5', order: 5 },
+    { name: 'Action 6', order: 6 },
+    { name: 'Action 7', order: 7 },
+  ];
 
-  onDrop(event: any) {
-    const action = event.item.data;
-    const index = event.currentIndex;
+  onDrop(event: CdkDragDrop<Action[]>) {
+    if (event.previousContainer === event.container) {
+      // move item in the same list
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      // transfer item from one list to another
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
   }
 }
