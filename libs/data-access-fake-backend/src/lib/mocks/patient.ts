@@ -123,19 +123,15 @@ export const accommodationMocks: Patient.Accommodation[] = [
     title: 'Reposer la question de manière plus simple',
   },
   {
-    id: '3',
-    title: '',
-  },
-  {
-    id: '4',
+    id: '5',
     title: 'Reposer la question avec un contexte, ou un contexte different',
   },
   {
-    id: '5',
+    id: '6',
     title: 'Taille de la police plus grande',
   },
   {
-    id: '6',
+    id: '7',
     title: 'Affiche le score à la fin du quiz',
   },
 ];
@@ -148,8 +144,8 @@ export const accommodationPatientMocks: Record<string, string[]> = {
 };
 
 export const patientQuizMocks: Record<string, string[]> = {
-  '1': ['1', '2', '3'],
+  '1': ['1', '2'],
   '2': ['1', '2', '3'],
-  '3': ['1', '2', '3'],
-  '4': ['1', '2', '3'],
+  '3': ['1', '2'],
+  '4': ['1', '2'],
 };

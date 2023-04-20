@@ -34,6 +34,9 @@ const reducer = createReducer(
     ...state,
     loaded: false,
     error: null,
+    currentQuestion: 0,
+    score: 0,
+    times: [],
   })),
   on(GameActions.loadGameSuccess, (state, { quiz }) => ({
     ...state,

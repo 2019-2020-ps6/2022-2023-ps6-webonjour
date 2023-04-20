@@ -37,6 +37,7 @@ export class GameEffects {
         this.quizService.getById(action.quizId).pipe(
           map((quiz) => {
             console.log('quiz', quiz);
+            this.router.navigate(['/quiz-answer']);
             return GameActions.loadGameSuccess({
               quiz: quiz.data,
             });
@@ -51,22 +52,14 @@ export class GameEffects {
     this.actions$.pipe(
       ofType(GameActions.chooseAnswer),
       withLatestFrom(this.store.select(selectGameState)),
-      switchMap(([action, state]) => {
-        const { index } = action;
-        const { quiz, currentQuestion } = state;
+      switchMap(([action]) => {
+        const { isCorrect } = action;
         const delta = Date.now() - this.stopwatch;
         this.stopwatch = Date.now();
-        console.log('delta', delta);
-        console.log('quiz', quiz);
-        if (quiz) {
-          const question = quiz.questions[currentQuestion];
-          if (question.answers[index].isCorrect) {
-            return of(GameActions.correctAnswer({ delta }));
-          } else {
-            return of(GameActions.wrongAnswer({ delta }));
-          }
+        if (isCorrect) {
+          return of(GameActions.correctAnswer({ delta }));
         }
-        return of(GameActions.error());
+        return of(GameActions.wrongAnswer({ delta }));
       })
     )
   );
@@ -91,10 +84,25 @@ export class GameEffects {
     this.actions$.pipe(
       ofType(GameActions.correctAnswer),
       withLatestFrom(this.store.select(selectGameState)),
-      switchMap(([action, state]) => {
+      switchMap(([, state]) => {
         const { quiz } = state;
         if (quiz) {
           return of(GameActions.nextQuestion());
+        }
+        return EMPTY;
+      })
+    )
+  );
+
+  endGame$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GameActions.endGame),
+      withLatestFrom(this.store.select(selectGameState)),
+      switchMap(([, state]) => {
+        const { quiz } = state;
+        this.router.navigate(['/result']).then();
+        if (quiz) {
+          return of(GameActions.loadGameSuccess({ quiz }));
         }
         return EMPTY;
       })

@@ -1,8 +1,4 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as GameActions from './reducers/game/game.actions';
-import { Actions, ofType } from '@ngrx/effects';
-
 @Component({
   selector: 'webonjour-root',
   templateUrl: './app.component.html',
@@ -11,18 +7,5 @@ import { Actions, ofType } from '@ngrx/effects';
 export class AppComponent {
   title = 'front-office';
 
-  constructor(private store: Store, private actions$: Actions) {
-    this.store.dispatch(
-      GameActions.initGame({
-        quizId: '1',
-      })
-    );
-
-    this.actions$
-      .pipe(ofType(GameActions.loadGameSuccess))
-      .subscribe((action) => {
-        console.log('action', action);
-        this.store.dispatch(GameActions.chooseAnswer({ index: 0 }));
-      });
-  }
+  constructor() {}
 }

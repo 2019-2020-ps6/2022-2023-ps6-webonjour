@@ -1,32 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
-import { GameService } from '@webonjour/front-end/shared/common';
+import { Subject, takeUntil } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectGameCurrentQuestion } from '../../../../reducers/game/game.selectors';
 
 @Component({
   selector: 'webonjour-help-page-hint',
   templateUrl: './help-page-hint.component.html',
   styleUrls: ['./help-page-hint.component.scss'],
 })
-export class HelpPageHintComponent implements OnInit {
-  @Input() question!: Quiz.Question;
+export class HelpPageHintComponent implements OnInit, OnDestroy {
   protected readonly Math = Math;
   randomClue!: Quiz.Clue;
 
-  constructor(private gameService: GameService) {}
+  public ngDestroyed$ = new Subject();
+
+  public ngOnDestroy() {
+    this.ngDestroyed$.next(0);
+  }
+
+  constructor(private store: Store) {}
 
   ngOnInit() {
-    this.question = this.gameService.getCurrentQuestion();
-    this.randomClue =
-      this.question.clues[
-        Math.floor(Math.random() * this.question.clues.length)
-      ];
-
-    this.gameService.currentQuestion.subscribe((question) => {
-      this.question = question;
-      this.randomClue =
-        this.question.clues[
-          Math.floor(Math.random() * this.question.clues.length)
-        ];
-    });
+    this.store
+      .select(selectGameCurrentQuestion)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((question) => {
+        if (question) {
+          this.randomClue =
+            question.clues[Math.floor(Math.random() * question.clues.length)];
+        }
+      });
   }
 }

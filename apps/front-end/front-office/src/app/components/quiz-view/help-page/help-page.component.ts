@@ -8,13 +8,4 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './help-page.component.html',
   styleUrls: ['./help-page.component.scss'],
 })
-export class HelpPageComponent {
-  @Input() question: Quiz.Question = quizMocks.quizList[0].questions[0];
-  diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
-
-  constructor(private activatedRoute: ActivatedRoute) {
-    activatedRoute.params.subscribe((params) => {
-      this.diseaseStage = params['diseaseStage'];
-    });
-  }
-}
+export class HelpPageComponent {}

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Patient } from '@webonjour/util-interface';
 import { patientMocks } from '@webonjour/data-access-fake-backend';
 import { GameService } from '@webonjour/front-end/shared/common';
+import { Store } from '@ngrx/store';
+import * as GameActions from '../../../reducers/game/game.actions';
 
 enum CardColor {
   primary = 'primary',
@@ -17,11 +19,11 @@ enum CardColor {
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
-  @Input() patient: Patient.Patient = patientMocks.patientMocks[0];
+  @Input() patient!: Patient.Patient;
   @Input() card_color = CardColor.dark;
   card_selected = '';
 
-  constructor(private router: Router, private gameService: GameService) {}
+  constructor(private router: Router, private store: Store) {}
 
   onHover(hovered: boolean) {
     if (hovered) {
@@ -32,7 +34,7 @@ export class CardComponent {
   }
 
   onClick() {
-    this.gameService.setCurrentPatient(this.patient);
+    this.store.dispatch(GameActions.setPatient({ patient: this.patient }));
     this.router.navigate(['/list-quiz']);
   }
 }

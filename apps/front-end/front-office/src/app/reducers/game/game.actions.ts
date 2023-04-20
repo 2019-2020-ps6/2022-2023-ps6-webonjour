@@ -21,7 +21,7 @@ export const error = createAction('[Game Page] Error');
 export const chooseAnswer = createAction(
   '[Game Page] Choose Answer',
   props<{
-    index: number;
+    isCorrect: boolean;
   }>()
 );
 

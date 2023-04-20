@@ -1,21 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
-import { quizMocks } from '@webonjour/data-access-fake-backend';
 import { GameService } from '@webonjour/front-end/shared/common';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import {
+  selectGameCurrentQuestion,
+  selectPatientDiseaseStage,
+} from '../../../reducers/game/game.selectors';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'webonjour-game-question',
   templateUrl: './game-question.component.html',
   styleUrls: ['./game-question.component.scss'],
 })
-export class GameQuestionComponent {
-  diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
-  question: Quiz.Question;
+export class GameQuestionComponent implements OnDestroy, OnInit {
+  diseaseStage!: Quiz.DiseaseStage;
+  question!: Quiz.Question;
   show_help = false;
   image_enabled = false;
+
+  public ngDestroyed$ = new Subject();
+
+  public ngOnDestroy() {
+    this.ngDestroyed$.next(0);
+  }
 
   constructor(
     activatedRoute: ActivatedRoute,
@@ -23,16 +33,26 @@ export class GameQuestionComponent {
     private router: Router,
     private store: Store,
     private actions$: Actions
-  ) {
-    activatedRoute.params.subscribe((params) => {
-      this.diseaseStage = params['diseaseStage'];
-    });
+  ) {}
 
-    gameService.currentQuestion.subscribe((question) => {
-      this.question = question;
-    });
+  ngOnInit(): void {
+    this.store
+      .select(selectGameCurrentQuestion)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((question) => {
+        if (question) {
+          this.question = question;
+        }
+      });
 
-    this.question = gameService.getCurrentQuestion();
+    this.store
+      .select(selectPatientDiseaseStage)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((diseaseStage) => {
+        this.diseaseStage = diseaseStage
+          ? diseaseStage
+          : Quiz.DiseaseStage.STAGE_1;
+      });
   }
 
   onImageEnable(event: boolean) {

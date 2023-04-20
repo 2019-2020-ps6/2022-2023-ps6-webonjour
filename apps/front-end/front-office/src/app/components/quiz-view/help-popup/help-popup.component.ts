@@ -16,15 +16,6 @@ export class HelpPopupComponent implements OnInit {
   constructor(private gameService: GameService) {}
 
   ngOnInit() {
-    this.gameService.currentQuestion.subscribe((question) => {
-      this.question = question;
-      this.randomClue =
-        this.question.clues[
-          Math.floor(Math.random() * this.question.clues.length)
-        ];
-    });
-
-    this.question = this.gameService.getCurrentQuestion();
     this.randomClue =
       this.question.clues[
         Math.floor(Math.random() * this.question.clues.length)
