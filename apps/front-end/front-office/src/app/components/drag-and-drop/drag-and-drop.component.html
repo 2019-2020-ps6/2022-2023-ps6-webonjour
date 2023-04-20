@@ -3,14 +3,20 @@
 </div>
 <div class="quiz-container">
   <div class="action-list">
-    <div class="action" *ngFor="let action of actions" [dragData]="action">
+    <div
+      class="action"
+      *ngFor="let action of actions"
+      cdkDrag
+      [cdkDragData]="action"
+    >
       action possible
     </div>
   </div>
   <div
     class="drop-zone"
-    (onDrop)="onDrop($event)"
-    [dragOverClass]="'drag-over'"
+    cdkDropList
+    (cdkDropListDropped)="onDrop($event)"
+    [cdkDropListData]="'sortedActions'"
   >
     <div class="action" *ngFor="let action of sortedActions">drop zone</div>
   </div>

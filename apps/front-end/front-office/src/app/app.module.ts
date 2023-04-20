@@ -23,6 +23,7 @@ import { HelpPopupComponent } from './components/quiz-view/help-popup/help-popup
 import { HttpClientModule } from '@angular/common/http';
 import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
 import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,8 @@ import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.c
     BrowserModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     HttpClientModule,
+    CdkDrag,
+    CdkDropList,
   ],
   providers: [fakeBackendProvider],
   bootstrap: [AppComponent],

@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+
+interface Action {
+  name: string;
+  order: number;
+}
 
 @Component({
   selector: 'webonjour-drag-and-drop',
@@ -13,4 +18,10 @@ export class DragAndDropComponent {
     { name: 'action3', order: 3 },
     { name: 'action4', order: 4 },
   ];
+  sortedActions = [];
+
+  onDrop(event: any) {
+    const action = event.item.data;
+    const index = event.currentIndex;
+  }
 }
