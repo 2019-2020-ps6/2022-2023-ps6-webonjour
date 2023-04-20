@@ -55,5 +55,16 @@ describe('Game Selectors', () => {
 
       expect(result).toEqual(state.game.player);
     });
+
+    it('selectGameScore() should return the current "score" state', () => {
+      const result = GameSelectors.selectGameScore(state);
+
+      expect(result).toEqual(state.game.score);
+    });
+    it('selectPatientDiseaseStage() should return the current "diseaseStage" state', () => {
+      const result = GameSelectors.selectPatientDiseaseStage(state);
+
+      expect(result).toEqual(state.game.player?.diseaseStage);
+    });
   });
 });
