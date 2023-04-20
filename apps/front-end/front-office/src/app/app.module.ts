@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
-
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { GameQuestionComponent } from './components/quiz-view/game-question/game-question.component';
 import { GameAnswerComponent } from './components/quiz-view/game-answer/game-answer.component';
 import { QuizItemComponent } from './components/quiz/quiz-item/quiz-item.component';
@@ -22,6 +22,10 @@ import { MessageComponent } from './components/quiz-view/message/message.compone
 import { HelpPopupComponent } from './components/quiz-view/help-popup/help-popup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import * as fromGame from './reducers/game/game.reducer';
+import { GameEffects } from './reducers/game/game.effects';
 
 @NgModule({
   declarations: [
@@ -44,8 +48,13 @@ import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
   ],
   imports: [
     BrowserModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     HttpClientModule,
+    StoreModule.forFeature(fromGame.GAME_FEATURE_KEY, fromGame.gameReducer),
+    EffectsModule.forFeature([GameEffects]),
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [fakeBackendProvider],
   bootstrap: [AppComponent],
