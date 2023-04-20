@@ -28,3 +28,18 @@ export const selectGameCurrentQuestion = createSelector(
   selectGameState,
   (state: GameState) => state.quiz?.questions[state.currentQuestion]
 );
+
+export const selectPatient = createSelector(
+  selectGameState,
+  (state: GameState) => state.player
+);
+
+export const selectGameScore = createSelector(
+  selectGameState,
+  (state: GameState) => state.score
+);
+
+export const selectPatientDiseaseStage = createSelector(
+  selectGameState,
+  (state: GameState) => state.player?.diseaseStage
+);

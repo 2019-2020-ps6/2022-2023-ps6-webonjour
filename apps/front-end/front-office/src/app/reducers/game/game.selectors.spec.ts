@@ -50,5 +50,10 @@ describe('Game Selectors', () => {
         state.game.quiz?.questions[state.game.currentQuestion]
       );
     });
+    it('selectPatient() should return the current "player" state', () => {
+      const result = GameSelectors.selectPatient(state);
+
+      expect(result).toEqual(state.game.player);
+    });
   });
 });
