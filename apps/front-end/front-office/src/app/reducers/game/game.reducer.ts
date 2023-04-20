@@ -35,10 +35,9 @@ const reducer = createReducer(
     loaded: false,
     error: null,
   })),
-  on(GameActions.loadGameSuccess, (state, { game }) => ({
+  on(GameActions.loadGameSuccess, (state, { quiz }) => ({
     ...state,
-    quiz: game.quiz,
-    score: game.score,
+    quiz: quiz,
     loaded: true,
   })),
   on(GameActions.loadGameFailure, (state, { error }) => ({ ...state, error })),
@@ -61,6 +60,10 @@ const reducer = createReducer(
     currentQuestion: 0,
     score: 0,
     times: [],
+  })),
+  on(GameActions.setPatient, (state, { patient }) => ({
+    ...state,
+    player: patient,
   }))
 );
 

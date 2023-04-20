@@ -38,13 +38,7 @@ export class GameEffects {
           map((quiz) => {
             console.log('quiz', quiz);
             return GameActions.loadGameSuccess({
-              game: {
-                quiz: quiz.data,
-                score: 0,
-                currentQuestion: 0,
-                times: [],
-                player: action.patient,
-              },
+              quiz: quiz.data,
             });
           }),
           catchError((error) => of(GameActions.loadGameFailure({ error })))

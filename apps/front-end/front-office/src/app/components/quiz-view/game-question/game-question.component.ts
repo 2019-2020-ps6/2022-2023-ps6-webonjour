@@ -3,6 +3,8 @@ import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { quizMocks } from '@webonjour/data-access-fake-backend';
 import { GameService } from '@webonjour/front-end/shared/common';
+import { Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'webonjour-game-question',
@@ -17,7 +19,10 @@ export class GameQuestionComponent {
 
   constructor(
     activatedRoute: ActivatedRoute,
-    private gameService: GameService
+    private gameService: GameService,
+    private router: Router,
+    private store: Store,
+    private actions$: Actions
   ) {
     activatedRoute.params.subscribe((params) => {
       this.diseaseStage = params['diseaseStage'];

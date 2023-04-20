@@ -36,19 +36,12 @@ describe('GameEffects', () => {
   describe('init$', () => {
     it('should work', () => {
       const expected = GameActions.loadGameSuccess({
-        game: {
-          quiz: quizMocks.quizList[0],
-          score: 0,
-          currentQuestion: 0,
-          times: [],
-          player: patientMocks.patientMocks[0],
-        },
+        quiz: quizMocks.quizList[0],
       });
 
       actions$ = of(
         GameActions.initGame({
           quizId: quizMocks.quizList[0].id,
-          patient: patientMocks.patientMocks[0],
         })
       );
       store.pipe().subscribe((state) => {

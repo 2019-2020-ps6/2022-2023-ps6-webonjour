@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as GameActions from './reducers/game/game.actions';
-import { patientMocks } from '@webonjour/data-access-fake-backend';
 import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
@@ -16,7 +15,6 @@ export class AppComponent {
     this.store.dispatch(
       GameActions.initGame({
         quizId: '1',
-        patient: patientMocks.patientMocks[0],
       })
     );
 
