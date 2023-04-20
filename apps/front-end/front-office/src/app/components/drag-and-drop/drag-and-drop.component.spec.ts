@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DragAndDropComponent } from './drag-and-drop.component';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+
+interface Action {
+  name: string;
+  order: number;
+}
 
 describe('DragAndDropComponent', () => {
   let component: DragAndDropComponent;
@@ -18,5 +23,10 @@ describe('DragAndDropComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should shuffle', () => {
+    component.shuffle();
+    expect(component.actions.length).toBe(4);
   });
 });
