@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { Action, Store, StoreModule } from '@ngrx/store';
 
 import * as GameActions from './game.actions';
 import { GameEffects } from './game.effects';
@@ -8,40 +7,30 @@ import {
   patientMocks,
   quizMocks,
 } from '@webonjour/data-access-fake-backend';
-import { gameReducer, GameState } from './game.reducer';
-import { Actions, EffectsModule, ofType } from '@ngrx/effects';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { appRoutes } from '../../app.routes';
-import { HttpClientModule } from '@angular/common/http';
 import * as fromGame from './game.reducer';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { GameState } from './game.reducer';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Observable, of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Action } from '@ngrx/store';
 
 describe('GameEffects', () => {
-  let actions$: Actions;
-  let store: Store<{
-    game: GameState;
-  }>;
-
+  let actions$: Observable<Action>;
+  let effects: GameEffects;
+  let store: MockStore<GameState>;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        BrowserModule,
-        StoreModule.forRoot({}),
-        EffectsModule.forRoot([]),
-        RouterModule.forRoot(appRoutes, {
-          initialNavigation: 'enabledBlocking',
-        }),
-        HttpClientModule,
-        StoreModule.forFeature(fromGame.GAME_FEATURE_KEY, fromGame.gameReducer),
-        EffectsModule.forFeature([GameEffects]),
-        StoreDevtoolsModule.instrument(),
+      imports: [HttpClientTestingModule],
+      providers: [
+        GameEffects,
+        provideMockActions(() => actions$),
+        provideMockStore({ initialState: fromGame.initialGameState }),
+        fakeBackendProvider,
       ],
-      providers: [fakeBackendProvider],
     });
-
-    store = TestBed.inject(Store);
-    actions$ = TestBed.inject(Actions);
+    effects = TestBed.inject(GameEffects);
+    store = TestBed.inject(MockStore);
   });
 
   describe('init$', () => {
@@ -56,15 +45,18 @@ describe('GameEffects', () => {
         },
       });
 
-      store.dispatch(
+      actions$ = of(
         GameActions.initGame({
-          quizId: '1',
+          quizId: quizMocks.quizList[0].id,
           patient: patientMocks.patientMocks[0],
         })
       );
-
-      actions$.pipe(ofType(GameActions.loadGameSuccess)).subscribe((action) => {
+      store.pipe().subscribe((state) => {
+        console.log('state', state);
+      });
+      effects.init$.subscribe((action) => {
         console.log('action', action);
+        expect(action).toEqual(expected);
       });
     });
   });
