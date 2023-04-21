@@ -51,7 +51,7 @@ const reducer = createReducer(
   })),
   on(GameActions.wrongAnswer, (state, { delta }) => ({
     ...state,
-    score: state.score - 1,
+    score: state.score,
     times: [...state.times, delta],
   })),
   on(GameActions.nextQuestion, (state) => ({

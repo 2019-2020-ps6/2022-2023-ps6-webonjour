@@ -54,24 +54,6 @@ describe('Game Reducer', () => {
         times: [1000],
       });
     });
-
-    it('wrongAnswer should set score', () => {
-      const action = GameActions.wrongAnswer({ delta: 1000 });
-
-      const result = gameReducer(
-        {
-          ...initialGameState,
-          score: 0,
-        },
-        action
-      );
-
-      expect(result).toEqual({
-        ...initialGameState,
-        score: -1,
-        times: [1000],
-      });
-    });
   });
 
   describe('unknown action', () => {
