@@ -4,7 +4,6 @@ import * as GameActions from './game.actions';
 import { GameEffects } from './game.effects';
 import {
   fakeBackendProvider,
-  patientMocks,
   quizMocks,
 } from '@webonjour/data-access-fake-backend';
 import * as fromGame from './game.reducer';

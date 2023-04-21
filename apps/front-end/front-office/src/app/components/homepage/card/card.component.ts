@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Patient } from '@webonjour/util-interface';
-import { patientMocks } from '@webonjour/data-access-fake-backend';
-import { GameService } from '@webonjour/front-end/shared/common';
 import { Store } from '@ngrx/store';
 import * as GameActions from '../../../reducers/game/game.actions';
 

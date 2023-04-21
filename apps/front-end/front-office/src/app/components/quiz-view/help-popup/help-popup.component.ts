@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
@@ -9,7 +9,7 @@ import { selectGameCurrentQuestion } from '../../../reducers/game/game.selectors
   templateUrl: './help-popup.component.html',
   styleUrls: ['./help-popup.component.scss'],
 })
-export class HelpPopupComponent implements OnInit {
+export class HelpPopupComponent implements OnInit, OnDestroy {
   @Input() question!: Quiz.Question;
   @Input() show_help = false;
   protected readonly Math = Math;
