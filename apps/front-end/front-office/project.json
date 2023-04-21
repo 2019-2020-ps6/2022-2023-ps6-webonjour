@@ -6,9 +6,12 @@
   "prefix": "webonjour",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-builders/custom-webpack:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "customWebpackConfig": {
+          "path": "./extra-webpack.config.js"
+        },
         "outputPath": "dist/apps/front-end/front-office",
         "index": "apps/front-end/front-office/src/index.html",
         "main": "apps/front-end/front-office/src/main.ts",
