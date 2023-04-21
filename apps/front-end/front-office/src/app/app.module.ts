@@ -56,7 +56,9 @@ import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.c
     HttpClientModule,
     StoreModule.forFeature(fromGame.GAME_FEATURE_KEY, fromGame.gameReducer),
     EffectsModule.forFeature([GameEffects]),
-    StoreDevtoolsModule.instrument(),
+    StoreDevtoolsModule.instrument({
+      trace: true,
+    }),
   ],
   providers: [fakeBackendProvider],
   bootstrap: [AppComponent],
