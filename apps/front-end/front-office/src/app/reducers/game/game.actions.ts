@@ -13,7 +13,7 @@ export const loadGameSuccess = createAction(
 
 export const loadGameFailure = createAction(
   '[Game/API] Load Game Failure',
-  props<{ error: unknown }>()
+  props<{ error: string }>()
 );
 
 export const error = createAction('[Game Page] Error');
