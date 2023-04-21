@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { patientMocks, quizMocks } from '@webonjour/data-access-fake-backend';
+import { quizMocks } from '@webonjour/data-access-fake-backend';
 
 import * as GameActions from './game.actions';
 import { gameReducer, initialGameState } from './game.reducer';
@@ -8,13 +8,7 @@ describe('Game Reducer', () => {
   describe('loading', () => {
     it('loadGameSuccess should set Game', () => {
       const action = GameActions.loadGameSuccess({
-        game: {
-          quiz: quizMocks.quizList[0],
-          score: 0,
-          currentQuestion: 0,
-          times: [],
-          player: patientMocks.patientMocks[0],
-        },
+        quiz: quizMocks.quizList[0],
       });
 
       const result = gameReducer(initialGameState, action);
@@ -57,24 +51,6 @@ describe('Game Reducer', () => {
       expect(result).toEqual({
         ...initialGameState,
         score: 1,
-        times: [1000],
-      });
-    });
-
-    it('wrongAnswer should set score', () => {
-      const action = GameActions.wrongAnswer({ delta: 1000 });
-
-      const result = gameReducer(
-        {
-          ...initialGameState,
-          score: 0,
-        },
-        action
-      );
-
-      expect(result).toEqual({
-        ...initialGameState,
-        score: -1,
         times: [1000],
       });
     });

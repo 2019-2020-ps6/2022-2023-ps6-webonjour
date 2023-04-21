@@ -1,14 +1,24 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { Router } from '@angular/router';
-import { GameService } from '@webonjour/front-end/shared/common';
+import { Subject, takeUntil } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectPatientDiseaseStage } from '../../../reducers/game/game.selectors';
+import * as GameActions from '../../../reducers/game/game.actions';
 
 @Component({
   selector: 'webonjour-game-answer',
   templateUrl: './game-answer.component.html',
   styleUrls: ['./game-answer.component.scss'],
 })
-export class GameAnswerComponent implements OnInit {
+export class GameAnswerComponent implements OnInit, OnDestroy {
   @Input() diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   @Input() answer: Quiz.Answer = { text: '', isCorrect: false };
   @Input() img_enabled = false;
@@ -17,8 +27,13 @@ export class GameAnswerComponent implements OnInit {
   hover = false;
   clicked = false;
   disabled = false;
+  public ngDestroyed$ = new Subject();
 
-  constructor(private router: Router, private gameService: GameService) {}
+  public ngOnDestroy() {
+    this.ngDestroyed$.next(0);
+  }
+
+  constructor(private router: Router, private store: Store) {}
 
   onClick() {
     if (this.disabled) {
@@ -27,16 +42,11 @@ export class GameAnswerComponent implements OnInit {
 
     this.clicked = true;
 
-    if (this.answer.isCorrect) {
-      this.gameService.incrementScore();
-      if (this.gameService.isLastQuestion()) {
-        this.router.navigate(['/result']);
-        return;
-      } else {
-        this.gameService.nextQuestion();
-        return;
-      }
-    } else {
+    this.store.dispatch(
+      GameActions.chooseAnswer({ isCorrect: this.answer.isCorrect })
+    );
+
+    if (!this.answer.isCorrect) {
       this.handleAnswerError();
     }
   }
@@ -68,7 +78,15 @@ export class GameAnswerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.diseaseStage = this.gameService.patient.diseaseStage;
+    this.store
+      .select(selectPatientDiseaseStage)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((diseaseStage) => {
+        this.diseaseStage = diseaseStage
+          ? diseaseStage
+          : Quiz.DiseaseStage.STAGE_1;
+      });
+
     if (!this.answer.text) {
       this.displayImageEvent.emit(true);
     }

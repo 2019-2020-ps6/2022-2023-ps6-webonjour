@@ -34,11 +34,13 @@ const reducer = createReducer(
     ...state,
     loaded: false,
     error: null,
+    currentQuestion: 0,
+    score: 0,
+    times: [],
   })),
-  on(GameActions.loadGameSuccess, (state, { game }) => ({
+  on(GameActions.loadGameSuccess, (state, { quiz }) => ({
     ...state,
-    quiz: game.quiz,
-    score: game.score,
+    quiz: quiz,
     loaded: true,
   })),
   on(GameActions.loadGameFailure, (state, { error }) => ({ ...state, error })),
@@ -49,7 +51,7 @@ const reducer = createReducer(
   })),
   on(GameActions.wrongAnswer, (state, { delta }) => ({
     ...state,
-    score: state.score - 1,
+    score: state.score,
     times: [...state.times, delta],
   })),
   on(GameActions.nextQuestion, (state) => ({
@@ -61,6 +63,10 @@ const reducer = createReducer(
     currentQuestion: 0,
     score: 0,
     times: [],
+  })),
+  on(GameActions.setPatient, (state, { patient }) => ({
+    ...state,
+    player: patient,
   }))
 );
 

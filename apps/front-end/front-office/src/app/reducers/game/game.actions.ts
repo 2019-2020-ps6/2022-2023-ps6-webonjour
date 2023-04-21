@@ -1,20 +1,19 @@
 import { createAction, props } from '@ngrx/store';
-import { GameEntity } from './game.models';
-import { Patient } from '@webonjour/util-interface';
+import { Patient, Quiz } from '@webonjour/util-interface';
 
 export const initGame = createAction(
   '[Game Page] Init',
-  props<{ quizId: string; patient: Patient.Patient }>()
+  props<{ quizId: string }>()
 );
 
 export const loadGameSuccess = createAction(
   '[Game/API] Load Game Success',
-  props<{ game: GameEntity }>()
+  props<{ quiz: Quiz.Quiz }>()
 );
 
 export const loadGameFailure = createAction(
   '[Game/API] Load Game Failure',
-  props<{ error: any }>()
+  props<{ error: string }>()
 );
 
 export const error = createAction('[Game Page] Error');
@@ -22,7 +21,7 @@ export const error = createAction('[Game Page] Error');
 export const chooseAnswer = createAction(
   '[Game Page] Choose Answer',
   props<{
-    index: number;
+    isCorrect: boolean;
   }>()
 );
 
@@ -45,3 +44,10 @@ export const wrongAnswer = createAction(
 );
 
 export const endGame = createAction('[Game Page] End Game');
+
+export const setPatient = createAction(
+  '[Game Page] Set Patient',
+  props<{
+    patient: Patient.Patient;
+  }>()
+);

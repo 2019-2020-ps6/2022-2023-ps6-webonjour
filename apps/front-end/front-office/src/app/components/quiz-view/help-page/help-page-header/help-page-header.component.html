@@ -1,9 +1,12 @@
 <div class="header-help">
   <h1 class="header-help-text">
     Vous êtes sur le quiz <br />
-    Les Chevaux célèbres
+    {{ quiz.title }}
   </h1>
   <div class="question-number">
-    <h2>Vous êtes à la question 1 sur 32</h2>
+    <h2>
+      Vous êtes à la question {{ currentQuizQuestion }} sur
+      {{ quiz.questions.length - 1 }}
+    </h2>
   </div>
 </div>
