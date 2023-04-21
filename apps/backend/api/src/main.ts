@@ -11,6 +11,7 @@ import express, {
 } from 'express';
 import AppError from './utils/appError';
 import cookieParser from 'cookie-parser';
+import { textToSpeech } from './utils/tts';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');
@@ -48,6 +49,16 @@ app.get('/health', (req, res) => {
     return;
   }
   res.send({ message: 'OK' });
+});
+
+app.get('/tts', async (req, res) => {
+  const text = req.query.text;
+  if (typeof text !== 'string') {
+    res.status(400).send({ message: 'Missing text parameter' });
+    return;
+  }
+
+  res.send({ message: await textToSpeech(text) });
 });
 
 // Unknown Routes
