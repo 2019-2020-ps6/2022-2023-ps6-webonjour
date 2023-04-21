@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
-import { GameService } from '@webonjour/front-end/shared/common';
+import { Store } from '@ngrx/store';
+import { Subject, takeUntil } from 'rxjs';
+import { selectGameCurrentQuestion } from '../../../reducers/game/game.selectors';
 
 @Component({
   selector: 'webonjour-help-popup',
@@ -13,12 +15,26 @@ export class HelpPopupComponent implements OnInit {
   protected readonly Math = Math;
   randomClue!: Quiz.Clue;
 
-  constructor(private gameService: GameService) {}
+  public ngDestroyed$ = new Subject();
 
-  ngOnInit() {
-    this.randomClue =
-      this.question.clues[
-        Math.floor(Math.random() * this.question.clues.length)
-      ];
+  public ngOnDestroy() {
+    this.ngDestroyed$.next(0);
+  }
+
+  constructor(private store: Store) {}
+
+  ngOnInit(): void {
+    this.store
+      .select(selectGameCurrentQuestion)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((question) => {
+        if (question) {
+          this.question = question;
+          this.randomClue =
+            this.question.clues[
+              Math.floor(Math.random() * this.question.clues.length)
+            ];
+        }
+      });
   }
 }
