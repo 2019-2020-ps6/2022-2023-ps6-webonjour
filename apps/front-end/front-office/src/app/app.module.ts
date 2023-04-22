@@ -27,6 +27,7 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromGame from './reducers/game/game.reducer';
 import { GameEffects } from './reducers/game/game.effects';
 import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,8 @@ import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.c
     EffectsModule.forRoot([]),
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     HttpClientModule,
+    CdkDrag,
+    CdkDropList,
     StoreModule.forFeature(fromGame.GAME_FEATURE_KEY, fromGame.gameReducer),
     EffectsModule.forFeature([GameEffects]),
     StoreDevtoolsModule.instrument({
