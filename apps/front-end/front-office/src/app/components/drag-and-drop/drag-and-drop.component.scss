@@ -76,3 +76,24 @@
 .action-list.cdk-drop-list-dragging .action-item:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.dialog h2 {
+  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.dialog p {
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+}
