@@ -70,6 +70,11 @@ export class DragAndDropComponent {
     if (isValidOrder) {
       console.log('Order is valid');
       const dialogRef = this.dialog.open(this.successDialog);
+      // attend 5 secondes avant de rediriger vers la page d'accueil
+      setTimeout(() => {
+        dialogRef.close();
+        this.router.navigate(['/drag-and-drop2']);
+      }, 5000);
     } else {
       console.log('Order is not valid');
     }
