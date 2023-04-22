@@ -1,9 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 interface Action {
   name: string;
@@ -16,6 +22,8 @@ interface Action {
   styleUrls: ['./drag-and-drop.component.scss'],
 })
 export class DragAndDropComponent {
+  @ViewChild('successDialog') successDialog!: TemplateRef<any>;
+
   actions: Action[] = [
     { name: 'Action 1', order: 1 },
     { name: 'Action 2', order: 2 },
@@ -23,6 +31,8 @@ export class DragAndDropComponent {
     { name: 'Action 4', order: 4 },
   ];
   sortedActions: Action[] = [{ name: 'Action 5', order: 5 }];
+
+  constructor(public dialog: MatDialog, private router: Router) {}
 
   // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngOnInit() {
@@ -59,6 +69,7 @@ export class DragAndDropComponent {
     );
     if (isValidOrder) {
       console.log('Order is valid');
+      const dialogRef = this.dialog.open(this.successDialog);
     } else {
       console.log('Order is not valid');
     }

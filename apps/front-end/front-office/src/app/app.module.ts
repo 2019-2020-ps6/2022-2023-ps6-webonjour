@@ -28,6 +28,7 @@ import * as fromGame from './reducers/game/game.reducer';
 import { GameEffects } from './reducers/game/game.effects';
 import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
     DragAndDropComponent,
   ],
   imports: [
+    MatDialogModule,
     BrowserModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
