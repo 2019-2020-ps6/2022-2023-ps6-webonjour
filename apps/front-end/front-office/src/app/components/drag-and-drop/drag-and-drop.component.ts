@@ -4,15 +4,10 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as GameActions from '../../reducers/game/game.actions';
-
-interface Action {
-  name: string;
-  order: number;
-}
+import { show } from 'nx/src/command-line/show';
 
 @Component({
   selector: 'webonjour-drag-and-drop',
@@ -20,31 +15,21 @@ interface Action {
   styleUrls: ['./drag-and-drop.component.scss'],
 })
 export class DragAndDropComponent implements OnInit {
-  @ViewChild('successDialog') successDialog!: TemplateRef<unknown>;
+  elements: string[] = ['Action 1', 'Action 2', 'Action 3', 'Action 4'];
+  desiredResult: string[] = ['Action 1', 'Action 2', 'Action 3', 'Action 4'];
+  showModal = false;
 
-  actions: Action[] = [
-    { name: 'Action 1', order: 1 },
-    { name: 'Action 2', order: 2 },
-    { name: 'Action 3', order: 3 },
-    { name: 'Action 4', order: 4 },
-  ];
-  sortedActions: Action[] = [{ name: 'Action 5', order: 5 }];
-
-  constructor(
-    public dialog: MatDialog,
-    private router: Router,
-    private store: Store
-  ) {}
+  constructor(private router: Router, private store: Store) {}
 
   ngOnInit() {
     this.shuffle();
   }
 
   shuffle() {
-    this.actions.sort(() => Math.random() - 0.5);
+    this.elements.sort(() => Math.random() - 0.5);
   }
 
-  onDrop(event: CdkDragDrop<Action[]>) {
+  onDrop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       // move item in the same list
       moveItemInArray(
@@ -61,18 +46,17 @@ export class DragAndDropComponent implements OnInit {
         event.currentIndex
       );
     }
-    this.validateOrder();
   }
 
   validateOrder() {
-    const isValidOrder = this.sortedActions.every(
-      (action, index) => action.order === index + 1
+    const isValidOrder = this.elements.every(
+      (element, index) => element === this.desiredResult[index]
     );
+
     if (isValidOrder) {
-      const dialogRef = this.dialog.open(this.successDialog);
-      // attend 5 secondes avant de rediriger vers la prochaine question
+      this.showModal = true;
       setTimeout(() => {
-        dialogRef.close();
+        this.showModal = false;
         this.store.dispatch(GameActions.chooseAnswer({ isCorrect: true }));
       }, 5000);
     } else {

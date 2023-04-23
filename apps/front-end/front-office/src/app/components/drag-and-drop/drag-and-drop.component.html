@@ -6,33 +6,27 @@
     class="action-list"
     cdkDropList
     #left="cdkDropList"
-    [cdkDropListData]="actions"
-    [cdkDropListConnectedTo]="[right]"
+    [cdkDropListData]="elements"
     (cdkDropListDropped)="onDrop($event)"
   >
-    <div class="action" *ngFor="let action of actions" cdkDrag>
-      {{ action.name }}
-    </div>
-  </div>
-  <div
-    class="drop-zone"
-    cdkDropList
-    #right="cdkDropList"
-    [cdkDropListData]="sortedActions"
-    [cdkDropListConnectedTo]="[left]"
-    (cdkDropListDropped)="onDrop($event)"
-  >
-    <div class="action" *ngFor="let action of sortedActions" cdkDrag>
-      {{ action.name }}
+    <div class="action" *ngFor="let elem of elements" cdkDrag>
+      {{ elem }}
     </div>
   </div>
 </div>
 
-<ng-template #successDialog>
-  <div class="dialog">
+<div style="display: flex; justify-content: center">
+  <a class="validate-button" (click)="validateOrder()">Valider</a>
+</div>
+
+<div
+  class="modal_container"
+  [ngClass]="{ hidden: !showModal }"
+  (click)="showModal = false"
+>
+  <div class="modal">
     <h2>Félicitations !</h2>
     <p>Vous avez réussi cette question</p>
     <p>Dans 5 seconde vous passerez a la suivante</p>
-    <!-- <button (click)="closeDialog()">OK</button> -->
   </div>
-</ng-template>
+</div>
