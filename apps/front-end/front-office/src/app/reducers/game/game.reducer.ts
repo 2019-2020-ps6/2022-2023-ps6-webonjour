@@ -21,11 +21,12 @@ export const gameAdapter: EntityAdapter<GameEntity> =
 export const initialGameState: GameState = gameAdapter.getInitialState({
   // set initial required properties
   loaded: false,
-  currentQuestion: 0,
   score: 0,
   times: [],
   player: null,
   quiz: null,
+  wrongQuestions: [],
+  remainingQuestions: [],
 });
 
 const reducer = createReducer(
@@ -34,40 +35,60 @@ const reducer = createReducer(
     ...state,
     loaded: false,
     error: null,
-    currentQuestion: 0,
     score: 0,
     times: [],
+    wrongQuestions: [],
+    remainingQuestions: [],
   })),
   on(GameActions.loadGameSuccess, (state, { quiz }) => ({
     ...state,
     quiz: quiz,
     loaded: true,
+    remainingQuestions: quiz.questions,
   })),
   on(GameActions.loadGameFailure, (state, { error }) => ({ ...state, error })),
-  on(GameActions.correctAnswer, (state, { delta }) => ({
-    ...state,
-    score: state.score + 1,
-    times: [...state.times, delta],
-  })),
-  on(GameActions.wrongAnswer, (state, { delta }) => ({
-    ...state,
-    score: state.score,
-    times: [...state.times, delta],
-  })),
-  on(GameActions.nextQuestion, (state) => ({
-    ...state,
-    currentQuestion: state.currentQuestion + 1,
-  })),
+  on(GameActions.correctAnswer, (state, { delta }) => {
+    if (!state.quiz) return state;
+    // remove question from remaining questions
+    const newRemainingQuestions = state.remainingQuestions.slice(1);
+
+    return {
+      ...state,
+      score: state.score + 1,
+      times: [...state.times, delta],
+      remainingQuestions: newRemainingQuestions,
+    };
+  }),
+  on(GameActions.wrongAnswer, (state, { delta }) => {
+    if (!state.quiz) return state;
+    return {
+      ...state,
+      score: state.score,
+      times: [...state.times, delta],
+      wrongQuestions: [...state.wrongQuestions, state.remainingQuestions[0]],
+    };
+  }),
   on(GameActions.resetGame, (state) => ({
     ...state,
-    currentQuestion: 0,
+    remainingQuestions: state.quiz?.questions || [],
     score: 0,
     times: [],
   })),
   on(GameActions.setPatient, (state, { patient }) => ({
     ...state,
     player: patient,
-  }))
+  })),
+  on(GameActions.learntQuestion, (state, { question }) => {
+    if (!state.quiz) return state;
+    const newWrongQuestions = state.wrongQuestions.filter(
+      (q) => q !== question
+    );
+    return {
+      ...state,
+      wrongQuestions: newWrongQuestions,
+      remainingQuestions: [...state.remainingQuestions, question],
+    };
+  })
 );
 
 export function gameReducer(state: GameState | undefined, action: Action) {

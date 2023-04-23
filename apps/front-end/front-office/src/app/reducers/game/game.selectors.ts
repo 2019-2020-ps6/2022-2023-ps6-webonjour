@@ -26,7 +26,7 @@ export const selectGameQuiz = createSelector(
 );
 export const selectGameCurrentQuestion = createSelector(
   selectGameState,
-  (state: GameState) => state.quiz?.questions[state.currentQuestion]
+  (state: GameState) => state.remainingQuestions[0]
 );
 
 export const selectPatient = createSelector(

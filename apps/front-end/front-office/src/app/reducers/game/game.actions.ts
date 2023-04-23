@@ -36,6 +36,13 @@ export const correctAnswer = createAction(
   }>()
 );
 
+export const learntQuestion = createAction(
+  '[Game Page] Learnt Question',
+  props<{
+    question: Quiz.Question;
+  }>()
+);
+
 export const wrongAnswer = createAction(
   '[Game Page] Wrong Answer',
   props<{

@@ -13,7 +13,7 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import { QuizService } from '@webonjour/front-end/shared/common';
-import { selectGameState } from './game.selectors';
+import { selectGameCurrentQuestion, selectGameState } from './game.selectors';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Quiz } from '@webonjour/util-interface';
@@ -67,12 +67,15 @@ export class GameEffects {
   nextQuestion$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.nextQuestion),
-      withLatestFrom(this.store.select(selectGameState)),
-      switchMap(([, state]) => {
-        const { quiz, currentQuestion } = state;
+      withLatestFrom(
+        this.store.select(selectGameState),
+        this.store.select(selectGameCurrentQuestion)
+      ),
+      switchMap(([, state, currentQuestion]) => {
+        const { quiz } = state;
         if (quiz) {
-          if (currentQuestion < quiz.questions.length) {
-            this.redirectToCorrectQuestion(quiz.questions[currentQuestion]);
+          if (state.remainingQuestions.length !== 0) {
+            this.redirectToCorrectQuestion(currentQuestion);
             return of(GameActions.nextQuestionSuccess());
           }
         }
@@ -84,10 +87,20 @@ export class GameEffects {
   correctAnswer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.correctAnswer),
-      withLatestFrom(this.store.select(selectGameState)),
-      switchMap(([, state]) => {
+      withLatestFrom(
+        this.store.select(selectGameState),
+        this.store.select(selectGameCurrentQuestion)
+      ),
+      switchMap(([, state, currentQuestion]) => {
         const { quiz } = state;
         if (quiz) {
+          if (
+            state.wrongQuestions.length > 0 &&
+            !state.wrongQuestions.includes(currentQuestion)
+          ) {
+            this.router.navigate(['/learning-card']).then();
+            return EMPTY;
+          }
           return of(GameActions.nextQuestion());
         }
         return EMPTY;

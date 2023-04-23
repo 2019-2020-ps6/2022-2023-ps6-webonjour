@@ -6,7 +6,8 @@ import { Patient, Quiz } from '@webonjour/util-interface';
 export interface GameEntity {
   quiz: Quiz.Quiz | null;
   score: number;
-  currentQuestion: number;
   times: number[];
   player: Patient.Patient | null;
+  wrongQuestions: Quiz.Question[];
+  remainingQuestions: Quiz.Question[];
 }

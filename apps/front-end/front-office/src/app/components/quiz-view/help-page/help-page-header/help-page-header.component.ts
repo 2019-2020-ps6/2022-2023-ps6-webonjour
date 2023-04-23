@@ -11,7 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class HelpPageHeaderComponent implements OnDestroy, OnInit {
   quiz!: Quiz.Quiz;
-  currentQuizQuestion!: number;
+  remainingNumberOfQuestions!: number;
   private ngDestroyed$: Subject<0> = new Subject();
 
   ngOnDestroy() {
@@ -27,7 +27,7 @@ export class HelpPageHeaderComponent implements OnDestroy, OnInit {
       .subscribe((gameState) => {
         if (gameState.quiz) {
           this.quiz = gameState.quiz;
-          this.currentQuizQuestion = gameState.currentQuestion + 1;
+          this.remainingNumberOfQuestions = gameState.remainingQuestions.length;
         }
       });
   }
