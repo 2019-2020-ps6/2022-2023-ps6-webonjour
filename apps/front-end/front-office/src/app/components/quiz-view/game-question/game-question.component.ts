@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
+  selectAccommodation,
   selectGameCurrentQuestion,
   selectPatientDiseaseStage,
 } from '../../../reducers/game/game.selectors';
@@ -21,6 +22,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   image_enabled = false;
 
   public ngDestroyed$ = new Subject();
+  private maxTries!: number;
 
   public ngOnDestroy() {
     this.ngDestroyed$.next(0);
@@ -29,8 +31,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   constructor(
     activatedRoute: ActivatedRoute,
     private router: Router,
-    private store: Store,
-    private actions$: Actions
+    private store: Store
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +42,17 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
         if (question) {
           this.question = question;
         }
+      });
+
+    this.store
+      .select(selectAccommodation)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((accommodation) => {
+        accommodation.filter((accommodation) => {
+          accommodation.title === 'Peut répondre deux fois à la même question';
+        }).length > 0
+          ? (this.maxTries = 2)
+          : (this.maxTries = 1);
       });
 
     this.store
