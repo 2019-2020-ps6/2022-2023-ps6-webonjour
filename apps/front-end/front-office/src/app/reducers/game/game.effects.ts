@@ -45,11 +45,13 @@ export class GameEffects {
       withLatestFrom(this.store.select(selectPatient)),
       mergeMap(([action, patient]) =>
         this.quizService.getById(action.quizId).pipe(
-          map((quiz) => {
+          mergeMap((quiz) => {
             if (!patient) {
-              return GameActions.loadGameFailure({ error: 'No patient found' });
+              return of(
+                GameActions.loadGameFailure({ error: 'No patient found' })
+              );
             }
-            this.patientService.getPatientAccommodation(patient.id).pipe(
+            return this.patientService.getPatientAccommodation(patient.id).pipe(
               map((accommodation) => {
                 this.redirectToCorrectQuestion(quiz.data.questions[0]);
                 return GameActions.loadGameSuccess({
