@@ -51,3 +51,7 @@ export const setPatient = createAction(
     patient: Patient.Patient;
   }>()
 );
+
+export const nextQuestionSuccess = createAction(
+  '[Game Page] Next Question Success'
+);

@@ -16,6 +16,7 @@ import { QuizService } from '@webonjour/front-end/shared/common';
 import { selectGameState } from './game.selectors';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { Quiz } from '@webonjour/util-interface';
 
 @Injectable()
 export class GameEffects {
@@ -36,8 +37,7 @@ export class GameEffects {
       mergeMap((action) =>
         this.quizService.getById(action.quizId).pipe(
           map((quiz) => {
-            console.log('quiz', quiz);
-            this.router.navigate(['/quiz-answer']);
+            this.redirectToCorrectQuestion(quiz.data.questions[0]);
             return GameActions.loadGameSuccess({
               quiz: quiz.data,
             });
@@ -72,7 +72,8 @@ export class GameEffects {
         const { quiz, currentQuestion } = state;
         if (quiz) {
           if (currentQuestion < quiz.questions.length - 1) {
-            return EMPTY;
+            this.redirectToCorrectQuestion(quiz.questions[currentQuestion]);
+            return of(GameActions.nextQuestionSuccess());
           }
         }
         return of(GameActions.endGame());
@@ -108,4 +109,13 @@ export class GameEffects {
       })
     )
   );
+
+  private redirectToCorrectQuestion(question: Quiz.Question) {
+    if (question.type === Quiz.QuestionType.CHOICE) {
+      this.router.navigate(['/quiz-answer']).then();
+    }
+    if (question.type === Quiz.QuestionType.REORDER) {
+      this.router.navigate(['/drag-and-drop']).then();
+    }
+  }
 }
