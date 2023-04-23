@@ -24,6 +24,7 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
   showInvalid = false;
 
   public ngDestroyed$ = new Subject();
+  private modalTimer!: number;
 
   public ngOnDestroy() {
     this.ngDestroyed$.next(0);
@@ -82,9 +83,8 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
 
     if (isValidOrder) {
       this.showModal = true;
-      setTimeout(() => {
-        this.showModal = false;
-        this.store.dispatch(GameActions.chooseAnswer({ isCorrect: true }));
+      this.modalTimer = setTimeout(() => {
+        this.exitModal();
       }, 5000);
     } else {
       this.showInvalid = true;
@@ -93,5 +93,11 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
 
   isValidOrder(element: string, index: number) {
     return this.showInvalid && element !== this.desiredResult[index];
+  }
+
+  exitModal() {
+    this.showModal = false;
+    clearTimeout(this.modalTimer);
+    this.store.dispatch(GameActions.chooseAnswer({ isCorrect: true }));
   }
 }
