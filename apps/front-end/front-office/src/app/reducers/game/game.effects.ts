@@ -12,8 +12,15 @@ import {
   switchMap,
   withLatestFrom,
 } from 'rxjs';
-import { QuizService } from '@webonjour/front-end/shared/common';
-import { selectGameCurrentQuestion, selectGameState } from './game.selectors';
+import {
+  PatientService,
+  QuizService,
+} from '@webonjour/front-end/shared/common';
+import {
+  selectGameCurrentQuestion,
+  selectGameState,
+  selectPatient,
+} from './game.selectors';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Quiz } from '@webonjour/util-interface';
@@ -25,6 +32,7 @@ export class GameEffects {
   constructor(
     private actions$: Actions,
     private quizService: QuizService,
+    private patientService: PatientService,
     private store: Store,
     private router: Router
   ) {
@@ -34,13 +42,22 @@ export class GameEffects {
   init$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.initGame),
-      mergeMap((action) =>
+      withLatestFrom(this.store.select(selectPatient)),
+      mergeMap(([action, patient]) =>
         this.quizService.getById(action.quizId).pipe(
           map((quiz) => {
-            this.redirectToCorrectQuestion(quiz.data.questions[0]);
-            return GameActions.loadGameSuccess({
-              quiz: quiz.data,
-            });
+            if (!patient) {
+              return GameActions.loadGameFailure({ error: 'No patient found' });
+            }
+            this.patientService.getPatientAccommodation(patient.id).pipe(
+              map((accommodation) => {
+                this.redirectToCorrectQuestion(quiz.data.questions[0]);
+                return GameActions.loadGameSuccess({
+                  quiz: quiz.data,
+                  accommodation: accommodation.data,
+                });
+              })
+            );
           }),
           catchError((error) => of(GameActions.loadGameFailure({ error })))
         )
@@ -116,7 +133,12 @@ export class GameEffects {
         const { quiz } = state;
         this.router.navigate(['/result']).then();
         if (quiz) {
-          return of(GameActions.loadGameSuccess({ quiz }));
+          return of(
+            GameActions.loadGameSuccess({
+              quiz,
+              accommodation: state.accommodation,
+            })
+          );
         }
         return EMPTY;
       })

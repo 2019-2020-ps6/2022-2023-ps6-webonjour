@@ -43,3 +43,8 @@ export const selectPatientDiseaseStage = createSelector(
   selectGameState,
   (state: GameState) => state.player?.diseaseStage
 );
+
+export const selectAccommodation = createSelector(
+  selectGameState,
+  (state: GameState) => state.accommodation
+);

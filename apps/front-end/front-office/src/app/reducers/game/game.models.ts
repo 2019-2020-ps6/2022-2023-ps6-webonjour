@@ -10,4 +10,5 @@ export interface GameEntity {
   player: Patient.Patient | null;
   wrongQuestions: Quiz.Question[];
   remainingQuestions: Quiz.Question[];
+  accommodation: Patient.Accommodation[];
 }

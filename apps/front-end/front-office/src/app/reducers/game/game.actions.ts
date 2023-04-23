@@ -8,7 +8,7 @@ export const initGame = createAction(
 
 export const loadGameSuccess = createAction(
   '[Game/API] Load Game Success',
-  props<{ quiz: Quiz.Quiz }>()
+  props<{ quiz: Quiz.Quiz; accommodation: Patient.Accommodation[] }>()
 );
 
 export const loadGameFailure = createAction(

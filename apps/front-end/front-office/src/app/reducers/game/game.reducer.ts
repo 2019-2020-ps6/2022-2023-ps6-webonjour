@@ -27,6 +27,7 @@ export const initialGameState: GameState = gameAdapter.getInitialState({
   quiz: null,
   wrongQuestions: [],
   remainingQuestions: [],
+  accommodation: [],
 });
 
 const reducer = createReducer(
@@ -40,11 +41,12 @@ const reducer = createReducer(
     wrongQuestions: [],
     remainingQuestions: [],
   })),
-  on(GameActions.loadGameSuccess, (state, { quiz }) => ({
+  on(GameActions.loadGameSuccess, (state, { quiz, accommodation }) => ({
     ...state,
     quiz: quiz,
     loaded: true,
     remainingQuestions: quiz.questions,
+    accommodation: accommodation,
   })),
   on(GameActions.loadGameFailure, (state, { error }) => ({ ...state, error })),
   on(GameActions.correctAnswer, (state, { delta }) => {

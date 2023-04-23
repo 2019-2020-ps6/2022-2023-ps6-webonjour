@@ -29,6 +29,9 @@ import { GameEffects } from './reducers/game/game.effects';
 import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ChoiceComponent } from './components/learning/choice/choice.component';
+import { OrderComponent } from './components/learning/order/order.component';
+import { LearningComponent } from './components/learning/learning.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MessageComponent,
     HelpPopupComponent,
     DragAndDropComponent,
+    ChoiceComponent,
+    OrderComponent,
+    LearningComponent,
   ],
   imports: [
     MatDialogModule,
