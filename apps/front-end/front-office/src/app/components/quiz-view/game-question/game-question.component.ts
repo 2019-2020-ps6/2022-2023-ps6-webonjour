@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GameService } from '@webonjour/front-end/shared/common';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
@@ -29,7 +28,6 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
 
   constructor(
     activatedRoute: ActivatedRoute,
-    private gameService: GameService,
     private router: Router,
     private store: Store,
     private actions$: Actions

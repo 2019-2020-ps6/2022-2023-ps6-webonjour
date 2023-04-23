@@ -10,6 +10,7 @@ export const quizList: Quiz.Quiz[] = [
     questions: [
       {
         title: "Quel était la couleur du cheval blanc d'Henri IV ?",
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Blanc',
@@ -52,6 +53,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'Quel était le nom du cheval de Napoléon Bonaparte ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Marengo',
@@ -74,6 +76,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: "Comment s'appelait le cheval de Zorro ?",
+        type: Quiz.QuestionType.REORDER,
         answers: [
           {
             text: 'Tornado',
@@ -94,6 +97,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'Quel était le nom du cheval de la reine Élisabeth II ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Estimate',
@@ -125,6 +129,7 @@ export const quizList: Quiz.Quiz[] = [
     questions: [
       {
         title: 'Quelle était la mission initiale des Templiers ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Protéger les pèlerins chrétiens en Terre Sainte',
@@ -147,6 +152,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'Quel était le symbole des Templiers ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'La croix pattée',
@@ -170,6 +176,7 @@ export const quizList: Quiz.Quiz[] = [
       {
         title:
           'Quelle est la raison principale pour laquelle les Templiers ont été persécutés et dissous en 1312 ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: "Ils étaient accusés d'hérésie et d'autres crimes",
@@ -201,6 +208,7 @@ export const quizList: Quiz.Quiz[] = [
     questions: [
       {
         title: 'Quel est le nom de mon premier chien ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Rex',
@@ -223,6 +231,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'Quel est le prénom de votre fille ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Marcela',
@@ -245,6 +254,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'Quelle était la couleur de votre première voiture ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Rouge',
@@ -267,6 +277,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'A quoi ressemble votre maison ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             image:
