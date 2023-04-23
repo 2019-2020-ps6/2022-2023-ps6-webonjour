@@ -1,8 +1,5 @@
-import {
-  ComponentFixture,
-  ComponentFixtureAutoDetect,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Quiz } from '@webonjour/util-interface';
 
 import { QuestionDetailAnswersComponent } from './question-detail-answers.component';
 
@@ -21,6 +18,7 @@ describe('QuestionDetailAnswersComponent', () => {
       answers: [],
       clues: [],
       title: 'test',
+      type: Quiz.QuestionType.CHOICE,
     };
     fixture.detectChanges();
   });

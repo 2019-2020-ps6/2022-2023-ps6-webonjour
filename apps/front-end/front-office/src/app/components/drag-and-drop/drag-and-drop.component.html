@@ -1,29 +1,41 @@
 <div class="question-title">
-  <h2>Question title</h2>
+  <h2>{{ question.title }}</h2>
 </div>
 <div class="quiz-container">
   <div
     class="action-list"
     cdkDropList
     #left="cdkDropList"
-    [cdkDropListData]="actions"
-    [cdkDropListConnectedTo]="[right]"
+    [cdkDropListData]="elements"
     (cdkDropListDropped)="onDrop($event)"
   >
-    <div class="action" *ngFor="let action of actions" cdkDrag>
-      {{ action.name }}
+    <div
+      class="action"
+      *ngFor="let elem of elements; let i = index"
+      cdkDrag
+      [ngStyle]="{
+        'background-color': isValidOrder(elem, i)
+          ? 'var(--secondary-color)'
+          : 'var(--primary-color)'
+      }"
+    >
+      {{ elem }}
     </div>
   </div>
-  <div
-    class="drop-zone"
-    cdkDropList
-    #right="cdkDropList"
-    [cdkDropListData]="sortedActions"
-    [cdkDropListConnectedTo]="[left]"
-    (cdkDropListDropped)="onDrop($event)"
-  >
-    <div class="action" *ngFor="let action of sortedActions" cdkDrag>
-      {{ action.name }}
-    </div>
+</div>
+
+<div style="display: flex; justify-content: center">
+  <a class="validate-button" (click)="validateOrder()">Valider</a>
+</div>
+
+<div
+  class="modal_container"
+  [ngClass]="{ hidden: !showModal }"
+  (click)="exitModal()"
+>
+  <div class="modal">
+    <h1 style="font-size: 10vh">Félicitations !</h1>
+    <p style="font-size: 3vh">Vous avez réussi cette question !</p>
+    <p style="font-size: 3vh">Dans 5 secondes vous passerez à la suivante.</p>
   </div>
 </div>

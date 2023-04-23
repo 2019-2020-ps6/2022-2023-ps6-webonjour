@@ -8,6 +8,10 @@ export enum DiseaseStage {
   STAGE_7 = 7,
 }
 
+export enum QuestionType {
+  CHOICE = 'CHOICE',
+  REORDER = 'REORDER',
+}
 export interface Clue {
   text?: string;
   image?: string;
@@ -18,6 +22,7 @@ export interface Question {
   image?: string;
   answers: Answer[];
   clues: Clue[];
+  type: QuestionType;
 }
 
 export interface Answer {

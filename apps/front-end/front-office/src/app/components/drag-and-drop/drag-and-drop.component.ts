@@ -1,41 +1,65 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-
-interface Action {
-  name: string;
-  order: number;
-}
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as GameActions from '../../reducers/game/game.actions';
+import { Subject, takeUntil } from 'rxjs';
+import { selectGameCurrentQuestion } from '../../reducers/game/game.selectors';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-drag-and-drop',
   templateUrl: './drag-and-drop.component.html',
   styleUrls: ['./drag-and-drop.component.scss'],
 })
-export class DragAndDropComponent {
-  actions: Action[] = [
-    { name: 'Action 1', order: 1 },
-    { name: 'Action 2', order: 2 },
-    { name: 'Action 3', order: 3 },
-    { name: 'Action 4', order: 4 },
-  ];
-  sortedActions: Action[] = [{ name: 'Action 5', order: 5 }];
+export class DragAndDropComponent implements OnInit, OnDestroy {
+  question!: Quiz.Question;
+  elements!: string[];
+  desiredResult!: string[];
+  showModal = false;
+  showInvalid = false;
 
-  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
-  ngOnInit() {
-    this.shuffle();
+  public ngDestroyed$ = new Subject();
+  private modalTimer!: number;
+
+  public ngOnDestroy() {
+    this.ngDestroyed$.next(0);
+  }
+
+  constructor(
+    activatedRoute: ActivatedRoute,
+    private router: Router,
+    private store: Store
+  ) {}
+
+  ngOnInit(): void {
+    this.store
+      .select(selectGameCurrentQuestion)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((question) => {
+        if (question) {
+          this.question = question;
+          this.desiredResult = question.answers.map(
+            (answer) => answer.text || ''
+          );
+          this.elements = this.desiredResult.slice(); // copy
+          this.shuffle();
+        }
+      });
   }
 
   shuffle() {
-    this.actions = this.actions.sort(() => Math.random() - 0.5);
+    this.elements.sort(() => Math.random() - 0.5);
   }
 
-  onDrop(event: CdkDragDrop<Action[]>) {
+  onDrop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       // move item in the same list
+      this.showInvalid = false;
       moveItemInArray(
         event.container.data,
         event.previousIndex,
@@ -50,17 +74,30 @@ export class DragAndDropComponent {
         event.currentIndex
       );
     }
-    this.validateOrder();
   }
 
   validateOrder() {
-    const isValidOrder = this.sortedActions.every(
-      (action, index) => action.order === index + 1
+    const isValidOrder = this.elements.every(
+      (element, index) => element === this.desiredResult[index]
     );
+
     if (isValidOrder) {
-      console.log('Order is valid');
+      this.showModal = true;
+      this.modalTimer = setTimeout(() => {
+        this.exitModal();
+      }, 5000);
     } else {
-      console.log('Order is not valid');
+      this.showInvalid = true;
     }
+  }
+
+  isValidOrder(element: string, index: number) {
+    return this.showInvalid && element !== this.desiredResult[index];
+  }
+
+  exitModal() {
+    this.showModal = false;
+    clearTimeout(this.modalTimer);
+    this.store.dispatch(GameActions.chooseAnswer({ isCorrect: true }));
   }
 }

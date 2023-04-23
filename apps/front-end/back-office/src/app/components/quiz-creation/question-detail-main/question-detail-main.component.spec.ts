@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuestionDetailMainComponent } from './question-detail-main.component';
+import { Quiz } from '@webonjour/util-interface';
 
 describe('QuestionDetailMainComponent', () => {
   let component: QuestionDetailMainComponent;
@@ -17,6 +18,7 @@ describe('QuestionDetailMainComponent', () => {
       answers: [],
       clues: [],
       title: 'test',
+      type: Quiz.QuestionType.CHOICE,
     };
     fixture.detectChanges();
   });

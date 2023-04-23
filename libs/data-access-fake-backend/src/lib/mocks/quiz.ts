@@ -10,6 +10,7 @@ export const quizList: Quiz.Quiz[] = [
     questions: [
       {
         title: "Quel était la couleur du cheval blanc d'Henri IV ?",
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Blanc',
@@ -52,6 +53,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'Quel était le nom du cheval de Napoléon Bonaparte ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Marengo',
@@ -74,6 +76,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: "Comment s'appelait le cheval de Zorro ?",
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Tornado',
@@ -94,6 +97,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'Quel était le nom du cheval de la reine Élisabeth II ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Estimate',
@@ -125,6 +129,7 @@ export const quizList: Quiz.Quiz[] = [
     questions: [
       {
         title: 'Quelle était la mission initiale des Templiers ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Protéger les pèlerins chrétiens en Terre Sainte',
@@ -147,6 +152,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'Quel était le symbole des Templiers ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'La croix pattée',
@@ -170,6 +176,7 @@ export const quizList: Quiz.Quiz[] = [
       {
         title:
           'Quelle est la raison principale pour laquelle les Templiers ont été persécutés et dissous en 1312 ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: "Ils étaient accusés d'hérésie et d'autres crimes",
@@ -201,6 +208,7 @@ export const quizList: Quiz.Quiz[] = [
     questions: [
       {
         title: 'Quel est le nom de mon premier chien ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Rex',
@@ -223,6 +231,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'Quel est le prénom de votre fille ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Marcela',
@@ -245,6 +254,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'Quelle était la couleur de votre première voiture ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Rouge',
@@ -267,6 +277,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: 'A quoi ressemble votre maison ?',
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             image:
@@ -281,6 +292,73 @@ export const quizList: Quiz.Quiz[] = [
           {
             image:
               'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.hNnTtcmM9AZ8dgRs0zksNwHaHe%26pid%3DApi&f=1&ipt=b6b100038c7fa259cbf0f7eb48c9362eb3686cb4839d926f16845d8ff133d490&ipo=images',
+            isCorrect: false,
+          },
+        ],
+        clues: [
+          {
+            text: 'Ca commence par R',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: '4',
+    title: 'Quiz sur les Trucs à remettre à leur place',
+    imageUrl:
+      'https://cdn4.iconfinder.com/data/icons/user-people-2/48/6-512.png',
+    stage: Quiz.DiseaseStage.STAGE_4,
+    questions: [
+      {
+        title: 'Ordonner par ordre alphabétique ?',
+        type: Quiz.QuestionType.REORDER,
+        answers: [
+          {
+            text: 'Ramses',
+            isCorrect: false,
+          },
+          {
+            text: 'Rex',
+            isCorrect: true,
+          },
+          {
+            text: 'Rudolph',
+            isCorrect: false,
+          },
+        ],
+        clues: [
+          {
+            text: 'Ca commence par R',
+          },
+        ],
+      },
+      {
+        title: 'Réordonner par ordre chronologique pour faire des pâtes.',
+        type: Quiz.QuestionType.REORDER,
+        answers: [
+          {
+            text: 'Prendre une casserole',
+            isCorrect: false,
+          },
+          {
+            text: 'Mettre de l’eau à bouillir',
+            isCorrect: false,
+          },
+          {
+            text: 'Mettre les pâtes dans l’eau',
+            isCorrect: true,
+          },
+          {
+            text: 'Egoutter les pâtes',
+            isCorrect: false,
+          },
+          {
+            text: 'Servir dans une assiette',
+            isCorrect: false,
+          },
+          {
+            text: 'Mettre de la sauce tomate',
             isCorrect: false,
           },
         ],
