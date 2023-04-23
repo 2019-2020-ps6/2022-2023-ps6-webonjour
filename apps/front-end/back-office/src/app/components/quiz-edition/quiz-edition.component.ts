@@ -38,6 +38,7 @@ export class QuizEditionComponent implements OnInit, AfterViewInit {
       title: 'Nouvelle question',
       answers: [],
       clues: [],
+      type: Quiz.QuestionType.CHOICE,
     };
 
     this.quizService
