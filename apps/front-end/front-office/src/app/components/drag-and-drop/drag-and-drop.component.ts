@@ -18,6 +18,7 @@ export class DragAndDropComponent implements OnInit {
   elements: string[] = ['Action 1', 'Action 2', 'Action 3', 'Action 4'];
   desiredResult: string[] = ['Action 1', 'Action 2', 'Action 3', 'Action 4'];
   showModal = false;
+  showInvalid = false;
 
   constructor(private router: Router, private store: Store) {}
 
@@ -32,6 +33,7 @@ export class DragAndDropComponent implements OnInit {
   onDrop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       // move item in the same list
+      this.showInvalid = false;
       moveItemInArray(
         event.container.data,
         event.previousIndex,
@@ -60,7 +62,11 @@ export class DragAndDropComponent implements OnInit {
         this.store.dispatch(GameActions.chooseAnswer({ isCorrect: true }));
       }, 5000);
     } else {
-      console.log('Order is not valid');
+      this.showInvalid = true;
     }
+  }
+
+  isValidOrder(element: string, index: number) {
+    return this.showInvalid && element !== this.desiredResult[index];
   }
 }

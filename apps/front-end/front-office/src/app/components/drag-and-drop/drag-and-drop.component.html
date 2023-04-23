@@ -1,5 +1,5 @@
 <div class="question-title" xmlns="http://www.w3.org/1999/html">
-  <h2>Question title</h2>
+  <h2>{{ question.title }}</h2>
 </div>
 <div class="quiz-container">
   <div
@@ -9,7 +9,16 @@
     [cdkDropListData]="elements"
     (cdkDropListDropped)="onDrop($event)"
   >
-    <div class="action" *ngFor="let elem of elements" cdkDrag>
+    <div
+      class="action"
+      *ngFor="let elem of elements; let i = index"
+      cdkDrag
+      [ngStyle]="{
+        'background-color': isValidOrder(elem, i)
+          ? 'var(--secondary-color)'
+          : 'inherit'
+      }"
+    >
       {{ elem }}
     </div>
   </div>
