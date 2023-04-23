@@ -303,4 +303,36 @@ export const quizList: Quiz.Quiz[] = [
       },
     ],
   },
+  {
+    id: '4',
+    title: 'Quiz sur les Trucs à remettre à leur place',
+    imageUrl:
+      'https://cdn4.iconfinder.com/data/icons/user-people-2/48/6-512.png',
+    stage: Quiz.DiseaseStage.STAGE_4,
+    questions: [
+      {
+        title: 'Ordonner par ordre alphabétique ?',
+        type: Quiz.QuestionType.REORDER,
+        answers: [
+          {
+            text: 'Ramses',
+            isCorrect: false,
+          },
+          {
+            text: 'Rex',
+            isCorrect: true,
+          },
+          {
+            text: 'Rudolph',
+            isCorrect: false,
+          },
+        ],
+        clues: [
+          {
+            text: 'Ca commence par R',
+          },
+        ],
+      },
+    ],
+  },
 ];

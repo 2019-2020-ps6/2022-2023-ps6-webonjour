@@ -1,28 +1,65 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as GameActions from '../../reducers/game/game.actions';
-import { show } from 'nx/src/command-line/show';
+import { Subject, takeUntil } from 'rxjs';
+import { Actions } from '@ngrx/effects';
+import {
+  selectGameCurrentQuestion,
+  selectPatientDiseaseStage,
+} from '../../reducers/game/game.selectors';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-drag-and-drop',
   templateUrl: './drag-and-drop.component.html',
   styleUrls: ['./drag-and-drop.component.scss'],
 })
-export class DragAndDropComponent implements OnInit {
-  elements: string[] = ['Action 1', 'Action 2', 'Action 3', 'Action 4'];
-  desiredResult: string[] = ['Action 1', 'Action 2', 'Action 3', 'Action 4'];
+export class DragAndDropComponent implements OnInit, OnDestroy {
+  question!: Quiz.Question;
+  elements!: string[];
+  desiredResult!: string[];
   showModal = false;
   showInvalid = false;
 
-  constructor(private router: Router, private store: Store) {}
+  public ngDestroyed$ = new Subject();
 
-  ngOnInit() {
+  public ngOnDestroy() {
+    this.ngDestroyed$.next(0);
+  }
+
+  constructor(
+    activatedRoute: ActivatedRoute,
+    private router: Router,
+    private store: Store,
+    private actions$: Actions
+  ) {}
+
+  ngOnInit(): void {
+    this.store
+      .select(selectGameCurrentQuestion)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((question) => {
+        if (question) {
+          this.question = question;
+          this.desiredResult = question.answers.map(
+            (answer) => answer.text || ''
+          );
+          this.elements = this.desiredResult.slice(); // copy
+        }
+      });
+
     this.shuffle();
   }
 
