@@ -4,12 +4,10 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import {
-  MatDialog,
-  MatDialogRef,
-  MatDialogModule,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as GameActions from '../../reducers/game/game.actions';
 
 interface Action {
   name: string;
@@ -21,8 +19,8 @@ interface Action {
   templateUrl: './drag-and-drop.component.html',
   styleUrls: ['./drag-and-drop.component.scss'],
 })
-export class DragAndDropComponent {
-  @ViewChild('successDialog') successDialog!: TemplateRef<any>;
+export class DragAndDropComponent implements OnInit {
+  @ViewChild('successDialog') successDialog!: TemplateRef<unknown>;
 
   actions: Action[] = [
     { name: 'Action 1', order: 1 },
@@ -32,15 +30,18 @@ export class DragAndDropComponent {
   ];
   sortedActions: Action[] = [{ name: 'Action 5', order: 5 }];
 
-  constructor(public dialog: MatDialog, private router: Router) {}
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private store: Store
+  ) {}
 
-  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngOnInit() {
     this.shuffle();
   }
 
   shuffle() {
-    this.actions = this.actions.sort(() => Math.random() - 0.5);
+    this.actions.sort(() => Math.random() - 0.5);
   }
 
   onDrop(event: CdkDragDrop<Action[]>) {
@@ -68,12 +69,11 @@ export class DragAndDropComponent {
       (action, index) => action.order === index + 1
     );
     if (isValidOrder) {
-      console.log('Order is valid');
       const dialogRef = this.dialog.open(this.successDialog);
-      // attend 5 secondes avant de rediriger vers la page d'accueil
+      // attend 5 secondes avant de rediriger vers la prochaine question
       setTimeout(() => {
         dialogRef.close();
-        this.router.navigate(['/drag-and-drop2']);
+        this.store.dispatch(GameActions.chooseAnswer({ isCorrect: true }));
       }, 5000);
     } else {
       console.log('Order is not valid');
