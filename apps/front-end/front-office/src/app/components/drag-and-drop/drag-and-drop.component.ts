@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -14,11 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as GameActions from '../../reducers/game/game.actions';
 import { Subject, takeUntil } from 'rxjs';
-import { Actions } from '@ngrx/effects';
-import {
-  selectGameCurrentQuestion,
-  selectPatientDiseaseStage,
-} from '../../reducers/game/game.selectors';
+import { selectGameCurrentQuestion } from '../../reducers/game/game.selectors';
 import { Quiz } from '@webonjour/util-interface';
 
 @Component({
@@ -42,8 +32,7 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
   constructor(
     activatedRoute: ActivatedRoute,
     private router: Router,
-    private store: Store,
-    private actions$: Actions
+    private store: Store
   ) {}
 
   ngOnInit(): void {
