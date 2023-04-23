@@ -3,6 +3,8 @@ import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { TtsService } from '@webonjour/front-end/shared/common';
+
 import {
   selectGameCurrentQuestion,
   selectPatientDiseaseStage,
@@ -36,7 +38,8 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     activatedRoute: ActivatedRoute,
     private router: Router,
     private store: Store,
-    private actions$: Actions
+    private actions$: Actions,
+    private tts: TtsService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +49,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       .subscribe((question) => {
         if (question) {
           this.question = question;
+          this.tts.sayTTS(this.question.title);
         }
       });
 

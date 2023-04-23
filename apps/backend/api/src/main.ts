@@ -11,7 +11,7 @@ import express, {
 } from 'express';
 import AppError from './utils/appError';
 import cookieParser from 'cookie-parser';
-import { textToSpeech } from './utils/tts';
+import ttsRouter from './routes/tts.route';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');
@@ -29,12 +29,13 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 // 4. Cors
-const origin = `${host}:${port}`;
+const origin = `http://${host}:${port}`;
 app.use(
-  cors({
+  cors()
+  /*{
     origin: origin,
     credentials: true,
-  })
+  }*/
 );
 
 // 5. Routes
@@ -51,15 +52,7 @@ app.get('/health', (req, res) => {
   res.send({ message: 'OK' });
 });
 
-app.get('/tts', async (req, res) => {
-  const text = req.query.text;
-  if (typeof text !== 'string') {
-    res.status(400).send({ message: 'Missing text parameter' });
-    return;
-  }
-
-  res.send({ message: await textToSpeech(text) });
-});
+app.get('/api/tts', ttsRouter);
 
 // Unknown Routes
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
