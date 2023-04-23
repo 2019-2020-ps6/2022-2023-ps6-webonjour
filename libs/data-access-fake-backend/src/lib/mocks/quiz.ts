@@ -76,7 +76,7 @@ export const quizList: Quiz.Quiz[] = [
       },
       {
         title: "Comment s'appelait le cheval de Zorro ?",
-        type: Quiz.QuestionType.REORDER,
+        type: Quiz.QuestionType.CHOICE,
         answers: [
           {
             text: 'Tornado',
