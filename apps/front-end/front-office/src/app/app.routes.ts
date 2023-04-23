@@ -31,8 +31,4 @@ export const appRoutes: Route[] = [
     path: 'drag-and-drop',
     component: DragAndDropComponent,
   },
-  {
-    path: 'drag-and-drop2',
-    component: DragAndDropComponent,
-  },
 ];
