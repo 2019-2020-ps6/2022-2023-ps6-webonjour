@@ -333,6 +333,41 @@ export const quizList: Quiz.Quiz[] = [
           },
         ],
       },
+      {
+        title: 'Réordonner par ordre chronologique pour faire des pâtes.',
+        type: Quiz.QuestionType.REORDER,
+        answers: [
+          {
+            text: 'Prendre une casserole',
+            isCorrect: false,
+          },
+          {
+            text: 'Mettre de l’eau à bouillir',
+            isCorrect: false,
+          },
+          {
+            text: 'Mettre les pâtes dans l’eau',
+            isCorrect: true,
+          },
+          {
+            text: 'Egoutter les pâtes',
+            isCorrect: false,
+          },
+          {
+            text: 'Servir dans une assiette',
+            isCorrect: false,
+          },
+          {
+            text: 'Mettre de la sauce tomate',
+            isCorrect: false,
+          },
+        ],
+        clues: [
+          {
+            text: 'Ca commence par R',
+          },
+        ],
+      },
     ],
   },
 ];

@@ -71,7 +71,7 @@ export class GameEffects {
       switchMap(([, state]) => {
         const { quiz, currentQuestion } = state;
         if (quiz) {
-          if (currentQuestion < quiz.questions.length - 1) {
+          if (currentQuestion < quiz.questions.length) {
             this.redirectToCorrectQuestion(quiz.questions[currentQuestion]);
             return of(GameActions.nextQuestionSuccess());
           }
