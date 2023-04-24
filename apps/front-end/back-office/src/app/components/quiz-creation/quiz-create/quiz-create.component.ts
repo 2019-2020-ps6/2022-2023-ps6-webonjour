@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Quiz } from '@webonjour/util-interface';
+import { MatDialog } from '@angular/material/dialog';
+import { QuizService } from '@webonjour/front-end/shared/common';
 
 export function validateStage(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -22,11 +24,14 @@ export function validateStage(): ValidatorFn {
   templateUrl: './quiz-create.component.html',
   styleUrls: ['./quiz-create.component.scss'],
 })
-export class QuizCreateComponent {
+export class QuizCreateComponent implements OnInit {
   form!: FormGroup;
-  @Input() id!: string;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private matDialog: MatDialog,
+    private quizService: QuizService
+  ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -47,8 +52,19 @@ export class QuizCreateComponent {
       title: this.form.controls['quiz_name'].value,
       questions: [],
       stage: stage,
-      id: this.id,
+      id: '',
       imageUrl: 'https://picsum.photos/200',
     };
+  }
+
+  onSubmit() {
+    console.log('submit');
+    // stop here if form is invalid
+    if (this.form.invalid) {
+      return;
+    }
+    this.quizService.create(this.getQuiz()).subscribe(() => {
+      this.matDialog.closeAll();
+    });
   }
 }

@@ -1,4 +1,11 @@
-<mat-dialog-content class="mat-typography">
+<div
+  style="
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+  "
+>
   <div id="root" class="row" role="dialog">
     <div class="col-9">
       <form [formGroup]="form">
@@ -66,12 +73,12 @@
       </button>
     </div>
   </div>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
+
   <button
     mat-button
-    [mat-dialog-close]="getQuiz()"
+    (click)="onSubmit()"
     cdkFocusInitial
+    style="margin: 20px"
     [disabled]="
       formControls['quiz_name'].errors ||
       formControls['recommended_stage'].errors
@@ -80,4 +87,4 @@
   >
     Créer
   </button>
-</mat-dialog-actions>
+</div>

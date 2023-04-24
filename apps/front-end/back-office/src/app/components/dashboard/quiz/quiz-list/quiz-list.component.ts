@@ -4,7 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { Quiz } from '@webonjour/util-interface';
 import { QuizCreateComponent } from '../../../quiz-creation/quiz-create/quiz-create.component';
-import { mergeMap } from 'rxjs';
 import { QuizService } from '@webonjour/front-end/shared/common';
 
 @Component({
@@ -40,17 +39,10 @@ export class QuizListComponent implements AfterViewInit {
   }
 
   onAddQuiz() {
-    const dialogRef = this.dialog.open(QuizCreateComponent, {
-      disableClose: true,
+    this.dialog.open(QuizCreateComponent, {});
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.refresh();
     });
-    dialogRef.componentInstance.id = (
-      this.dataSource.data.length + 1
-    ).toString();
-
-    dialogRef
-      .afterClosed()
-      .pipe(mergeMap((quiz) => this.quizService.create(quiz)))
-      .subscribe(() => this.refresh());
   }
 
   onDeleteQuiz(id: string) {
@@ -58,4 +50,6 @@ export class QuizListComponent implements AfterViewInit {
       this.refresh();
     });
   }
+
+  protected readonly console = console;
 }
