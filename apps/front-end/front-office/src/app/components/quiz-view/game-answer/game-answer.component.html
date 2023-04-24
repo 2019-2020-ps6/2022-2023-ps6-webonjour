@@ -4,6 +4,7 @@
   (mouseleave)="onHover(false)"
   (click)="onClick()"
   [ngClass]="{ hovered: hover, selected: clicked, disabled: disabled }"
+  [style.background-color]="color"
 >
   <p>{{ answer.text }}</p>
   <img *ngIf="img_enabled" [src]="answer.image" />

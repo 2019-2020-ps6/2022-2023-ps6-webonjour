@@ -12,6 +12,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectPatientDiseaseStage } from '../../../reducers/game/game.selectors';
 import * as GameActions from '../../../reducers/game/game.actions';
+import { Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'webonjour-game-answer',
@@ -21,6 +22,7 @@ import * as GameActions from '../../../reducers/game/game.actions';
 export class GameAnswerComponent implements OnInit, OnDestroy {
   @Input() diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   @Input() answer: Quiz.Answer = { text: '', isCorrect: false };
+  @Input() color: string = '#00fc05';
   @Input() img_enabled = false;
   @Output() displayImageEvent = new EventEmitter<boolean>();
   @Output() show_modal_help = new EventEmitter<boolean>();

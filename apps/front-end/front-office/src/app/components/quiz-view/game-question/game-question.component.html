@@ -2,11 +2,13 @@
   <h1 class="question-title">{{ question.title }}</h1>
   <div class="answer-container">
     <webonjour-game-answer
-      *ngFor="let answer of question.answers"
+      class="answer"
+      *ngFor="let answer of question.answers; let i = index"
       [answer]="answer"
       [img_enabled]="image_enabled"
       (displayImageEvent)="onImageEnable($event)"
       (show_modal_help)="show_modal_help($event)"
+      [color]="Array.from(colors.values())[i]"
     ></webonjour-game-answer>
   </div>
   <div class="help-container">

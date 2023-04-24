@@ -19,7 +19,12 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   question!: Quiz.Question;
   show_help = false;
   image_enabled = false;
-
+  colors = new Map([
+    ['bleu', '#3498db'],
+    ['violet', '#9b59b6'],
+    ['jaune', '#f1c40f'],
+    ['vert', '#2ecc71'],
+  ]);
   public ngDestroyed$ = new Subject();
 
   public ngOnDestroy() {
@@ -64,4 +69,6 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       clearInterval(interval);
     }, 3000);
   }
+
+  protected readonly Array = Array;
 }
