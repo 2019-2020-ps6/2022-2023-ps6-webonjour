@@ -50,6 +50,4 @@ export class QuizListComponent implements AfterViewInit {
       this.refresh();
     });
   }
-
-  protected readonly console = console;
 }
