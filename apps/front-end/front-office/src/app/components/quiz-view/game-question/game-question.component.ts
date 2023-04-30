@@ -26,6 +26,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     ['vert', '#2ecc71'],
   ]);
   public ngDestroyed$ = new Subject();
+  protected readonly Array = Array;
 
   public ngOnDestroy() {
     this.ngDestroyed$.next(0);
@@ -69,6 +70,4 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       clearInterval(interval);
     }, 3000);
   }
-
-  protected readonly Array = Array;
 }
