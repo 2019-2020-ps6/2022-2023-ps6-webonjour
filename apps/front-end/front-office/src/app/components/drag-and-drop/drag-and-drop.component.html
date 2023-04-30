@@ -22,6 +22,26 @@
       {{ elem }}
     </div>
   </div>
+  <div
+    class="answer-list"
+    cdkDropList
+    #right="cdkDropList"
+    [cdkDropListData]="answer"
+    (cdkDropListDropped)="onDrop($event)"
+  >
+    <div
+      class="answer"
+      *ngFor="let elem of answer; let i = index"
+      cdkDrag
+      [ngStyle]="{
+        'background-color': isValidOrder(elem, i)
+          ? 'var(--secondary-color)'
+          : 'var(--primary-color)'
+      }"
+    >
+      {{ elem }}
+    </div>
+  </div>
 </div>
 
 <div style="display: flex; justify-content: center">

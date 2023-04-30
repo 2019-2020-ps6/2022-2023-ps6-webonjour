@@ -19,6 +19,7 @@ import { Quiz } from '@webonjour/util-interface';
 export class DragAndDropComponent implements OnInit, OnDestroy {
   question!: Quiz.Question;
   elements!: string[];
+  answer!: string[];
   desiredResult!: string[];
   showModal = false;
   showInvalid = false;
