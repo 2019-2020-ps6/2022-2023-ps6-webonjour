@@ -48,6 +48,8 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
             (answer) => answer.text || ''
           );
           this.elements = this.desiredResult.slice(); // copy
+          //this.answer = this.desiredResult.slice(); // copy
+          this.answer = [];
           this.shuffle();
         }
       });
