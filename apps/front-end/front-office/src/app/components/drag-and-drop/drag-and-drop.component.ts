@@ -80,9 +80,12 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
   }
 
   validateOrder() {
-    const isValidOrder = this.elements.every(
-      (element, index) => element === this.desiredResult[index]
-    );
+    const isValidLength = this.answer.length === this.desiredResult.length;
+    const isValidOrder =
+      isValidLength &&
+      this.answer.every(
+        (element, index) => element === this.desiredResult[index]
+      );
 
     if (isValidOrder) {
       this.showModal = true;

@@ -12,11 +12,11 @@
   >
     <div
       class="action"
-      *ngFor="let elem of elements; let i = index"
+      *ngFor="let action of elements; let i = index"
       cdkDrag
       [ngStyle]="{ 'background-color': 'var(--primary-color)' }"
     >
-      {{ elem }}
+      {{ action }}
     </div>
   </div>
   <div
