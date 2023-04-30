@@ -36,6 +36,7 @@ import { QuestionDetailClueComponent } from './components/quiz-creation/question
 import { QuestionDetailAnswerComponent } from './components/quiz-creation/question-detail-answer/question-detail-answer.component';
 
 import { PatientFamilyAddPopupComponent } from './components/dashboard/patient/patient-edit/patient-family-add-popup/patient-family-add-popup.component';
+import { FileFieldComponent } from './components/util/file-field/file-field.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +60,7 @@ import { PatientFamilyAddPopupComponent } from './components/dashboard/patient/p
     QuestionDetailClueComponent,
     QuestionDetailAnswerComponent,
     PatientFamilyAddPopupComponent,
+    FileFieldComponent,
   ],
   imports: [
     BrowserModule,

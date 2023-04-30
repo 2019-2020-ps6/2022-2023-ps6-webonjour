@@ -35,8 +35,10 @@ export class QuizCreateComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      quiz_name: ['', [Validators.required, Validators.minLength(6)]],
-      recommended_stage: ['', [Validators.required, validateStage()]],
+      title: ['', [Validators.required, Validators.minLength(6)]],
+      description: ['', [Validators.required]],
+      image: [File, [Validators.required]],
+      recommended_stage: [null, [Validators.required]],
     });
   }
 
@@ -49,11 +51,11 @@ export class QuizCreateComponent implements OnInit {
     const stage = this.form.controls['recommended_stage']
       .value as Quiz.DiseaseStage;
     return {
-      title: this.form.controls['quiz_name'].value,
+      title: this.form.controls['title'].value,
       questions: [],
       stage: stage,
       id: '',
-      imageUrl: 'https://picsum.photos/200',
+      imageUrl: '',
     };
   }
 
