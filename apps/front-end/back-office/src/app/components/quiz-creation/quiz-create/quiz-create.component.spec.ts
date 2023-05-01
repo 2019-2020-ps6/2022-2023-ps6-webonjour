@@ -1,8 +1,41 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { QuizCreateComponent } from './quiz-create.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component } from '@angular/core';
+
+const mockControlValueAccessor = {
+  provide: NG_VALUE_ACCESSOR,
+  useValue: {
+    writeValue: () => {
+      console.log('writeValue');
+    },
+    registerOnChange: () => {
+      console.log('registerOnChange');
+    },
+    registerOnTouched: () => {
+      console.log('registerOnTouched');
+    },
+  },
+  multi: true,
+};
+
+@Component({
+  selector: 'webonjour-file-field',
+  template: '',
+  providers: [mockControlValueAccessor],
+})
+class MockCustomFieldComponent {
+  public open(): void {
+    console.log('open');
+  }
+
+  public close(): void {
+    console.log('close');
+  }
+}
 
 describe('QuizCreationComponent', () => {
   let component: QuizCreateComponent;
@@ -10,8 +43,8 @@ describe('QuizCreationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [QuizCreateComponent],
-      imports: [MatDialogModule, ReactiveFormsModule],
+      declarations: [QuizCreateComponent, MockCustomFieldComponent],
+      imports: [MatDialogModule, ReactiveFormsModule, HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(QuizCreateComponent);

@@ -43,6 +43,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function createQuiz(quiz: Quiz.Quiz) {
+      quiz.id = (Math.max(...quizList.map((x) => +x.id)) + 1).toString();
       quizList.push(quiz);
       return ok();
     }
