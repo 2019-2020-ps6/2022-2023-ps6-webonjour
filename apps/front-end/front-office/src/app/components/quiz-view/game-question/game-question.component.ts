@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
   selectAccommodation,
@@ -9,6 +8,7 @@ import {
   selectPatientDiseaseStage,
 } from '../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
+import * as GameActions from '../../../reducers/game/game.actions';
 
 @Component({
   selector: 'webonjour-game-question',
@@ -22,7 +22,8 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   image_enabled = false;
 
   public ngDestroyed$ = new Subject();
-  private maxTries!: number;
+  private maxTries = 1;
+  protected readonly document = document;
 
   public ngOnDestroy() {
     this.ngDestroyed$.next(0);
@@ -67,6 +68,46 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
 
   onImageEnable(event: boolean) {
     this.image_enabled = event;
+  }
+
+  onSelectAnswer(answer: Quiz.Answer, index: number) {
+    const question = document.querySelector('#answer-' + index);
+
+    if (!question || question.classList.contains('disabled')) {
+      return;
+    }
+
+    question.classList.add('selected');
+
+    this.store.dispatch(
+      GameActions.chooseAnswer({ isCorrect: answer.isCorrect })
+    );
+
+    if (!answer.isCorrect) {
+      this.handleAnswerError(question);
+    }
+  }
+
+  handleAnswerError(question: Element) {
+    this.maxTries--;
+
+    if (this.maxTries <= 0) {
+      question.classList.add('disabled');
+      window.alert('Vous avez perdu !');
+      this.store.dispatch(GameActions.nextQuestion());
+    }
+
+    if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_3) {
+      question.classList.add('disabled');
+    }
+
+    if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_4) {
+      this.show_modal_help(true);
+    }
+
+    if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_5) {
+      this.image_enabled = true;
+    }
   }
 
   show_modal_help($show_modal: boolean) {

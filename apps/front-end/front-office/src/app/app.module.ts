@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { GameQuestionComponent } from './components/quiz-view/game-question/game-question.component';
-import { GameAnswerComponent } from './components/quiz-view/game-answer/game-answer.component';
 import { QuizItemComponent } from './components/quiz/quiz-item/quiz-item.component';
 import { QuizListItemComponent } from './components/quiz/quiz-list-item/quiz-list-item.component';
 import { HelpPageComponent } from './components/quiz-view/help-page/help-page.component';
@@ -38,7 +37,6 @@ import { LearningComponent } from './components/learning/learning.component';
     AppComponent,
     NxWelcomeComponent,
     GameQuestionComponent,
-    GameAnswerComponent,
     QuizItemComponent,
     QuizListItemComponent,
     HelpPageComponent,
