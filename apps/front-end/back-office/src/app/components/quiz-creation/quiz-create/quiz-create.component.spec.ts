@@ -6,7 +6,7 @@ import { QuizCreateComponent } from './quiz-create.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 
-const mockControlValueAccessor = {
+export const mockControlValueAccessor = {
   provide: NG_VALUE_ACCESSOR,
   useValue: {
     writeValue: () => {
@@ -27,7 +27,7 @@ const mockControlValueAccessor = {
   template: '',
   providers: [mockControlValueAccessor],
 })
-class MockCustomFieldComponent {
+export class MockCustomFieldComponent {
   public open(): void {
     console.log('open');
   }
