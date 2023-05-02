@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './skip-button.component.html',
   styleUrls: ['./skip-button.component.scss'],
 })
-export class SkipButtonComponent {}
+export class SkipButtonComponent {
+  onClick() {
+    console.log('Skip button clicked');
+  }
+}
