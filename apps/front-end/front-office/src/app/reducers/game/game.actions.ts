@@ -55,3 +55,5 @@ export const setPatient = createAction(
 export const nextQuestionSuccess = createAction(
   '[Game Page] Next Question Success'
 );
+
+export const skipQuestion = createAction('[Game Page] Skip Question');
