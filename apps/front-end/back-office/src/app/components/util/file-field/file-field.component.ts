@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -38,10 +38,18 @@ export class FileFieldComponent implements ControlValueAccessor {
     };
   }
 
-  writeValue() {
-    // clear file input
-    this.host.nativeElement.value = '';
-    this.file = null;
+  writeValue(file: File | string) {
+    if (file instanceof File) {
+      this.file = file;
+      this.onChange(file);
+    } else {
+      this.fileUrl = file;
+    }
+    if (file === null) {
+      this.host.nativeElement.value = '';
+      this.fileUrl =
+        'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
+    }
   }
 
   registerOnChange(fn: (file: File | null) => void) {
