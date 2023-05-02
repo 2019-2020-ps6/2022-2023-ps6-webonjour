@@ -75,9 +75,6 @@ export class PatientEditAccommodationComponent implements AfterViewInit {
           console.log(error);
           this.refresh();
         },
-        next: () => {
-          this.refresh();
-        },
       });
   }
 }
