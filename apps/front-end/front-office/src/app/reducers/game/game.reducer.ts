@@ -67,6 +67,10 @@ const reducer = createReducer(
   on(GameActions.setPatient, (state, { patient }) => ({
     ...state,
     player: patient,
+  })),
+  on(GameActions.skipQuestion, (state) => ({
+    ...state,
+    currentQuestion: state.currentQuestion + 1,
   }))
 );
 

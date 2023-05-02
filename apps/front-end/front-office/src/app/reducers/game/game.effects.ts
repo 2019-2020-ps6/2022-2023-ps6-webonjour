@@ -110,6 +110,20 @@ export class GameEffects {
     )
   );
 
+  skipQuestion$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GameActions.skipQuestion),
+      withLatestFrom(this.store.select(selectGameState)),
+      switchMap(([, state]) => {
+        const { quiz } = state;
+        if (quiz) {
+          return of(GameActions.nextQuestion());
+        }
+        return EMPTY;
+      })
+    )
+  );
+
   private redirectToCorrectQuestion(question: Quiz.Question) {
     if (question.type === Quiz.QuestionType.CHOICE) {
       this.router.navigate(['/quiz-answer']).then();
