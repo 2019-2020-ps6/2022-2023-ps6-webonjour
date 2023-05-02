@@ -23,6 +23,6 @@ export class SkipButtonComponent {
     });
   }
   onClick() {
-    this.store.dispatch(GameActions.chooseAnswer({ isCorrect: true }));
+    this.store.dispatch(GameActions.skipQuestion());
   }
 }
