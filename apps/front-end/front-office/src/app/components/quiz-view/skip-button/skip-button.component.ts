@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectPatientDiseaseStage } from '../../../reducers/game/game.selectors';
 import * as GameActions from '../../../reducers/game/game.actions';
+import { Quiz } from '@webonjour/util-interface';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'webonjour-skip-button',
@@ -22,8 +24,6 @@ export class SkipButtonComponent {
     });
   }
   onClick() {
-    this.store.dispatch(
-      GameActions.nextQuestion({ diseaseStage: this.diseaseStage })
-    );
+    this.store.dispatch(GameActions.nextQuestion());
   }
 }
