@@ -22,7 +22,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   image_enabled = false;
 
   public ngDestroyed$ = new Subject();
-  private maxTries = 1;
+  private maxTries!: number;
   protected readonly document = document;
 
   public ngOnDestroy() {
@@ -56,6 +56,8 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
           : (this.maxTries = 1);
       });
 
+    window.alert(this.maxTries);
+
     this.store
       .select(selectPatientDiseaseStage)
       .pipe(takeUntil(this.ngDestroyed$))
@@ -86,6 +88,8 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     if (!answer.isCorrect) {
       this.handleAnswerError(question);
     }
+
+    this.store.dispatch(GameActions.nextQuestion());
   }
 
   handleAnswerError(question: Element) {
@@ -93,8 +97,6 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
 
     if (this.maxTries <= 0) {
       question.classList.add('disabled');
-      window.alert('Vous avez perdu !');
-      this.store.dispatch(GameActions.nextQuestion());
     }
 
     if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_3) {

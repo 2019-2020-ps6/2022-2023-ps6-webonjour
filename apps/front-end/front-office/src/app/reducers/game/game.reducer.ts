@@ -28,6 +28,7 @@ export const initialGameState: GameState = gameAdapter.getInitialState({
   wrongQuestions: [],
   remainingQuestions: [],
   accommodation: [],
+  remainingTries: 0,
 });
 
 const reducer = createReducer(
@@ -40,6 +41,7 @@ const reducer = createReducer(
     times: [],
     wrongQuestions: [],
     remainingQuestions: [],
+    remainingTries: 0,
   })),
   on(GameActions.loadGameSuccess, (state, { quiz, accommodation }) => ({
     ...state,
@@ -47,6 +49,12 @@ const reducer = createReducer(
     loaded: true,
     remainingQuestions: quiz.questions,
     accommodation: accommodation,
+    remainingTries:
+      accommodation.filter(
+        (a) => a.title == 'Peut répondre deux fois à la même question'
+      ).length == 1
+        ? 2
+        : 1,
   })),
   on(GameActions.loadGameFailure, (state, { error }) => ({ ...state, error })),
   on(GameActions.correctAnswer, (state, { delta }) => {
@@ -59,15 +67,42 @@ const reducer = createReducer(
       score: state.score + 1,
       times: [...state.times, delta],
       remainingQuestions: newRemainingQuestions,
+      remainingTries:
+        state.accommodation.filter(
+          (a) => a.title == 'Peut répondre deux fois à la même question'
+        ).length == 1
+          ? 2
+          : 1,
     };
   }),
   on(GameActions.wrongAnswer, (state, { delta }) => {
     if (!state.quiz) return state;
+
+    // if no more tries, remove question from remaining questions
+    if (state.remainingTries == 1) {
+      const newRemainingQuestions = state.remainingQuestions.slice(1);
+      return {
+        ...state,
+        score: state.score,
+        times: [...state.times, delta],
+        wrongQuestions: [...state.wrongQuestions, state.remainingQuestions[0]],
+        remainingQuestions: newRemainingQuestions,
+        remainingTries:
+          state.accommodation.filter(
+            (a) => a.title == 'Peut répondre deux fois à la même question'
+          ).length == 1
+            ? 2
+            : 1,
+      };
+    }
+
+    // else, keep question in remaining questions
     return {
       ...state,
       score: state.score,
       times: [...state.times, delta],
       wrongQuestions: [...state.wrongQuestions, state.remainingQuestions[0]],
+      remainingTries: state.remainingTries - 1,
     };
   }),
   on(GameActions.resetGame, (state) => ({

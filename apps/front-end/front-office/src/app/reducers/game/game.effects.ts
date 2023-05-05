@@ -127,6 +127,27 @@ export class GameEffects {
     )
   );
 
+  wrongAnswer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GameActions.wrongAnswer),
+      withLatestFrom(
+        this.store.select(selectGameState),
+        this.store.select(selectGameCurrentQuestion)
+      ),
+      switchMap(([, state, currentQuestion]) => {
+        const { quiz } = state;
+        if (!quiz) {
+          return EMPTY;
+        }
+
+        if (state.remainingTries === 0) {
+          return of(GameActions.nextQuestion());
+        }
+        return EMPTY;
+      })
+    )
+  );
+
   endGame$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.endGame),
