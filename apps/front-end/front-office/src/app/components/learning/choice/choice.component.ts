@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 
 @Component({
@@ -6,9 +6,13 @@ import { Quiz } from '@webonjour/util-interface';
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.scss'],
 })
-export class ChoiceComponent {
+export class ChoiceComponent implements OnInit {
   @Input() question!: Quiz.Question;
-  rightAnswers: Quiz.Answer[] = this.question.answers.filter(
-    (answer) => answer.isCorrect
-  );
+  rightAnswers!: Quiz.Answer[];
+
+  ngOnInit(): void {
+    this.rightAnswers = this.question.answers.filter((answer) => {
+      return answer.isCorrect;
+    });
+  }
 }

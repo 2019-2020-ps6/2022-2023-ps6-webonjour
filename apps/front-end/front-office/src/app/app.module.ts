@@ -31,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ChoiceComponent } from './components/learning/choice/choice.component';
 import { OrderComponent } from './components/learning/order/order.component';
 import { LearningComponent } from './components/learning/learning.component';
+import { NgOptimizedImage } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { LearningComponent } from './components/learning/learning.component';
     StoreDevtoolsModule.instrument({
       trace: true,
     }),
+    NgOptimizedImage,
   ],
   providers: [fakeBackendProvider],
   bootstrap: [AppComponent],

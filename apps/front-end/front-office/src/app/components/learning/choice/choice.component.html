@@ -1,9 +1,28 @@
-<div class="title">
-  <h1>{{ question.title }}</h1>
+<div
+  style="
+    height: 30vh;
+    background-color: rgba(var(--secondary-color-rgb), 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  "
+>
+  <h1 style="margin: 20px">{{ question.title }}</h1>
 </div>
-<div class="answer">
-  <!-- nly right answers -->
-  <p *ngFor="let answer of rightAnswers">
-    {{ answer.text }}
-  </p>
+<div>
+  <div
+    *ngFor="let answer of rightAnswers"
+    style="display: flex; justify-content: space-between; align-items: center"
+  >
+    <p style="margin: 20px; font-weight: bolder; font-size: 15vh">
+      {{ answer.text }}
+    </p>
+    <img
+      *ngIf="answer.image"
+      src="{{ answer.image }}"
+      alt=""
+      style="margin: 20px; max-height: 30vh"
+      class="hide-s"
+    />
+  </div>
 </div>
