@@ -174,13 +174,10 @@ export class GameEffects {
       switchMap(([, state]) => {
         const { quiz } = state;
         this.router.navigate(['/result']).then();
-        if (quiz) {
-          return of(
-            GameActions.loadGameSuccess({
-              quiz,
-              accommodation: state.accommodation,
-            })
-          );
+
+        // Something that should never happen
+        if (quiz && quiz.title === '☠️☠️☠️☠️☠️☠️☠️☠️☠️') {
+          return of(GameActions.error());
         }
         return EMPTY;
       })
