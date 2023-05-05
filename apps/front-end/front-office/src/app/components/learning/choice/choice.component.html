@@ -1,1 +1,9 @@
-<p>choice works!</p>
+<div class="title">
+  <h1>{{ question.title }}</h1>
+</div>
+<div class="answer">
+  <!-- nly right answers -->
+  <p *ngFor="let answer of rightAnswers">
+    {{ answer.text }}
+  </p>
+</div>

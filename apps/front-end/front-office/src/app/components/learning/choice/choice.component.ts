@@ -8,4 +8,7 @@ import { Quiz } from '@webonjour/util-interface';
 })
 export class ChoiceComponent {
   @Input() question!: Quiz.Question;
+  rightAnswers: Quiz.Answer[] = this.question.answers.filter(
+    (answer) => answer.isCorrect
+  );
 }

@@ -56,8 +56,6 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
           : (this.maxTries = 1);
       });
 
-    window.alert(this.maxTries);
-
     this.store
       .select(selectPatientDiseaseStage)
       .pipe(takeUntil(this.ngDestroyed$))

@@ -28,14 +28,13 @@ export class LearningComponent implements OnDestroy, OnInit {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((state) => {
         if (state) {
+          window.alert(
+            'game state present, question is ' + state.wrongQuestions[0].title
+          );
           this.question = state.wrongQuestions[0];
         } else {
-          this.question = {
-            title: '',
-            answers: [],
-            clues: [],
-            type: Quiz.QuestionType.CHOICE,
-          };
+          window.alert('No game state');
+          throw new Error('No game state');
         }
       });
   }

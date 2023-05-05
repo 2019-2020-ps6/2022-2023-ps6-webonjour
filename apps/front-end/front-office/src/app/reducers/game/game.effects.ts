@@ -24,6 +24,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Quiz } from '@webonjour/util-interface';
+import { learntQuestion } from './game.actions';
 
 @Injectable()
 export class GameEffects {
@@ -92,13 +93,25 @@ export class GameEffects {
       ),
       switchMap(([, state, currentQuestion]) => {
         const { quiz } = state;
-        if (quiz) {
-          if (state.remainingQuestions.length !== 0) {
-            this.redirectToCorrectQuestion(currentQuestion);
-            return of(GameActions.nextQuestionSuccess());
-          }
+
+        if (!quiz) {
+          return of(GameActions.endGame());
         }
-        return of(GameActions.endGame());
+
+        if (
+          state.wrongQuestions.length > 0 &&
+          !state.wrongQuestions.includes(currentQuestion)
+        ) {
+          this.router.navigate(['/learning-card']).then();
+          return EMPTY;
+        }
+
+        if (state.remainingQuestions.length == 0) {
+          return of(GameActions.endGame());
+        }
+
+        this.redirectToCorrectQuestion(currentQuestion);
+        return of(GameActions.nextQuestionSuccess());
       })
     )
   );
@@ -106,23 +119,15 @@ export class GameEffects {
   correctAnswer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.correctAnswer),
-      withLatestFrom(
-        this.store.select(selectGameState),
-        this.store.select(selectGameCurrentQuestion)
-      ),
-      switchMap(([, state, currentQuestion]) => {
+      withLatestFrom(this.store.select(selectGameState)),
+      switchMap(([, state]) => {
         const { quiz } = state;
-        if (quiz) {
-          if (
-            state.wrongQuestions.length > 0 &&
-            !state.wrongQuestions.includes(currentQuestion)
-          ) {
-            this.router.navigate(['/learning-card']).then();
-            return EMPTY;
-          }
-          return of(GameActions.nextQuestion());
+
+        if (!quiz) {
+          return EMPTY;
         }
-        return EMPTY;
+
+        return of(GameActions.nextQuestion());
       })
     )
   );
@@ -144,6 +149,20 @@ export class GameEffects {
           return of(GameActions.nextQuestion());
         }
         return EMPTY;
+      })
+    )
+  );
+
+  learntQuestion$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GameActions.learntQuestion),
+      withLatestFrom(this.store.select(selectGameState)),
+      switchMap(([, state]) => {
+        const { quiz } = state;
+        if (!quiz) {
+          return EMPTY;
+        }
+        return of(GameActions.nextQuestion());
       })
     )
   );
