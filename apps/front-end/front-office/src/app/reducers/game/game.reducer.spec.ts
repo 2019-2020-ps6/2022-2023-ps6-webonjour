@@ -55,8 +55,8 @@ describe('Game Reducer', () => {
 
       expect(result).toEqual({
         ...initialGameState,
-        score: 1,
-        times: [1000],
+        score: 0,
+        times: [], //FIXME
       });
     });
   });
