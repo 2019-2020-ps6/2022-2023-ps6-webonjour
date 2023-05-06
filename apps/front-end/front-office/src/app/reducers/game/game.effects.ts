@@ -143,7 +143,7 @@ export class GameEffects {
           return EMPTY;
         }
 
-        if (state.remainingTries === 0) {
+        if (state.remainingTries <= 1) {
           return of(GameActions.nextQuestion());
         }
 
