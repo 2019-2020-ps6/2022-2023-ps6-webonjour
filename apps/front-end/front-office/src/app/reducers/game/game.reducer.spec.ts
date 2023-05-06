@@ -19,6 +19,9 @@ describe('Game Reducer', () => {
         ...initialGameState,
         loaded: true,
         quiz: quizMocks.quizList[0],
+        accommodation: patientMocks.accommodationMocks,
+        remainingQuestions: quizMocks.quizList[0].questions,
+        remainingTries: 2,
       });
     });
     it('loadGameFailure should set error', () => {
@@ -34,14 +37,14 @@ describe('Game Reducer', () => {
   });
 
   describe('game', () => {
-    it('nextQuestion should set currentQuestion', () => {
+    it('nextQuestion should remove question from remainingQuestions', () => {
       const action = GameActions.nextQuestion();
 
       const result = gameReducer(initialGameState, action);
 
       expect(result).toEqual({
         ...initialGameState,
-        currentQuestion: 1,
+        remainingQuestions: [],
       });
     });
 
