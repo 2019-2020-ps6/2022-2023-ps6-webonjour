@@ -135,12 +135,10 @@ export class GameEffects {
   wrongAnswer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.wrongAnswer),
-      withLatestFrom(
-        this.store.select(selectGameState),
-        this.store.select(selectGameCurrentQuestion)
-      ),
-      switchMap(([, state, currentQuestion]) => {
+      withLatestFrom(this.store.select(selectGameState)),
+      switchMap(([, state]) => {
         const { quiz } = state;
+
         if (!quiz) {
           return EMPTY;
         }
@@ -148,6 +146,7 @@ export class GameEffects {
         if (state.remainingTries === 0) {
           return of(GameActions.nextQuestion());
         }
+
         return EMPTY;
       })
     )

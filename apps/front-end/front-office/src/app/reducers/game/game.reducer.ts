@@ -29,10 +29,12 @@ export const initialGameState: GameState = gameAdapter.getInitialState({
   remainingQuestions: [],
   accommodation: [],
   remainingTries: 0,
+  history: [],
 });
 
 const reducer = createReducer(
   initialGameState,
+
   on(GameActions.initGame, (state) => ({
     ...state,
     loaded: false,
@@ -42,7 +44,9 @@ const reducer = createReducer(
     wrongQuestions: [],
     remainingQuestions: [],
     remainingTries: 0,
+    history: [],
   })),
+
   on(GameActions.loadGameSuccess, (state, { quiz, accommodation }) => ({
     ...state,
     quiz: quiz,
@@ -56,7 +60,9 @@ const reducer = createReducer(
         ? 2
         : 1,
   })),
+
   on(GameActions.loadGameFailure, (state, { error }) => ({ ...state, error })),
+
   on(GameActions.correctAnswer, (state, { delta }) => {
     if (!state.quiz) return state;
     // remove question from remaining questions
@@ -73,53 +79,69 @@ const reducer = createReducer(
         ).length == 1
           ? 2
           : 1,
+      history: [...state.history, state.remainingQuestions[0]],
     };
   }),
+
   on(GameActions.wrongAnswer, (state, { delta }) => {
     if (!state.quiz) return state;
 
-    // if no more tries, remove question from remaining questions
-    if (state.remainingTries == 1) {
-      const newRemainingQuestions = state.remainingQuestions.slice(1);
-      return {
-        ...state,
-        score: state.score,
-        times: [...state.times, delta],
-        wrongQuestions: [...state.wrongQuestions, state.remainingQuestions[0]],
-        remainingQuestions: newRemainingQuestions,
-        remainingTries:
-          state.accommodation.filter(
-            (a) => a.title == 'Peut répondre deux fois à la même question'
-          ).length == 1
-            ? 2
-            : 1,
-      };
+    let remainingTries = state.remainingTries - 1;
+    let remainingQuestions = state.remainingQuestions;
+    let wrongQuestions = state.wrongQuestions;
+    let history = state.history;
+
+    if (state.remainingTries <= 1) {
+      remainingTries =
+        state.accommodation.filter(
+          (a) => a.title == 'Peut répondre deux fois à la même question'
+        ).length == 1
+          ? 2
+          : 1;
+      remainingQuestions = state.remainingQuestions.slice(1);
+      wrongQuestions = [...state.wrongQuestions, state.remainingQuestions[0]];
+      history = [...state.history, state.remainingQuestions[0]];
     }
 
-    // else, keep question in remaining questions
     return {
       ...state,
       score: state.score,
       times: [...state.times, delta],
-      wrongQuestions: [...state.wrongQuestions, state.remainingQuestions[0]],
-      remainingTries: state.remainingTries - 1,
+      wrongQuestions: wrongQuestions,
+      remainingQuestions: remainingQuestions,
+      remainingTries: remainingTries,
+      history: history,
     };
   }),
+
   on(GameActions.resetGame, (state) => ({
     ...state,
     remainingQuestions: state.quiz?.questions || [],
     score: 0,
     times: [],
   })),
+
   on(GameActions.setPatient, (state, { patient }) => ({
     ...state,
     player: patient,
   })),
+
   on(GameActions.learntQuestion, (state, { question }) => {
     if (!state.quiz) return state;
     const newWrongQuestions = state.wrongQuestions.filter(
       (q) => q !== question
     );
+
+    // If quesiton has been asked more than 3 times, do not add it again
+    if (state.history.filter((q) => q == question).length >= 3) {
+      return {
+        ...state,
+        wrongQuestions: newWrongQuestions,
+        remainingQuestions: [...state.remainingQuestions],
+      };
+    }
+
+    // else, add it again
     return {
       ...state,
       wrongQuestions: newWrongQuestions,

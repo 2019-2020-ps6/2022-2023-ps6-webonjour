@@ -12,4 +12,5 @@ export interface GameEntity {
   remainingQuestions: Quiz.Question[];
   accommodation: Patient.Accommodation[];
   remainingTries: number;
+  history: Quiz.Question[];
 }
