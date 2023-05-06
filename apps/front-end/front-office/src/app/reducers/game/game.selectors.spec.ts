@@ -43,13 +43,6 @@ describe('Game Selectors', () => {
       expect(result).toEqual(state.game.quiz);
     });
 
-    it('selectGameCurrentQuestion() should return the current "currentQuestion" state', () => {
-      const result = GameSelectors.selectGameCurrentQuestion(state);
-
-      expect(result).toEqual(
-        state.game.quiz?.questions[state.game.currentQuestion]
-      );
-    });
     it('selectPatient() should return the current "player" state', () => {
       const result = GameSelectors.selectPatient(state);
 

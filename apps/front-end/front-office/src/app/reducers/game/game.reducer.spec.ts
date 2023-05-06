@@ -3,12 +3,14 @@ import { quizMocks } from '@webonjour/data-access-fake-backend';
 
 import * as GameActions from './game.actions';
 import { gameReducer, initialGameState } from './game.reducer';
+import { patientMocks } from '@webonjour/data-access-fake-backend';
 
 describe('Game Reducer', () => {
   describe('loading', () => {
     it('loadGameSuccess should set Game', () => {
       const action = GameActions.loadGameSuccess({
         quiz: quizMocks.quizList[0],
+        accommodation: patientMocks.accommodationMocks,
       });
 
       const result = gameReducer(initialGameState, action);
