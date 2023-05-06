@@ -3,7 +3,8 @@
   <div class="answer-container">
     <div
       *ngFor="let answer of question.answers; let i = index"
-      class="button primary"
+      class="button"
+      [style.background-color]="Array.from(colors.values())[i]"
       id="answer-{{ i }}"
       (mouseenter)="
         document.querySelector('#answer-' + i)!.classList.add('hovered')

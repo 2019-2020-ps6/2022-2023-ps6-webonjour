@@ -20,10 +20,16 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   question!: Quiz.Question;
   show_help = false;
   image_enabled = false;
-
+  colors = new Map([
+    ['bleu', '#3498db'],
+    ['violet', '#9b59b6'],
+    ['jaune', '#f1c40f'],
+    ['vert', '#2ecc71'],
+  ]);
   public ngDestroyed$ = new Subject();
   private maxTries!: number;
   protected readonly document = document;
+  protected readonly Array = Array;
 
   public ngOnDestroy() {
     this.ngDestroyed$.next(0);
