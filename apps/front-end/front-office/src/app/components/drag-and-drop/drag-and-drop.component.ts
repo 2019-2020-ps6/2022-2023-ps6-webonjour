@@ -41,15 +41,15 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
       .select(selectGameCurrentQuestion)
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((question) => {
+        console.log('question', question);
         if (question) {
-          window.alert('question');
+          this.showInvalid = false;
           this.question = question;
           this.desiredResult = question.answers.map(
             (answer) => answer.text || ''
           );
-          this.elements = this.desiredResult.slice(); // copy
+          this.elements = this.desiredResult.slice(); // deep copy
           this.shuffle();
-          this.showInvalid = false;
         }
       });
   }
@@ -89,8 +89,8 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
         this.exitModal();
       }, 5000);
     } else {
+      this.showInvalid = true;
       this.store.dispatch(GameActions.chooseAnswer({ isCorrect: false }));
-      this.showInvalid = true; // FIXME: wrong answers go to the next question
     }
   }
 
