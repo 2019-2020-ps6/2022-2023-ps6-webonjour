@@ -4,6 +4,7 @@ import { Quiz } from '@webonjour/util-interface';
 import {
   selectAvailableQuestions,
   selectGame,
+  selectGameQuiz,
 } from '../../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -29,6 +30,14 @@ export class HelpPageHeaderComponent implements OnDestroy, OnInit {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((availableQuestions) => {
         this.remainingNumberOfQuestions = availableQuestions.length - 1;
+      });
+    this.store
+      .select(selectGameQuiz)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((quiz) => {
+        if (quiz) {
+          this.quiz = quiz;
+        }
       });
   }
 }

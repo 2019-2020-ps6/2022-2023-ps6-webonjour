@@ -55,8 +55,6 @@ const reducer = createReducer(
 
   on(GameActions.correctAnswer, (state, { delta }) => {
     if (!state.quiz) return state;
-    // remove question from remaining questions
-
     return {
       ...state,
       history: [

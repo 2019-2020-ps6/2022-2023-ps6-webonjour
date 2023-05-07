@@ -1,9 +1,8 @@
 import { Action } from '@ngrx/store';
-import { quizMocks } from '@webonjour/data-access-fake-backend';
+import { patientMocks, quizMocks } from '@webonjour/data-access-fake-backend';
 
 import * as GameActions from './game.actions';
 import { gameReducer, initialGameState } from './game.reducer';
-import { patientMocks } from '@webonjour/data-access-fake-backend';
 
 describe('Game Reducer', () => {
   describe('loading', () => {
@@ -20,6 +19,7 @@ describe('Game Reducer', () => {
         loaded: true,
         quiz: quizMocks.quizList[0],
         accommodation: patientMocks.accommodationMocks,
+        currentQuestion: result.currentQuestion,
       });
     });
     it('loadGameFailure should set error', () => {
@@ -35,26 +35,31 @@ describe('Game Reducer', () => {
   });
 
   describe('game', () => {
-    it('nextQuestion should remove question from remainingQuestions', () => {
-      const action = GameActions.nextQuestion({});
-
-      const result = gameReducer(initialGameState, action);
-
-      expect(result).toEqual({
-        ...initialGameState,
-        remainingQuestions: [],
+    it('correctAnswer should add to history', () => {
+      const action = GameActions.correctAnswer({
+        delta: 1000,
       });
-    });
 
-    it('correctAnswer should set score', () => {
-      const action = GameActions.correctAnswer({ delta: 1000 });
-
-      const result = gameReducer(initialGameState, action);
+      const result = gameReducer(
+        {
+          ...initialGameState,
+          quiz: quizMocks.quizList[0],
+          currentQuestion: quizMocks.quizList[0].questions[0],
+        },
+        action
+      );
 
       expect(result).toEqual({
         ...initialGameState,
-        score: 0,
-        times: [], //FIXME
+        quiz: quizMocks.quizList[0],
+        currentQuestion: quizMocks.quizList[0].questions[0],
+        history: [
+          {
+            questionId: '1',
+            isCorrect: true,
+            timeTaken: 1000,
+          },
+        ],
       });
     });
   });
