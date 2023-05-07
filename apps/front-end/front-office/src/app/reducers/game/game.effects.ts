@@ -24,7 +24,6 @@ import {
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Quiz } from '@webonjour/util-interface';
-import { learntQuestion } from './game.actions';
 
 @Injectable()
 export class GameEffects {
@@ -95,7 +94,7 @@ export class GameEffects {
         const { quiz } = state;
 
         if (!quiz) {
-          return of(GameActions.endGame());
+          return of(GameActions.error());
         }
 
         if (
