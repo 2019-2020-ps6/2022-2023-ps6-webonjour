@@ -8,7 +8,7 @@ import * as GameActions from '../../../reducers/game/game.actions';
   styleUrls: ['./skip-button.component.scss'],
 })
 export class SkipButtonComponent {
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 
   onClick() {
     this.store.dispatch(GameActions.nextQuestion());
