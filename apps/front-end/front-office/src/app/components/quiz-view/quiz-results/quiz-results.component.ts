@@ -2,10 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   selectGameScore,
+  selectGameState,
   selectPatient,
 } from '../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import { PatientService } from '@webonjour/front-end/shared/common';
+import { GameState } from '../../../reducers/game/game.reducer';
 
 @Component({
   selector: 'webonjour-quiz-results',
@@ -18,6 +20,7 @@ export class QuizResultsComponent implements OnDestroy, OnInit {
 
   score_text = 'Bien Joué !';
   score_numeric!: number;
+  state!: GameState;
 
   public ngDestroyed$ = new Subject();
 
@@ -33,6 +36,13 @@ export class QuizResultsComponent implements OnDestroy, OnInit {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((score) => {
         this.score_numeric = score;
+      });
+
+    this.store
+      .select(selectGameState)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((state) => {
+        this.state = state;
       });
 
     this.store
