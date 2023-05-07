@@ -53,13 +53,12 @@ export const selectAccommodation = createSelector(
 export const selectQuestionsToLearn = createSelector(
   selectGameState,
   (state: GameState) =>
-    state.quiz?.questions.filter(
-      (q) =>
-        !state.learntQuestions.includes(q.id) &&
-        state.history
-          .filter((h) => !h.isCorrect)
-          .map((h) => h.questionId)
-          .filter((id) => id === q.id).length >= 2
+    state.quiz?.questions.filter((q) =>
+      // state.learntQuestions.filter((lq) => lq === q.id).length < 1 &&
+      state.history
+        .filter((h) => !h.isCorrect)
+        .map((h) => h.questionId)
+        .includes(q.id)
     ) || []
 );
 
@@ -77,16 +76,13 @@ export const selectAvailableQuestions = createSelector(
       // if question is in history and is correct, don't show it
       if (state.history.find((h) => h.questionId === q.id && h.isCorrect))
         return false;
-      // if question is in history and is incorrect, show it only if it's been learnt and has not been answered incorrectly more than 3 times
-      if (state.history.find((h) => h.questionId === q.id && !h.isCorrect))
-        return state.learntQuestions.includes(q.id);
-      // if question has been
-      // if (
-      //   state.history.filter((h) => h.questionId === q.id && !h.isCorrect)
-      //     .length >= 3
-      // )
-      //   return false;
-      // if question is not in history, show it
+      // if question is in history and is incorrect, show it only if it's been learnt less than 2 times
+      if (
+        state.history.find((h) => h.questionId === q.id && !h.isCorrect) &&
+        state.learntQuestions.filter((lq) => lq === q.id).length > 1
+      )
+        return false;
+
       return true;
     });
   }

@@ -107,9 +107,7 @@ const reducer = createReducer(
 
   on(GameActions.nextQuestion, (state) => {
     if (!state.quiz) return state;
-    console.log('nextQuestion');
     const availableQuestions = selectAvailableQuestions.projector(state);
-    console.log('avalable questions', availableQuestions);
     return {
       ...state,
       // currentQuestion: availableQuestions[Math.floor(Math.random() * availableQuestions.length)],

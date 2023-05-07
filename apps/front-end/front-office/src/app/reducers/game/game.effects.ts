@@ -91,13 +91,12 @@ export class GameEffects {
         this.store.select(selectGameCurrentQuestion),
         this.store.select(selectQuestionsToLearn)
       ),
-      switchMap(([, currentQuestion, questionsToLearn]) => {
+      switchMap(([action, currentQuestion, questionsToLearn]) => {
         if (!currentQuestion) {
           return of(GameActions.endGame());
         }
 
-        if (questionsToLearn?.length !== 0) {
-          console.log('questionsToLearn effec', questionsToLearn);
+        if (questionsToLearn?.length !== 0 && !action.skipLearning) {
           this.router.navigate(['/learning-card']).then();
           return EMPTY;
         }
@@ -117,7 +116,7 @@ export class GameEffects {
         if (!quiz) {
           return EMPTY;
         }
-        return of(GameActions.nextQuestion());
+        return of(GameActions.nextQuestion({ skipLearning: true }));
       })
     )
   );

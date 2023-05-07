@@ -25,7 +25,12 @@ export const chooseAnswer = createAction(
   }>()
 );
 
-export const nextQuestion = createAction('[Game Page] Next Question');
+export const nextQuestion = createAction(
+  '[Game Page] Next Question',
+  props<{
+    skipLearning?: boolean;
+  }>()
+);
 
 export const resetGame = createAction('[Game Page] Reset Game');
 

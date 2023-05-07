@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Quiz } from '@webonjour/util-interface';
 import { Subject, takeUntil } from 'rxjs';
 import {
+  selectGameCurrentQuestion,
   selectGameState,
   selectQuestionsToLearn,
 } from '../../reducers/game/game.selectors';
@@ -26,11 +27,11 @@ export class LearningComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.store
-      .select(selectQuestionsToLearn)
+      .select(selectGameCurrentQuestion)
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((questionsToLearn) => {
-        if (questionsToLearn.length > 0) {
-          this.question = questionsToLearn[0];
+        if (questionsToLearn) {
+          this.question = questionsToLearn;
         }
       });
   }

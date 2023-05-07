@@ -20,8 +20,6 @@ describe('Game Reducer', () => {
         loaded: true,
         quiz: quizMocks.quizList[0],
         accommodation: patientMocks.accommodationMocks,
-        remainingQuestions: quizMocks.quizList[0].questions,
-        remainingTries: 2,
       });
     });
     it('loadGameFailure should set error', () => {
@@ -38,7 +36,7 @@ describe('Game Reducer', () => {
 
   describe('game', () => {
     it('nextQuestion should remove question from remainingQuestions', () => {
-      const action = GameActions.nextQuestion();
+      const action = GameActions.nextQuestion({});
 
       const result = gameReducer(initialGameState, action);
 

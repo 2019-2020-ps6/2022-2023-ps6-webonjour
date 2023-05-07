@@ -147,7 +147,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   }
 
   next() {
-    this.store.dispatch(GameActions.nextQuestion());
+    this.store.dispatch(GameActions.nextQuestion({}));
   }
 
   private reset() {
