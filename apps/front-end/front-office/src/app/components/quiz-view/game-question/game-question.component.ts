@@ -55,11 +55,18 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       .select(selectAccommodation)
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((accommodation) => {
-        accommodation.filter((accommodation) => {
-          accommodation.title === 'Peut répondre deux fois à la même question';
-        }).length > 0
-          ? (this.maxTries = 2)
-          : (this.maxTries = 1);
+        if (
+          accommodation.filter(function (accommodation) {
+            return (
+              accommodation.title ===
+              'Peut répondre deux fois à la même question'
+            );
+          }).length > 0
+        ) {
+          this.maxTries = 2;
+        } else {
+          this.maxTries = 1;
+        }
       });
 
     this.store
