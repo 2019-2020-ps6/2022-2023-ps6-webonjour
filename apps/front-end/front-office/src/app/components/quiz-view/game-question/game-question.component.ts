@@ -42,6 +42,20 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     private tts: TtsService
   ) {}
 
+  ttsQuestion(question: Quiz.Question) {
+    // we have to concatenate the question title and the answers text
+    // because the TTS API only accepts one string
+    let text = question.title;
+
+    const colors = Array.from(this.colors.keys());
+    for (let i = 0; i < question.answers.length; i++) {
+      const answer = question.answers[i];
+      if (answer.text) text += `\nRéponse ${colors[i]}: ${answer.text}.`;
+    }
+
+    this.tts.sayTTS(text);
+  }
+
   ngOnInit(): void {
     this.store
       .select(selectGameCurrentQuestion)
@@ -49,7 +63,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       .subscribe((question) => {
         if (question) {
           this.question = question;
-          this.tts.sayTTS(this.question.title);
+          this.ttsQuestion(question);
         }
       });
 
