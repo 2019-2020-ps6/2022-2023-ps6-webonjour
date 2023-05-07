@@ -1,5 +1,6 @@
 <section class="question">
   <h1 class="question-title">{{ question.title }}</h1>
+
   <div class="answer-container">
     <webonjour-game-answer
       class="answer"
@@ -23,6 +24,7 @@
       </svg>
       <p>Aide</p>
     </div>
+    <webonjour-skip-button class="skip"></webonjour-skip-button>
   </div>
   <webonjour-help-popup
     [question]="question"
