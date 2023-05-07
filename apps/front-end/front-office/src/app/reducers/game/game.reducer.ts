@@ -3,6 +3,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import * as GameActions from './game.actions';
 import { GameEntity } from './game.models';
+import { selectAvailableQuestions } from './game.selectors';
 
 export const GAME_FEATURE_KEY = 'game';
 
@@ -21,15 +22,12 @@ export const gameAdapter: EntityAdapter<GameEntity> =
 export const initialGameState: GameState = gameAdapter.getInitialState({
   // set initial required properties
   loaded: false,
-  score: 0,
-  times: [],
   player: null,
   quiz: null,
-  wrongQuestions: [],
-  remainingQuestions: [],
+  currentQuestion: null,
   accommodation: [],
-  remainingTries: 0,
   history: [],
+  learntQuestions: [],
 });
 
 const reducer = createReducer(
@@ -39,26 +37,16 @@ const reducer = createReducer(
     ...state,
     loaded: false,
     error: null,
-    score: 0,
-    times: [],
-    wrongQuestions: [],
-    remainingQuestions: [],
-    remainingTries: 0,
     history: [],
+    learntQuestions: [],
   })),
 
   on(GameActions.loadGameSuccess, (state, { quiz, accommodation }) => ({
     ...state,
     quiz: quiz,
     loaded: true,
-    remainingQuestions: quiz.questions,
     accommodation: accommodation,
-    remainingTries:
-      accommodation.filter(
-        (a) => a.title == 'Peut répondre deux fois à la même question'
-      ).length == 1
-        ? 2
-        : 1,
+    currentQuestion: quiz.questions[0],
   })),
 
   on(GameActions.loadGameFailure, (state, { error }) => ({ ...state, error })),
@@ -66,59 +54,40 @@ const reducer = createReducer(
   on(GameActions.correctAnswer, (state, { delta }) => {
     if (!state.quiz) return state;
     // remove question from remaining questions
-    const newRemainingQuestions = state.remainingQuestions.slice(1);
 
     return {
       ...state,
-      score: state.score + 1,
-      times: [...state.times, delta],
-      remainingQuestions: newRemainingQuestions,
-      remainingTries:
-        state.accommodation.filter(
-          (a) => a.title == 'Peut répondre deux fois à la même question'
-        ).length == 1
-          ? 2
-          : 1,
-      history: [...state.history, state.remainingQuestions[0]],
+      history: [
+        ...state.history,
+        {
+          questionId: state.currentQuestion?.id || '',
+          isCorrect: true,
+          timeTaken: delta,
+        },
+      ],
     };
   }),
 
   on(GameActions.wrongAnswer, (state, { delta }) => {
     if (!state.quiz) return state;
 
-    let remainingTries = state.remainingTries - 1;
-    let remainingQuestions = state.remainingQuestions;
-    let wrongQuestions = state.wrongQuestions;
-    let history = state.history;
-
-    if (state.remainingTries <= 1) {
-      remainingTries =
-        state.accommodation.filter(
-          (a) => a.title == 'Peut répondre deux fois à la même question'
-        ).length == 1
-          ? 2
-          : 1;
-      remainingQuestions = state.remainingQuestions.slice(1);
-      wrongQuestions = [...state.wrongQuestions, state.remainingQuestions[0]];
-      history = [...state.history, state.remainingQuestions[0]];
-    }
-
     return {
       ...state,
-      score: state.score,
-      times: [...state.times, delta],
-      wrongQuestions: wrongQuestions,
-      remainingQuestions: remainingQuestions,
-      remainingTries: remainingTries,
-      history: history,
+      history: [
+        ...state.history,
+        {
+          questionId: state.currentQuestion?.id || '',
+          isCorrect: false,
+          timeTaken: delta,
+        },
+      ],
     };
   }),
 
   on(GameActions.resetGame, (state) => ({
     ...state,
     remainingQuestions: state.quiz?.questions || [],
-    score: 0,
-    times: [],
+    history: [],
   })),
 
   on(GameActions.setPatient, (state, { patient }) => ({
@@ -128,24 +97,20 @@ const reducer = createReducer(
 
   on(GameActions.learntQuestion, (state, { question }) => {
     if (!state.quiz) return state;
-    const newWrongQuestions = state.wrongQuestions.filter(
-      (q) => q !== question
-    );
-
-    // If quesiton has been asked more than 3 times, do not add it again
-    if (state.history.filter((q) => q == question).length >= 3) {
-      return {
-        ...state,
-        wrongQuestions: newWrongQuestions,
-        remainingQuestions: [...state.remainingQuestions],
-      };
-    }
-
-    // else, add it again
     return {
       ...state,
-      wrongQuestions: newWrongQuestions,
-      remainingQuestions: [...state.remainingQuestions, question],
+      learntQuestions: [...state.learntQuestions, question.id],
+    };
+  }),
+
+  on(GameActions.nextQuestion, (state) => {
+    if (!state.quiz) return state;
+    console.log('nextQuestion');
+    const availableQuestions = selectAvailableQuestions.projector(state);
+    console.log('avalable questions', availableQuestions);
+    return {
+      ...state,
+      currentQuestion: availableQuestions[0],
     };
   })
 );

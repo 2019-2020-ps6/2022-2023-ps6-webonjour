@@ -26,7 +26,7 @@ export const selectGameQuiz = createSelector(
 );
 export const selectGameCurrentQuestion = createSelector(
   selectGameState,
-  (state: GameState) => state.remainingQuestions[0]
+  (state: GameState) => state.currentQuestion
 );
 
 export const selectPatient = createSelector(
@@ -36,7 +36,8 @@ export const selectPatient = createSelector(
 
 export const selectGameScore = createSelector(
   selectGameState,
-  (state: GameState) => state.score
+  (state: GameState) =>
+    state.history.reduce((acc, curr) => (curr.isCorrect ? acc + 1 : acc), 0)
 );
 
 export const selectPatientDiseaseStage = createSelector(
@@ -47,4 +48,46 @@ export const selectPatientDiseaseStage = createSelector(
 export const selectAccommodation = createSelector(
   selectGameState,
   (state: GameState) => state.accommodation
+);
+
+export const selectQuestionsToLearn = createSelector(
+  selectGameState,
+  (state: GameState) =>
+    state.quiz?.questions.filter(
+      (q) =>
+        !state.learntQuestions.includes(q.id) &&
+        state.history
+          .filter((h) => !h.isCorrect)
+          .map((h) => h.questionId)
+          .includes(q.id)
+    ) || []
+);
+
+export const selectLearntQuestions = createSelector(
+  selectGameState,
+  (state: GameState) =>
+    state.quiz?.questions.filter((q) => state.learntQuestions.includes(q.id))
+);
+
+export const selectAvailableQuestions = createSelector(
+  selectGameState,
+  function (state: GameState) {
+    if (!state.quiz) return [];
+    return state.quiz.questions.filter((q) => {
+      // if question is in history and is correct, don't show it
+      if (state.history.find((h) => h.questionId === q.id && h.isCorrect))
+        return false;
+      // if question is in history and is incorrect, show it only if it's been learnt
+      if (state.history.find((h) => h.questionId === q.id && !h.isCorrect))
+        return state.learntQuestions.includes(q.id);
+      // if question has been wrongly answered 3 times don't show it
+      if (
+        state.history.filter((h) => h.questionId === q.id && !h.isCorrect)
+          .length >= 3
+      )
+        return false;
+      // if question is not in history, show it
+      return true;
+    });
+  }
 );

@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Quiz } from '@webonjour/util-interface';
 import { Subject, takeUntil } from 'rxjs';
-import { selectGameState } from '../../reducers/game/game.selectors';
+import {
+  selectGameState,
+  selectQuestionsToLearn,
+} from '../../reducers/game/game.selectors';
 import { OnDestroy, OnInit } from '@angular/core';
-
 @Component({
   selector: 'webonjour-learning',
   templateUrl: './learning.component.html',
@@ -24,11 +26,12 @@ export class LearningComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.store
-      .select(selectGameState)
+      .select(selectQuestionsToLearn)
       .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((state) => {
-        if (state) {
-          this.question = state.wrongQuestions[0];
+      .subscribe((questionsToLearn) => {
+        console.log('questionsToLearn', questionsToLearn);
+        if (questionsToLearn.length > 0) {
+          this.question = questionsToLearn[0];
         } else {
           throw new Error('No game state');
         }

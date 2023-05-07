@@ -20,11 +20,11 @@ import {
   selectGameCurrentQuestion,
   selectGameState,
   selectPatient,
+  selectQuestionsToLearn,
 } from './game.selectors';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Quiz } from '@webonjour/util-interface';
-import { learntQuestion } from './game.actions';
 
 @Injectable()
 export class GameEffects {
@@ -88,26 +88,18 @@ export class GameEffects {
     this.actions$.pipe(
       ofType(GameActions.nextQuestion),
       withLatestFrom(
-        this.store.select(selectGameState),
-        this.store.select(selectGameCurrentQuestion)
+        this.store.select(selectGameCurrentQuestion),
+        this.store.select(selectQuestionsToLearn)
       ),
-      switchMap(([, state, currentQuestion]) => {
-        const { quiz } = state;
-
-        if (!quiz) {
+      switchMap(([, currentQuestion, questionsToLearn]) => {
+        if (!currentQuestion) {
           return of(GameActions.endGame());
         }
 
-        if (
-          state.wrongQuestions.length > 0 &&
-          !state.wrongQuestions.includes(currentQuestion)
-        ) {
+        if (questionsToLearn?.length !== 0) {
+          console.log('questionsToLearn effec', questionsToLearn);
           this.router.navigate(['/learning-card']).then();
           return EMPTY;
-        }
-
-        if (state.remainingQuestions.length == 0) {
-          return of(GameActions.endGame());
         }
 
         this.redirectToCorrectQuestion(currentQuestion);
@@ -137,17 +129,7 @@ export class GameEffects {
       ofType(GameActions.wrongAnswer),
       withLatestFrom(this.store.select(selectGameState)),
       switchMap(([, state]) => {
-        const { quiz } = state;
-
-        if (!quiz) {
-          return EMPTY;
-        }
-
-        if (state.remainingTries <= 1) {
-          return of(GameActions.nextQuestion());
-        }
-
-        return EMPTY;
+        return of(GameActions.nextQuestion());
       })
     )
   );
