@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import {
   selectAccommodation,
   selectGameCurrentQuestion,
@@ -9,6 +9,7 @@ import {
 } from '../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import * as GameActions from '../../../reducers/game/game.actions';
+import { Actions } from '@ngrx/effects';
 
 @Component({
   selector: 'webonjour-game-question',
@@ -30,6 +31,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   private maxTries!: number;
   protected readonly document = document;
   protected readonly Array = Array;
+  private tries = 0;
 
   public ngOnDestroy() {
     this.ngDestroyed$.next(0);
@@ -38,10 +40,12 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   constructor(
     activatedRoute: ActivatedRoute,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private actions: Actions
   ) {}
 
   ngOnInit(): void {
+    this.tries = 0;
     this.store
       .select(selectGameCurrentQuestion)
       .pipe(takeUntil(this.ngDestroyed$))
@@ -55,6 +59,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       .select(selectAccommodation)
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((accommodation) => {
+        console.log(accommodation);
         if (
           accommodation.filter(function (accommodation) {
             return (
@@ -77,6 +82,13 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
           ? diseaseStage
           : Quiz.DiseaseStage.STAGE_1;
       });
+    this.actions
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((action: Action) => {
+        if (action.type === GameActions.nextQuestion.type) {
+          this.reset();
+        }
+      });
   }
 
   onImageEnable(event: boolean) {
@@ -98,15 +110,18 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
 
     if (!answer.isCorrect) {
       this.handleAnswerError(question);
+    } else {
+      this.next();
     }
-
-    this.store.dispatch(GameActions.nextQuestion());
+    if (this.tries >= this.maxTries) {
+      this.next();
+    }
   }
 
   handleAnswerError(question: Element) {
-    this.maxTries--;
+    this.tries++;
 
-    if (this.maxTries <= 0) {
+    if (this.tries >= this.maxTries) {
       question.classList.add('disabled');
     }
 
@@ -129,5 +144,20 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       this.show_help = false;
       clearInterval(interval);
     }, 3000);
+  }
+
+  next() {
+    this.store.dispatch(GameActions.nextQuestion());
+  }
+
+  private reset() {
+    this.tries = 0;
+    this.show_help = false;
+    this.image_enabled = false;
+    const answers = document.querySelectorAll('[id^=answer-]');
+    answers.forEach((answer) => {
+      answer.classList.remove('selected');
+      answer.classList.remove('disabled');
+    });
   }
 }

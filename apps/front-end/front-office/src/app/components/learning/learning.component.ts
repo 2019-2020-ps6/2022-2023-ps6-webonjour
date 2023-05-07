@@ -29,11 +29,8 @@ export class LearningComponent implements OnDestroy, OnInit {
       .select(selectQuestionsToLearn)
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((questionsToLearn) => {
-        console.log('questionsToLearn', questionsToLearn);
         if (questionsToLearn.length > 0) {
           this.question = questionsToLearn[0];
-        } else {
-          throw new Error('No game state');
         }
       });
   }

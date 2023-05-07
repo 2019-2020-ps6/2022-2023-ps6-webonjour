@@ -46,7 +46,9 @@ const reducer = createReducer(
     quiz: quiz,
     loaded: true,
     accommodation: accommodation,
+    // currentQuestion: quiz.questions[Math.floor(Math.random() * quiz.questions.length)],
     currentQuestion: quiz.questions[0],
+    history: [],
   })),
 
   on(GameActions.loadGameFailure, (state, { error }) => ({ ...state, error })),
@@ -110,6 +112,7 @@ const reducer = createReducer(
     console.log('avalable questions', availableQuestions);
     return {
       ...state,
+      // currentQuestion: availableQuestions[Math.floor(Math.random() * availableQuestions.length)],
       currentQuestion: availableQuestions[0],
     };
   })

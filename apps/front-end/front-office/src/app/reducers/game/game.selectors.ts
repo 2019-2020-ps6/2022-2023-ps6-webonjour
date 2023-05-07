@@ -59,7 +59,7 @@ export const selectQuestionsToLearn = createSelector(
         state.history
           .filter((h) => !h.isCorrect)
           .map((h) => h.questionId)
-          .includes(q.id)
+          .filter((id) => id === q.id).length >= 2
     ) || []
 );
 
@@ -77,15 +77,15 @@ export const selectAvailableQuestions = createSelector(
       // if question is in history and is correct, don't show it
       if (state.history.find((h) => h.questionId === q.id && h.isCorrect))
         return false;
-      // if question is in history and is incorrect, show it only if it's been learnt
+      // if question is in history and is incorrect, show it only if it's been learnt and has not been answered incorrectly more than 3 times
       if (state.history.find((h) => h.questionId === q.id && !h.isCorrect))
         return state.learntQuestions.includes(q.id);
-      // if question has been wrongly answered 3 times don't show it
-      if (
-        state.history.filter((h) => h.questionId === q.id && !h.isCorrect)
-          .length >= 3
-      )
-        return false;
+      // if question has been
+      // if (
+      //   state.history.filter((h) => h.questionId === q.id && !h.isCorrect)
+      //     .length >= 3
+      // )
+      //   return false;
       // if question is not in history, show it
       return true;
     });
