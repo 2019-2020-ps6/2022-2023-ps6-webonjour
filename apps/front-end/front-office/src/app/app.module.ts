@@ -11,9 +11,6 @@ import { GameAnswerComponent } from './components/quiz-view/game-answer/game-ans
 import { QuizItemComponent } from './components/quiz/quiz-item/quiz-item.component';
 import { QuizListItemComponent } from './components/quiz/quiz-list-item/quiz-list-item.component';
 import { HelpPageComponent } from './components/quiz-view/help-page/help-page.component';
-import { HelpPageHeaderComponent } from './components/quiz-view/help-page/help-page-header/help-page-header.component';
-import { HelpPageHintComponent } from './components/quiz-view/help-page/help-page-hint/help-page-hint.component';
-import { HelpPageReturnComponent } from './components/quiz-view/help-page/help-page-return/help-page-return.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CardContainerComponent } from './components/homepage/card-container/card-container.component';
 import { CardComponent } from './components/homepage/card/card.component';
@@ -39,9 +36,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     QuizItemComponent,
     QuizListItemComponent,
     HelpPageComponent,
-    HelpPageHeaderComponent,
-    HelpPageHintComponent,
-    HelpPageReturnComponent,
     HeaderComponent,
     CardContainerComponent,
     CardComponent,

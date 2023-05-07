@@ -3,3 +3,39 @@
 webonjour-help-page-header {
   padding-top: 20px;
 }
+
+.clue-header {
+  margin-top: 10px;
+  border-radius: 5px;
+  background-color: rgba(var(--primary-color-rgb), 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.clue-container {
+  background-color: rgba(var(--secondary-color-rgb), 0.3);
+  margin-top: 10px;
+  display: flex;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.clue-container > svg {
+  height: 10vh;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+}
+
+.clue-container > p {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+}
