@@ -31,11 +31,10 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 // 4. Cors
 const origin = `http://${host}:${port}`;
 app.use(
-  cors()
-  /*{
+  cors({
     origin: origin,
     credentials: true,
-  }*/
+  })
 );
 
 // 5. Routes
