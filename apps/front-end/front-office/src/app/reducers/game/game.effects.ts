@@ -108,32 +108,6 @@ export class GameEffects {
     )
   );
 
-  correctAnswer$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(GameActions.correctAnswer),
-      withLatestFrom(this.store.select(selectGameState)),
-      switchMap(([, state]) => {
-        const { quiz } = state;
-
-        if (!quiz) {
-          return EMPTY;
-        }
-
-        return of(GameActions.nextQuestion());
-      })
-    )
-  );
-
-  wrongAnswer$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(GameActions.wrongAnswer),
-      withLatestFrom(this.store.select(selectGameState)),
-      switchMap(([, state]) => {
-        return of(GameActions.nextQuestion());
-      })
-    )
-  );
-
   learntQuestion$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.learntQuestion),
