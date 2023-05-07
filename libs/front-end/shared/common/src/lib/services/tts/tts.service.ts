@@ -23,7 +23,7 @@ export class TtsService {
         const data = res['message']; // base64 encoded mp3
 
         console.log('test: ', text);
-        let audio = new Audio('data:audio/mpeg;base64,' + data);
+        const audio = new Audio('data:audio/mpeg;base64,' + data);
         audio.play();
       });
   }
