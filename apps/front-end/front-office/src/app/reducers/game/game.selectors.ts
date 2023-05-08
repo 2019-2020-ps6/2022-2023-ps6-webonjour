@@ -76,10 +76,11 @@ export const selectAvailableQuestions = createSelector(
       // if question is in history and is correct, don't show it
       if (state.history.find((h) => h.questionId === q.id && h.isCorrect))
         return false;
-      // if question is in history and is incorrect, show it only if it's been learnt less than 2 times
+      // if question is in history and is incorrect, show it only if it's been learnt less than 2 times but more than 1
       if (
         state.history.find((h) => h.questionId === q.id && !h.isCorrect) &&
-        state.learntQuestions.filter((lq) => lq === q.id).length > 1
+        (state.learntQuestions.filter((lq) => lq === q.id).length > 1 ||
+          state.learntQuestions.filter((lq) => lq === q.id).length == 0)
       )
         return false;
 
