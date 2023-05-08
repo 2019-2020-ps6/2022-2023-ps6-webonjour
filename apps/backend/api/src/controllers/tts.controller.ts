@@ -1,9 +1,9 @@
 import { type NextFunction, type Request, type Response } from 'express';
 import * as googleTTS from 'google-tts-api';
-import { TtsSchema } from '../schemas/tts.schema';
+import { Tts } from '@webonjour/util-interface';
 
 export async function textToSpeech(
-  req: Request<unknown, unknown, unknown, TtsSchema['query']>,
+  req: Request<unknown, unknown, unknown, Tts.TtsSchema['query']>,
   res: Response,
   next: NextFunction
 ): Promise<void> {
