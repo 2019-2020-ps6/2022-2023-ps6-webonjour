@@ -1,10 +1,10 @@
-import { type NextFunction, type Request, type Response } from 'express';
+import { type NextFunction, type Request, Response } from 'express';
 import * as googleTTS from 'google-tts-api';
-import { Tts } from '@webonjour/util-interface';
+import { RequestStatus, RequestWrapper, Tts } from '@webonjour/util-interface';
 
 export async function textToSpeech(
   req: Request<unknown, unknown, unknown, Tts.TtsSchema['query']>,
-  res: Response,
+  res: Response<RequestWrapper<Tts.TtsResponse>>,
   next: NextFunction
 ): Promise<void> {
   const text = req.query.text;
@@ -20,8 +20,14 @@ export async function textToSpeech(
         splitPunct: ',.?',
       })
       .then((audios) => audios.flatMap((audio) => audio.base64).join(''));
-
-    res.send({ message: audio, text: text });
+    res.status(200).send({
+      data: {
+        audio: audio,
+        text: text,
+      },
+      message: 'Text to speech successful',
+      status: RequestStatus.SUCCESS,
+    });
   } catch (err) {
     next(err);
   }

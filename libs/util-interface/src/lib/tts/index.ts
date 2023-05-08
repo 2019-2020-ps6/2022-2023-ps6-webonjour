@@ -9,4 +9,9 @@ export const ttsSchema = object({
   }),
 });
 
+export interface TtsResponse {
+  audio: string;
+  text: string;
+}
+
 export type TtsSchema = TypeOf<typeof ttsSchema>;
