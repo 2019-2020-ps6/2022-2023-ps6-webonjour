@@ -56,6 +56,25 @@
           </div>
         </td>
       </ng-container>
+      <ng-container matColumnDef="Étage">
+        <th mat-header-cell *matHeaderCellDef>Étage</th>
+        <td mat-cell *matCellDef="let element">
+          <div
+            class="rounded"
+            style="
+              background-color: #00fff6;
+              width: fit-content;
+              height: fit-content;
+              padding: 5px 10px;
+              border-radius: 10px;
+              color: #000000;
+            "
+          >
+            {{ element.floor }}
+          </div>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr
         mat-row
