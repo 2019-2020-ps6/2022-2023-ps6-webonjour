@@ -111,6 +111,26 @@
             </div>
           </div>
         </div>
+
+        <div class="mb-3">
+          <label class="form-label">étage</label>
+          <input
+            type="number"
+            formControlName="floor"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && formControls['floor'].errors
+            }"
+          />
+          <div
+            *ngIf="submitted && formControls['floor'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="formControls['floor']['errors']['required']">
+              L'adresse est obligatoire
+            </div>
+          </div>
+        </div>
       </div>
       <webonjour-file-field
         formControlName="image"
