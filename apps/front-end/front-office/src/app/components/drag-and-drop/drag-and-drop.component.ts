@@ -19,6 +19,7 @@ import { Quiz } from '@webonjour/util-interface';
 export class DragAndDropComponent implements OnInit, OnDestroy {
   question!: Quiz.Question;
   elements!: string[];
+  answer!: string[];
   desiredResult!: string[];
   showModal = false;
   showInvalid = false;
@@ -48,6 +49,7 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
             (answer) => answer.text || ''
           );
           this.elements = this.desiredResult.slice(); // deep copy
+          this.answer = [];
           this.shuffle();
         }
       });
@@ -78,9 +80,12 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
   }
 
   validateOrder() {
-    const isValidOrder = this.elements.every(
-      (element, index) => element === this.desiredResult[index]
-    );
+    const isValidLength = this.answer.length === this.desiredResult.length;
+    const isValidOrder =
+      isValidLength &&
+      this.answer.every(
+        (element, index) => element === this.desiredResult[index]
+      );
 
     if (isValidOrder) {
       this.showModal = true;

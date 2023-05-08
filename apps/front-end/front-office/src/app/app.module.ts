@@ -32,6 +32,7 @@ import { ChoiceComponent } from './components/learning/choice/choice.component';
 import { OrderComponent } from './components/learning/order/order.component';
 import { LearningComponent } from './components/learning/learning.component';
 import { NgOptimizedImage } from '@angular/common';
+import { SkipButtonComponent } from './components/quiz-view/skip-button/skip-button.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { NgOptimizedImage } from '@angular/common';
     ChoiceComponent,
     OrderComponent,
     LearningComponent,
+    SkipButtonComponent,
   ],
   imports: [
     MatDialogModule,
