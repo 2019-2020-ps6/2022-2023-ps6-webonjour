@@ -7,11 +7,29 @@
     cdkDropList
     #left="cdkDropList"
     [cdkDropListData]="elements"
+    [cdkDropListConnectedTo]="[right]"
     (cdkDropListDropped)="onDrop($event)"
   >
     <div
       class="action"
-      *ngFor="let elem of elements; let i = index"
+      *ngFor="let action of elements; let i = index"
+      cdkDrag
+      [ngStyle]="{ 'background-color': 'var(--primary-color)' }"
+    >
+      {{ action }}
+    </div>
+  </div>
+  <div
+    class="answer-list"
+    cdkDropList
+    #right="cdkDropList"
+    [cdkDropListData]="answer"
+    [cdkDropListConnectedTo]="[left]"
+    (cdkDropListDropped)="onDrop($event)"
+  >
+    <div
+      class="answer"
+      *ngFor="let elem of answer; let i = index"
       cdkDrag
       [ngStyle]="{
         'background-color': isValidOrder(elem, i)
