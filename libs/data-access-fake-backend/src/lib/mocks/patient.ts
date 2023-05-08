@@ -138,13 +138,17 @@ export const accommodationMocks: Patient.Accommodation[] = [
     id: '8',
     title: 'Peut répondre deux fois à la même question',
   },
+  {
+    id: '9',
+    title: "Carte d'apprentissage",
+  },
 ];
 
 export const accommodationPatientMocks: Record<string, string[]> = {
-  '1': ['1', '2'],
-  '2': ['1', '2', '3', '8'],
-  '3': ['1', '2', '3', '4', '5', '6', '8'],
-  '4': ['1', '5', '6', '8'],
+  '1': ['1', '2', '7'],
+  '2': ['1', '2', '3', '8', '9'],
+  '3': ['1', '2', '3', '4', '5', '6', '8', '9'],
+  '4': ['1', '5', '6', '8', '9'],
 };
 
 export const patientQuizMocks: Record<string, string[]> = {

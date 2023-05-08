@@ -17,6 +17,7 @@ import {
   QuizService,
 } from '@webonjour/front-end/shared/common';
 import {
+  selectAccommodation,
   selectGameCurrentQuestion,
   selectGameState,
   selectPatient,
@@ -89,21 +90,30 @@ export class GameEffects {
       ofType(GameActions.nextQuestion),
       withLatestFrom(
         this.store.select(selectGameCurrentQuestion),
-        this.store.select(selectQuestionsToLearn)
+        this.store.select(selectQuestionsToLearn),
+        this.store.select(selectAccommodation)
       ),
-      switchMap(([action, currentQuestion, questionsToLearn]) => {
-        if (!currentQuestion) {
-          return of(GameActions.endGame());
-        }
+      switchMap(
+        ([action, currentQuestion, questionsToLearn, accommodations]) => {
+          if (!currentQuestion) {
+            return of(GameActions.endGame());
+          }
 
-        if (questionsToLearn?.length !== 0 && !action.skipLearning) {
-          this.router.navigate(['/learning-card']).then();
-          return EMPTY;
-        }
+          if (
+            questionsToLearn?.length !== 0 &&
+            !action.skipLearning &&
+            accommodations.filter(
+              (accommodation) => accommodation.title === "Carte d'apprentissage"
+            ).length === 1
+          ) {
+            this.router.navigate(['/learning-card']).then();
+            return EMPTY;
+          }
 
-        this.redirectToCorrectQuestion(currentQuestion);
-        return of(GameActions.nextQuestionSuccess());
-      })
+          this.redirectToCorrectQuestion(currentQuestion);
+          return of(GameActions.nextQuestionSuccess());
+        }
+      )
     )
   );
 
