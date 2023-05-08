@@ -31,7 +31,7 @@ export class PatientFamilyAddPopupComponent implements OnInit {
       last_name: ['', [Validators.required]],
       age: ['', [Validators.required, Validators.min(0), Validators.max(120)]],
       description: [''],
-      profilePictureUrl: [''],
+      image: [null],
       phone: [''],
       email: [''],
       relation: ['', [Validators.required]],
@@ -48,7 +48,7 @@ export class PatientFamilyAddPopupComponent implements OnInit {
             last_name: this.familyMember.lastName,
             age: this.familyMember.age,
             description: this.familyMember.description,
-            profilePictureUrl: this.familyMember.profilePictureUrl,
+            image: this.familyMember.profilePictureUrl,
             relation: this.familyMember.relation,
             email: this.familyMember.email,
             phone: this.familyMember.phone,
@@ -69,7 +69,7 @@ export class PatientFamilyAddPopupComponent implements OnInit {
       lastName: this.form.controls['last_name'].value,
       age: this.form.controls['age'].value,
       description: this.form.controls['description'].value,
-      profilePictureUrl: this.form.controls['profilePictureUrl'].value,
+      profilePictureUrl: this.form.controls['image'].value,
       relation: this.form.controls['relation'].value,
       phone: this.form.controls['phone'].value,
       email: this.form.controls['email'].value,
@@ -85,7 +85,7 @@ export class PatientFamilyAddPopupComponent implements OnInit {
             last_name: this.familyMember.lastName,
             age: this.familyMember.age,
             description: this.familyMember.description,
-            profilePictureUrl: this.familyMember.profilePictureUrl,
+            image: this.familyMember.profilePictureUrl,
             phone: this.familyMember.phone,
             email: this.familyMember.email,
           });
@@ -100,7 +100,7 @@ export class PatientFamilyAddPopupComponent implements OnInit {
             last_name: familyMember.data.lastName,
             age: familyMember.data.age,
             description: familyMember.data.description,
-            profilePictureUrl: familyMember.data.profilePictureUrl,
+            image: familyMember.data.profilePictureUrl,
             relation: familyMember.data.relation,
             phone: familyMember.data.phone,
             email: familyMember.data.email,
@@ -111,6 +111,6 @@ export class PatientFamilyAddPopupComponent implements OnInit {
   }
 
   get profilePictureUrl() {
-    return this.form.get('profilePictureUrl')?.value;
+    return this.form.get('image')?.value;
   }
 }
