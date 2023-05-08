@@ -8,7 +8,7 @@ import { PatientService } from '@webonjour/front-end/shared/common';
   styleUrls: ['./patient-danger.component.scss'],
 })
 export class PatientDangerComponent {
-  private id: string | null = null;
+  private id?: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
