@@ -111,10 +111,14 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     if (!answer.isCorrect) {
       this.handleAnswerError(question);
     } else {
-      this.next();
+      this.store.dispatch(
+        GameActions.nextQuestion({
+          skipLearning: true,
+        })
+      );
     }
     if (this.tries >= this.maxTries) {
-      this.next();
+      this.store.dispatch(GameActions.nextQuestion({}));
     }
   }
 
@@ -144,10 +148,6 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       this.show_help = false;
       clearInterval(interval);
     }, 3000);
-  }
-
-  next() {
-    this.store.dispatch(GameActions.nextQuestion({}));
   }
 
   private reset() {

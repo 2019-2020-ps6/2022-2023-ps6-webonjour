@@ -27,11 +27,11 @@ export class LearningComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.store
-      .select(selectGameCurrentQuestion)
+      .select(selectQuestionsToLearn)
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((questionsToLearn) => {
         if (questionsToLearn) {
-          this.question = questionsToLearn;
+          this.question = questionsToLearn[questionsToLearn.length - 1];
         }
       });
   }
