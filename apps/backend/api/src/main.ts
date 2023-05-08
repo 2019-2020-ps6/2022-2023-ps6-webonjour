@@ -29,7 +29,7 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 // 4. Cors
-const origin = `http://${host}:${port}`;
+const origin = `*`;
 app.use(
   cors({
     origin: origin,
