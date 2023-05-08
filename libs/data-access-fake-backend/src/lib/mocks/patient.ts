@@ -12,6 +12,7 @@ export const patientMocks: Patient.Patient[] = [
     diseaseStage: Quiz.DiseaseStage.STAGE_3,
     lastQuizDate: new Date(),
     successRate: 0.5,
+    floor: 1,
   },
   {
     id: '2',
@@ -24,6 +25,7 @@ export const patientMocks: Patient.Patient[] = [
     diseaseStage: Quiz.DiseaseStage.STAGE_4,
     lastQuizDate: new Date(),
     successRate: 0.8,
+    floor: 1,
   },
   {
     id: '3',
@@ -36,6 +38,7 @@ export const patientMocks: Patient.Patient[] = [
     diseaseStage: Quiz.DiseaseStage.STAGE_5,
     lastQuizDate: new Date(new Date().setDate(new Date().getDate() - 1)),
     successRate: 0.2,
+    floor: 2,
   },
   {
     id: '4',
@@ -48,6 +51,7 @@ export const patientMocks: Patient.Patient[] = [
     diseaseStage: Quiz.DiseaseStage.STAGE_6,
     lastQuizDate: new Date(new Date().setDate(new Date().getDate() - 1)),
     successRate: 0.2,
+    floor: 3,
   },
 ];
 
