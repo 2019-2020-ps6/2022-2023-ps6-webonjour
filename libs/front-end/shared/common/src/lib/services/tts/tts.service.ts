@@ -10,6 +10,7 @@ import { RequestWrapper, Tts } from '@webonjour/util-interface';
 })
 export class TtsService {
   API_URL = 'http://localhost:8000';
+  private audio = new Audio();
 
   constructor(private http: HttpClient) {}
 
@@ -20,8 +21,9 @@ export class TtsService {
       )
       .subscribe((res) => {
         console.log('test: ', text);
-        const audio = new Audio('data:audio/mpeg;base64,' + res.data.audio);
-        audio.play().then(() => {
+        this.audio.pause();
+        this.audio = new Audio('data:audio/mpeg;base64,' + res.data.audio);
+        this.audio.play().then(() => {
           console.log('Audio started');
         });
       });
