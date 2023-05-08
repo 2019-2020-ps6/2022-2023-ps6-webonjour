@@ -148,6 +148,15 @@ export class GameEffects {
     )
   );
 
+  skipQuestion$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GameActions.skipQuestion),
+      switchMap(() => {
+        return of(GameActions.nextQuestion({ skipLearning: true }));
+      })
+    )
+  );
+
   private redirectToCorrectQuestion(question: Quiz.Question) {
     if (question.type === Quiz.QuestionType.CHOICE) {
       this.router.navigate(['/quiz-answer']).then();

@@ -73,6 +73,9 @@ export const selectAvailableQuestions = createSelector(
   function (state: GameState) {
     if (!state.quiz) return [];
     return state.quiz.questions.filter((q) => {
+      // if question has been skipped, don't show it
+      if (state.skippedQuestions.includes(q.id)) return false;
+
       // if question is in history and is correct, don't show it
       if (state.history.find((h) => h.questionId === q.id && h.isCorrect))
         return false;

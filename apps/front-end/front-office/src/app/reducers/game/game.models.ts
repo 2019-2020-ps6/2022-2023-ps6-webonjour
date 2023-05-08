@@ -10,6 +10,7 @@ export interface GameEntity {
   accommodation: Patient.Accommodation[];
   learntQuestions: string[];
   history: HistoryItem[];
+  skippedQuestions: string[];
 }
 
 export interface HistoryItem {

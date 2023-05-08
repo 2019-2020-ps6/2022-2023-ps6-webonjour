@@ -28,6 +28,7 @@ export const initialGameState: GameState = gameAdapter.getInitialState({
   accommodation: [],
   history: [],
   learntQuestions: [],
+  skippedQuestions: [],
 });
 
 const reducer = createReducer(
@@ -39,6 +40,7 @@ const reducer = createReducer(
     error: null,
     history: [],
     learntQuestions: [],
+    skippedQuestions: [],
   })),
 
   on(GameActions.loadGameSuccess, (state, { quiz, accommodation }) => ({
@@ -110,6 +112,17 @@ const reducer = createReducer(
       ...state,
       // currentQuestion: availableQuestions[Math.floor(Math.random() * availableQuestions.length)],
       currentQuestion: availableQuestions[0],
+    };
+  }),
+
+  on(GameActions.skipQuestion, (state) => {
+    if (!state.quiz) return state;
+    return {
+      ...state,
+      skippedQuestions: [
+        ...state.skippedQuestions,
+        state.currentQuestion?.id || '',
+      ],
     };
   })
 );

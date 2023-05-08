@@ -11,6 +11,6 @@ export class SkipButtonComponent {
   constructor(private store: Store) {}
 
   onClick() {
-    this.store.dispatch(GameActions.nextQuestion());
+    this.store.dispatch(GameActions.skipQuestion());
   }
 }
