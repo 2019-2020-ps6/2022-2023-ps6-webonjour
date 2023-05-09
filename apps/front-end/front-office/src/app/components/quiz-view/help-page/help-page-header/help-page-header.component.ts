@@ -1,7 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Quiz } from '@webonjour/util-interface';
-import { selectGame } from '../../../../reducers/game/game.selectors';
+import {
+  selectAvailableQuestions,
+  selectGame,
+  selectGameQuiz,
+} from '../../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -11,7 +15,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class HelpPageHeaderComponent implements OnDestroy, OnInit {
   quiz!: Quiz.Quiz;
-  currentQuizQuestion!: number;
+  remainingNumberOfQuestions!: number;
   private ngDestroyed$: Subject<0> = new Subject();
 
   ngOnDestroy() {
@@ -22,12 +26,17 @@ export class HelpPageHeaderComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.store
-      .select(selectGame)
+      .select(selectAvailableQuestions)
       .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((gameState) => {
-        if (gameState.quiz) {
-          this.quiz = gameState.quiz;
-          this.currentQuizQuestion = gameState.currentQuestion + 1;
+      .subscribe((availableQuestions) => {
+        this.remainingNumberOfQuestions = availableQuestions.length - 1;
+      });
+    this.store
+      .select(selectGameQuiz)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((quiz) => {
+        if (quiz) {
+          this.quiz = quiz;
         }
       });
   }

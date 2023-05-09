@@ -8,7 +8,7 @@ export const initGame = createAction(
 
 export const loadGameSuccess = createAction(
   '[Game/API] Load Game Success',
-  props<{ quiz: Quiz.Quiz }>()
+  props<{ quiz: Quiz.Quiz; accommodation: Patient.Accommodation[] }>()
 );
 
 export const loadGameFailure = createAction(
@@ -25,7 +25,12 @@ export const chooseAnswer = createAction(
   }>()
 );
 
-export const nextQuestion = createAction('[Game Page] Next Question');
+export const nextQuestion = createAction(
+  '[Game Page] Next Question',
+  props<{
+    skipLearning?: boolean;
+  }>()
+);
 
 export const resetGame = createAction('[Game Page] Reset Game');
 
@@ -33,6 +38,13 @@ export const correctAnswer = createAction(
   '[Game Page] Correct Answer',
   props<{
     delta: number;
+  }>()
+);
+
+export const learntQuestion = createAction(
+  '[Game Page] Learnt Question',
+  props<{
+    question: Quiz.Question;
   }>()
 );
 
@@ -55,3 +67,5 @@ export const setPatient = createAction(
 export const nextQuestionSuccess = createAction(
   '[Game Page] Next Question Success'
 );
+
+export const skipQuestion = createAction('[Game Page] Skip Question');
