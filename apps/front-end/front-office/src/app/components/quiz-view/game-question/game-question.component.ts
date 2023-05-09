@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions, Store } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Actions } from '@ngrx/effects';
+import { Action, Store } from '@ngrx/store';
 import { TtsService } from '@webonjour/front-end/shared/common';
 import {
   selectAccommodation,
@@ -11,7 +11,6 @@ import {
 } from '../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import * as GameActions from '../../../reducers/game/game.actions';
-import { Actions } from '@ngrx/effects';
 
 @Component({
   selector: 'webonjour-game-question',
@@ -100,7 +99,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
           ? diseaseStage
           : Quiz.DiseaseStage.STAGE_1;
       });
-    this.actions
+    this.actions$
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((action: Action) => {
         if (action.type === GameActions.nextQuestion.type) {
