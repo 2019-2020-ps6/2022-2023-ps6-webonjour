@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Action, Store } from '@ngrx/store';
+import { Actions, Store } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { TtsService } from '@webonjour/front-end/shared/common';
 import {
   selectAccommodation,
   selectGameCurrentQuestion,
@@ -41,8 +43,23 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     activatedRoute: ActivatedRoute,
     private router: Router,
     private store: Store,
-    private actions: Actions
+    private actions$: Actions,
+    private tts: TtsService
   ) {}
+
+  ttsQuestion(question: Quiz.Question) {
+    // we have to concatenate the question title and the answers text
+    // because the TTS API only accepts one string
+    let text = question.title;
+
+    const colors = Array.from(this.colors.keys());
+    for (let i = 0; i < question.answers.length; i++) {
+      const answer = question.answers[i];
+      if (answer.text) text += `\nRéponse ${colors[i]}: ${answer.text}.`;
+    }
+
+    this.tts.sayTTS(text);
+  }
 
   ngOnInit(): void {
     this.tries = 0;
@@ -52,6 +69,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       .subscribe((question) => {
         if (question) {
           this.question = question;
+          this.ttsQuestion(question);
         }
       });
 
