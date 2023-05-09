@@ -16,7 +16,7 @@
                 alt="image"
                 width="50px"
                 height="50px"
-                class="img-fluid rounded-circle"
+                class="rounded-circle"
               />
             </div>
             <div class="text-center text-md-left">
@@ -51,36 +51,27 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef></th>
+      <ng-container matColumnDef="isPrivate">
+        <th mat-header-cell *matHeaderCellDef>Privé</th>
         <td mat-cell *matCellDef="let element">
           <div
-            class="d-flex justify-content-end"
-            style="height: 100%; width: 100%"
+            style="
+              width: fit-content;
+              height: fit-content;
+              padding: 5px 10px;
+              border-radius: 10px;
+              color: #000000;
+            "
           >
-            <button class="btn btn-primary" [routerLink]="[element.id]">
-              Éditer
-            </button>
+            {{ element.isPrivate ? 'Oui' : 'Non' }}
           </div>
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-          <div
-            class="d-flex justify-content-end"
-            style="height: 100%; width: 100%"
-          >
-            <button class="btn btn-danger" (click)="onDeleteQuiz(element.id)">
-              Supprimer
-            </button>
-          </div>
-        </td>
-      </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr
         mat-row
+        [routerLink]="[row.id]"
         *matRowDef="let row; columns: displayedColumns"
         class="row-hover"
       ></tr>
