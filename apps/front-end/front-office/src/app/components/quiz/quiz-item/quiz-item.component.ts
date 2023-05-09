@@ -32,5 +32,6 @@ export class QuizItemComponent {
 
   onClick() {
     this.store.dispatch(GameActions.initGame({ quizId: this.quiz.id }));
+    this.store.dispatch(GameActions.usefulClick());
   }
 }

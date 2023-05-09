@@ -1,5 +1,6 @@
 import { Patient, Quiz } from '@webonjour/util-interface';
 import { Accommodation, Prisma, QuizSession } from '@prisma/client';
+import { usefulClick } from './game.actions';
 
 /**
  * Interface for the 'Game' data
@@ -13,6 +14,9 @@ export interface GameEntity {
   history: HistoryItem[];
   skippedQuestions: number[];
   quizSession: QuizSession | null;
+  skippedQuestions: string[];
+  clickCount: number;
+  usefulClick: number;
 }
 
 export interface HistoryItem {

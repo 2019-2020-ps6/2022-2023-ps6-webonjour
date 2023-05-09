@@ -20,6 +20,7 @@ import {
 } from '@webonjour/front-end/shared/common';
 import {
   selectAccommodation,
+  selectClickRatio,
   selectGameCurrentQuestion,
   selectGameState,
   selectPatient,

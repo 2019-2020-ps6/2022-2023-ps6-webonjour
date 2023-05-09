@@ -30,6 +30,8 @@ export const initialGameState: GameState = gameAdapter.getInitialState({
   learntQuestions: [],
   skippedQuestions: [],
   quizSession: null,
+  clickCount: 0,
+  usefulClick: 0,
 });
 
 const reducer = createReducer(
@@ -55,6 +57,8 @@ const reducer = createReducer(
       currentQuestion: quiz.questions[0],
       history: [],
       quizSession: quizSession,
+      clickCount: 0,
+      usefulClick: 0,
     })
   ),
 
@@ -114,6 +118,18 @@ const reducer = createReducer(
         ...state.skippedQuestions,
         state.currentQuestion?.id || -1,
       ],
+    };
+  }),
+  on(GameActions.click, (state) => {
+    return {
+      ...state,
+      clickCount: state.clickCount + 1,
+    };
+  }),
+  on(GameActions.usefulClick, (state) => {
+    return {
+      ...state,
+      usefulClick: state.usefulClick + 1,
     };
   })
 );

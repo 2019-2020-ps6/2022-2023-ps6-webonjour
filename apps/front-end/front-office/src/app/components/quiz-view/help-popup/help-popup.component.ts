@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { selectGameCurrentQuestion } from '../../../reducers/game/game.selectors';
 import { Clue, Prisma } from '@prisma/client';
+import * as GameActions from '../../../reducers/game/game.actions';
 
 @Component({
   selector: 'webonjour-help-popup',
@@ -40,5 +41,9 @@ export class HelpPopupComponent implements OnInit, OnDestroy {
             ];
         }
       });
+  }
+  click() {
+    this.show_help = false;
+    this.store.dispatch(GameActions.usefulClick());
   }
 }

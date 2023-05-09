@@ -66,3 +66,6 @@ export const endGameSuccess = createAction('[Game Page] End Game Success');
 export const chooseAnswerSuccess = createAction(
   '[Game Page] Choose Answer Success'
 );
+
+export const click = createAction('[Game Page] Click');
+export const usefulClick = createAction('[Game Page] Useful Click');

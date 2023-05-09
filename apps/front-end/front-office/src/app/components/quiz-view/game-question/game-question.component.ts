@@ -103,7 +103,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
 
   onSelectAnswer(answer: Answer, index: number) {
     const question = document.querySelector('#answer-' + index);
-
+    this.helpClick();
     if (!question || question.classList.contains('disabled')) {
       return;
     }
@@ -184,5 +184,9 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
 
   skip() {
     this.store.dispatch(GameActions.skipQuestion());
+  }
+
+  helpClick() {
+    this.store.dispatch(GameActions.usefulClick());
   }
 }
