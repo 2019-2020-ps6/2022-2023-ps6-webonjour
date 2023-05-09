@@ -3,6 +3,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import * as GameActions from './game.actions';
 import { GameEntity } from './game.models';
+import { selectAvailableQuestions } from './game.selectors';
 
 export const GAME_FEATURE_KEY = 'game';
 
@@ -21,53 +22,109 @@ export const gameAdapter: EntityAdapter<GameEntity> =
 export const initialGameState: GameState = gameAdapter.getInitialState({
   // set initial required properties
   loaded: false,
-  currentQuestion: 0,
-  score: 0,
-  times: [],
   player: null,
   quiz: null,
+  currentQuestion: null,
+  accommodation: [],
+  history: [],
+  learntQuestions: [],
+  skippedQuestions: [],
 });
 
 const reducer = createReducer(
   initialGameState,
+
   on(GameActions.initGame, (state) => ({
     ...state,
     loaded: false,
     error: null,
-    currentQuestion: 0,
-    score: 0,
-    times: [],
+    history: [],
+    learntQuestions: [],
+    skippedQuestions: [],
   })),
-  on(GameActions.loadGameSuccess, (state, { quiz }) => ({
+
+  on(GameActions.loadGameSuccess, (state, { quiz, accommodation }) => ({
     ...state,
     quiz: quiz,
     loaded: true,
+    accommodation: accommodation,
+    // currentQuestion: quiz.questions[Math.floor(Math.random() * quiz.questions.length)],
+    currentQuestion: quiz.questions[0],
+    history: [],
   })),
+
   on(GameActions.loadGameFailure, (state, { error }) => ({ ...state, error })),
-  on(GameActions.correctAnswer, (state, { delta }) => ({
-    ...state,
-    score: state.score + 1,
-    times: [...state.times, delta],
-  })),
-  on(GameActions.wrongAnswer, (state, { delta }) => ({
-    ...state,
-    score: state.score,
-    times: [...state.times, delta],
-  })),
-  on(GameActions.nextQuestion, (state) => ({
-    ...state,
-    currentQuestion: state.currentQuestion + 1,
-  })),
+
+  on(GameActions.correctAnswer, (state, { delta }) => {
+    if (!state.quiz) return state;
+    return {
+      ...state,
+      history: [
+        ...state.history,
+        {
+          questionId: state.currentQuestion?.id || '',
+          isCorrect: true,
+          timeTaken: delta,
+        },
+      ],
+    };
+  }),
+
+  on(GameActions.wrongAnswer, (state, { delta }) => {
+    if (!state.quiz) return state;
+
+    return {
+      ...state,
+      history: [
+        ...state.history,
+        {
+          questionId: state.currentQuestion?.id || '',
+          isCorrect: false,
+          timeTaken: delta,
+        },
+      ],
+    };
+  }),
+
   on(GameActions.resetGame, (state) => ({
     ...state,
-    currentQuestion: 0,
-    score: 0,
-    times: [],
+    remainingQuestions: state.quiz?.questions || [],
+    history: [],
   })),
+
   on(GameActions.setPatient, (state, { patient }) => ({
     ...state,
     player: patient,
-  }))
+  })),
+
+  on(GameActions.learntQuestion, (state, { question }) => {
+    if (!state.quiz) return state;
+    return {
+      ...state,
+      learntQuestions: [...state.learntQuestions, question.id],
+    };
+  }),
+
+  on(GameActions.nextQuestion, (state) => {
+    if (!state.quiz) return state;
+    const availableQuestions = selectAvailableQuestions.projector(state);
+    return {
+      ...state,
+      // currentQuestion: availableQuestions[Math.floor(Math.random() * availableQuestions.length)],
+      currentQuestion: availableQuestions[0],
+    };
+  }),
+
+  on(GameActions.skipQuestion, (state) => {
+    if (!state.quiz) return state;
+    return {
+      ...state,
+      skippedQuestions: [
+        ...state.skippedQuestions,
+        state.currentQuestion?.id || '',
+      ],
+    };
+  })
 );
 
 export function gameReducer(state: GameState | undefined, action: Action) {

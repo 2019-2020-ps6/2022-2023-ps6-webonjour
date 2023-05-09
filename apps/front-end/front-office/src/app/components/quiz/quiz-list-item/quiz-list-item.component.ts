@@ -32,7 +32,6 @@ export class QuizListItemComponent implements OnInit, OnDestroy {
         this.diseaseStage = diseaseStage
           ? diseaseStage
           : Quiz.DiseaseStage.STAGE_1;
-        console.log('diseaseStage', diseaseStage);
       });
 
     this.store

@@ -19,6 +19,7 @@ import { Quiz } from '@webonjour/util-interface';
 export class DragAndDropComponent implements OnInit, OnDestroy {
   question!: Quiz.Question;
   elements!: string[];
+  answer!: string[];
   desiredResult!: string[];
   showModal = false;
   showInvalid = false;
@@ -42,11 +43,13 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((question) => {
         if (question) {
+          this.showInvalid = false;
           this.question = question;
           this.desiredResult = question.answers.map(
             (answer) => answer.text || ''
           );
-          this.elements = this.desiredResult.slice(); // copy
+          this.elements = this.desiredResult.slice(); // deep copy
+          this.answer = [];
           this.shuffle();
         }
       });
@@ -77,9 +80,12 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
   }
 
   validateOrder() {
-    const isValidOrder = this.elements.every(
-      (element, index) => element === this.desiredResult[index]
-    );
+    const isValidLength = this.answer.length === this.desiredResult.length;
+    const isValidOrder =
+      isValidLength &&
+      this.answer.every(
+        (element, index) => element === this.desiredResult[index]
+      );
 
     if (isValidOrder) {
       this.showModal = true;
@@ -88,6 +94,8 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
       }, 5000);
     } else {
       this.showInvalid = true;
+      // This is here and not above because we want to dispatch the message after enabling showInvalid DO NOT MOVE
+      this.store.dispatch(GameActions.chooseAnswer({ isCorrect: false }));
     }
   }
 

@@ -5,8 +5,16 @@ import { Patient, Quiz } from '@webonjour/util-interface';
  */
 export interface GameEntity {
   quiz: Quiz.Quiz | null;
-  score: number;
-  currentQuestion: number;
-  times: number[];
   player: Patient.Patient | null;
+  currentQuestion: Quiz.Question | null;
+  accommodation: Patient.Accommodation[];
+  learntQuestions: string[];
+  history: HistoryItem[];
+  skippedQuestions: string[];
+}
+
+export interface HistoryItem {
+  questionId: string;
+  isCorrect: boolean;
+  timeTaken: number;
 }

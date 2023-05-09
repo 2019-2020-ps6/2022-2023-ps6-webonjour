@@ -7,6 +7,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-builders/custom-webpack": "^15.0.0",
     "@angular/animations": "~15.2.0",
     "@angular/cdk": "~15.2.2",
     "@angular/common": "~15.2.0",
@@ -32,8 +33,10 @@
     "config": "^3.3.9",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "~4.18.1",
     "express-async-handler": "^1.2.0",
+    "google-tts-api": "^2.0.2",
     "jwt-decode": "^3.1.2",
     "mongoose": "^7.0.3",
     "morgan": "^1.10.0",
@@ -41,6 +44,7 @@
     "rxjs": "~7.8.0",
     "subspawn": "^1.0.1",
     "tslib": "^2.3.0",
+    "url": "^0.11.0",
     "zod": "^3.21.4",
     "zone.js": "~0.12.0"
   },

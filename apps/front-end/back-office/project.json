@@ -21,7 +21,7 @@
         ],
         "styles": ["apps/front-end/back-office/src/styles.scss"],
         "scripts": [],
-        "allowedCommonJsDependencies": ["apexcharts"]
+        "allowedCommonJsDependencies": ["apexcharts", "google-tts"]
       },
       "configurations": {
         "production": {
