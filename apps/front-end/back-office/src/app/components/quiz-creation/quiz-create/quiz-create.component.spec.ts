@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 
 import { QuizCreateComponent } from './quiz-create.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -45,10 +49,22 @@ describe('QuizCreationComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [QuizCreateComponent, MockCustomFieldComponent],
       imports: [MatDialogModule, ReactiveFormsModule, HttpClientTestingModule],
+      providers: [
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {
+            patientId: 'asd',
+          },
+        },
+        { provide: MatDialogRef, useValue: {} },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(QuizCreateComponent);
     component = fixture.componentInstance;
+    component.data = {
+      patientId: 'a',
+    };
     fixture.detectChanges();
   });
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, ElementRef, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -8,7 +8,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: FileFieldComponent,
+      useExisting: forwardRef(() => FileFieldComponent), // replace name as appropriate
       multi: true,
     },
   ],
@@ -16,13 +16,14 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class FileFieldComponent implements ControlValueAccessor {
   private file: File | null = null;
   onChange!: (file: File | null) => void;
+  onTouch!: () => void;
   fileUrl = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
 
-  @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
-    const file = event && event.item(0);
-    this.onChange(file);
-    this.file = file;
-    if (file) {
+  constructor(private host: ElementRef<HTMLInputElement>) {}
+
+  writeValue(file: File | string) {
+    if (file instanceof File) {
+      this.file = file;
       const reader = new FileReader();
       reader.onload = (e: ProgressEvent<FileReader>) => {
         if (e.target) {
@@ -30,18 +31,6 @@ export class FileFieldComponent implements ControlValueAccessor {
         }
       };
       reader.readAsDataURL(file);
-    }
-  }
-  constructor(private host: ElementRef<HTMLInputElement>) {
-    this.onChange = () => {
-      console.log('default onChange');
-    };
-  }
-
-  writeValue(file: File | string) {
-    if (file instanceof File) {
-      this.file = file;
-      this.onChange(file);
     } else {
       this.fileUrl = file;
     }
@@ -52,11 +41,21 @@ export class FileFieldComponent implements ControlValueAccessor {
     }
   }
 
-  registerOnChange(fn: (file: File | null) => void) {
+  // upon UI element value changes, this method gets triggered
+  registerOnChange(fn: () => void) {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: unknown) {
-    console.log(fn);
+  // upon touching the element, this method gets triggered
+  registerOnTouched(fn: () => void) {
+    this.onTouch = fn;
+  }
+
+  onFileSelected($event: Event) {
+    const file = ($event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.writeValue(file);
+      this.onChange(file);
+    }
   }
 }
