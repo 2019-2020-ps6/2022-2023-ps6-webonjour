@@ -29,13 +29,13 @@ export class HelpPageComponent implements OnInit, OnDestroy {
       .subscribe((gameState) => {
         if (gameState.quiz) {
           this.quiz = gameState.quiz;
-          this.currentQuizQuestion = gameState.currentQuestion + 1;
+          this.currentQuizQuestion = gameState.history.length;
 
-          const textClues = gameState.quiz.questions[
-            gameState.currentQuestion
-          ].clues.filter((clue) => clue.text);
+          const textClues = gameState.currentQuestion?.clues.filter(
+            (clue) => clue.text
+          );
 
-          if (textClues.length > 0) {
+          if (textClues && textClues.length > 0) {
             this.randomClue =
               textClues[Math.floor(Math.random() * textClues.length)];
           } else {
