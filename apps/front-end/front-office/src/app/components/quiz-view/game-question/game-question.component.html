@@ -2,15 +2,22 @@
   <h1 class="question-title">{{ question.title }}</h1>
 
   <div class="answer-container">
-    <webonjour-game-answer
-      class="answer"
+    <div
       *ngFor="let answer of question.answers; let i = index"
-      [answer]="answer"
-      [img_enabled]="image_enabled"
-      (displayImageEvent)="onImageEnable($event)"
-      (show_modal_help)="show_modal_help($event)"
-      [color]="Array.from(colors.values())[i]"
-    ></webonjour-game-answer>
+      class="button"
+      [style.background-color]="Array.from(colors.values())[i]"
+      id="answer-{{ i }}"
+      (mouseenter)="
+        document.querySelector('#answer-' + i)!.classList.add('hovered')
+      "
+      (mouseleave)="
+        document.querySelector('#answer-' + i)!.classList.remove('hovered')
+      "
+      (click)="onSelectAnswer(answer, i)"
+    >
+      <p>{{ answer.text }}</p>
+      <img *ngIf="image_enabled" [src]="answer.image" />
+    </div>
   </div>
   <div class="help-container">
     <div class="message-container">

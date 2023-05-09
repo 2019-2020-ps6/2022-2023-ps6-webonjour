@@ -43,11 +43,12 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((question) => {
         if (question) {
+          this.showInvalid = false;
           this.question = question;
           this.desiredResult = question.answers.map(
             (answer) => answer.text || ''
           );
-          this.elements = this.desiredResult.slice(); // copy
+          this.elements = this.desiredResult.slice(); // deep copy
           this.answer = [];
           this.shuffle();
         }
@@ -93,6 +94,8 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
       }, 5000);
     } else {
       this.showInvalid = true;
+      // This is here and not above because we want to dispatch the message after enabling showInvalid DO NOT MOVE
+      this.store.dispatch(GameActions.chooseAnswer({ isCorrect: false }));
     }
   }
 
