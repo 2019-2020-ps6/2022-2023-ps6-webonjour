@@ -58,7 +58,7 @@
 }
 
 .selected {
-  outline: 10px solid var(--dark-color);
+  outline: 5px solid var(--dark-color);
 }
 
 .disabled {
@@ -95,4 +95,9 @@ webonjour-message {
 
 .help-button {
   background-color: rgba(var(--secondary-color-rgb), 0.6);
+}
+
+.white-background {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
 }

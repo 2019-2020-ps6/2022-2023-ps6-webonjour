@@ -5,7 +5,11 @@
     <div
       *ngFor="let answer of question.answers; let i = index"
       class="answer-button button col-6"
+      [style.background-image]="
+        image_enabled ? 'url(' + answer.image + ')' : 'none'
+      "
       [style.background-color]="Array.from(colors.values())[i]"
+      [style.aspect-ratio]="image_enabled ? '2/1' : 'none'"
       id="answer-{{ i }}"
       (mouseenter)="
         document.querySelector('#answer-' + i)!.classList.add('hovered')
@@ -15,8 +19,7 @@
       "
       (click)="onSelectAnswer(answer, i)"
     >
-      <p>{{ answer.text }}</p>
-      <img *ngIf="image_enabled" [src]="answer.image" />
+      <p [ngClass]="{ 'white-background': image_enabled }">{{ answer.text }}</p>
     </div>
   </div>
   <webonjour-message></webonjour-message>
