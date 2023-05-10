@@ -1,0 +1,7 @@
+<div *ngIf="question.type === QuestionType.CHOICE">
+  <webonjour-choice [question]="question"></webonjour-choice>
+</div>
+
+<div *ngIf="question.type === QuestionType.REORDER">
+  <webonjour-order [question]="question"></webonjour-order>
+</div>

@@ -3,8 +3,12 @@
   justify-content: center;
   font-family: 'Roboto', sans-serif;
   font-size: 30px;
-  margin-top: 10px;
+  margin: 10px 0;
   padding: 10px;
+}
+
+h2 {
+  margin: 0;
 }
 
 .quiz-container {
@@ -135,4 +139,81 @@
   border-radius: 10px;
   cursor: pointer;
   width: fit-content;
+}
+
+.answer-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: move;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  min-height: 50px;
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
+}
+
+.answer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.index {
+  // put to the lef tod the element
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+.index-two {
+  // put to the right of the element
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.row {
+  margin: 10px auto 0 auto;
+  width: max-content;
+}
+
+.help-button,
+.skip-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: fit-content;
+}
+
+.button > svg {
+  margin: 0 10px;
+  height: calc(2rem + 6px);
+}
+
+.help-button > p,
+.skip-button > p {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.skip-button {
+  background-color: rgba(var(--primary-color-rgb), 0.6);
+}
+
+.help-button {
+  background-color: rgba(var(--secondary-color-rgb), 0.6);
 }

@@ -11,6 +11,7 @@ import express, {
 } from 'express';
 import AppError from './utils/appError';
 import cookieParser from 'cookie-parser';
+import ttsRouter from './routes/tts.route';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');
@@ -28,7 +29,7 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 // 4. Cors
-const origin = `${host}:${port}`;
+const origin = `*`;
 app.use(
   cors({
     origin: origin,
@@ -49,6 +50,8 @@ app.get('/health', (req, res) => {
   }
   res.send({ message: 'OK' });
 });
+
+app.get('/api/tts', ttsRouter);
 
 // Unknown Routes
 app.all('*', (req: Request, res: Response, next: NextFunction) => {

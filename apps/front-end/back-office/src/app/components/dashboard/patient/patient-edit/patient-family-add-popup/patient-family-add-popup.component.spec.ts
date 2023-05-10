@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MockCustomFieldComponent } from '../../../../quiz-creation/quiz-create/quiz-create.component.spec';
 
 describe('PatientFamilyAddPopupComponent', () => {
   let component: PatientFamilyAddPopupComponent;
@@ -19,7 +20,7 @@ describe('PatientFamilyAddPopupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PatientFamilyAddPopupComponent],
+      declarations: [PatientFamilyAddPopupComponent, MockCustomFieldComponent],
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,

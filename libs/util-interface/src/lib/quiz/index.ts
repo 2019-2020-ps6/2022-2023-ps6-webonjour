@@ -18,6 +18,7 @@ export interface Clue {
 }
 
 export interface Question {
+  id: string;
   title: string;
   image?: string;
   answers: Answer[];
