@@ -157,6 +157,7 @@
 .answer {
   display: flex;
   justify-content: center;
+  align-content: center;
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
   font-size: 30px;
@@ -165,4 +166,22 @@
   padding: 10px;
   border: 1px solid black;
   border-radius: 10px;
+}
+
+.index {
+  // put to the lef tod the element
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+.index-two {
+  // put to the right of the element
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.skip-button {
+  display: flex;
+  justify-content: right;
+  align-items: flex-end;
 }

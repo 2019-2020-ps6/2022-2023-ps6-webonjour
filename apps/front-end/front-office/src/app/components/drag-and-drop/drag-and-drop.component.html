@@ -37,7 +37,9 @@
           : 'var(--primary-color)'
       }"
     >
+      <span class="index">{{ i + 1 }}</span>
       {{ elem }}
+      <span class="index-two"></span>
     </div>
   </div>
 </div>
@@ -45,6 +47,7 @@
 <div style="display: flex; justify-content: center">
   <a class="validate-button" (click)="validateOrder()">Valider</a>
 </div>
+<webonjour-skip-button class="skip-button"></webonjour-skip-button>
 
 <div
   class="modal_container"
