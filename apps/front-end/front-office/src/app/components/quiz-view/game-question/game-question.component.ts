@@ -177,4 +177,8 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       answer.classList.remove('disabled');
     });
   }
+
+  skip() {
+    this.store.dispatch(GameActions.skipQuestion());
+  }
 }
