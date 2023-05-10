@@ -9,6 +9,7 @@ import {
   QuizService,
 } from '@webonjour/front-end/shared/common';
 import { PatientEditQuizAddPopupComponent } from '../patient-edit-quiz-add-popup/patient-edit-quiz-add-popup.component';
+import { QuizCreateComponent } from '../../../../quiz-creation/quiz-create/quiz-create.component';
 
 @Component({
   selector: 'webonjour-patient-edit-quiz',
@@ -20,6 +21,7 @@ export class PatientEditQuizComponent implements AfterViewInit {
     'Nom du Quiz',
     'Nombre de questions',
     'stage',
+    'isPrivate',
     'actions',
   ];
   dataSource = new MatTableDataSource<Quiz.Quiz>([]);
@@ -77,5 +79,18 @@ export class PatientEditQuizComponent implements AfterViewInit {
         this.refresh();
       });
     });
+  }
+
+  onAddPersonalQuiz() {
+    this.dialog
+      .open(QuizCreateComponent, {
+        data: {
+          patientId: this.route.snapshot.params['id'],
+        },
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this.refresh();
+      });
   }
 }

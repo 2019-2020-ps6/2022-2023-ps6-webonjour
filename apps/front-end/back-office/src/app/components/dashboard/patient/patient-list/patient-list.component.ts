@@ -17,6 +17,7 @@ export class PatientListComponent implements AfterViewInit {
     'Taux de réussite',
     'Date du dernier quiz',
     'Stade Alzheimer',
+    'Étage',
   ];
   dataSource = new MatTableDataSource<Patient.Patient>([]);
 

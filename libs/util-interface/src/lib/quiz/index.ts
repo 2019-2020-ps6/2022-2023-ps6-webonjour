@@ -38,4 +38,5 @@ export interface Quiz {
   imageUrl: string;
   stage: DiseaseStage;
   questions: Question[];
+  isPrivate: boolean;
 }

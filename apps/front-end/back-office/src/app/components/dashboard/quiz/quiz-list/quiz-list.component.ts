@@ -16,8 +16,7 @@ export class QuizListComponent implements AfterViewInit {
     'Nom du Quiz',
     'Nombre de questions',
     'stage',
-    'edit',
-    'delete',
+    'isPrivate',
   ];
   dataSource = new MatTableDataSource<Quiz.Quiz>([]);
 

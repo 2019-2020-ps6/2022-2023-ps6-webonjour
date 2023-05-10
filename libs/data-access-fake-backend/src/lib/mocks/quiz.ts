@@ -7,6 +7,7 @@ export const quizList: Quiz.Quiz[] = [
     imageUrl:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Horse_%284159728870%29.jpg/207px-Horse_%284159728870%29.jpg',
     stage: Quiz.DiseaseStage.STAGE_3,
+    isPrivate: false,
     questions: [
       {
         id: '1',
@@ -130,6 +131,7 @@ export const quizList: Quiz.Quiz[] = [
     imageUrl:
       'https://upload.wikimedia.org/wikipedia/commons/2/24/Abraxas_Artistic_representationi.jpg',
     stage: Quiz.DiseaseStage.STAGE_4,
+    isPrivate: false,
     questions: [
       {
         id: '1',
@@ -212,6 +214,7 @@ export const quizList: Quiz.Quiz[] = [
     imageUrl:
       'https://cdn4.iconfinder.com/data/icons/user-people-2/48/6-512.png',
     stage: Quiz.DiseaseStage.STAGE_4,
+    isPrivate: true,
     questions: [
       {
         id: '1',
@@ -320,6 +323,7 @@ export const quizList: Quiz.Quiz[] = [
     imageUrl:
       'https://cdn4.iconfinder.com/data/icons/user-people-2/48/6-512.png',
     stage: Quiz.DiseaseStage.STAGE_4,
+    isPrivate: true,
     questions: [
       {
         id: '1',
