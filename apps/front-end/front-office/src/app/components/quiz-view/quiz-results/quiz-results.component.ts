@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
+  selectAccommodation,
   selectGameScore,
   selectGameState,
   selectPatient,
@@ -46,26 +47,18 @@ export class QuizResultsComponent implements OnDestroy, OnInit {
       });
 
     this.store
-      .select(selectPatient)
+      .select(selectAccommodation)
       .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((patient) => {
-        if (patient) {
-          this.patientService
-            .getPatientAccommodation(patient.id)
-            .subscribe((accommodation) => {
-              this.canReplay =
-                accommodation.data.filter((accommodation) => {
-                  return accommodation.title === 'Peut recommencer le quiz';
-                }).length > 0;
+      .subscribe((accommodation) => {
+        this.canReplay =
+          accommodation.filter((accommodation) => {
+            return accommodation.title === 'Peut recommencer le quiz';
+          }).length > 0;
 
-              this.canScore =
-                accommodation.data.filter((accommodation) => {
-                  return (
-                    accommodation.title === 'Affiche le score à la fin du quiz'
-                  );
-                }).length > 0;
-            });
-        }
+        this.canScore =
+          accommodation.filter((accommodation) => {
+            return accommodation.title === 'Affiche le score à la fin du quiz';
+          }).length > 0;
       });
   }
 
