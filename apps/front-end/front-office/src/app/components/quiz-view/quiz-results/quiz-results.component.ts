@@ -50,15 +50,13 @@ export class QuizResultsComponent implements OnDestroy, OnInit {
       .select(selectAccommodation)
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((accommodation) => {
-        this.canReplay =
-          accommodation.filter((accommodation) => {
-            return accommodation.title === 'Peut recommencer le quiz';
-          }).length > 0;
+        this.canReplay = accommodation.some((accommodation) => {
+          return accommodation.title === 'Peut recommencer le quiz';
+        });
 
-        this.canScore =
-          accommodation.filter((accommodation) => {
-            return accommodation.title === 'Affiche le score à la fin du quiz';
-          }).length > 0;
+        this.canScore = accommodation.some((accommodation) => {
+          return accommodation.title === 'Affiche le score à la fin du quiz';
+        });
       });
   }
 
