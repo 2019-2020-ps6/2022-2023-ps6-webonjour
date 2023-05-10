@@ -6,7 +6,6 @@ import {
   selectGame,
   selectGameCurrentQuestion,
 } from '../../../reducers/game/game.selectors';
-import { QuestionType } from '../../../../../../../../libs/util-interface/src/lib/quiz';
 
 @Component({
   selector: 'webonjour-help-page',
@@ -58,7 +57,7 @@ export class HelpPageComponent implements OnInit, OnDestroy {
       .subscribe((question) => {
         if (question) {
           this.quizRoute =
-            question.type == QuestionType.CHOICE
+            question.type == Quiz.QuestionType.CHOICE
               ? '/quiz-answer'
               : '/drag-and-drop';
         }
