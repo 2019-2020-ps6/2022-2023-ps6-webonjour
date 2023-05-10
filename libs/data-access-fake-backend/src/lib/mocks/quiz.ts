@@ -308,38 +308,38 @@ export const quizList: Quiz.Quiz[] = [
   },
   {
     id: '4',
-    title: 'Quiz sur les Trucs à remettre à leur place',
+    title: 'Actions du quotidien',
     imageUrl: 'https://cf.ozeliurs.com/tmp/person.png',
     stage: Quiz.DiseaseStage.STAGE_4,
     isPrivate: true,
     questions: [
       {
         id: '1',
-        title: 'Ordonner par ordre alphabétique ?',
+        title: "Réordonner par ordre logique pour s'habiller",
         type: Quiz.QuestionType.REORDER,
         answers: [
           {
-            text: 'Ramses',
+            text: 'Mettre le slip',
             isCorrect: false,
           },
           {
-            text: 'Rex',
-            isCorrect: true,
+            text: 'Mettre le pantalon et le t-shirt',
+            isCorrect: false,
           },
           {
-            text: 'Rudolph',
+            text: 'Mettre les chaussettes',
+            isCorrect: false,
+          },
+          {
+            text: 'Mettre les chaussures',
             isCorrect: false,
           },
         ],
-        clues: [
-          {
-            text: 'Ça commence par R',
-          },
-        ],
+        clues: [],
       },
       {
         id: '2',
-        title: 'Réordonner par ordre chronologique pour faire des pâtes.',
+        title: 'Réordonner par ordre logique pour faire des pâtes.',
         type: Quiz.QuestionType.REORDER,
         answers: [
           {
