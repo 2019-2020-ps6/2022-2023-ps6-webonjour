@@ -71,7 +71,10 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let element">
-          <button class="btn btn-danger" (click)="onDeleteQuiz(element.id)">
+          <button
+            class="btn btn-danger"
+            (click)="onDeleteQuiz(element.id, $event)"
+          >
             Supprimer
           </button>
         </td>
@@ -82,7 +85,7 @@
         mat-row
         *matRowDef="let row; columns: displayedColumns"
         class="row-hover"
-        [routerLink]="['/dashboard/quiz', row.id]"
+        (click)="onQuizClicked(row, $event)"
       ></tr>
     </table>
 

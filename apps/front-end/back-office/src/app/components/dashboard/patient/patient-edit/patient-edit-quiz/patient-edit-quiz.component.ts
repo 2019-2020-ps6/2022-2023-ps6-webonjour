@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { Quiz } from '@webonjour/util-interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   PatientService,
   QuizService,
@@ -32,7 +32,8 @@ export class PatientEditQuizComponent implements AfterViewInit {
     private quizService: QuizService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private router: Router
   ) {
     this.refresh();
   }
@@ -71,7 +72,8 @@ export class PatientEditQuizComponent implements AfterViewInit {
       });
   }
 
-  onDeleteQuiz(id: string) {
+  onDeleteQuiz(id: string, event: MouseEvent) {
+    event.stopPropagation();
     this.route.params.subscribe((params) => {
       const patientId = params['id'];
       this.quizService.getById(id).subscribe((quiz) => {
@@ -98,5 +100,10 @@ export class PatientEditQuizComponent implements AfterViewInit {
       .subscribe(() => {
         this.refresh();
       });
+  }
+
+  onQuizClicked(row: Quiz.Quiz, event: MouseEvent) {
+    event.stopPropagation();
+    this.router.navigate(['/dashboard/quiz', row.id]);
   }
 }
