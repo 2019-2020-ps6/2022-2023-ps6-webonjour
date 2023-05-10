@@ -1,4 +1,23 @@
-<div class="row is-horizontal-align">
+<div
+  *ngIf="!showPatients"
+  class="row"
+  style="margin: 20px; height: 80vh; align-items: center"
+>
+  <button
+    *ngFor="let floor of floors"
+    (click)="selectFloor(floor)"
+    class="col button"
+    style="
+      padding: 10px;
+      background-color: var(--secondary-color);
+      font-size: xx-large;
+      height: min-content;
+    "
+  >
+    Etage {{ floor }}
+  </button>
+</div>
+<div *ngIf="showPatients" class="row is-horizontal-align">
   <webonjour-card
     *ngFor="let user of patients"
     [patient]="user"
