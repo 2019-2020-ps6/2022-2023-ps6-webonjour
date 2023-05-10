@@ -82,6 +82,7 @@
         mat-row
         *matRowDef="let row; columns: displayedColumns"
         class="row-hover"
+        [routerLink]="['/dashboard/quiz', row.id]"
       ></tr>
     </table>
 
