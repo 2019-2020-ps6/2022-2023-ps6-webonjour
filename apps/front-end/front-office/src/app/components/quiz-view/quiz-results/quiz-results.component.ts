@@ -1,11 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
+  selectAccommodation,
   selectGameScore,
+  selectGameState,
   selectPatient,
 } from '../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import { PatientService } from '@webonjour/front-end/shared/common';
+import { GameState } from '../../../reducers/game/game.reducer';
 
 @Component({
   selector: 'webonjour-quiz-results',
@@ -18,6 +21,7 @@ export class QuizResultsComponent implements OnDestroy, OnInit {
 
   score_text = 'Bien Joué !';
   score_numeric!: number;
+  state!: GameState;
 
   public ngDestroyed$ = new Subject();
 
@@ -36,26 +40,23 @@ export class QuizResultsComponent implements OnDestroy, OnInit {
       });
 
     this.store
-      .select(selectPatient)
+      .select(selectGameState)
       .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((patient) => {
-        if (patient) {
-          this.patientService
-            .getPatientAccommodation(patient.id)
-            .subscribe((accommodation) => {
-              this.canReplay =
-                accommodation.data.filter((accommodation) => {
-                  return accommodation.title === 'Peut recommencer le quiz';
-                }).length > 0;
+      .subscribe((state) => {
+        this.state = state;
+      });
 
-              this.canScore =
-                accommodation.data.filter((accommodation) => {
-                  return (
-                    accommodation.title === 'Affiche le score à la fin du quiz'
-                  );
-                }).length > 0;
-            });
-        }
+    this.store
+      .select(selectAccommodation)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((accommodation) => {
+        this.canReplay = accommodation.some((accommodation) => {
+          return accommodation.title === 'Peut recommencer le quiz';
+        });
+
+        this.canScore = accommodation.some((accommodation) => {
+          return accommodation.title === 'Affiche le score à la fin du quiz';
+        });
       });
   }
 

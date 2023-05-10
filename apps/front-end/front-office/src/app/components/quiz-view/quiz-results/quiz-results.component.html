@@ -3,7 +3,7 @@
     {{ score_text }}
   </div>
   <div class="result full card" *ngIf="canScore" (click)="score()">
-    {{ score_numeric }}
+    {{ score_numeric }}/{{ state.history.length }}
   </div>
   <div class="replay card" *ngIf="canReplay" [routerLink]="['/list-quiz']">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
