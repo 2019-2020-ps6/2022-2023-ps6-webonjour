@@ -234,6 +234,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const id = url.split('/').pop();
         const quiz = quizList.find((x) => x.id === id);
         return ok(quiz);
+      } else if (
+        url.match(/\/patients\/\d+\/quiz\/\d+$/) &&
+        method === 'DELETE'
+      ) {
+        return deleteQuizPatient();
       } else if (url.match(/\/quiz\/\d+$/) && method === 'DELETE') {
         const id = url.split('/').pop();
         return deleteQuiz(id as string);
@@ -255,11 +260,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         method === 'POST'
       ) {
         return addQuizToPatient();
-      } else if (
-        url.match(/\/patients\/\d+\/quiz\/\d+$/) &&
-        method === 'DELETE'
-      ) {
-        return deleteQuizPatient();
       } else if (url.match(/\/patients\/\d+\/quiz$/) && method === 'GET') {
         return getPatientQuiz();
       }

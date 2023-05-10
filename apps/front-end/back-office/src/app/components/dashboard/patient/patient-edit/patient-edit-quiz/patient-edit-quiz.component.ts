@@ -74,9 +74,15 @@ export class PatientEditQuizComponent implements AfterViewInit {
   onDeleteQuiz(id: string) {
     this.route.params.subscribe((params) => {
       const patientId = params['id'];
-
-      this.patientService.deletePatientQuiz(patientId, id).subscribe(() => {
-        this.refresh();
+      this.quizService.getById(id).subscribe((quiz) => {
+        if (quiz.data.isPrivate) {
+          this.quizService.delete(id).subscribe(() => {
+            this.refresh();
+          });
+        }
+        this.patientService.deletePatientQuiz(patientId, id).subscribe(() => {
+          this.refresh();
+        });
       });
     });
   }
