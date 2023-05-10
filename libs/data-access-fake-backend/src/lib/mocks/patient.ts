@@ -7,8 +7,7 @@ export const patientMocks: Patient.Patient[] = [
     lastName: 'TREBOR',
     age: 30,
     profilePictureUrl: 'https://cf.ozeliurs.com/tmp/rt.png',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.',
+    description: 'Robert est au début de la maladie.',
     diseaseStage: Quiz.DiseaseStage.STAGE_3,
     lastQuizDate: new Date(),
     successRate: 0.5,
@@ -21,7 +20,7 @@ export const patientMocks: Patient.Patient[] = [
     age: 30,
     profilePictureUrl: 'https://cf.ozeliurs.com/tmp/mpyv.png',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.',
+      'Marcelino est assez avancé dans la maladie. Il a des difficultés prononcées pour se rappeler des choses.',
     diseaseStage: Quiz.DiseaseStage.STAGE_4,
     lastQuizDate: new Date(),
     successRate: 0.8,
@@ -34,7 +33,7 @@ export const patientMocks: Patient.Patient[] = [
     age: 30,
     profilePictureUrl: 'https://cf.ozeliurs.com/tmp/mc.png',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.',
+      'Maximinus a des difficultés pour effectuer des tâches simples.',
     diseaseStage: Quiz.DiseaseStage.STAGE_5,
     lastQuizDate: new Date(new Date().setDate(new Date().getDate() - 1)),
     successRate: 0.2,
@@ -46,8 +45,7 @@ export const patientMocks: Patient.Patient[] = [
     lastName: 'GYMNASIUM',
     age: 30,
     profilePictureUrl: 'https://cf.ozeliurs.com/tmp/og.png',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.',
+    description: '',
     diseaseStage: Quiz.DiseaseStage.STAGE_6,
     lastQuizDate: new Date(new Date().setDate(new Date().getDate() - 1)),
     successRate: 0.2,
@@ -124,11 +122,7 @@ export const accommodationMocks: Patient.Accommodation[] = [
   },
   {
     id: '2',
-    title: 'Reposer la question de manière plus simple',
-  },
-  {
-    id: '5',
-    title: 'Reposer la question avec un contexte, ou un contexte different',
+    title: "Afficher les images en cas d'échec",
   },
   {
     id: '6',

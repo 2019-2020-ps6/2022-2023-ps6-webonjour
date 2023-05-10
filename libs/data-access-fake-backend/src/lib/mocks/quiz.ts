@@ -11,7 +11,7 @@ export const quizList: Quiz.Quiz[] = [
     questions: [
       {
         id: '1',
-        title: "Quel était la couleur du cheval blanc d'Henri IV ?",
+        title: "Quelle était la couleur du cheval blanc d'Henri IV ?",
         type: Quiz.QuestionType.CHOICE,
         answers: [
           {
@@ -177,7 +177,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
         clues: [
           {
-            text: 'Leur symbole était la croix pattée, appelée aussi croix de Jérusalem.',
+            text: 'Leur symbole était aussi appelée croix de Jérusalem.',
           },
         ],
       },
@@ -236,7 +236,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
         clues: [
           {
-            text: 'Ca commence par R',
+            text: 'Ça commence par R',
           },
         ],
       },
@@ -260,7 +260,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
         clues: [
           {
-            text: 'Ca commence par M',
+            text: 'Ça commence par M',
           },
         ],
       },
@@ -284,13 +284,13 @@ export const quizList: Quiz.Quiz[] = [
         ],
         clues: [
           {
-            text: 'Ca commence par R',
+            text: 'Ça commence par R',
           },
         ],
       },
       {
         id: '4',
-        title: 'A quoi ressemble votre maison ?',
+        title: 'À quoi ressemble votre maison ?',
         type: Quiz.QuestionType.CHOICE,
         answers: [
           {
@@ -311,7 +311,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
         clues: [
           {
-            text: 'Ca commence par R',
+            text: 'Ça commence par R',
           },
         ],
       },
@@ -345,7 +345,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
         clues: [
           {
-            text: 'Ca commence par R',
+            text: 'Ça commence par R',
           },
         ],
       },
@@ -359,15 +359,15 @@ export const quizList: Quiz.Quiz[] = [
             isCorrect: false,
           },
           {
-            text: 'Mettre de l’eau à bouillir',
+            text: "Mettre de l'eau à bouillir",
             isCorrect: false,
           },
           {
-            text: 'Mettre les pâtes dans l’eau',
+            text: "Mettre les pâtes dans l'eau",
             isCorrect: true,
           },
           {
-            text: 'Egoutter les pâtes',
+            text: 'Égoutter les pâtes',
             isCorrect: false,
           },
           {
@@ -379,11 +379,7 @@ export const quizList: Quiz.Quiz[] = [
             isCorrect: false,
           },
         ],
-        clues: [
-          {
-            text: 'Ca commence par R',
-          },
-        ],
+        clues: [],
       },
     ],
   },
