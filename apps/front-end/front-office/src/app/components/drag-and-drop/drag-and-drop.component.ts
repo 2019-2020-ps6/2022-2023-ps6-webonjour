@@ -107,5 +107,10 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
     this.showModal = false;
     clearTimeout(this.modalTimer);
     this.store.dispatch(GameActions.chooseAnswer({ isCorrect: true }));
+    this.store.dispatch(GameActions.nextQuestion({ skipLearning: true }));
+  }
+
+  skip() {
+    this.store.dispatch(GameActions.skipQuestion());
   }
 }
