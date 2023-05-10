@@ -33,20 +33,24 @@ export class PatientEditGeneralComponent implements OnInit {
         [Validators.required, Validators.min(0), Validators.max(7)],
       ],
       description: [''],
-      profilePictureUrl: [''],
+      image: [null],
     });
     this.activatedRoute.params.subscribe((params) => {
-      this.patientService.getPatient(params['id']).subscribe((patient) => {
-        this.patient = patient.data;
-        this.form.patchValue({
-          first_name: this.patient.firstName,
-          last_name: this.patient.lastName,
-          age: this.patient.age,
-          disease_stage: this.patient.diseaseStage,
-          description: this.patient.description,
-          profilePictureUrl: this.patient.profilePictureUrl,
+      if (params['id']) {
+        this.patientService.getPatient(params['id']).subscribe((patient) => {
+          this.patient = patient.data;
+          console.log(this.patient);
+          this.form.patchValue({
+            first_name: this.patient.firstName,
+            last_name: this.patient.lastName,
+            age: this.patient.age,
+            disease_stage: this.patient.diseaseStage,
+            description: this.patient.description,
+          });
+          this.form.controls['image'].setValue(this.patient.profilePictureUrl);
+          console.log(this.form);
         });
-      });
+      }
     });
   }
 
@@ -63,7 +67,7 @@ export class PatientEditGeneralComponent implements OnInit {
       age: this.form.controls['age'].value,
       diseaseStage: this.form.controls['disease_stage'].value,
       description: this.form.controls['description'].value,
-      profilePictureUrl: this.form.controls['profilePictureUrl'].value,
+      profilePictureUrl: this.form.controls['image'].value,
       lastQuizDate: this.patient?.lastQuizDate || new Date(),
       successRate: this.patient?.successRate || 0,
     };
@@ -77,7 +81,7 @@ export class PatientEditGeneralComponent implements OnInit {
           age: this.patient.age,
           disease_stage: this.patient.diseaseStage,
           description: this.patient.description,
-          profilePictureUrl: this.patient.profilePictureUrl,
+          image: this.patient.profilePictureUrl,
         });
         this.dialog.closeAll();
       });
