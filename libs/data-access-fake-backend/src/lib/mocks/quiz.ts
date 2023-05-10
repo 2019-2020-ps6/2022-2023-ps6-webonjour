@@ -4,8 +4,7 @@ export const quizList: Quiz.Quiz[] = [
   {
     id: '1',
     title: 'Les chevaux célèbres',
-    imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Horse_%284159728870%29.jpg/207px-Horse_%284159728870%29.jpg',
+    imageUrl: 'https://cf.ozeliurs.com/tmp/horse.png',
     stage: Quiz.DiseaseStage.STAGE_3,
     isPrivate: false,
     questions: [
@@ -16,26 +15,22 @@ export const quizList: Quiz.Quiz[] = [
         answers: [
           {
             text: 'Blanc',
-            image:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/512px-Solid_white.svg.png',
+            image: 'https://cf.ozeliurs.com/tmp/white.png',
             isCorrect: true,
           },
           {
             text: 'Noir',
-            image:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Solid_black.svg/512px-Solid_black.svg.png',
+            image: 'https://cf.ozeliurs.com/tmp/black.png',
             isCorrect: false,
           },
           {
             text: 'Rouge',
-            image:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Solid_red.svg/512px-Solid_red.svg.png',
+            image: 'https://cf.ozeliurs.com/tmp/red.png',
             isCorrect: false,
           },
           {
             text: 'Vert',
-            image:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Solid_green.svg/512px-Solid_green.svg.png',
+            image: 'https://cf.ozeliurs.com/tmp/green.png',
             isCorrect: false,
           },
         ],
@@ -48,8 +43,7 @@ export const quizList: Quiz.Quiz[] = [
             text: "Cette couleur ne fait pas partie de l'arc-en-ciel mais en est la combinaison.",
           },
           {
-            image:
-              'https://i0.wp.com/passionchateau.fr/wp-content/uploads/2015/01/77-5-Fraise-Mauzaisse-Henri-IV.jpg',
+            image: 'https://cf.ozeliurs.com/tmp/white-horse.webp',
           },
         ],
       },
@@ -128,8 +122,7 @@ export const quizList: Quiz.Quiz[] = [
   {
     id: '2',
     title: 'Quiz sur les Templiers',
-    imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/2/24/Abraxas_Artistic_representationi.jpg',
+    imageUrl: 'https://cf.ozeliurs.com/tmp/temp.png',
     stage: Quiz.DiseaseStage.STAGE_4,
     isPrivate: false,
     questions: [
@@ -211,8 +204,7 @@ export const quizList: Quiz.Quiz[] = [
   {
     id: '3',
     title: 'Quiz autobiographique de Marcelino',
-    imageUrl:
-      'https://cdn4.iconfinder.com/data/icons/user-people-2/48/6-512.png',
+    imageUrl: 'https://cf.ozeliurs.com/tmp/person.png',
     stage: Quiz.DiseaseStage.STAGE_4,
     isPrivate: true,
     questions: [
@@ -294,18 +286,15 @@ export const quizList: Quiz.Quiz[] = [
         type: Quiz.QuestionType.CHOICE,
         answers: [
           {
-            image:
-              'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.xR4aEMBVqQ58YhNZsu2w3wHaEu%26pid%3DApi&f=1&ipt=f6eb3ce7363d3a0f4567593fbfbeda97cb2d4416efd1e5f599ca78e0dc067d02&ipo=images',
+            image: 'https://cf.ozeliurs.com/tmp/house1.png',
             isCorrect: true,
           },
           {
-            image:
-              'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.xcZZ6O4BH2xaGmA55md6dAHaHa%26pid%3DApi&f=1&ipt=12cd54c9f28ed22500d71a4a41f0c58d1282e9d3bb7e740fa67d19abdf1f03cf&ipo=images',
+            image: 'https://cf.ozeliurs.com/tmp/house2.png',
             isCorrect: false,
           },
           {
-            image:
-              'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.hNnTtcmM9AZ8dgRs0zksNwHaHe%26pid%3DApi&f=1&ipt=b6b100038c7fa259cbf0f7eb48c9362eb3686cb4839d926f16845d8ff133d490&ipo=images',
+            image: 'https://cf.ozeliurs.com/tmp/house3.png',
             isCorrect: false,
           },
         ],
@@ -320,8 +309,7 @@ export const quizList: Quiz.Quiz[] = [
   {
     id: '4',
     title: 'Quiz sur les Trucs à remettre à leur place',
-    imageUrl:
-      'https://cdn4.iconfinder.com/data/icons/user-people-2/48/6-512.png',
+    imageUrl: 'https://cf.ozeliurs.com/tmp/person.png',
     stage: Quiz.DiseaseStage.STAGE_4,
     isPrivate: true,
     questions: [
