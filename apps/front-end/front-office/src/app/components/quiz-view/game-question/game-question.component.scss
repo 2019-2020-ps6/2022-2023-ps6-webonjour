@@ -75,8 +75,6 @@ webonjour-message {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  font-size: 3rem;
-  aspect-ratio: 6/1;
 }
 
 .button > svg {
@@ -84,10 +82,17 @@ webonjour-message {
   height: calc(2rem + 6px);
 }
 
+.help-button > p,
+.skip-button > p {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0 10px;
+}
+
 .skip-button {
-  background-color: var(--primary-color);
+  background-color: rgba(var(--primary-color-rgb), 0.6);
 }
 
 .help-button {
-  background-color: var(--secondary-color);
+  background-color: rgba(var(--secondary-color-rgb), 0.6);
 }
