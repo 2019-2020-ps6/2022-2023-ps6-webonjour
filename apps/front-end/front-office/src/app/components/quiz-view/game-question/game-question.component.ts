@@ -108,10 +108,6 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       });
   }
 
-  onImageEnable(event: boolean) {
-    this.image_enabled = event;
-  }
-
   onSelectAnswer(answer: Quiz.Answer, index: number) {
     const question = document.querySelector('#answer-' + index);
 
@@ -176,6 +172,19 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       answer.classList.remove('selected');
       answer.classList.remove('disabled');
     });
+
+    this.store
+      .select(selectGameCurrentQuestion)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((question) => {
+        if (
+          question &&
+          question.answers.length > 0 &&
+          !question.answers[0].text
+        ) {
+          this.image_enabled = true;
+        }
+      });
   }
 
   skip() {
