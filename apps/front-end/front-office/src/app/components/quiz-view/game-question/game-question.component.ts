@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Quiz } from '@webonjour/util-interface';
+import { Quiz, Patient } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
@@ -33,6 +33,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   protected readonly document = document;
   protected readonly Array = Array;
   private tries = 0;
+  private accomodations!: Patient.Accommodation[];
 
   public ngOnDestroy() {
     this.ngDestroyed$.next(0);
@@ -75,12 +76,12 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     this.store
       .select(selectAccommodation)
       .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((accommodation) => {
-        console.log(accommodation);
+      .subscribe((accomodations) => {
+        this.accomodations = accomodations;
         if (
-          accommodation.filter(function (accommodation) {
+          accomodations.filter(function (accomodations) {
             return (
-              accommodation.title ===
+              accomodations.title ===
               'Peut répondre deux fois à la même question'
             );
           }).length > 0
@@ -150,7 +151,11 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       this.show_modal_help(true);
     }
 
-    if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_5) {
+    if (
+      this.accomodations.some(
+        (a) => a.title === "Afficher les images en cas d'échec"
+      )
+    ) {
       this.image_enabled = true;
     }
   }
