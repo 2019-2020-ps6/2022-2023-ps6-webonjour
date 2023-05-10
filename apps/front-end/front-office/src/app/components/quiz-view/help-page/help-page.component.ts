@@ -37,7 +37,7 @@ export class HelpPageComponent implements OnInit, OnDestroy {
 
           if (textClues && textClues.length > 0) {
             this.randomClue =
-              textClues[Math.floor(Math.random() * textClues.length)];
+              textClues[Math.floor(Math.random() * textClues.length)]; // Please note that Math.random() will produce a number between 0 and 1, but never 1.
           } else {
             this.randomClue = {
               text: 'No clue available',
