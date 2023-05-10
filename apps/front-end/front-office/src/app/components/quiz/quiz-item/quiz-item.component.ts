@@ -16,6 +16,7 @@ export class QuizItemComponent {
     imageUrl: '',
     stage: Quiz.DiseaseStage.STAGE_1,
     questions: [],
+    isPrivate: false,
   };
   @Input() diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
   hover = false;
