@@ -17,23 +17,11 @@
   cursor: pointer;
 }
 
-.btn {
+.header-button {
   position: absolute;
   right: 0;
   top: 0;
   margin: 20px;
-  background-color: var(--dark-color);
-  width: 150px;
-  height: 50px;
-  border-radius: 10px;
-  // change the font in roboto
-  font-family: Roboto, sans-serif;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
 }
 
 .hovered {

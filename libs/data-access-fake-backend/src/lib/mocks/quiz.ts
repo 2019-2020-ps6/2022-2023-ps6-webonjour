@@ -10,6 +10,7 @@ export const quizList: Quiz.Quiz[] = [
     isPrivate: false,
     questions: [
       {
+        id: '1',
         title: "Quel était la couleur du cheval blanc d'Henri IV ?",
         type: Quiz.QuestionType.CHOICE,
         answers: [
@@ -53,6 +54,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
       },
       {
+        id: '2',
         title: 'Quel était le nom du cheval de Napoléon Bonaparte ?',
         type: Quiz.QuestionType.CHOICE,
         answers: [
@@ -76,6 +78,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
       },
       {
+        id: '3',
         title: "Comment s'appelait le cheval de Zorro ?",
         type: Quiz.QuestionType.CHOICE,
         answers: [
@@ -97,6 +100,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
       },
       {
+        id: '4',
         title: 'Quel était le nom du cheval de la reine Élisabeth II ?',
         type: Quiz.QuestionType.CHOICE,
         answers: [
@@ -130,6 +134,7 @@ export const quizList: Quiz.Quiz[] = [
     isPrivate: false,
     questions: [
       {
+        id: '1',
         title: 'Quelle était la mission initiale des Templiers ?',
         type: Quiz.QuestionType.CHOICE,
         answers: [
@@ -153,6 +158,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
       },
       {
+        id: '2',
         title: 'Quel était le symbole des Templiers ?',
         type: Quiz.QuestionType.CHOICE,
         answers: [
@@ -176,6 +182,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
       },
       {
+        id: '3',
         title:
           'Quelle est la raison principale pour laquelle les Templiers ont été persécutés et dissous en 1312 ?',
         type: Quiz.QuestionType.CHOICE,
@@ -210,6 +217,7 @@ export const quizList: Quiz.Quiz[] = [
     isPrivate: true,
     questions: [
       {
+        id: '1',
         title: 'Quel est le nom de mon premier chien ?',
         type: Quiz.QuestionType.CHOICE,
         answers: [
@@ -233,6 +241,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
       },
       {
+        id: '2',
         title: 'Quel est le prénom de votre fille ?',
         type: Quiz.QuestionType.CHOICE,
         answers: [
@@ -256,6 +265,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
       },
       {
+        id: '3',
         title: 'Quelle était la couleur de votre première voiture ?',
         type: Quiz.QuestionType.CHOICE,
         answers: [
@@ -279,6 +289,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
       },
       {
+        id: '4',
         title: 'A quoi ressemble votre maison ?',
         type: Quiz.QuestionType.CHOICE,
         answers: [
@@ -315,6 +326,7 @@ export const quizList: Quiz.Quiz[] = [
     isPrivate: true,
     questions: [
       {
+        id: '1',
         title: 'Ordonner par ordre alphabétique ?',
         type: Quiz.QuestionType.REORDER,
         answers: [
@@ -338,6 +350,7 @@ export const quizList: Quiz.Quiz[] = [
         ],
       },
       {
+        id: '2',
         title: 'Réordonner par ordre chronologique pour faire des pâtes.',
         type: Quiz.QuestionType.REORDER,
         answers: [

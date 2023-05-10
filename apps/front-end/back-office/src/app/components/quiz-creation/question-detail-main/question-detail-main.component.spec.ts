@@ -15,6 +15,7 @@ describe('QuestionDetailMainComponent', () => {
     fixture = TestBed.createComponent(QuestionDetailMainComponent);
     component = fixture.componentInstance;
     component.question = {
+      id: '',
       answers: [],
       clues: [],
       title: 'test',

@@ -66,6 +66,16 @@
         *matRowDef="let row; columns: displayedColumns"
         class="row-hover"
       ></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+          <h2
+            class="text-center text-muted m-4"
+            style="font-size: 1.5rem; font-weight: 300"
+          >
+            Pas de quiz à ajouter
+          </h2>
+        </td>
+      </tr>
     </table>
 
     <mat-paginator
