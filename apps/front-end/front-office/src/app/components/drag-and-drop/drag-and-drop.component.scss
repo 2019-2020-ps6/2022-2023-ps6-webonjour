@@ -3,8 +3,12 @@
   justify-content: center;
   font-family: 'Roboto', sans-serif;
   font-size: 30px;
-  margin-top: 10px;
+  margin: 10px 0;
   padding: 10px;
+}
+
+h2 {
+  margin: 0;
 }
 
 .quiz-container {
@@ -180,8 +184,36 @@
   margin-right: 10px;
 }
 
+.row {
+  margin: 10px auto 0 auto;
+  width: max-content;
+}
+
+.help-button,
 .skip-button {
   display: flex;
-  justify-content: right;
-  align-items: flex-end;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: fit-content;
+}
+
+.button > svg {
+  margin: 0 10px;
+  height: calc(2rem + 6px);
+}
+
+.help-button > p,
+.skip-button > p {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.skip-button {
+  background-color: rgba(var(--primary-color-rgb), 0.6);
+}
+
+.help-button {
+  background-color: rgba(var(--secondary-color-rgb), 0.6);
 }

@@ -2,7 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { Quiz } from '@webonjour/util-interface';
-import { selectGame } from '../../../reducers/game/game.selectors';
+import {
+  selectGame,
+  selectGameCurrentQuestion,
+} from '../../../reducers/game/game.selectors';
+import { QuestionType } from '../../../../../../../../libs/util-interface/src/lib/quiz';
 
 @Component({
   selector: 'webonjour-help-page',
@@ -12,9 +16,11 @@ import { selectGame } from '../../../reducers/game/game.selectors';
 export class HelpPageComponent implements OnInit, OnDestroy {
   randomClue!: Quiz.Clue;
   quiz!: Quiz.Quiz;
+  question!: Quiz.Question;
   currentQuizQuestion!: number;
 
   public ngDestroyed$ = new Subject();
+  quizRoute!: string;
 
   public ngOnDestroy() {
     this.ngDestroyed$.next(0);
@@ -43,6 +49,18 @@ export class HelpPageComponent implements OnInit, OnDestroy {
               text: 'No clue available',
             };
           }
+        }
+      });
+
+    this.store
+      .select(selectGameCurrentQuestion)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((question) => {
+        if (question) {
+          this.quizRoute =
+            question.type == QuestionType.CHOICE
+              ? '/quiz-answer'
+              : '/drag-and-drop';
         }
       });
   }
