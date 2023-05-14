@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { Quiz } from '@webonjour/util-interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   PatientService,
   QuizService,
@@ -32,7 +32,8 @@ export class PatientEditQuizComponent implements AfterViewInit {
     private quizService: QuizService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private router: Router
   ) {
     this.refresh();
   }
@@ -71,12 +72,19 @@ export class PatientEditQuizComponent implements AfterViewInit {
       });
   }
 
-  onDeleteQuiz(id: string) {
+  onDeleteQuiz(id: string, event: MouseEvent) {
+    event.stopPropagation();
     this.route.params.subscribe((params) => {
       const patientId = params['id'];
-
-      this.patientService.deletePatientQuiz(patientId, id).subscribe(() => {
-        this.refresh();
+      this.quizService.getById(id).subscribe((quiz) => {
+        if (quiz.data.isPrivate) {
+          this.quizService.delete(id).subscribe(() => {
+            this.refresh();
+          });
+        }
+        this.patientService.deletePatientQuiz(patientId, id).subscribe(() => {
+          this.refresh();
+        });
       });
     });
   }
@@ -92,5 +100,10 @@ export class PatientEditQuizComponent implements AfterViewInit {
       .subscribe(() => {
         this.refresh();
       });
+  }
+
+  onQuizClicked(row: Quiz.Quiz, event: MouseEvent) {
+    event.stopPropagation();
+    this.router.navigate(['/dashboard/quiz', row.id]);
   }
 }

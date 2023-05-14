@@ -63,6 +63,7 @@ import { PatientDangerComponent } from './components/dashboard/patient/patient-e
     PatientFamilyAddPopupComponent,
     FileFieldComponent,
     PatientDangerComponent,
+    PatientEditQuizAddPopupComponent,
   ],
   imports: [
     BrowserModule,

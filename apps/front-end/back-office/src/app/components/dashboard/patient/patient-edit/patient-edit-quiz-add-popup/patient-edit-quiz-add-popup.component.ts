@@ -50,6 +50,7 @@ export class PatientEditQuizAddPopupComponent implements AfterViewInit {
             .filter((quiz) => {
               return !quiz.isPrivate;
             });
+
           this.dataSource = new MatTableDataSource<Quiz.Quiz>(quizListFiltered);
           this.dataSource.paginator = this.paginator;
         });
