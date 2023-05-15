@@ -4,7 +4,6 @@ import {
   selectAccommodation,
   selectGameScore,
   selectGameState,
-  selectPatient,
 } from '../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import { PatientService } from '@webonjour/front-end/shared/common';

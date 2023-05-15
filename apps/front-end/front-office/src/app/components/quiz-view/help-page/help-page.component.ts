@@ -17,6 +17,7 @@ export class HelpPageComponent implements OnInit, OnDestroy {
   quiz!: Quiz.Quiz;
   question!: Quiz.Question;
   currentQuizQuestion!: number;
+  array = new Uint32Array(1);
 
   public ngDestroyed$ = new Subject();
   quizRoute!: string;
@@ -41,8 +42,9 @@ export class HelpPageComponent implements OnInit, OnDestroy {
           );
 
           if (textClues && textClues.length > 0) {
+            window.crypto.getRandomValues(this.array);
             this.randomClue =
-              textClues[Math.floor(Math.random() * textClues.length)]; // Please note that Math.random() will produce a number between 0 and 1, but never 1.
+              textClues[Math.floor(this.array[0] % textClues.length)]; // Please note that Math.random() will produce a number between 0 and 1, but never 1.
           } else {
             this.randomClue = {
               text: 'No clue available',

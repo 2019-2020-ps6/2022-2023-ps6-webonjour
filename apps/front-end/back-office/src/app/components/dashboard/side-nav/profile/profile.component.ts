@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'webonjour-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent {
   constructor(private authService: AuthService, private router: Router) {}

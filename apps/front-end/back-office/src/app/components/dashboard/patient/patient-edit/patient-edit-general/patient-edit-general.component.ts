@@ -8,7 +8,6 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'webonjour-patient-edit-general',
   templateUrl: './patient-edit-general.component.html',
-  styleUrls: ['./patient-edit-general.component.scss'],
 })
 export class PatientEditGeneralComponent implements OnInit {
   form!: FormGroup;
