@@ -19,3 +19,47 @@ model User {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime? @default(now())
 }
+
+enum DiseaseStage {
+  STAGE_1
+  STAGE_2
+  STAGE_3
+  STAGE_4
+  STAGE_5
+  STAGE_6
+  STAGE_7
+}
+
+enum QuestionType {
+  CHOICE
+  REORDER
+}
+
+model Clue {
+  text String?
+  image String?
+}
+
+model Question {
+  id String
+  title String
+  image String?
+  answers Answer[]
+  clues Clue[]
+  type QuestionType
+}
+
+model Answer {
+  text String?
+  image String?
+  isCorrect boolean
+}
+
+export interface Quiz {
+  id String
+  title String
+  imageUrl String
+  stage DiseaseStage
+  questions Question[]
+  isPrivate boolean
+}
