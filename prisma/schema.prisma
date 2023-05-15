@@ -60,6 +60,6 @@ model Quiz {
   title String
   imageUrl String
   stage DiseaseStage
-  questions Question[]
+  questions @relation(references: [id])
   isPrivate boolean
 }
