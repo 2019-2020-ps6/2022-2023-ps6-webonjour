@@ -47,3 +47,7 @@ Thumbs.db
 .devenv*
 pnpm-lock.yaml
 .direnv
+
+# prisma
+prisma/dev.sqlite
+prisma/dev.sqlite-journal

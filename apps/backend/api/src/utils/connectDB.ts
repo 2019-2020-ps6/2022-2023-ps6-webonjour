@@ -1,18 +1,5 @@
-import mongoose from 'mongoose';
-import config from 'config';
-import asyncHandler from 'express-async-handler';
+import { PrismaClient } from '@prisma/client';
 
-const connectDB = async (): Promise<void> => {
-  try {
-    const dbUrl = config.get<string>('dbUrl');
-    console.log('Connecting to database...');
-    await mongoose.connect(dbUrl);
-    console.log('Database connected...');
-  } catch (error: unknown) {
-    setTimeout(asyncHandler(connectDB), 5000);
-    console.log('Database connection failed...');
-    console.log(error);
-  }
-};
+const prisma = new PrismaClient();
 
-export default connectDB;
+export default prisma;
