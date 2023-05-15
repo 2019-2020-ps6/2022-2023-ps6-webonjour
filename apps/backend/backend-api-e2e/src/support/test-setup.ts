@@ -10,9 +10,8 @@ module.exports = async function () {
   // if there is, load it else load the .env file in the api directory
 
   axios.defaults.baseURL = `http://localhost:8000`;
-
   // wait for the server to start
-  while (200) {
+  for (let i = 0; i < 200; i++) {
     try {
       await axios.get(`/health`);
       break;
