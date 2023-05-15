@@ -23,6 +23,7 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
   desiredResult!: string[];
   showModal = false;
   showInvalid = false;
+  array = new Uint32Array(1);
 
   public ngDestroyed$ = new Subject();
   private modalTimer!: number;
@@ -56,7 +57,10 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
   }
 
   shuffle() {
-    this.elements.sort(() => Math.random() - 0.5);
+    this.elements.sort(() => {
+      window.crypto.getRandomValues(this.array);
+      return this.array[0] - Number.MAX_SAFE_INTEGER;
+    });
   }
 
   onDrop(event: CdkDragDrop<string[]>) {
