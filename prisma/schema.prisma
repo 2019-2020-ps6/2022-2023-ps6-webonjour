@@ -55,7 +55,7 @@ model Answer {
   isCorrect boolean
 }
 
-export interface Quiz {
+model Quiz {
   id String @id @default(uuid())
   title String
   imageUrl String
