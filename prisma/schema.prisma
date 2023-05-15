@@ -33,3 +33,17 @@ model Patient {
   floor Int
 }
 
+model FamilyMember {
+  id          String    @id @default(uuid())
+  first_name  String
+  last_name   String
+  age         Int
+  profilePictureUrl String
+  description String
+
+  relation String
+  patientId String?
+  phone String?
+  email String?
+}
+
