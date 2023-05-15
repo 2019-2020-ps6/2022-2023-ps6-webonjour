@@ -25,7 +25,7 @@ module.exports = async function () {
   axios.defaults.baseURL = `http://${host}:${port}`;
 
   // wait for the server to start
-  while (true) {
+  while (200) {
     try {
       await axios.get(`/health`);
       break;

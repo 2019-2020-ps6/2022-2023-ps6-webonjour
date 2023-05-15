@@ -47,3 +47,7 @@ Thumbs.db
 .devenv*
 pnpm-lock.yaml
 .direnv
+
+# prisma
+prisma/migrations
+prisma/dev.db

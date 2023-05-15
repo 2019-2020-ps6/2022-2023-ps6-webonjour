@@ -1,7 +1,5 @@
 import './env.config.loader';
 import config from 'config';
-import connectDB from './utils/connectDB';
-import mongoose from 'mongoose';
 import cors from 'cors';
 import morgan from 'morgan';
 import express, {
@@ -12,6 +10,7 @@ import express, {
 import AppError from './utils/appError';
 import cookieParser from 'cookie-parser';
 import ttsRouter from './routes/tts.route';
+import prisma from './utils/connectDB';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');
@@ -43,11 +42,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/health', (req, res) => {
-  // check if the database is connected
-  if (mongoose.connection.readyState !== 1) {
-    res.status(500).send({ message: 'Database not connected' });
-    return;
-  }
   res.send({ message: 'OK' });
 });
 
@@ -76,7 +70,7 @@ app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
 });
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
-  connectDB().catch((error: Error) => {
-    console.log(error.message);
+  prisma.$connect().then(() => {
+    console.log(`[ ready ] Database connected`);
   });
 });

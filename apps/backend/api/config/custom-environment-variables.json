@@ -1,5 +1,4 @@
 {
-  "dbUrl": "MONGODB_URL",
   "port": "PORT",
   "host": "HOST"
 }
