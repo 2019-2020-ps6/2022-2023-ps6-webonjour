@@ -105,6 +105,11 @@
     }
   },
   "lint-staged": {
+    "prisma/schema.prisma": [
+      "prisma format",
+      "prisma generate",
+      "prisma validate"
+    ],
     "*.{js,ts,html,css,json,md,yml,scss}": [
       "nx format:write --uncommitted",
       "nx affected --target=lint --all --parallel"
