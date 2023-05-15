@@ -19,3 +19,17 @@ model User {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime? @default(now())
 }
+
+model Patient {
+  id          String    @id @default(uuid())
+  first_name  String
+  last_name   String
+  age         Int
+  profilePictureUrl String
+  description String
+
+  diseasesStage DiseasesStage
+  lastQuizDate DateTime
+  floor Int
+}
+
