@@ -49,5 +49,5 @@ pnpm-lock.yaml
 .direnv
 
 # prisma
-prisma/migrations
-prisma/dev.db
+prisma/dev.sqlite
+prisma/dev.sqlite-journal

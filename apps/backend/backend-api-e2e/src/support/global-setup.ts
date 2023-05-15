@@ -7,10 +7,7 @@ module.exports = async function () {
   console.log('\nSetting up...\n');
 
   subProcess('API', 'npx nx serve backend-api', true);
-  subProcessSync(
-    "npx prisma migrate dev --preview-feature --name 'init'",
-    true
-  );
+  subProcessSync('npx prisma migrate dev deploy', true);
   subProcessSync('npx prisma generate', true);
 
   // Hint: Use `globalThis` to pass variables to global teardown.
