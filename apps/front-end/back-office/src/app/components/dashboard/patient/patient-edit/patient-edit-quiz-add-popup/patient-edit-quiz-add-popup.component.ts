@@ -1,13 +1,14 @@
 import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute } from '@angular/router';
 import {
   PatientService,
   QuizService,
 } from '@webonjour/front-end/shared/common';
+
 @Component({
   selector: 'webonjour-patient-edit-quiz-add-popup',
   templateUrl: './patient-edit-quiz-add-popup.component.html',
@@ -39,11 +40,17 @@ export class PatientEditQuizAddPopupComponent implements AfterViewInit {
       .getPatientQuiz(this.data.patientId)
       .subscribe((patientQuizList) => {
         this.quizService.getAll().subscribe((quizList) => {
-          const quizListFiltered = quizList.data.filter((quiz) => {
-            return !patientQuizList.data.some((patientQuiz) => {
-              return patientQuiz.id === quiz.id;
+          const quizListFiltered = quizList.data
+            // get only quiz not already added to patient
+            .filter((quiz) => {
+              return !patientQuizList.data.some((patientQuiz) => {
+                return patientQuiz.id === quiz.id;
+              });
+            }) // remove private quiz
+            .filter((quiz) => {
+              return !quiz.isPrivate;
             });
-          });
+
           this.dataSource = new MatTableDataSource<Quiz.Quiz>(quizListFiltered);
           this.dataSource.paginator = this.paginator;
         });

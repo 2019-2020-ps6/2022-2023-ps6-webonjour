@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Patient } from '@webonjour/util-interface';
 import { PatientService } from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'webonjour-patient-edit-accommodation',
@@ -59,34 +60,21 @@ export class PatientEditAccommodationComponent implements AfterViewInit {
   }
 
   onCheck($event: MatCheckboxChange, element: Patient.Accommodation) {
-    this.route.params.subscribe((params) => {
-      const patientId = params['id'];
-
-      if ($event.checked) {
-        this.patientService
-          .addPatientAccommodation(patientId, element.id)
-          .subscribe({
-            error: (error) => {
-              console.log(error);
-              this.refresh();
-            },
-            next: () => {
-              this.refresh();
-            },
-          });
-      } else {
-        this.patientService
-          .deletePatientAccommodation(patientId, element.id)
-          .subscribe({
-            error: (error) => {
-              console.log(error);
-              this.refresh();
-            },
-            next: () => {
-              this.refresh();
-            },
-          });
-      }
-    });
+    this.route.params
+      .pipe(
+        map((params) => params['id']),
+        map((patientId) => {
+          const s = this.patientService;
+          return $event.checked
+            ? s.addPatientAccommodation(patientId, element.id)
+            : s.deletePatientAccommodation(patientId, element.id);
+        })
+      )
+      .subscribe({
+        error: (error) => {
+          console.log(error);
+          this.refresh();
+        },
+      });
   }
 }

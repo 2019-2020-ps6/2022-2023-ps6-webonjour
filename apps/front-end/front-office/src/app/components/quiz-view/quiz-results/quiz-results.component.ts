@@ -1,30 +1,63 @@
-import { Component } from '@angular/core';
-import { GameService } from '@webonjour/front-end/shared/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import {
+  selectAccommodation,
+  selectGameScore,
+  selectGameState,
+  selectPatient,
+} from '../../../reducers/game/game.selectors';
+import { Subject, takeUntil } from 'rxjs';
+import { PatientService } from '@webonjour/front-end/shared/common';
+import { GameState } from '../../../reducers/game/game.reducer';
 
 @Component({
   selector: 'webonjour-quiz-results',
   templateUrl: './quiz-results.component.html',
   styleUrls: ['./quiz-results.component.scss'],
 })
-export class QuizResultsComponent {
+export class QuizResultsComponent implements OnDestroy, OnInit {
   canReplay = true;
   canScore = true;
 
   score_text = 'Bien Joué !';
-  score_numeric!: string;
+  score_numeric!: number;
+  state!: GameState;
 
-  constructor(private gameService: GameService) {
-    this.score_numeric = this.gameService.scoreValue;
+  public ngDestroyed$ = new Subject();
 
-    this.canReplay =
-      this.gameService.accomodation.filter((accommodation) => {
-        return accommodation.id === '6';
-      }).length > 0;
+  constructor(private store: Store, private patientService: PatientService) {}
 
-    this.canScore =
-      this.gameService.accomodation.filter((accommodation) => {
-        return accommodation.id === '1';
-      }).length > 0;
+  public ngOnDestroy() {
+    this.ngDestroyed$.next(0);
+  }
+
+  ngOnInit(): void {
+    this.store
+      .select(selectGameScore)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((score) => {
+        this.score_numeric = score;
+      });
+
+    this.store
+      .select(selectGameState)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((state) => {
+        this.state = state;
+      });
+
+    this.store
+      .select(selectAccommodation)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((accommodation) => {
+        this.canReplay = accommodation.some((accommodation) => {
+          return accommodation.title === 'Peut recommencer le quiz';
+        });
+
+        this.canScore = accommodation.some((accommodation) => {
+          return accommodation.title === 'Affiche le score à la fin du quiz';
+        });
+      });
   }
 
   replay() {

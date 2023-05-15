@@ -3,136 +3,141 @@
     <h3 class="card-title">Informations personnelles</h3>
   </div>
   <div class="card-body">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="mb-3">
-        <label class="form-label">Nom</label>
-        <input
-          type="text"
-          formControlName="first_name"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid': submitted && formControls['first_name'].errors
-          }"
-        />
-        <div
-          *ngIf="submitted && formControls['first_name'].errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="formControls['first_name']['errors']['required']">
-            Le nom est obligatoire
-          </div>
-        </div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Prenom</label>
-        <input
-          type="text"
-          formControlName="last_name"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid': submitted && formControls['last_name'].errors
-          }"
-        />
-        <div
-          *ngIf="submitted && formControls['last_name'].errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="formControls['last_name']['errors']['required']">
-            Le prenom est obligatoire
-          </div>
-        </div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Age</label>
-        <input
-          type="number"
-          formControlName="age"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid': submitted && formControls['age'].errors
-          }"
-        />
-        <div
-          *ngIf="submitted && formControls['age'].errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="formControls['age']['errors']['required']">
-            L'age est obligatoire
-          </div>
-        </div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Stade de la maladie</label>
-        <select
-          formControlName="disease_stage"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid': submitted && formControls['disease_stage'].errors
-          }"
-        >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-        </select>
-        <div
-          *ngIf="submitted && formControls['disease_stage'].errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="formControls['disease_stage']['errors']['required']">
-            Le stade de la maladie est obligatoire
-          </div>
-        </div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Description</label>
-        <textarea
-          formControlName="description"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid': submitted && formControls['description'].errors
-          }"
-        ></textarea>
-        <div
-          *ngIf="submitted && formControls['description'].errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="formControls['description']['errors']['required']">
-            La description est obligatoire
-          </div>
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Image de profile</label>
-        <input
-          type="text"
-          formControlName="profilePictureUrl"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid': submitted && formControls['profilePictureUrl'].errors
-          }"
-        />
-        <div
-          *ngIf="submitted && formControls['profilePictureUrl'].errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="formControls['profilePictureUrl']['errors']['required']">
-            L'image de profile est obligatoire
-          </div>
-        </div>
-        <div *ngIf="profilePictureUrl">
-          <img
-            [ngSrc]="profilePictureUrl"
-            alt="profilePictureUrl"
-            width="100"
-            height="100"
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      class="flex-row d-flex justify-content-between align-items-center gap-5"
+    >
+      <div style="width: 100%; height: 100%">
+        <div class="mb-3">
+          <label class="form-label">Nom</label>
+          <input
+            type="text"
+            formControlName="first_name"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && formControls['first_name'].errors
+            }"
           />
+          <div
+            *ngIf="submitted && formControls['first_name'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="formControls['first_name']['errors']['required']">
+              Le nom est obligatoire
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Prénom</label>
+          <input
+            type="text"
+            formControlName="last_name"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && formControls['last_name'].errors
+            }"
+          />
+          <div
+            *ngIf="submitted && formControls['last_name'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="formControls['last_name']['errors']['required']">
+              Le prénom est obligatoire
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Age</label>
+          <input
+            type="number"
+            formControlName="age"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && formControls['age'].errors
+            }"
+          />
+          <div
+            *ngIf="submitted && formControls['age'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="formControls['age']['errors']['required']">
+              L'age est obligatoire
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Stade de la maladie</label>
+          <select
+            formControlName="disease_stage"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && formControls['disease_stage'].errors
+            }"
+          >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+          <div
+            *ngIf="submitted && formControls['disease_stage'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="formControls['disease_stage']['errors']['required']">
+              Le stade de la maladie est obligatoire
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea
+            formControlName="description"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && formControls['description'].errors
+            }"
+            style="min-height: auto; height: 100px"
+          ></textarea>
+          <div
+            *ngIf="submitted && formControls['description'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="formControls['description']['errors']['required']">
+              La description est obligatoire
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Étage</label>
+          <input
+            type="number"
+            formControlName="floor"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && formControls['floor'].errors
+            }"
+          />
+          <div
+            *ngIf="submitted && formControls['floor'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="formControls['floor']['errors']['required']">
+              L'adresse est obligatoire
+            </div>
+          </div>
         </div>
       </div>
+      <webonjour-file-field
+        formControlName="image"
+        [ngClass]="{
+          'is-invalid': submitted && formControls['image'].errors
+        }"
+      ></webonjour-file-field>
     </form>
   </div>
   <div class="card-footer">

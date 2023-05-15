@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -8,6 +8,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Quiz } from '@webonjour/util-interface';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import {
+  PatientService,
+  QuizService,
+} from '@webonjour/front-end/shared/common';
 
 export function validateStage(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -22,16 +27,31 @@ export function validateStage(): ValidatorFn {
   templateUrl: './quiz-create.component.html',
   styleUrls: ['./quiz-create.component.scss'],
 })
-export class QuizCreateComponent {
+export class QuizCreateComponent implements OnInit {
   form!: FormGroup;
-  @Input() id!: string;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private matDialog: MatDialog,
+    private quizService: QuizService,
+    private patientService: PatientService,
+    @Inject(MAT_DIALOG_DATA)
+    public data: { patientId?: string }
+  ) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      quiz_name: ['', [Validators.required, Validators.minLength(6)]],
-      recommended_stage: ['', [Validators.required, validateStage()]],
+    this.form = this.formBuilder.group(
+      {
+        title: ['', [Validators.required, Validators.minLength(6)]],
+        description: ['', [Validators.required]],
+        image23: [null, [Validators.required]],
+        recommended_stage: [null, [Validators.required]],
+      },
+      {}
+    );
+
+    this.form.valueChanges.subscribe((value) => {
+      console.log(value);
     });
   }
 
@@ -44,11 +64,31 @@ export class QuizCreateComponent {
     const stage = this.form.controls['recommended_stage']
       .value as Quiz.DiseaseStage;
     return {
-      title: this.form.controls['quiz_name'].value,
+      title: this.form.controls['title'].value,
       questions: [],
       stage: stage,
-      id: this.id,
-      imageUrl: 'https://picsum.photos/200',
+      id: '',
+      imageUrl: '',
+      isPrivate: !!this.data.patientId,
     };
+  }
+
+  onSubmit() {
+    console.log('submit');
+    // stop here if form is invalid
+    if (this.form.invalid) {
+      return;
+    }
+    this.quizService.create(this.getQuiz()).subscribe((quiz) => {
+      if (this.data.patientId) {
+        this.patientService
+          .addPatientQuiz(this.data.patientId, quiz.data.id)
+          .subscribe(() => {
+            this.matDialog.closeAll();
+          });
+      } else {
+        this.matDialog.closeAll();
+      }
+    });
   }
 }

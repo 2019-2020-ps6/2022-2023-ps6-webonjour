@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 
 import {
   ApexAxisChartSeries,
@@ -13,34 +13,45 @@ import {
   ChartComponent,
 } from 'ng-apexcharts';
 
+const dates = [
+  '13 Nov 2017',
+  '14 Nov 2017',
+  '15 Nov 2017',
+  '16 Nov 2017',
+  '17 Nov 2017',
+  '20 Nov 2017',
+  '21 Nov 2017',
+  '22 Nov 2017',
+  '23 Nov 2017',
+  '24 Nov 2017',
+  '27 Nov 2017',
+  '28 Nov 2017',
+  '29 Nov 2017',
+  '30 Nov 2017',
+  '01 Dec 2017',
+  '04 Dec 2017',
+  '05 Dec 2017',
+  '06 Dec 2017',
+  '07 Dec 2017',
+  '08 Dec 2017',
+];
 export const series = {
-  monthDataSeries1: {
-    responseTime: [
-      1.85, 2.0, 3.9, 4.5, 5.7, 6.7, 7.5, 8.3, 8.85, 8.7, 8.9, 9.2, 9.95, 12.3,
-      17.55, 12.9, 15.25, 15.65, 15.1, 15.85,
-    ],
-    dates: [
-      '13 Nov 2017',
-      '14 Nov 2017',
-      '15 Nov 2017',
-      '16 Nov 2017',
-      '17 Nov 2017',
-      '20 Nov 2017',
-      '21 Nov 2017',
-      '22 Nov 2017',
-      '23 Nov 2017',
-      '24 Nov 2017',
-      '27 Nov 2017',
-      '28 Nov 2017',
-      '29 Nov 2017',
-      '30 Nov 2017',
-      '01 Dec 2017',
-      '04 Dec 2017',
-      '05 Dec 2017',
-      '06 Dec 2017',
-      '07 Dec 2017',
-      '08 Dec 2017',
-    ],
+  responseTimeDataSeries: {
+    responseTime: dates.map((date, index) => {
+      return Math.floor(
+        Math.random() * ((300 * index) / dates.length) +
+          300 +
+          (index / dates.length) * 300
+      );
+    }),
+    dates: dates,
+  },
+
+  clickAccuracyDataSeries: {
+    clickAccuracy: dates.map(() => {
+      return Math.floor(Math.random() * 20 + 80);
+    }),
+    dates: dates,
   },
 };
 
@@ -50,7 +61,7 @@ export type ChartOptions = {
   xaxis: ApexXAxis;
   stroke: ApexStroke;
   dataLabels: ApexDataLabels;
-  yaxis: ApexYAxis;
+  yaxis: ApexYAxis[];
   title: ApexTitleSubtitle;
   labels: string[];
   legend: ApexLegend;
@@ -63,27 +74,39 @@ export type ChartOptions = {
   templateUrl: './patient-edit-stats.component.html',
   styleUrls: ['./patient-edit-stats.component.scss'],
 })
-export class PatientEditStatsComponent {
+export class PatientEditStatsComponent implements AfterViewInit {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: ChartOptions = {
     series: [
       {
         name: 'Temps de réponse',
-        data: series.monthDataSeries1.responseTime,
+        data: series.responseTimeDataSeries.responseTime,
+        type: 'line',
+      },
+      {
+        name: 'Précision du clic',
+        data: series.clickAccuracyDataSeries.clickAccuracy,
+        type: 'line',
       },
     ],
     chart: {
-      type: 'area',
+      type: 'line',
       height: 450,
-      zoom: {
-        enabled: false,
+      toolbar: {
+        tools: {
+          zoom: true,
+          pan: true,
+          reset: true,
+          download: true,
+        },
       },
     },
     dataLabels: {
       enabled: false,
+      distributed: true,
     },
     stroke: {
-      curve: 'straight',
+      curve: 'smooth',
     },
 
     title: {
@@ -94,22 +117,64 @@ export class PatientEditStatsComponent {
       text: '',
       align: 'left',
     },
-    labels: series.monthDataSeries1.dates,
+    labels: series.responseTimeDataSeries.dates,
     xaxis: {
       type: 'datetime',
       title: {
         text: 'Date',
       },
     },
-    yaxis: {
-      title: {
-        text: 'Temps de réponse moyen (s)',
+    yaxis: [
+      {
+        axisTicks: {
+          show: true,
+        },
+        axisBorder: {
+          show: true,
+          color: '#008FFB',
+        },
+        max: 1000,
+        min: 0,
+        title: {
+          text: 'Temps de réponse (s)',
+          style: {
+            color: '#008FFB',
+          },
+        },
+        tooltip: {
+          enabled: true,
+        },
       },
-    },
+      {
+        opposite: true,
+        axisTicks: {
+          show: true,
+        },
+        axisBorder: {
+          show: true,
+          color: '#00E396',
+        },
+        title: {
+          text: 'Précision du clic (%)',
+          style: {
+            color: '#00E396',
+          },
+        },
+        tooltip: {
+          enabled: true,
+        },
+      },
+    ],
     legend: {
       horizontalAlign: 'left',
       labels: {
         colors: '#000000',
+      },
+      onItemClick: {
+        toggleDataSeries: true,
+      },
+      onItemHover: {
+        highlightDataSeries: true,
       },
     },
     tooltip: {
@@ -124,4 +189,10 @@ export class PatientEditStatsComponent {
       },
     },
   };
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.chart.hideSeries('Temps de réponse');
+    }, 300);
+  }
 }
