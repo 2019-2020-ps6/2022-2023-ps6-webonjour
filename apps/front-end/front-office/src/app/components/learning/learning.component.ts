@@ -1,13 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Quiz } from '@webonjour/util-interface';
 import { Subject, takeUntil } from 'rxjs';
-import {
-  selectGameCurrentQuestion,
-  selectGameState,
-  selectQuestionsToLearn,
-} from '../../reducers/game/game.selectors';
-import { OnDestroy, OnInit } from '@angular/core';
+import { selectQuestionsToLearn } from '../../reducers/game/game.selectors';
+
 @Component({
   selector: 'webonjour-learning',
   templateUrl: './learning.component.html',
