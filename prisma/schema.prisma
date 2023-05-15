@@ -47,3 +47,10 @@ model FamilyMember {
   email String?
 }
 
+model Accomodation {
+  id String @id @default(uuid())
+  title String
+
+
+}
+
