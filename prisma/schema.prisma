@@ -21,36 +21,33 @@ model User {
 }
 
 model Patient {
-  id          String    @id @default(uuid())
-  first_name  String
-  last_name   String
-  age         Int
+  id                String @id @default(uuid())
+  first_name        String
+  last_name         String
+  age               Int
   profilePictureUrl String
-  description String
+  description       String
 
-  diseasesStage DiseasesStage
-  lastQuizDate DateTime
-  floor Int
+  diseasesStage Int
+  lastQuizDate  DateTime
+  floor         Int
 }
 
 model FamilyMember {
-  id          String    @id @default(uuid())
-  first_name  String
-  last_name   String
-  age         Int
+  id                String @id @default(uuid())
+  first_name        String
+  last_name         String
+  age               Int
   profilePictureUrl String
-  description String
+  description       String
 
-  relation String
+  relation  String
   patientId String?
-  phone String?
-  email String?
+  phone     String?
+  email     String?
 }
 
 model Accomodation {
-  id String @id @default(uuid())
+  id    String @id @default(uuid())
   title String
-
-
 }
-
