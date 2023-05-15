@@ -11,7 +11,6 @@ import { map } from 'rxjs';
 @Component({
   selector: 'webonjour-patient-edit-accommodation',
   templateUrl: './patient-edit-accommodation.component.html',
-  styleUrls: ['./patient-edit-accommodation.component.scss'],
 })
 export class PatientEditAccommodationComponent implements AfterViewInit {
   displayedColumns: string[] = ["titre de l'aménagement", 'action'];

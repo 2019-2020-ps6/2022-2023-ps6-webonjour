@@ -7,7 +7,6 @@ import { selectQuestionsToLearn } from '../../reducers/game/game.selectors';
 @Component({
   selector: 'webonjour-learning',
   templateUrl: './learning.component.html',
-  styleUrls: ['./learning.component.scss'],
 })
 export class LearningComponent implements OnDestroy, OnInit {
   QuestionType = Quiz.QuestionType;

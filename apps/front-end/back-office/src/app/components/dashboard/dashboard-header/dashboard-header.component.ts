@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'webonjour-dashboard-header',
   templateUrl: './dashboard-header.component.html',
-  styleUrls: ['./dashboard-header.component.scss'],
 })
 export class DashboardHeaderComponent {
   constructor(

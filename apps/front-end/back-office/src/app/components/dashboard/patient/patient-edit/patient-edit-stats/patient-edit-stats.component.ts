@@ -76,7 +76,6 @@ export type ChartOptions = {
 @Component({
   selector: 'webonjour-patient-edit-stats',
   templateUrl: './patient-edit-stats.component.html',
-  styleUrls: ['./patient-edit-stats.component.scss'],
 })
 export class PatientEditStatsComponent implements AfterViewInit {
   @ViewChild('chart') chart!: ChartComponent;
