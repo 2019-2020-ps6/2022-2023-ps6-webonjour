@@ -1,0 +1,219 @@
+.question-title {
+  display: flex;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+h2 {
+  margin: 0;
+}
+
+.quiz-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: move;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  min-height: 50px;
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.drop-zone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: move;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  min-height: 50px;
+  background-color: var(--primary-color);
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.action-list.cdk-drop-list-dragging .action-item:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.dialog h2 {
+  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.dialog p {
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal_container {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+  border-radius: 5px;
+}
+
+.validate-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.answer-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: move;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  min-height: 50px;
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
+}
+
+.answer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.index {
+  // put to the lef tod the element
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+.index-two {
+  // put to the right of the element
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.row {
+  margin: 10px auto 0 auto;
+  width: max-content;
+}
+
+.help-button,
+.skip-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: fit-content;
+}
+
+.button > svg {
+  margin: 0 10px;
+  height: calc(2rem + 6px);
+}
+
+.help-button > p,
+.skip-button > p {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.skip-button {
+  background-color: rgba(var(--primary-color-rgb), 0.6);
+}
+
+.help-button {
+  background-color: rgba(var(--secondary-color-rgb), 0.6);
+}

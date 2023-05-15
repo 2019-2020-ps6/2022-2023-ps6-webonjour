@@ -39,6 +39,7 @@
     "serve": {
       "executor": "@nrwl/js:node",
       "defaultConfiguration": "development",
+      "dependsOn": ["^build"],
       "options": {
         "buildTarget": "backend-api:build"
       },

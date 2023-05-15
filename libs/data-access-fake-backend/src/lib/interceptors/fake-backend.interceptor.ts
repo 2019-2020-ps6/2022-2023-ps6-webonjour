@@ -43,8 +43,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function createQuiz(quiz: Quiz.Quiz) {
+      quiz.id = (Math.max(...quizList.map((x) => +x.id)) + 1).toString();
       quizList.push(quiz);
-      return ok();
+      return ok(quiz);
     }
 
     function getQuizDetail() {
@@ -233,6 +234,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const id = url.split('/').pop();
         const quiz = quizList.find((x) => x.id === id);
         return ok(quiz);
+      } else if (
+        url.match(/\/patients\/\d+\/quiz\/\d+$/) &&
+        method === 'DELETE'
+      ) {
+        return deleteQuizPatient();
       } else if (url.match(/\/quiz\/\d+$/) && method === 'DELETE') {
         const id = url.split('/').pop();
         return deleteQuiz(id as string);
@@ -254,11 +260,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         method === 'POST'
       ) {
         return addQuizToPatient();
-      } else if (
-        url.match(/\/patients\/\d+\/quiz\/\d+$/) &&
-        method === 'DELETE'
-      ) {
-        return deleteQuizPatient();
       } else if (url.match(/\/patients\/\d+\/quiz$/) && method === 'GET') {
         return getPatientQuiz();
       }

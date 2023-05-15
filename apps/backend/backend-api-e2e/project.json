@@ -6,6 +6,7 @@
     "e2e": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "dependsOn": ["backend-api:build"],
       "options": {
         "jestConfig": "apps/backend/backend-api-e2e/jest.config.ts",
         "passWithNoTests": true

@@ -4,14 +4,17 @@
   (click)="onClick()"
   class="card {{ card_color }}{{ card_selected }}"
 >
-  <div>
+  <div class="col homepage-button">
     <img
-      class="card-img"
+      class="homepage-img"
       [src]="patient.profilePictureUrl"
       [ngClass]="{ img_dark: card_color === 'dark' }"
       alt="Card image cap"
     />
-    <h1 class="card-title" [ngClass]="{ text_light: card_color === 'dark' }">
+    <h1
+      class="homepage-title"
+      [ngClass]="{ text_light: card_color === 'dark' }"
+    >
       {{ patient.firstName }}
     </h1>
   </div>

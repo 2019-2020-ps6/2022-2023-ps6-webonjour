@@ -1,0 +1,30 @@
+<div
+  style="
+    height: 15vh;
+    background-color: rgba(var(--secondary-color-rgb), 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  "
+>
+  <h1 style="margin: 20px">{{ question.title }}</h1>
+</div>
+<div>
+  <div *ngFor="let answer of question.answers" class="action">
+    {{ answer.text }}
+  </div>
+  <div style="display: flex; align-items: center; justify-content: center">
+    <button
+      (click)="nextQuestion()"
+      style="
+        border: none;
+        background-color: var(--primary-color);
+        padding: 10px;
+        cursor: pointer;
+      "
+    >
+      Merci, J'ai compris
+    </button>
+  </div>
+</div>

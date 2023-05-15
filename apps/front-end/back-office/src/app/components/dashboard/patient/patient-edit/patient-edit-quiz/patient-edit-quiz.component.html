@@ -16,7 +16,7 @@
                 alt="image"
                 width="50px"
                 height="50px"
-                class="img-fluid rounded-circle"
+                class="rounded-circle"
               />
             </div>
             <div class="text-center text-md-left">
@@ -52,10 +52,29 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="isPrivate">
+        <th mat-header-cell *matHeaderCellDef>Privé</th>
+        <td mat-cell *matCellDef="let element">
+          <div
+            style="
+              width: fit-content;
+              height: fit-content;
+              padding: 5px 10px;
+              border-radius: 10px;
+              color: #000000;
+            "
+          >
+            {{ element.isPrivate ? 'Oui' : 'Non' }}
+          </div>
+        </td>
+      </ng-container>
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let element">
-          <button class="btn btn-danger" (click)="onDeleteQuiz(element.id)">
+          <button
+            class="btn btn-danger"
+            (click)="onDeleteQuiz(element.id, $event)"
+          >
             Supprimer
           </button>
         </td>
@@ -66,15 +85,22 @@
         mat-row
         *matRowDef="let row; columns: displayedColumns"
         class="row-hover"
+        (click)="onQuizClicked(row, $event)"
       ></tr>
     </table>
 
     <mat-paginator [pageSize]="10" aria-label="Paginator"> </mat-paginator>
   </div>
   <div class="card-footer">
-    <div class="d-flex justify-content-end" style="height: 100%; width: 100%">
+    <div
+      class="d-flex justify-content-end gap-3"
+      style="height: 100%; width: 100%"
+    >
       <button class="btn btn-primary" (click)="onAddQuiz()">
         Ajouter un quiz
+      </button>
+      <button class="btn btn-primary" (click)="onAddPersonalQuiz()">
+        Ajouter un quiz personnalisé
       </button>
     </div>
   </div>

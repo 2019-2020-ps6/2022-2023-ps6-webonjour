@@ -14,6 +14,7 @@ export interface Patient extends Person {
   diseaseStage: DiseaseStage;
   lastQuizDate: Date;
   successRate: number;
+  floor: number;
 }
 
 export interface FamilyMember extends Person {

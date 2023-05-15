@@ -1,83 +1,70 @@
-<mat-dialog-content class="mat-typography">
-  <div id="root" class="row" role="dialog">
-    <div class="col-9">
-      <form [formGroup]="form">
-        <div class="mb-3">
-          <label class="form-label">Nom du quiz</label>
-          <input
-            type="text"
-            formControlName="quiz_name"
-            class="form-control"
-            [ngClass]="{
-              'is-invalid': formControls['quiz_name'].errors
-            }"
-          />
-          <div
-            *ngIf="formControls['quiz_name'].errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="formControls['quiz_name']['errors']['required']">
-              Le nom du quiz est requis
-            </div>
-            <div *ngIf="formControls['quiz_name']['errors']['minlength']">
-              Le nom du quiz doit contenir au moins 6 caractères
-            </div>
-          </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Stade recommandé</label>
-          <input
-            type="text"
-            formControlName="recommended_stage"
-            class="form-control"
-            [ngClass]="{
-              'is-invalid': formControls['recommended_stage'].errors
-            }"
-          />
-          <div
-            *ngIf="formControls['recommended_stage'].errors"
-            class="invalid-feedback"
-          >
-            <div
-              *ngIf="formControls['recommended_stage']['errors']['required']"
-            >
-              Le stade recommandé est requis
-            </div>
-            <div
-              *ngIf="
-                formControls['recommended_stage']['errors']['invalidStage']
-              "
-            >
-              Le stade recommandé doit être compris entre 3 et 7
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div class="col-3 text-center">
-      <img
-        src="https://as2.ftcdn.net/v2/jpg/01/89/83/87/1000_F_189838722_kX2hOMITZEg0spM9tgEpfJBVJoWb70kh.jpg"
-        alt="Logo"
-        class="img-fluid rounded-circle"
-        id="logo"
-      />
-      <button class="btn btn-secondary" id="btn-change-image">
-        Changer d'image
-      </button>
-    </div>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Nouveau Quiz</h3>
   </div>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button
-    mat-button
-    [mat-dialog-close]="getQuiz()"
-    cdkFocusInitial
-    [disabled]="
-      formControls['quiz_name'].errors ||
-      formControls['recommended_stage'].errors
-    "
-    class="btn btn-primary"
-  >
-    Créer
-  </button>
-</mat-dialog-actions>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="flex-row d-flex justify-content-between mb-4 gap-5">
+        <div>
+          <div class="mb-3">
+            <label for="title" class="form-label">Titre du quiz</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              formControlName="title"
+              [ngClass]="{
+                'is-invalid':
+                  formControls['title'].errors && formControls['title'].touched
+              }"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              formControlName="description"
+              [ngClass]="{
+                'is-invalid':
+                  formControls['description'].errors &&
+                  formControls['description'].touched
+              }"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recommended_stage" class="form-label"
+              >Stade recommandé</label
+            >
+            <select
+              class="form-select"
+              aria-label="Stade recommandé"
+              [ngClass]="{
+                'is-invalid':
+                  formControls['recommended_stage'].errors &&
+                  formControls['recommended_stage'].touched
+              }"
+              id="recommended_stage"
+              formControlName="recommended_stage"
+            >
+              <option value="1">Stade 1</option>
+              <option value="2">Stade 2</option>
+              <option value="3">Stade 3</option>
+              <option value="4">Stade 4</option>
+              <option value="5">Stade 5</option>
+              <option value="6">Stade 6</option>
+              <option value="7">Stade 7</option>
+            </select>
+          </div>
+        </div>
+        <webonjour-file-field formControlName="image23"></webonjour-file-field>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          Créer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

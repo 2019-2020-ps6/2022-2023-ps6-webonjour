@@ -3,12 +3,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { Quiz } from '@webonjour/util-interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   PatientService,
   QuizService,
 } from '@webonjour/front-end/shared/common';
 import { PatientEditQuizAddPopupComponent } from '../patient-edit-quiz-add-popup/patient-edit-quiz-add-popup.component';
+import { QuizCreateComponent } from '../../../../quiz-creation/quiz-create/quiz-create.component';
 
 @Component({
   selector: 'webonjour-patient-edit-quiz',
@@ -20,6 +21,7 @@ export class PatientEditQuizComponent implements AfterViewInit {
     'Nom du Quiz',
     'Nombre de questions',
     'stage',
+    'isPrivate',
     'actions',
   ];
   dataSource = new MatTableDataSource<Quiz.Quiz>([]);
@@ -30,7 +32,8 @@ export class PatientEditQuizComponent implements AfterViewInit {
     private quizService: QuizService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private router: Router
   ) {
     this.refresh();
   }
@@ -69,13 +72,38 @@ export class PatientEditQuizComponent implements AfterViewInit {
       });
   }
 
-  onDeleteQuiz(id: string) {
+  onDeleteQuiz(id: string, event: MouseEvent) {
+    event.stopPropagation();
     this.route.params.subscribe((params) => {
       const patientId = params['id'];
-
-      this.patientService.deletePatientQuiz(patientId, id).subscribe(() => {
-        this.refresh();
+      this.quizService.getById(id).subscribe((quiz) => {
+        if (quiz.data.isPrivate) {
+          this.quizService.delete(id).subscribe(() => {
+            this.refresh();
+          });
+        }
+        this.patientService.deletePatientQuiz(patientId, id).subscribe(() => {
+          this.refresh();
+        });
       });
     });
+  }
+
+  onAddPersonalQuiz() {
+    this.dialog
+      .open(QuizCreateComponent, {
+        data: {
+          patientId: this.route.snapshot.params['id'],
+        },
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this.refresh();
+      });
+  }
+
+  onQuizClicked(row: Quiz.Quiz, event: MouseEvent) {
+    event.stopPropagation();
+    this.router.navigate(['/dashboard/quiz', row.id]);
   }
 }

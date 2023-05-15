@@ -4,6 +4,8 @@ import { HelpPageComponent } from './components/quiz-view/help-page/help-page.co
 import { CardContainerComponent } from './components/homepage/card-container/card-container.component';
 import { QuizResultsComponent } from './components/quiz-view/quiz-results/quiz-results.component';
 import { GameQuestionComponent } from './components/quiz-view/game-question/game-question.component';
+import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
+import { LearningComponent } from './components/learning/learning.component';
 
 export const appRoutes: Route[] = [
   {
@@ -25,5 +27,13 @@ export const appRoutes: Route[] = [
   {
     path: 'help-page',
     component: HelpPageComponent,
+  },
+  {
+    path: 'drag-and-drop',
+    component: DragAndDropComponent,
+  },
+  {
+    path: 'learning-card',
+    component: LearningComponent,
   },
 ];
