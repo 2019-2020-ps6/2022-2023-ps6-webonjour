@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -35,31 +35,39 @@ enum QuestionType {
   REORDER
 }
 
-model Clue {
-  text String?
-  image String?
+model Question {
+  id      Int          @id @default(autoincrement())
+  title   String
+  image   String?
+  answers Answer[]
+  clues   Clue[]
+  type    QuestionType
+  Quiz    Quiz?        @relation(fields: [quizId], references: [id])
+  quizId  Int?
 }
 
-model Question {
-  id String @id @default(uuid())
-  title String
-  image String?
-  answers Answer[]
-  clues Clue[]
-  type QuestionType
+model Clue {
+  id         Int      @id @default(autoincrement())
+  text       String?
+  image      String?
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int
 }
 
 model Answer {
-  text String?
-  image String?
-  isCorrect boolean
+  id         Int      @id @default(autoincrement())
+  text       String?
+  image      String?
+  isCorrect  Boolean
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int
 }
 
 model Quiz {
-  id String @id @default(uuid())
-  title String
-  imageUrl String
-  stage DiseaseStage
-  questions @relation(references: [id])
-  isPrivate boolean
+  id        Int          @id @default(autoincrement())
+  title     String
+  imageUrl  String
+  stage     DiseaseStage
+  questions Question[]
+  isPrivate Boolean
 }
