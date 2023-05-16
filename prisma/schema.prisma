@@ -42,8 +42,8 @@ model Question {
   answers Answer[]
   clues   Clue[]
   type    QuestionType
-  Quiz    Quiz?        @relation(fields: [quizId], references: [id])
-  quizId  Int?
+  quiz    Quiz         @relation(fields: [quizId], references: [id])
+  quizId  Int
 }
 
 model Clue {
