@@ -18,6 +18,7 @@
       "@webonjour/data-access-fake-backend": [
         "libs/data-access-fake-backend/src/index.ts"
       ],
+      "@webonjour/data-access-mocks": ["libs/data-access-mocks/src/index.ts"],
       "@webonjour/front-end/shared/common": [
         "libs/front-end/shared/common/src/index.ts"
       ],
