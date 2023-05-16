@@ -1,17 +1,18 @@
 export enum DiseaseStage {
-  STAGE_1 = 1,
-  STAGE_2 = 2,
-  STAGE_3 = 3,
-  STAGE_4 = 4,
-  STAGE_5 = 5,
-  STAGE_6 = 6,
-  STAGE_7 = 7,
+  STAGE_1 = 'STAGE_1',
+  STAGE_2 = 'STAGE_2',
+  STAGE_3 = 'STAGE_3',
+  STAGE_4 = 'STAGE_4',
+  STAGE_5 = 'STAGE_5',
+  STAGE_6 = 'STAGE_6',
+  STAGE_7 = 'STAGE_7',
 }
 
 export enum QuestionType {
   CHOICE = 'CHOICE',
   REORDER = 'REORDER',
 }
+
 export interface Clue {
   text?: string;
   image?: string;
