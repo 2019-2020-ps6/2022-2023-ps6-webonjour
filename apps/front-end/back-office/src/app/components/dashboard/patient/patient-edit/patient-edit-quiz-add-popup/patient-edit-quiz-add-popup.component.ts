@@ -12,7 +12,6 @@ import {
 @Component({
   selector: 'webonjour-patient-edit-quiz-add-popup',
   templateUrl: './patient-edit-quiz-add-popup.component.html',
-  styleUrls: ['./patient-edit-quiz-add-popup.component.scss'],
 })
 export class PatientEditQuizAddPopupComponent implements AfterViewInit {
   displayedColumns: string[] = [

@@ -5,7 +5,6 @@ import { PatientService } from '@webonjour/front-end/shared/common';
 @Component({
   selector: 'webonjour-patient-danger',
   templateUrl: './patient-danger.component.html',
-  styleUrls: ['./patient-danger.component.scss'],
 })
 export class PatientDangerComponent {
   private id?: string;

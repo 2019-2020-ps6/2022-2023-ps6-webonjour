@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'webonjour-choice',
   templateUrl: './choice.component.html',
-  styleUrls: ['./choice.component.scss'],
 })
 export class ChoiceComponent implements OnInit {
   @Input() question!: Quiz.Question;

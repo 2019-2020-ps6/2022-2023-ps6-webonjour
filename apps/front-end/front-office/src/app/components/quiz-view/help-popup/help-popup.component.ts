@@ -14,6 +14,7 @@ export class HelpPopupComponent implements OnInit, OnDestroy {
   @Input() show_help = false;
   protected readonly Math = Math;
   randomClue!: Quiz.Clue;
+  array = new Uint32Array(1);
 
   public ngDestroyed$ = new Subject();
 
@@ -30,9 +31,10 @@ export class HelpPopupComponent implements OnInit, OnDestroy {
       .subscribe((question) => {
         if (question) {
           this.question = question;
+          window.crypto.getRandomValues(this.array);
           this.randomClue =
             this.question.clues[
-              Math.floor(Math.random() * this.question.clues.length)
+              Math.floor(this.array[0] % this.question.clues.length)
             ];
         }
       });

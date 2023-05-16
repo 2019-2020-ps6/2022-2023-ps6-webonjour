@@ -13,6 +13,8 @@ import {
   ChartComponent,
 } from 'ng-apexcharts';
 
+const array = new Uint32Array(1);
+
 const dates = [
   '13 Nov 2017',
   '14 Nov 2017',
@@ -38,8 +40,9 @@ const dates = [
 export const series = {
   responseTimeDataSeries: {
     responseTime: dates.map((date, index) => {
+      window.crypto.getRandomValues(array);
       return Math.floor(
-        Math.random() * ((300 * index) / dates.length) +
+        (array[0] % ((300 * index) / dates.length)) +
           300 +
           (index / dates.length) * 300
       );
@@ -49,7 +52,8 @@ export const series = {
 
   clickAccuracyDataSeries: {
     clickAccuracy: dates.map(() => {
-      return Math.floor(Math.random() * 20 + 80);
+      window.crypto.getRandomValues(array);
+      return Math.floor((array[0] % 20) + 80);
     }),
     dates: dates,
   },
@@ -72,7 +76,6 @@ export type ChartOptions = {
 @Component({
   selector: 'webonjour-patient-edit-stats',
   templateUrl: './patient-edit-stats.component.html',
-  styleUrls: ['./patient-edit-stats.component.scss'],
 })
 export class PatientEditStatsComponent implements AfterViewInit {
   @ViewChild('chart') chart!: ChartComponent;

@@ -16,6 +16,7 @@ const host = config.get<string>('host');
 const port = config.get<number>('port');
 
 const app = express();
+app.disable('x-powered-by');
 
 // Middleware
 // 1. Body Parser
