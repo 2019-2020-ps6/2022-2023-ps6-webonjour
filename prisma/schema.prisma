@@ -63,6 +63,21 @@ model Answer {
   questionId Int
 }
 
+model Patient {
+  id                Int            @id @default(autoincrement())
+  firstName         String
+  lastName          String
+  age               Int
+  profilePictureUrl String
+  description       String
+  diseaseStage      DiseaseStage
+  lastQuizDate      DateTime
+  floor             Int
+  familyMembers     FamilyMember[]
+  accomodations     Accomodation[]
+  quizzes           Quiz[]
+}
+
 model Quiz {
   id        Int          @id @default(autoincrement())
   title     String
@@ -70,36 +85,24 @@ model Quiz {
   stage     DiseaseStage
   questions Question[]
   isPrivate Boolean
-}
-
-model Patient {
-  id                String @id @default(uuid())
-  first_name        String
-  last_name         String
-  age               Int
-  profilePictureUrl String
-  description       String
-
-  diseasesStage Int
-  lastQuizDate  DateTime
-  floor         Int
+  patients  Patient[]
 }
 
 model FamilyMember {
-  id                String @id @default(uuid())
-  first_name        String
-  last_name         String
+  id                Int       @id @default(autoincrement())
+  firstName         String
+  lastName          String
   age               Int
   profilePictureUrl String
   description       String
-
-  relation  String
-  patientId String?
-  phone     String?
-  email     String?
+  relation          String
+  phone             String?
+  email             String?
+  patients          Patient[]
 }
 
 model Accomodation {
-  id    String @id @default(uuid())
-  title String
+  id       Int       @id @default(autoincrement())
+  title    String
+  patients Patient[]
 }
