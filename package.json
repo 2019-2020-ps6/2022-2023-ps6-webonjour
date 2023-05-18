@@ -5,6 +5,9 @@
   "scripts": {
     "prepare": "husky install"
   },
+  "prisma": {
+    "seed": "npx nx run util-scripts:serve:production"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~15.2.0",
@@ -105,6 +108,11 @@
     }
   },
   "lint-staged": {
+    "prisma/schema.prisma": [
+      "prisma format",
+      "prisma generate",
+      "prisma validate"
+    ],
     "*.{js,ts,html,css,json,md,yml,scss}": [
       "nx format:write --uncommitted",
       "nx affected --target=lint --all --parallel"

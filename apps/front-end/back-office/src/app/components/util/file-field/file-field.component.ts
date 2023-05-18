@@ -4,7 +4,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 @Component({
   selector: 'webonjour-file-field',
   templateUrl: './file-field.component.html',
-  styleUrls: ['./file-field.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

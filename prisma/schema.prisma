@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -18,6 +18,58 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime? @default(now())
+}
+
+enum DiseaseStage {
+  STAGE_1
+  STAGE_2
+  STAGE_3
+  STAGE_4
+  STAGE_5
+  STAGE_6
+  STAGE_7
+}
+
+enum QuestionType {
+  CHOICE
+  REORDER
+}
+
+model Question {
+  id      Int          @id @default(autoincrement())
+  title   String
+  image   String?
+  answers Answer[]
+  clues   Clue[]
+  type    QuestionType
+  quiz    Quiz         @relation(fields: [quizId], references: [id])
+  quizId  Int
+}
+
+model Clue {
+  id         Int      @id @default(autoincrement())
+  text       String?
+  image      String?
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int
+}
+
+model Answer {
+  id         Int      @id @default(autoincrement())
+  text       String?
+  image      String?
+  isCorrect  Boolean
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int
+}
+
+model Quiz {
+  id        Int          @id @default(autoincrement())
+  title     String
+  imageUrl  String
+  stage     DiseaseStage
+  questions Question[]
+  isPrivate Boolean
 }
 
 model Patient {
