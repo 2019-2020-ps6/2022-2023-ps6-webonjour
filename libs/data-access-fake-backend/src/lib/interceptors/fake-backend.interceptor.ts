@@ -17,16 +17,20 @@ import {
   throwError,
 } from 'rxjs';
 import { Auth, Patient, Quiz } from '@webonjour/util-interface';
-import { credentials, response } from '../mocks/auth';
-import { quizList } from '../mocks/quiz';
 import {
-  accommodationMocks,
-  accommodationPatientMocks,
-  familyMemberMocks,
-  familyMemberPatientMocks,
-  patientMocks,
-  patientQuizMocks,
-} from '../mocks/patient';
+  authMocks,
+  patientMocks as patientMock,
+  quizMocks,
+} from '@webonjour/data-access-mocks';
+const credentials = authMocks.credentials;
+const response = authMocks.response;
+const quizList = quizMocks.quizList;
+const accommodationMocks = patientMock.accommodationMocks;
+const accommodationPatientMocks = patientMock.accommodationPatientMocks;
+const familyMemberMocks = patientMock.familyMemberMocks;
+const familyMemberPatientMocks = patientMock.familyMemberPatientMocks;
+const patientMocks = patientMock.patientMocks;
+const patientQuizMocks = patientMock.patientQuizMocks;
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
