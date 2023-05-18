@@ -1,5 +1,9 @@
 import { PrismaClient } from '@prisma/client';
-import { patientMocks, quizMocks } from '@webonjour/data-access-mocks';
+import {
+  authMocks,
+  patientMocks,
+  quizMocks,
+} from '@webonjour/data-access-mocks';
 
 const prisma = new PrismaClient();
 
@@ -107,6 +111,21 @@ export async function main() {
       },
     });
   }
+
+  await prisma.user.create({
+    data: {
+      ...authMocks.user,
+      patients: {
+        connect: (
+          await prisma.patient.findMany({})
+        )?.map((patient) => {
+          return {
+            id: patient.id,
+          };
+        }),
+      },
+    },
+  });
 }
 
 main().catch((e) => {

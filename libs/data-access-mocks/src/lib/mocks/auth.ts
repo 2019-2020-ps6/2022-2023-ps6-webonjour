@@ -1,8 +1,23 @@
 import { Auth } from '@webonjour/util-interface';
+import { User } from '@prisma/client';
 
 export const credentials: Auth.LoginSchema = {
   email: 'email@email.com',
   password: 'password',
+};
+
+export const user: {
+  profilePictureUrl: string;
+  password: string;
+  name: string;
+  id: number;
+  email: string;
+} = {
+  id: 1,
+  name: 'John Doe',
+  email: credentials.email,
+  password: credentials.password,
+  profilePictureUrl: 'https://source.unsplash.com/random/200x200',
 };
 export const response: Auth.LoginResponse = {
   accessToken:
