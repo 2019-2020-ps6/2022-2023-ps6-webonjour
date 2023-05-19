@@ -41,3 +41,7 @@ export interface Quiz {
   questions: Question[];
   isPrivate: boolean;
 }
+
+import * as Schema from './schema';
+
+export { Schema };
