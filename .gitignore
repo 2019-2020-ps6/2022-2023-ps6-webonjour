@@ -51,3 +51,6 @@ pnpm-lock.yaml
 # prisma
 prisma/dev.sqlite
 prisma/dev.sqlite-journal
+
+# container
+.nx-container

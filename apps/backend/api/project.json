@@ -15,7 +15,23 @@
         "bundle": false,
         "main": "apps/backend/api/src/main.ts",
         "tsConfig": "apps/backend/api/tsconfig.app.json",
-        "assets": ["apps/backend/api/src/assets"],
+        "assets": [
+          {
+            "glob": "assets/**",
+            "input": "apps/backend/api",
+            "output": "."
+          },
+          {
+            "glob": "config/**",
+            "input": "apps/backend/api",
+            "output": "."
+          },
+          {
+            "glob": "prisma/**",
+            "input": ".",
+            "output": "."
+          }
+        ],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,
@@ -27,11 +43,8 @@
       "configurations": {
         "development": {},
         "production": {
-          "esbuildOptions": {
-            "sourcemap": false,
-            "outExtension": {
-              ".js": ".js"
-            }
+          "define": {
+            "process.env.NODE_ENV": "\"production\""
           }
         }
       }
@@ -70,6 +83,28 @@
         "ci": {
           "ci": true,
           "codeCoverage": true
+        }
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "engine": "docker",
+        "push": true,
+        "metadata": {
+          "images": [
+            "ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/backend-api"
+          ],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=semver,pattern={{major}}.{{minor}}",
+            "type=semver,pattern={{major}}",
+            "type=sha"
+          ]
         }
       }
     }
