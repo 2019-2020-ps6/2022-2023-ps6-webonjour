@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { Store } from '@ngrx/store';
 import { learntQuestion } from '../../../reducers/game/game.actions';
+import { Prisma } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-order',
@@ -9,7 +10,12 @@ import { learntQuestion } from '../../../reducers/game/game.actions';
   styleUrls: ['./order.component.scss'],
 })
 export class OrderComponent {
-  @Input() question!: Quiz.Question;
+  @Input() question!: Prisma.QuestionGetPayload<{
+    include: {
+      answers: true;
+      clues: true;
+    };
+  }>;
 
   constructor(private store: Store) {}
 

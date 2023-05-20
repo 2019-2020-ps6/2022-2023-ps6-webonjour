@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { Patient, Quiz } from '@webonjour/util-interface';
+import { Patient } from '@webonjour/util-interface';
+import { Prisma } from '@prisma/client';
 
 export const initGame = createAction(
   '[Game Page] Init',
@@ -8,7 +9,19 @@ export const initGame = createAction(
 
 export const loadGameSuccess = createAction(
   '[Game/API] Load Game Success',
-  props<{ quiz: Quiz.Quiz; accommodation: Patient.Accommodation[] }>()
+  props<{
+    quiz: Prisma.QuizGetPayload<{
+      include: {
+        questions: {
+          include: {
+            answers: true;
+            clues: true;
+          };
+        };
+      };
+    }>;
+    accommodation: Patient.Accommodation[];
+  }>()
 );
 
 export const loadGameFailure = createAction(
@@ -44,7 +57,12 @@ export const correctAnswer = createAction(
 export const learntQuestion = createAction(
   '[Game Page] Learnt Question',
   props<{
-    question: Quiz.Question;
+    question: Prisma.QuestionGetPayload<{
+      include: {
+        answers: true;
+        clues: true;
+      };
+    }>;
   }>()
 );
 

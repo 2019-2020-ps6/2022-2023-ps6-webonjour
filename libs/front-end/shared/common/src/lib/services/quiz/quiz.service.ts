@@ -1,7 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Quiz, RequestWrapper } from '@webonjour/util-interface';
+import { RequestWrapper } from '@webonjour/util-interface';
 import { Observable } from 'rxjs';
+import { Prisma } from '@prisma/client';
+
+type Quiz = Prisma.QuizGetPayload<{
+  include: {
+    questions: {
+      include: {
+        answers: true;
+        clues: true;
+      };
+    };
+  };
+}>;
 
 @Injectable({
   providedIn: 'root',
@@ -11,30 +23,28 @@ export class QuizService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAll(): Observable<RequestWrapper<Quiz.Quiz[]>> {
-    return this.httpClient.get<RequestWrapper<Quiz.Quiz[]>>(
-      this.API_URL + '/quiz'
-    );
+  getAll(): Observable<RequestWrapper<Quiz[]>> {
+    return this.httpClient.get<RequestWrapper<Quiz[]>>(this.API_URL + '/quiz');
   }
 
-  getById(id: string): Observable<RequestWrapper<Quiz.Quiz>> {
-    return this.httpClient.get<RequestWrapper<Quiz.Quiz>>(
+  getById(id: string): Observable<RequestWrapper<Quiz>> {
+    return this.httpClient.get<RequestWrapper<Quiz>>(
       this.API_URL + '/quiz/' + id
     );
   }
 
   addQuestion(
     id: string,
-    question: Quiz.Question
-  ): Observable<RequestWrapper<Quiz.Quiz>> {
-    return this.httpClient.post<RequestWrapper<Quiz.Quiz>>(
+    question: Prisma.QuestionCreateInput
+  ): Observable<RequestWrapper<Quiz>> {
+    return this.httpClient.post<RequestWrapper<Quiz>>(
       this.API_URL + '/quiz/' + id + '/question',
       question
     );
   }
 
-  create(quiz: Quiz.Quiz): Observable<RequestWrapper<Quiz.Quiz>> {
-    return this.httpClient.post<RequestWrapper<Quiz.Quiz>>(
+  create(quiz: Quiz): Observable<RequestWrapper<Quiz>> {
+    return this.httpClient.post<RequestWrapper<Quiz>>(
       this.API_URL + '/quiz',
       quiz
     );
