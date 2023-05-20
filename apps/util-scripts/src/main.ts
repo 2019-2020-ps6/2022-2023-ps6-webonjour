@@ -1,5 +1,9 @@
 import { PrismaClient } from '@prisma/client';
-import { quizMocks } from '@webonjour/data-access-mocks';
+import {
+  authMocks,
+  patientMocks,
+  quizMocks,
+} from '@webonjour/data-access-mocks';
 
 const prisma = new PrismaClient();
 
@@ -7,6 +11,7 @@ export async function main() {
   for (const quiz of quizMocks.quizList) {
     await prisma.quiz.create({
       data: {
+        id: parseInt(quiz.id),
         title: quiz.title,
         stage: quiz.stage,
         isPrivate: quiz.isPrivate,
@@ -40,8 +45,90 @@ export async function main() {
       },
     });
   }
+
+  for (const patient of patientMocks.patientMocks) {
+    await prisma.patient.create({
+      data: {
+        id: parseInt(patient.id),
+        firstName: patient.firstName,
+        lastName: patient.lastName,
+        age: patient.age,
+        profilePictureUrl: patient.profilePictureUrl,
+        description: patient.description,
+        diseaseStage: patient.diseaseStage,
+        lastQuizDate: patient.lastQuizDate,
+        floor: patient.floor,
+        quizzes: {
+          connect: Object.keys(patientMocks.patientQuizMocks).map((key) => {
+            return {
+              id: parseInt(key),
+            };
+          }),
+        },
+      },
+    });
+  }
+
+  for (const familyMember of patientMocks.familyMemberMocks) {
+    await prisma.familyMember.create({
+      data: {
+        id: parseInt(familyMember.id),
+        firstName: familyMember.firstName,
+        lastName: familyMember.lastName,
+        age: familyMember.age,
+        profilePictureUrl: familyMember.profilePictureUrl,
+        description: familyMember.description,
+        relation: familyMember.relation,
+        patients: {
+          connect: {
+            id: parseInt(familyMember.patientId),
+          },
+        },
+        phone: familyMember.phone,
+        email: familyMember.email,
+      },
+    });
+  }
+
+  for (const accommodation of patientMocks.accommodationMocks) {
+    await prisma.accomodation.create({
+      data: {
+        id: parseInt(accommodation.id),
+        title: accommodation.title,
+        patients: {
+          connect: Object.keys(patientMocks.accommodationPatientMocks)
+            .filter((key) => {
+              return patientMocks.accommodationPatientMocks[key].includes(
+                accommodation.id
+              );
+            })
+            .map((key) => {
+              return {
+                id: parseInt(key),
+              };
+            }),
+        },
+      },
+    });
+  }
+
+  await prisma.user.create({
+    data: {
+      ...authMocks.user,
+      patients: {
+        connect: (
+          await prisma.patient.findMany({})
+        )?.map((patient) => {
+          return {
+            id: patient.id,
+          };
+        }),
+      },
+    },
+  });
 }
 
-main().then(() => {
-  console.log('Success');
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
 });

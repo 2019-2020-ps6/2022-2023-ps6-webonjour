@@ -11,13 +11,15 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  email     String    @unique
-  name      String?
-  password  String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime? @default(now())
+  id                Int       @id @default(autoincrement())
+  email             String    @unique
+  name              String?
+  password          String
+  createdAt         DateTime? @default(now())
+  updatedAt         DateTime? @updatedAt
+  deletedAt         DateTime? @default(now())
+  profilePictureUrl String?
+  patients          Patient[]
 }
 
 enum DiseaseStage {
@@ -63,6 +65,22 @@ model Answer {
   questionId Int
 }
 
+model Patient {
+  id                Int            @id @default(autoincrement())
+  firstName         String
+  lastName          String
+  age               Int
+  profilePictureUrl String
+  description       String
+  diseaseStage      DiseaseStage
+  lastQuizDate      DateTime
+  floor             Int
+  familyMembers     FamilyMember[]
+  accomodations     Accomodation[]
+  quizzes           Quiz[]
+  users             User[]
+}
+
 model Quiz {
   id        Int          @id @default(autoincrement())
   title     String
@@ -70,4 +88,24 @@ model Quiz {
   stage     DiseaseStage
   questions Question[]
   isPrivate Boolean
+  patients  Patient[]
+}
+
+model FamilyMember {
+  id                Int       @id @default(autoincrement())
+  firstName         String
+  lastName          String
+  age               Int
+  profilePictureUrl String
+  description       String
+  relation          String
+  phone             String?
+  email             String?
+  patients          Patient[]
+}
+
+model Accomodation {
+  id       Int       @id @default(autoincrement())
+  title    String
+  patients Patient[]
 }
