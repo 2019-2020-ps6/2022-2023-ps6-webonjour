@@ -43,7 +43,7 @@ export class QuizService {
     );
   }
 
-  create(quiz: Quiz): Observable<RequestWrapper<Quiz>> {
+  create(quiz: Prisma.QuizCreateInput): Observable<RequestWrapper<Quiz>> {
     return this.httpClient.post<RequestWrapper<Quiz>>(
       this.API_URL + '/quiz',
       quiz
