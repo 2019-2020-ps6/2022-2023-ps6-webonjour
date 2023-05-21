@@ -15,11 +15,13 @@ describe('QuestionDetailMainComponent', () => {
     fixture = TestBed.createComponent(QuestionDetailMainComponent);
     component = fixture.componentInstance;
     component.question = {
-      id: '',
-      answers: [],
-      clues: [],
       title: 'test',
       type: Quiz.QuestionType.CHOICE,
+      quiz: {
+        connect: {
+          id: 1,
+        },
+      },
     };
     fixture.detectChanges();
   });
