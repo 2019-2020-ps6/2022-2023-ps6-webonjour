@@ -1,17 +1,5 @@
-export enum DiseaseStage {
-  STAGE_1 = 'STAGE_1',
-  STAGE_2 = 'STAGE_2',
-  STAGE_3 = 'STAGE_3',
-  STAGE_4 = 'STAGE_4',
-  STAGE_5 = 'STAGE_5',
-  STAGE_6 = 'STAGE_6',
-  STAGE_7 = 'STAGE_7',
-}
-
-export enum QuestionType {
-  CHOICE = 'CHOICE',
-  REORDER = 'REORDER',
-}
+import { DiseaseStage, Prisma, QuestionType } from '@prisma/client';
+export { DiseaseStage, QuestionType } from '@prisma/client';
 
 export interface Clue {
   text?: string;
@@ -41,3 +29,21 @@ export interface Quiz {
   questions: Question[];
   isPrivate: boolean;
 }
+
+export const questionWithAnswersAndClues =
+  Prisma.validator<Prisma.QuestionArgs>()({
+    include: {
+      answers: true,
+      clues: true,
+    },
+  });
+
+export type QuestionWithAnswersAndClues = typeof questionWithAnswersAndClues;
+
+export const quizWithQuestions = Prisma.validator<Prisma.QuizArgs>()({
+  include: {
+    questions: questionWithAnswersAndClues,
+  },
+});
+
+export type QuizWithQuestions = typeof quizWithQuestions;
