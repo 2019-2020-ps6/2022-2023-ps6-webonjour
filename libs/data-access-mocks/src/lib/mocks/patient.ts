@@ -149,7 +149,7 @@ export const accommodationMocks: Patient.Accommodation[] = [
   },
   {
     id: '10',
-    title: 'Active le TTS (pronciation du texte)',
+    title: 'Active le TTS (prononciation du texte)',
   },
 ];
 
