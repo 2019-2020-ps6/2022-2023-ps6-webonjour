@@ -4,6 +4,9 @@ import { Quiz } from '@webonjour/util-interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { QuizService } from '@webonjour/front-end/shared/common';
+import { Prisma, PrismaClient, QuestionType } from '@prisma/client';
+
+type Question = Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
 
 @Component({
   selector: 'webonjour-quiz-edition',
@@ -11,13 +14,13 @@ import { QuizService } from '@webonjour/front-end/shared/common';
   styleUrls: ['./quiz-edition.component.scss'],
 })
 export class QuizEditionComponent implements OnInit, AfterViewInit {
-  quiz!: Quiz.Quiz;
+  quiz!: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   displayedColumns: string[] = ['Intitulé', 'edit'];
 
-  dataSource = new MatTableDataSource<Quiz.Question>([]);
+  dataSource = new MatTableDataSource<Question>([]);
 
   constructor(
     private route: ActivatedRoute,
@@ -34,21 +37,22 @@ export class QuizEditionComponent implements OnInit, AfterViewInit {
   }
 
   onAddQuestion() {
-    const newQuestion: Quiz.Question = {
-      id: '',
+    const newQuestion: Prisma.QuestionCreateInput = {
       title: 'Nouvelle question',
-      answers: [],
-      clues: [],
-      type: Quiz.QuestionType.CHOICE,
+      type: QuestionType.CHOICE,
+      image: null,
+      quiz: {
+        connect: {
+          id: this.quiz.id,
+        },
+      },
     };
 
     this.quizService
       .addQuestion(this.quiz.id, newQuestion)
       .subscribe((quiz) => {
         this.quiz = quiz.data;
-        this.dataSource = new MatTableDataSource<Quiz.Question>(
-          this.quiz.questions
-        );
+        this.dataSource = new MatTableDataSource<Question>(this.quiz.questions);
         this.dataSource.paginator = this.paginator;
       });
   }

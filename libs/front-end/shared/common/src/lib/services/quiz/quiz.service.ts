@@ -19,14 +19,14 @@ export class QuizService {
     return this.httpClient.get<RequestWrapper<Quiz[]>>(this.API_URL + '/quiz');
   }
 
-  getById(id: string): Observable<RequestWrapper<Quiz>> {
+  getById(id: number): Observable<RequestWrapper<Quiz>> {
     return this.httpClient.get<RequestWrapper<Quiz>>(
       this.API_URL + '/quiz/' + id
     );
   }
 
   addQuestion(
-    id: string,
+    id: number,
     question: Prisma.QuestionCreateInput
   ): Observable<RequestWrapper<Quiz>> {
     return this.httpClient.post<RequestWrapper<Quiz>>(
@@ -42,7 +42,7 @@ export class QuizService {
     );
   }
 
-  delete(id: string) {
+  delete(id: number) {
     return this.httpClient.delete<RequestWrapper<null>>(
       this.API_URL + '/quiz/' + id
     );

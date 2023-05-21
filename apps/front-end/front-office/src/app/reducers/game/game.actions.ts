@@ -4,7 +4,7 @@ import { Prisma } from '@prisma/client';
 
 export const initGame = createAction(
   '[Game Page] Init',
-  props<{ quizId: string }>()
+  props<{ quizId: number }>()
 );
 
 export const loadGameSuccess = createAction(

@@ -5,6 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Quiz } from '@webonjour/util-interface';
 import { QuizCreateComponent } from '../../../quiz-creation/quiz-create/quiz-create.component';
 import { QuizService } from '@webonjour/front-end/shared/common';
+import { Prisma } from '@prisma/client';
+
+type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 
 @Component({
   selector: 'webonjour-quiz-list',
@@ -18,7 +21,7 @@ export class QuizListComponent implements AfterViewInit {
     'stage',
     'isPrivate',
   ];
-  dataSource = new MatTableDataSource<Quiz.Quiz>([]);
+  dataSource = new MatTableDataSource<Quiz>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -28,7 +31,7 @@ export class QuizListComponent implements AfterViewInit {
 
   refresh() {
     this.quizService.getAll().subscribe((quizList) => {
-      this.dataSource = new MatTableDataSource<Quiz.Quiz>(quizList.data);
+      this.dataSource = new MatTableDataSource<Quiz>(quizList.data);
       this.dataSource.paginator = this.paginator;
     });
   }
@@ -44,7 +47,7 @@ export class QuizListComponent implements AfterViewInit {
     });
   }
 
-  onDeleteQuiz(id: string) {
+  onDeleteQuiz(id: number) {
     this.quizService.delete(id).subscribe(() => {
       this.refresh();
     });
