@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Patient } from '@webonjour/util-interface';
+import { Patient, Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
@@ -20,12 +20,7 @@ import { Prisma } from '@prisma/client';
 })
 export class GameQuestionComponent implements OnDestroy, OnInit {
   diseaseStage!: DiseaseStage;
-  question!: Prisma.QuestionGetPayload<{
-    include: {
-      answers: true;
-      clues: true;
-    };
-  }>;
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   show_help = false;
   image_enabled = false;
   colors = new Map([
@@ -54,12 +49,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   ) {}
 
   ttsQuestion(
-    question: Prisma.QuestionGetPayload<{
-      include: {
-        answers: true;
-        clues: true;
-      };
-    }>
+    question: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>
   ) {
     // we have to concatenate the question title and the answers text
     // because the TTS API only accepts one string

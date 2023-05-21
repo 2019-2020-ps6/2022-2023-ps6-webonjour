@@ -10,6 +10,7 @@ import * as GameActions from '../../reducers/game/game.actions';
 import { Subject, takeUntil } from 'rxjs';
 import { selectGameCurrentQuestion } from '../../reducers/game/game.selectors';
 import { Prisma } from '@prisma/client';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-drag-and-drop',
@@ -17,12 +18,7 @@ import { Prisma } from '@prisma/client';
   styleUrls: ['./drag-and-drop.component.scss'],
 })
 export class DragAndDropComponent implements OnInit, OnDestroy {
-  question!: Prisma.QuestionGetPayload<{
-    include: {
-      answers: true;
-      clues: true;
-    };
-  }>;
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   elements!: string[];
   answer!: string[];
   desiredResult!: string[];

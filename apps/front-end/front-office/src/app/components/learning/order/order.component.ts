@@ -10,12 +10,8 @@ import { Prisma } from '@prisma/client';
   styleUrls: ['./order.component.scss'],
 })
 export class OrderComponent {
-  @Input() question!: Prisma.QuestionGetPayload<{
-    include: {
-      answers: true;
-      clues: true;
-    };
-  }>;
+  @Input()
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
 
   constructor(private store: Store) {}
 

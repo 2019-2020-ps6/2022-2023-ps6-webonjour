@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { selectQuestionsToLearn } from '../../reducers/game/game.selectors';
 import { Prisma, QuestionType } from '@prisma/client';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-learning',
@@ -10,12 +11,7 @@ import { Prisma, QuestionType } from '@prisma/client';
 })
 export class LearningComponent implements OnDestroy, OnInit {
   QuestionType = QuestionType;
-  question!: Prisma.QuestionGetPayload<{
-    include: {
-      answers: true;
-      clues: true;
-    };
-  }>;
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
 
   public ngDestroyed$ = new Subject();
 

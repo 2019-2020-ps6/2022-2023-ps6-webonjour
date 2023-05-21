@@ -26,6 +26,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Prisma, QuestionType } from '@prisma/client';
+import { Quiz } from '@webonjour/util-interface';
 
 @Injectable()
 export class GameEffects {
@@ -158,12 +159,7 @@ export class GameEffects {
   );
 
   private redirectToCorrectQuestion(
-    question: Prisma.QuestionGetPayload<{
-      include: {
-        answers: true;
-        clues: true;
-      };
-    }>
+    question: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>
   ) {
     if (question.type === QuestionType.CHOICE) {
       this.router.navigate(['/quiz-answer']).then();

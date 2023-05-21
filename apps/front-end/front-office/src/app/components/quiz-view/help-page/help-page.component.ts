@@ -15,22 +15,8 @@ import { Clue, Prisma } from '@prisma/client';
 })
 export class HelpPageComponent implements OnInit, OnDestroy {
   randomClue!: Clue;
-  quiz!: Prisma.QuizGetPayload<{
-    include: {
-      questions: {
-        include: {
-          clues: true;
-          answers: true;
-        };
-      };
-    };
-  }>;
-  question!: Prisma.QuestionGetPayload<{
-    include: {
-      clues: true;
-      answers: true;
-    };
-  }>;
+  quiz!: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   currentQuizQuestion!: number;
   array = new Uint32Array(1);
 

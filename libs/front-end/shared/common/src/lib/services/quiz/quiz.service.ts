@@ -3,17 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { RequestWrapper } from '@webonjour/util-interface';
 import { Observable } from 'rxjs';
 import { Prisma } from '@prisma/client';
+import { Quiz } from '@webonjour/util-interface';
 
-type Quiz = Prisma.QuizGetPayload<{
-  include: {
-    questions: {
-      include: {
-        answers: true;
-        clues: true;
-      };
-    };
-  };
-}>;
+type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 
 @Injectable({
   providedIn: 'root',

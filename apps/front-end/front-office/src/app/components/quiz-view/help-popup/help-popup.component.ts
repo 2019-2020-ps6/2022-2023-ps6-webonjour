@@ -11,12 +11,8 @@ import { Clue, Prisma } from '@prisma/client';
   styleUrls: ['./help-popup.component.scss'],
 })
 export class HelpPopupComponent implements OnInit, OnDestroy {
-  @Input() question!: Prisma.QuestionGetPayload<{
-    include: {
-      answers: true;
-      clues: true;
-    };
-  }>;
+  @Input()
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   @Input() show_help = false;
   protected readonly Math = Math;
   randomClue!: Clue;

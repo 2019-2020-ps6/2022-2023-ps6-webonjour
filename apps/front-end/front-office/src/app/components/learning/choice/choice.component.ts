@@ -2,18 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import { learntQuestion } from '../../../reducers/game/game.actions';
 import { Store } from '@ngrx/store';
 import { Answer, Prisma } from '@prisma/client';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-choice',
   templateUrl: './choice.component.html',
 })
 export class ChoiceComponent implements OnInit {
-  @Input() question!: Prisma.QuestionGetPayload<{
-    include: {
-      answers: true;
-      clues: true;
-    };
-  }>;
+  @Input()
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   rightAnswers!: Answer[];
 
   constructor(private store: Store) {}
