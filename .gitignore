@@ -54,3 +54,6 @@ prisma/dev.sqlite-journal
 
 # container
 .nx-container
+
+# generated
+libs/util-interface/src/lib/generated-zod-schemas/**/*

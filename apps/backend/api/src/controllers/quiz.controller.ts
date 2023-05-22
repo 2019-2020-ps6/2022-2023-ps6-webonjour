@@ -1,28 +1,34 @@
 import { type NextFunction, type Request, Response } from 'express';
-import { RequestStatus, RequestWrapper, Quiz } from '@webonjour/util-interface';
-import { Quiz as PrismaQuiz } from '@prisma/client';
+import {
+  RequestStatus,
+  RequestWrapper,
+  Quiz,
+  Schema,
+} from '@webonjour/util-interface';
+import { Prisma } from '@prisma/client';
 import prisma from '../utils/connectDB';
+import { z } from 'zod';
 
-export const getAllQuiz = async (
+export const getAllQuizHandler = async (
   req: Request<
     unknown,
     unknown,
     unknown,
-    Quiz.Schema.GetAllQuizSchema['query']
+    z.infer<typeof Schema.QuizWhereInputSchema>
   >,
-  res: Response<RequestWrapper<PrismaQuiz[]>>,
+  res: Response<
+    RequestWrapper<Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[]>
+  >,
   next: NextFunction
 ): Promise<void> => {
   try {
     const quizzes = await prisma.quiz.findMany({
-      where: {
-        ...req.query,
-      },
-
+      where: req.query,
       include: {
         questions: {
           include: {
             answers: true,
+            clues: true,
           },
         },
       },

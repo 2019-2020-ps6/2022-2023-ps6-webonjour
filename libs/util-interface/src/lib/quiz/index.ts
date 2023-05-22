@@ -17,7 +17,3 @@ export const quizWithQuestions = Prisma.validator<Prisma.QuizArgs>()({
 });
 
 export type QuizWithQuestions = typeof quizWithQuestions;
-
-import * as Schema from './schema';
-
-export { Schema };

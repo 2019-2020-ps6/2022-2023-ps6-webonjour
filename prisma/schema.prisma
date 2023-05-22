@@ -6,6 +6,11 @@ generator client {
   binaryTargets = ["debian-openssl-1.1.x", "native", "rhel-openssl-1.1.x"]
 }
 
+generator zod {
+  provider = "zod-prisma-types"
+  output   = "../libs/util-interface/src/lib/generated-zod-schemas"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -13,6 +18,7 @@ datasource db {
 
 model User {
   id                Int       @id @default(autoincrement())
+  /// @zod.string.email({ message: "Invalid email" })
   email             String    @unique
   name              String?
   password          String
