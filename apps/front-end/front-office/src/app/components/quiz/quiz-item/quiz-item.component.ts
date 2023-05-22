@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Quiz } from '@webonjour/util-interface';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as GameActions from '../../../reducers/game/game.actions';
+import { DiseaseStage, Prisma } from '@prisma/client';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-quiz-item',
@@ -10,15 +11,15 @@ import * as GameActions from '../../../reducers/game/game.actions';
   styleUrls: ['./quiz-item.component.scss'],
 })
 export class QuizItemComponent {
-  @Input() quiz: Quiz.Quiz = {
-    id: '',
+  @Input() quiz: Prisma.QuizGetPayload<Quiz.QuizWithQuestions> = {
+    id: 1,
     title: '',
     imageUrl: '',
-    stage: Quiz.DiseaseStage.STAGE_1,
+    stage: DiseaseStage.STAGE_1,
     questions: [],
     isPrivate: false,
   };
-  @Input() diseaseStage: Quiz.DiseaseStage = Quiz.DiseaseStage.STAGE_3;
+  @Input() diseaseStage: DiseaseStage = DiseaseStage.STAGE_3;
   hover = false;
 
   get quizTitle(): string {
