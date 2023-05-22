@@ -157,7 +157,9 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
         (a) => a.title === "Afficher les images en cas d'échec"
       )
     ) {
-      this.image_enabled = true;
+      if (this.question.answers.some((a) => a.image)) {
+        this.image_enabled = true;
+      }
     }
   }
 
