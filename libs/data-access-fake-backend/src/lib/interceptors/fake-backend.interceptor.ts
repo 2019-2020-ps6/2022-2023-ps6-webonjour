@@ -16,7 +16,7 @@ import {
   of,
   throwError,
 } from 'rxjs';
-import { Auth, Patient, Quiz as Q } from '@webonjour/util-interface';
+import { Auth, Patient, Quiz } from '@webonjour/util-interface';
 import {
   authMocks,
   patientMocks as patientMock,
@@ -33,8 +33,8 @@ const familyMemberPatientMocks = patientMock.familyMemberPatientMocks;
 const patientMocks = patientMock.patientMocks;
 const patientQuizMocks = patientMock.patientQuizMocks;
 
-type Quiz = Prisma.QuizGetPayload<Q.QuizWithQuestions>;
-type Question = Prisma.QuestionGetPayload<Q.QuestionWithAnswersAndClues>;
+type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
+type Question = Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -210,7 +210,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok(accommodationMocks);
     }
 
-    function deleteQuiz(id: number | undefined) {
+    function deleteQuiz(id: number) {
       const index = quizList.findIndex((x) => x.id === id);
       quizList.splice(index, 1);
       return ok();

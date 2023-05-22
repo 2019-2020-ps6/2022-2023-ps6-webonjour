@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Patient, Quiz as Q, RequestWrapper } from '@webonjour/util-interface';
+import { Patient, Quiz, RequestWrapper } from '@webonjour/util-interface';
 import { Prisma } from '@prisma/client';
 
-type Quiz = Prisma.QuizGetPayload<Q.QuizWithQuestions>;
+type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 
 @Injectable({
   providedIn: 'root',
