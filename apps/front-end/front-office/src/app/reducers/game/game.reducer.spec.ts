@@ -55,7 +55,7 @@ describe('Game Reducer', () => {
         currentQuestion: quizMocks.quizList[0].questions[0],
         history: [
           {
-            questionId: '1',
+            questionId: 1,
             isCorrect: true,
             timeTaken: 1000,
           },

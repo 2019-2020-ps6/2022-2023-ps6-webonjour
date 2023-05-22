@@ -14,6 +14,9 @@ describe('QuestionDetailClueComponent', () => {
     fixture = TestBed.createComponent(QuestionDetailClueComponent);
     component = fixture.componentInstance;
     component.clue = {
+      id: 0,
+      questionId: 0,
+      image: '',
       text: 'test',
     };
     fixture.detectChanges();

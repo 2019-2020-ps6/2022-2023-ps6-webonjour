@@ -22,6 +22,7 @@ import {
   patientMocks as patientMock,
   quizMocks,
 } from '@webonjour/data-access-mocks';
+import { Prisma } from '@prisma/client';
 const credentials = authMocks.credentials;
 const response = authMocks.response;
 const quizList = quizMocks.quizList;
@@ -31,6 +32,9 @@ const familyMemberMocks = patientMock.familyMemberMocks;
 const familyMemberPatientMocks = patientMock.familyMemberPatientMocks;
 const patientMocks = patientMock.patientMocks;
 const patientQuizMocks = patientMock.patientQuizMocks;
+
+type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
+type Question = Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -46,23 +50,23 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok(quizList);
     }
 
-    function createQuiz(quiz: Quiz.Quiz) {
-      quiz.id = (Math.max(...quizList.map((x) => +x.id)) + 1).toString();
+    function createQuiz(quiz: Quiz) {
+      quiz.id = Math.max(...quizList.map((x) => +x.id)) + 1;
       quizList.push(quiz);
       return ok(quiz);
     }
 
     function getQuizDetail() {
-      const id = url.split('/').pop();
+      const id = Number(url.split('/').pop());
       const quiz = quizList.find((x) => x.id === id);
       return ok(quiz);
     }
 
     function addQuestionToQuiz() {
       const split = url.split('/');
-      const id = split[split.length - 2];
+      const id = Number(split[split.length - 2]);
       const quiz = quizList.find((x) => x.id === id);
-      quiz?.questions.push(body as Quiz.Question);
+      quiz?.questions.push(body as Question);
       return ok(quizList.find((x) => x.id === id));
     }
 
@@ -198,7 +202,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       const split = url.split('/');
       const patientId = split[split.length - 2];
       const quizIds = patientQuizMocks[patientId] || [];
-      const quizzes = quizList.filter((x) => quizIds.includes(x.id));
+      const quizzes = quizList.filter((x) => quizIds.includes(String(x.id)));
       return ok(quizzes);
     }
 
@@ -206,7 +210,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok(accommodationMocks);
     }
 
-    function deleteQuiz(id: string) {
+    function deleteQuiz(id: number) {
       const index = quizList.findIndex((x) => x.id === id);
       quizList.splice(index, 1);
       return ok();
@@ -235,7 +239,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
       // quiz
       else if (url.match(/\/quiz\/\d+$/) && method === 'GET') {
-        const id = url.split('/').pop();
+        const id = Number(url.split('/').pop());
         const quiz = quizList.find((x) => x.id === id);
         return ok(quiz);
       } else if (
@@ -244,12 +248,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       ) {
         return deleteQuizPatient();
       } else if (url.match(/\/quiz\/\d+$/) && method === 'DELETE') {
-        const id = url.split('/').pop();
-        return deleteQuiz(id as string);
+        const id = Number(url.split('/').pop());
+        return deleteQuiz(id);
       } else if (url.match(/\/quiz\/\d+\/question$/) && method === 'POST') {
         return addQuestionToQuiz();
       } else if (url.endsWith('/quiz') && method === 'POST') {
-        return createQuiz(body as Quiz.Quiz);
+        return createQuiz(body as Quiz);
       }
 
       // patient

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuestionDetailMainComponent } from './question-detail-main.component';
-import { Quiz } from '@webonjour/util-interface';
+import { QuestionType } from '@prisma/client';
 
 describe('QuestionDetailMainComponent', () => {
   let component: QuestionDetailMainComponent;
@@ -15,11 +15,13 @@ describe('QuestionDetailMainComponent', () => {
     fixture = TestBed.createComponent(QuestionDetailMainComponent);
     component = fixture.componentInstance;
     component.question = {
-      id: '',
-      answers: [],
-      clues: [],
       title: 'test',
-      type: Quiz.QuestionType.CHOICE,
+      type: QuestionType.CHOICE,
+      quiz: {
+        connect: {
+          id: 1,
+        },
+      },
     };
     fixture.detectChanges();
   });

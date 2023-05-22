@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Prisma } from '@prisma/client';
 import { Quiz } from '@webonjour/util-interface';
 
 @Component({
@@ -7,12 +8,15 @@ import { Quiz } from '@webonjour/util-interface';
   styleUrls: ['./question-detail-clues.component.scss'],
 })
 export class QuestionDetailCluesComponent {
-  @Input() question!: Quiz.Question;
+  @Input()
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
 
   onAddClue() {
     this.question.clues.push({
       text: '',
       image: '',
+      id: 0,
+      questionId: 0,
     });
   }
 }

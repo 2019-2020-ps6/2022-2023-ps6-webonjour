@@ -25,6 +25,7 @@ import {
 } from './game.selectors';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { Prisma, QuestionType } from '@prisma/client';
 import { Quiz } from '@webonjour/util-interface';
 
 @Injectable()
@@ -157,11 +158,13 @@ export class GameEffects {
     )
   );
 
-  private redirectToCorrectQuestion(question: Quiz.Question) {
-    if (question.type === Quiz.QuestionType.CHOICE) {
+  private redirectToCorrectQuestion(
+    question: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>
+  ) {
+    if (question.type === QuestionType.CHOICE) {
       this.router.navigate(['/quiz-answer']).then();
     }
-    if (question.type === Quiz.QuestionType.REORDER) {
+    if (question.type === QuestionType.REORDER) {
       this.router.navigate(['/drag-and-drop']).then();
     }
   }
