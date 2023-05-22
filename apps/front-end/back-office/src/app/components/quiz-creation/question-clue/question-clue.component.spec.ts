@@ -15,11 +15,7 @@ describe('QuestionClueComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        HttpClientTestingModule,
-        MatDialogModule,
-        RouterTestingModule,
-      ],
+      declarations: [QuestionClueComponent],
       imports: [HttpClientTestingModule, MatDialogModule, RouterTestingModule],
 
       providers: [
