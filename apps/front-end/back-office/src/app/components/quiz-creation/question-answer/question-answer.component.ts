@@ -10,7 +10,6 @@ import { QuestionAnswerAddPopupComponent } from '../question-answer-add-popup/qu
 @Component({
   selector: 'webonjour-question-answer',
   templateUrl: './question-answer.component.html',
-  styleUrls: ['./question-answer.component.scss'],
 })
 export class QuestionAnswerComponent implements AfterViewInit {
   questionId!: number;

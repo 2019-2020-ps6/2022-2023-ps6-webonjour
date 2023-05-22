@@ -13,7 +13,6 @@ import { Prisma, QuestionType } from '@prisma/client';
 @Component({
   selector: 'webonjour-question-edit-general',
   templateUrl: './question-edit-general.component.html',
-  styleUrls: ['./question-edit-general.component.scss'],
 })
 export class QuestionEditGeneralComponent implements OnInit {
   form!: FormGroup;

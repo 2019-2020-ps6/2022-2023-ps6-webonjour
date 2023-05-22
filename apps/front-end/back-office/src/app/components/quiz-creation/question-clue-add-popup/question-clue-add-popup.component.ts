@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Answer, Clue } from '@prisma/client';
+import { Clue } from '@prisma/client';
 import { QuestionService } from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -8,7 +8,6 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'webonjour-question-clue-add-popup',
   templateUrl: './question-clue-add-popup.component.html',
-  styleUrls: ['./question-clue-add-popup.component.scss'],
 })
 export class QuestionClueAddPopupComponent implements OnInit {
   form!: FormGroup;
