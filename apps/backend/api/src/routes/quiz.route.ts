@@ -5,10 +5,9 @@ import {
   getAllQuizHandler,
   getQuizByIdHandler,
 } from '../controllers/quiz.controller';
-import { validate, validateSplit } from '../middleware/validate';
+import { validateSplit } from '../middleware/validate';
 import { Schema } from '@webonjour/util-interface';
-import { z } from 'zod';
-import { paramsParser } from '../utils/requestPreParsers';
+import { paramsParser } from '../middleware/requestPreParsers';
 
 const quizRouter = Router();
 
@@ -16,23 +15,13 @@ quizRouter.get('/', asyncHandler(getAllQuizHandler));
 quizRouter.get(
   '/:id',
   paramsParser(),
-  (req, res, next) => {
-    console.log('req.params.id', req.params.id);
-    console.log('type', typeof req.params.id);
-    next();
-  },
-
   validateSplit(Schema.QuizWhereUniqueInputSchema, undefined, undefined),
   asyncHandler(getQuizByIdHandler)
 );
 
 quizRouter.post(
   '/',
-  validate(
-    z.object({
-      body: Schema.QuizCreateInputSchema,
-    })
-  ),
+  validateSplit(undefined, undefined, Schema.QuizCreateInputSchema),
   asyncHandler(createQuizHandler)
 );
 

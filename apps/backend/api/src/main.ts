@@ -12,7 +12,7 @@ import cookieParser from 'cookie-parser';
 import ttsRouter from './routes/tts.route';
 import prisma from './utils/connectDB';
 import quizRouter from './routes/quiz.route';
-import { queryParser } from './utils/requestPreParsers';
+import { queryParser } from './middleware/requestPreParsers';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');
