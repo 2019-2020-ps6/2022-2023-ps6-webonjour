@@ -7,13 +7,12 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Quiz } from '@webonjour/util-interface';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import {
   PatientService,
   QuizService,
 } from '@webonjour/front-end/shared/common';
-import { Prisma } from '@prisma/client';
+import { DiseaseStage, Prisma } from '@prisma/client';
 
 export function validateStage(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -62,8 +61,7 @@ export class QuizCreateComponent implements OnInit {
   }
 
   getQuiz(): Prisma.QuizCreateInput {
-    const stage = this.form.controls['recommended_stage']
-      .value as Quiz.DiseaseStage;
+    const stage = this.form.controls['recommended_stage'].value as DiseaseStage;
     return {
       title: this.form.controls['title'].value,
       stage: stage,

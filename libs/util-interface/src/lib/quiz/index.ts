@@ -1,5 +1,4 @@
 import { Prisma } from '@prisma/client';
-export { DiseaseStage, QuestionType, Clue } from '@prisma/client';
 
 export const questionWithAnswersAndClues =
   Prisma.validator<Prisma.QuestionArgs>()({

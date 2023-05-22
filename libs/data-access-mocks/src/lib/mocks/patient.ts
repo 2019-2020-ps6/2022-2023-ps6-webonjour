@@ -1,4 +1,5 @@
-import { Patient, Quiz } from '@webonjour/util-interface';
+import { Patient } from '@webonjour/util-interface';
+import { DiseaseStage } from '@prisma/client';
 
 export const patientMocks: Patient.Patient[] = [
   {
@@ -14,7 +15,7 @@ Robert est d'ailleurs un ancien ingénieur en informatique et diplômé d'un DUT
 Récemment, Robespierre et Berbo constatent chez leur père Robert des troubles de la mémoire, puisqu'il semble ne plus se souvenir de ce qu'il fait en leur absence, venant même à être incapable de retranscrire ce qu'il avait appris en développement de jeux-vidéos. Suite à des rendez-vous médicaux, le verdict est tombé, il s'agit des premiers symptômes d'Alzheimer. Face à cette nouvelle et ne sachant pas comment prendre correctement soin de leur père, ils décident de confier leur père à l'EHPAD "Au bel âge d'Anne-Marie".
 En EHPAD, les animatrices proposent à Robert, commençant à se sentir isolé loin de ses fils et de sa maison, de jouer à PolyQuiz, permettant de divertir Robert, tout en stimulant sa mémoire afin de "ralentir" la dégradation de ses neurones.  Toujours à l'aise avec les applications informatiques et aimant les jeux-vidéos, cela lui permet de retrouver un peu du quotidien qu'il connaît.
     `,
-    diseaseStage: Quiz.DiseaseStage.STAGE_3,
+    diseaseStage: DiseaseStage.STAGE_3,
     lastQuizDate: new Date(),
     successRate: 0.5,
     floor: 1,
@@ -32,7 +33,7 @@ En Janvier 2023, Marcelino et sa femme apprennent qu'il est atteint depuis déj�
 Marcelino, autrefois passionné d'Histoire et du jeu d'échecs, perd peu à peu son autonomie et a besoin d'aide pour les tâches du quotidien et pour lui rappeler des choses importantes comme l'endroit où il se trouve ou encore son numéro de téléphone. Il nécessite alors un accompagnement de plus près.
 Cependant, Marcelino a toujours le goût du jeu. C'est pourquoi durant son temps libre, accompagné par les animatrices, il se rend sur PolyQuiz afin de réaliser des quiz dans l'objectif de maintenir sa mémoire sur les choses du quotidien. Marcelino n'a pas l'habitude des tablettes et téléphones, il a donc du mal à comprendre comment fonctionne l'application. Heureusement, les animatrices sont là pour réexpliquer le fonctionnement de l'application et les différentes possibilités offertes par l'application dès lors qu'il ne s'en souvient plus.
 `,
-    diseaseStage: Quiz.DiseaseStage.STAGE_4,
+    diseaseStage: DiseaseStage.STAGE_4,
     lastQuizDate: new Date(),
     successRate: 0.8,
     floor: 1,
@@ -45,7 +46,7 @@ Cependant, Marcelino a toujours le goût du jeu. C'est pourquoi durant son temps
     profilePictureUrl: 'https://cf.ozeliurs.com/tmp/mc.png',
     description:
       'Maximinus a des difficultés pour effectuer des tâches simples.',
-    diseaseStage: Quiz.DiseaseStage.STAGE_5,
+    diseaseStage: DiseaseStage.STAGE_5,
     lastQuizDate: new Date(new Date().setDate(new Date().getDate() - 1)),
     successRate: 0.2,
     floor: 2,
@@ -57,7 +58,7 @@ Cependant, Marcelino a toujours le goût du jeu. C'est pourquoi durant son temps
     age: 30,
     profilePictureUrl: 'https://cf.ozeliurs.com/tmp/og.png',
     description: '',
-    diseaseStage: Quiz.DiseaseStage.STAGE_6,
+    diseaseStage: DiseaseStage.STAGE_6,
     lastQuizDate: new Date(new Date().setDate(new Date().getDate() - 1)),
     successRate: 0.2,
     floor: 3,

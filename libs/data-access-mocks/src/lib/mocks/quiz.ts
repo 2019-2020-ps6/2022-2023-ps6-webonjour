@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { DiseaseStage, Prisma, QuestionType } from '@prisma/client';
 import { Quiz } from '@webonjour/util-interface';
 
 export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
@@ -6,7 +6,7 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
     id: 1,
     title: 'Les chevaux célèbres',
     imageUrl: 'https://cf.ozeliurs.com/tmp/horse.png',
-    stage: Quiz.DiseaseStage.STAGE_3,
+    stage: DiseaseStage.STAGE_3,
     isPrivate: false,
     questions: [
       {
@@ -14,7 +14,7 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
         title: "Quelle était la couleur du cheval blanc d'Henri IV ?",
         image: null,
         quizId: 1,
-        type: Quiz.QuestionType.CHOICE,
+        type: QuestionType.CHOICE,
         answers: [
           {
             id: 1,
@@ -75,7 +75,7 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
       {
         id: 2,
         title: 'Quel était le nom du cheval de Napoléon Bonaparte ?',
-        type: Quiz.QuestionType.CHOICE,
+        type: QuestionType.CHOICE,
         image: null,
         quizId: 1,
         answers: [
@@ -113,7 +113,7 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
       {
         id: 3,
         title: "Comment s'appelait le cheval de Zorro ?",
-        type: Quiz.QuestionType.CHOICE,
+        type: QuestionType.CHOICE,
         image: null,
         quizId: 1,
         answers: [
@@ -151,7 +151,7 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
       {
         id: 4,
         title: 'Quel était le nom du cheval de la reine Élisabeth II ?',
-        type: Quiz.QuestionType.CHOICE,
+        type: QuestionType.CHOICE,
         image: null,
         quizId: 1,
         answers: [
@@ -192,13 +192,13 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
     id: 2,
     title: 'Quiz sur les Templiers',
     imageUrl: 'https://cf.ozeliurs.com/tmp/temp.png',
-    stage: Quiz.DiseaseStage.STAGE_4,
+    stage: DiseaseStage.STAGE_4,
     isPrivate: false,
     questions: [
       {
         id: 5,
         title: 'Quelle était la mission initiale des Templiers ?',
-        type: Quiz.QuestionType.CHOICE,
+        type: QuestionType.CHOICE,
         image: null,
         quizId: 2,
         answers: [
@@ -236,7 +236,7 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
       {
         id: 6,
         title: 'Quel était le symbole des Templiers ?',
-        type: Quiz.QuestionType.CHOICE,
+        type: QuestionType.CHOICE,
         image: null,
         quizId: 2,
         answers: [
@@ -275,7 +275,7 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
         id: 7,
         title:
           'Quelle est la raison principale pour laquelle les Templiers ont été persécutés et dissous en 1312 ?',
-        type: Quiz.QuestionType.CHOICE,
+        type: QuestionType.CHOICE,
         image: null,
         quizId: 2,
         answers: [
@@ -316,13 +316,13 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
     id: 3,
     title: 'Quiz autobiographique de Marcelino',
     imageUrl: 'https://cf.ozeliurs.com/tmp/person.png',
-    stage: Quiz.DiseaseStage.STAGE_4,
+    stage: DiseaseStage.STAGE_4,
     isPrivate: true,
     questions: [
       {
         id: 8,
         title: 'Quel est le nom de mon premier chien ?',
-        type: Quiz.QuestionType.CHOICE,
+        type: QuestionType.CHOICE,
         image: null,
         quizId: 3,
         answers: [
@@ -360,7 +360,7 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
       {
         id: 9,
         title: 'Quel est le prénom de votre fille ?',
-        type: Quiz.QuestionType.CHOICE,
+        type: QuestionType.CHOICE,
         image: null,
         quizId: 3,
         answers: [
@@ -398,7 +398,7 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
       {
         id: 10,
         title: 'Quelle était la couleur de votre première voiture ?',
-        type: Quiz.QuestionType.CHOICE,
+        type: QuestionType.CHOICE,
         image: null,
         quizId: 3,
         answers: [
@@ -436,7 +436,7 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
       {
         id: 11,
         title: 'À quoi ressemble votre maison ?',
-        type: Quiz.QuestionType.CHOICE,
+        type: QuestionType.CHOICE,
         image: null,
         quizId: 3,
         answers: [
@@ -477,13 +477,13 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
     id: 4,
     title: 'Actions du quotidien',
     imageUrl: 'https://cf.ozeliurs.com/tmp/person.png',
-    stage: Quiz.DiseaseStage.STAGE_4,
+    stage: DiseaseStage.STAGE_4,
     isPrivate: true,
     questions: [
       {
         id: 12,
         title: "Réordonner par ordre logique pour s'habiller",
-        type: Quiz.QuestionType.REORDER,
+        type: QuestionType.REORDER,
         image: null,
         quizId: 4,
         answers: [
@@ -521,7 +521,7 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
       {
         id: 13,
         title: 'Réordonner par ordre logique pour faire des pâtes.',
-        type: Quiz.QuestionType.REORDER,
+        type: QuestionType.REORDER,
         image: null,
         quizId: 4,
         answers: [

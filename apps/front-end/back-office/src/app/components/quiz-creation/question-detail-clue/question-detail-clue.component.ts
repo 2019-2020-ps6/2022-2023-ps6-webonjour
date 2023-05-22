@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
+import { Clue } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-question-detail-clue',
@@ -7,7 +8,7 @@ import { Quiz } from '@webonjour/util-interface';
   styleUrls: ['./question-detail-clue.component.scss'],
 })
 export class QuestionDetailClueComponent {
-  @Input() clue!: Quiz.Clue;
+  @Input() clue!: Clue;
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
