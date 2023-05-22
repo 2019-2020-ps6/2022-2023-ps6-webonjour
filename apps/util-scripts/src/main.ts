@@ -11,7 +11,7 @@ export async function main() {
   for (const quiz of quizMocks.quizList) {
     await prisma.quiz.create({
       data: {
-        id: parseInt(quiz.id),
+        id: quiz.id,
         title: quiz.title,
         stage: quiz.stage,
         isPrivate: quiz.isPrivate,
