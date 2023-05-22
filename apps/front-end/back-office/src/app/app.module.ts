@@ -38,6 +38,7 @@ import { QuestionDetailAnswerComponent } from './components/quiz-creation/questi
 import { PatientFamilyAddPopupComponent } from './components/dashboard/patient/patient-edit/patient-family-add-popup/patient-family-add-popup.component';
 import { FileFieldComponent } from './components/util/file-field/file-field.component';
 import { PatientDangerComponent } from './components/dashboard/patient/patient-edit/patient-danger/patient-danger.component';
+import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +82,7 @@ import { PatientDangerComponent } from './components/dashboard/patient/patient-e
     DashboardModule,
     MatCheckboxModule,
     NgApexchartsModule,
+    NgxBootstrapIconsModule.pick(allIcons),
   ],
   providers: [
     // provider used to create fake backend

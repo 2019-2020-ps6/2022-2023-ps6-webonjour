@@ -14,6 +14,7 @@ import { QuizListComponent } from '../quiz/quiz-list/quiz-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PatientFamilyComponent } from '../patient/patient-edit/patient-family/patient-family.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     CdkOverlayOrigin,
     MatDialogModule,
     NgApexchartsModule,
+    NgxBootstrapIconsModule,
   ],
   bootstrap: [DashboardComponent],
   exports: [PatientFamilyComponent],

@@ -8,7 +8,8 @@ import { Quiz } from '@webonjour/util-interface';
   styleUrls: ['./question-detail-main.component.scss'],
 })
 export class QuestionDetailMainComponent {
-  @Input() question!: Prisma.QuestionCreateInput;
+  @Input()
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];

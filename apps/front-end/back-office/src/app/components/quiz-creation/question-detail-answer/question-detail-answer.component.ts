@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Prisma } from '@prisma/client';
+import { Answer, Prisma } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-question-detail-answer',
@@ -7,7 +7,7 @@ import { Prisma } from '@prisma/client';
   styleUrls: ['./question-detail-answer.component.scss'],
 })
 export class QuestionDetailAnswerComponent {
-  @Input() answer!: Prisma.AnswerCreateInput;
+  @Input() answer!: Answer;
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
