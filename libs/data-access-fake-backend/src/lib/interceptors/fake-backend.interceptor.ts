@@ -22,7 +22,8 @@ import {
   patientMocks as patientMock,
   quizMocks,
 } from '@webonjour/data-access-mocks';
-import { Prisma } from '@prisma/client';
+import { Answer, Clue, Prisma } from '@prisma/client';
+
 const credentials = authMocks.credentials;
 const response = authMocks.response;
 const quizList = quizMocks.quizList;
@@ -48,6 +49,61 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     function getAllQuiz() {
       return ok(quizList);
+    }
+
+    function getQuestionById() {
+      const id = Number(url.split('/').pop());
+      const questions: unknown[] = [];
+      quizList.forEach((quiz) => {
+        quiz.questions.forEach((question) => {
+          if (question.id === id) {
+            questions.push(question);
+          }
+        });
+      });
+
+      return ok(questions[0]);
+    }
+
+    function getAnswerById() {
+      const id = Number(url.split('/').pop());
+      const answers: unknown[] = [];
+      quizList.forEach((quiz) => {
+        quiz.questions.forEach((question) => {
+          question.answers.forEach((answer) => {
+            if (answer.id === id) {
+              answers.push(answer);
+            }
+          });
+        });
+      });
+
+      return ok(answers[0]);
+    }
+
+    function getClueById() {
+      const id = Number(url.split('/').pop());
+      const clues: unknown[] = [];
+      quizList.forEach((quiz) => {
+        quiz.questions.forEach((question) => {
+          question.clues.forEach((clue) => {
+            if (clue.id === id) {
+              clues.push(clue);
+            }
+          });
+        });
+      });
+
+      return ok(clues[0]);
+    }
+
+    function createQuestion() {
+      const question = body as Question;
+      const quiz = quizList.find((x) => x.id === question.quizId);
+      if (!quiz) return error('Quiz not found');
+      question.id = Math.max(...quiz.questions.map((x) => +x.id)) + 1;
+      quiz?.questions.push(question);
+      return ok(question);
     }
 
     function createQuiz(quiz: Quiz) {
@@ -237,6 +293,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       } else if (url.endsWith('/refresh') && method === 'POST') {
         return refresh();
       }
+      // question
+      else if (url.match(/\/question\/\d+$/) && method === 'GET') {
+        return getQuestionById();
+      } else if (url.match(/\/answer\/\d+$/) && method === 'GET') {
+        return getAnswerById();
+      } else if (url.match(/\/clue\/\d+$/) && method === 'GET') {
+        return getClueById();
+      }
+
       // quiz
       else if (url.match(/\/quiz\/\d+$/) && method === 'GET') {
         const id = Number(url.split('/').pop());

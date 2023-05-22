@@ -39,6 +39,13 @@ import { PatientFamilyAddPopupComponent } from './components/dashboard/patient/p
 import { FileFieldComponent } from './components/util/file-field/file-field.component';
 import { PatientDangerComponent } from './components/dashboard/patient/patient-edit/patient-danger/patient-danger.component';
 import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { QuestionListComponent } from './components/quiz-creation/question-list/question-list.component';
+import { QuestionEditGeneralComponent } from './components/quiz-creation/question-edit-general/question-edit-general.component';
+import { QuestionCreateComponent } from './components/quiz-creation/question-create/question-create.component';
+import { QuestionAnswerComponent } from './components/quiz-creation/question-answer/question-answer.component';
+import { QuestionAnswerAddPopupComponent } from './components/quiz-creation/question-answer-add-popup/question-answer-add-popup.component';
+import { QuestionClueComponent } from './components/quiz-creation/question-clue/question-clue.component';
+import { QuestionClueAddPopupComponent } from './components/quiz-creation/question-clue-add-popup/question-clue-add-popup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +72,13 @@ import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
     FileFieldComponent,
     PatientDangerComponent,
     PatientEditQuizAddPopupComponent,
+    QuestionListComponent,
+    QuestionEditGeneralComponent,
+    QuestionCreateComponent,
+    QuestionAnswerComponent,
+    QuestionAnswerAddPopupComponent,
+    QuestionClueComponent,
+    QuestionClueAddPopupComponent,
   ],
   imports: [
     BrowserModule,
