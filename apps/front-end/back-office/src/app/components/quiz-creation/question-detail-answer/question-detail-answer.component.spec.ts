@@ -16,6 +16,11 @@ describe('QuestionDetailAnswerComponent', () => {
     component.answer = {
       text: 'test',
       isCorrect: false,
+      question: {
+        connect: {
+          id: 1,
+        },
+      },
     };
     fixture.detectChanges();
   });

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Patient, Quiz, RequestWrapper } from '@webonjour/util-interface';
+import { Prisma } from '@prisma/client';
+
+type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 
 @Injectable({
   providedIn: 'root',
@@ -47,17 +50,14 @@ export class PatientService {
     );
   }
 
-  getPatientQuiz(id: string): Observable<RequestWrapper<Quiz.Quiz[]>> {
-    return this.http.get<RequestWrapper<Quiz.Quiz[]>>(
+  getPatientQuiz(id: string): Observable<RequestWrapper<Quiz[]>> {
+    return this.http.get<RequestWrapper<Quiz[]>>(
       this.API_URL + '/patients/' + id + '/quiz'
     );
   }
 
-  addPatientQuiz(
-    id: string,
-    quizId: string
-  ): Observable<RequestWrapper<Quiz.Quiz>> {
-    return this.http.post<RequestWrapper<Quiz.Quiz>>(
+  addPatientQuiz(id: string, quizId: number): Observable<RequestWrapper<Quiz>> {
+    return this.http.post<RequestWrapper<Quiz>>(
       this.API_URL + '/patients/' + id + '/quiz/' + quizId,
       { quizId }
     );
@@ -65,9 +65,9 @@ export class PatientService {
 
   deletePatientQuiz(
     id: string,
-    quizId: string
-  ): Observable<RequestWrapper<Quiz.Quiz>> {
-    return this.http.delete<RequestWrapper<Quiz.Quiz>>(
+    quizId: number
+  ): Observable<RequestWrapper<Quiz>> {
+    return this.http.delete<RequestWrapper<Quiz>>(
       this.API_URL + '/patients/' + id + '/quiz/' + quizId
     );
   }

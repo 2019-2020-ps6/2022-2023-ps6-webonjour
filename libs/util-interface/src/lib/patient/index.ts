@@ -1,4 +1,4 @@
-import { DiseaseStage } from '../quiz';
+import { DiseaseStage } from '@prisma/client';
 
 export interface Person {
   id: string;

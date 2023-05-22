@@ -6,6 +6,7 @@ import {
   selectGame,
   selectGameCurrentQuestion,
 } from '../../../reducers/game/game.selectors';
+import { Clue, Prisma } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-help-page',
@@ -13,9 +14,9 @@ import {
   styleUrls: ['./help-page.component.scss'],
 })
 export class HelpPageComponent implements OnInit, OnDestroy {
-  randomClue!: Quiz.Clue;
-  quiz!: Quiz.Quiz;
-  question!: Quiz.Question;
+  randomClue!: Clue;
+  quiz!: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   currentQuizQuestion!: number;
   array = new Uint32Array(1);
 
@@ -47,7 +48,10 @@ export class HelpPageComponent implements OnInit, OnDestroy {
               textClues[Math.floor(this.array[0] % textClues.length)]; // Please note that Math.random() will produce a number between 0 and 1, but never 1.
           } else {
             this.randomClue = {
+              id: 0,
               text: 'No clue available',
+              questionId: this.question.id,
+              image: '',
             };
           }
         }

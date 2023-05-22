@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Quiz, Patient } from '@webonjour/util-interface';
+import { Patient, Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
@@ -11,15 +11,16 @@ import {
 } from '../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import * as GameActions from '../../../reducers/game/game.actions';
-
+import { Answer, DiseaseStage } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 @Component({
   selector: 'webonjour-game-question',
   templateUrl: './game-question.component.html',
   styleUrls: ['./game-question.component.scss'],
 })
 export class GameQuestionComponent implements OnDestroy, OnInit {
-  diseaseStage!: Quiz.DiseaseStage;
-  question!: Quiz.Question;
+  diseaseStage!: DiseaseStage;
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   show_help = false;
   image_enabled = false;
   colors = new Map([
@@ -47,7 +48,9 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     private tts: TtsService
   ) {}
 
-  ttsQuestion(question: Quiz.Question) {
+  ttsQuestion(
+    question: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>
+  ) {
     // we have to concatenate the question title and the answers text
     // because the TTS API only accepts one string
     let text = question.title;
@@ -96,9 +99,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       .select(selectPatientDiseaseStage)
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((diseaseStage) => {
-        this.diseaseStage = diseaseStage
-          ? diseaseStage
-          : Quiz.DiseaseStage.STAGE_1;
+        this.diseaseStage = diseaseStage ? diseaseStage : DiseaseStage.STAGE_1;
       });
     this.actions$
       .pipe(takeUntil(this.ngDestroyed$))
@@ -109,7 +110,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       });
   }
 
-  onSelectAnswer(answer: Quiz.Answer, index: number) {
+  onSelectAnswer(answer: Answer, index: number) {
     const question = document.querySelector('#answer-' + index);
 
     if (!question || question.classList.contains('disabled')) {
@@ -143,11 +144,11 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       question.classList.add('disabled');
     }
 
-    if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_3) {
+    if (this.diseaseStage >= DiseaseStage.STAGE_3) {
       question.classList.add('disabled');
     }
 
-    if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_4) {
+    if (this.diseaseStage >= DiseaseStage.STAGE_4) {
       this.show_modal_help(true);
     }
 

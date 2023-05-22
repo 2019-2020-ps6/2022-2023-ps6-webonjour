@@ -62,7 +62,7 @@ const reducer = createReducer(
       history: [
         ...state.history,
         {
-          questionId: state.currentQuestion?.id || '',
+          questionId: state.currentQuestion?.id || -1,
           isCorrect: true,
           timeTaken: delta,
         },
@@ -78,7 +78,7 @@ const reducer = createReducer(
       history: [
         ...state.history,
         {
-          questionId: state.currentQuestion?.id || '',
+          questionId: state.currentQuestion?.id || -1,
           isCorrect: false,
           timeTaken: delta,
         },
@@ -121,7 +121,7 @@ const reducer = createReducer(
       ...state,
       skippedQuestions: [
         ...state.skippedQuestions,
-        state.currentQuestion?.id || '',
+        state.currentQuestion?.id || -1,
       ],
     };
   })

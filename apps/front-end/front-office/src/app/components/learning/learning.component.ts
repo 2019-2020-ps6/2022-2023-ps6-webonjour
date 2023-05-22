@@ -1,16 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Quiz } from '@webonjour/util-interface';
 import { Subject, takeUntil } from 'rxjs';
 import { selectQuestionsToLearn } from '../../reducers/game/game.selectors';
+import { Prisma, QuestionType } from '@prisma/client';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-learning',
   templateUrl: './learning.component.html',
 })
 export class LearningComponent implements OnDestroy, OnInit {
-  QuestionType = Quiz.QuestionType;
-  question!: Quiz.Question;
+  QuestionType = QuestionType;
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
 
   public ngDestroyed$ = new Subject();
 
