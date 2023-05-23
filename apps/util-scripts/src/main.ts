@@ -91,7 +91,7 @@ export async function main() {
   }
 
   for (const accommodation of patientMocks.accommodationMocks) {
-    await prisma.accomodation.create({
+    await prisma.accommodation.create({
       data: {
         id: parseInt(accommodation.id),
         title: accommodation.title,

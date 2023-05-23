@@ -7,8 +7,9 @@ generator client {
 }
 
 generator zod {
-  provider = "zod-prisma-types"
-  output   = "../libs/util-interface/src/lib/generated-zod-schemas"
+  provider         = "zod-prisma-types"
+  useMultipleFiles = true
+  output           = "../libs/util-interface/src/lib/generated-zod-schemas"
 }
 
 datasource db {
@@ -73,7 +74,7 @@ model Answer {
 }
 
 model Patient {
-  id                Int            @id @default(autoincrement())
+  id                Int             @id @default(autoincrement())
   firstName         String
   lastName          String
   age               Int
@@ -83,7 +84,7 @@ model Patient {
   lastQuizDate      DateTime
   floor             Int
   familyMembers     FamilyMember[]
-  accomodations     Accomodation[]
+  accommodations    Accommodation[]
   quizzes           Quiz[]
   users             User[]
 }
@@ -111,7 +112,7 @@ model FamilyMember {
   patients          Patient[]
 }
 
-model Accomodation {
+model Accommodation {
   id       Int       @id @default(autoincrement())
   title    String
   patients Patient[]
