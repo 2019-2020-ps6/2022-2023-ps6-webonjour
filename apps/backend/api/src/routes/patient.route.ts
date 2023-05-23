@@ -18,6 +18,11 @@ import { validateSplit } from '../middleware/validate';
 import { Schema } from '@webonjour/util-interface';
 import { paramsParser } from '../middleware/requestPreParsers';
 import { AnyZodObject, z } from 'zod';
+import {
+  addRelatedQuizHandler,
+  deleteRelatedQuizHandler,
+  getAllRelatedQuizHandler,
+} from '../controllers/patient.quiz.controller';
 
 const patientRouter = Router();
 
@@ -83,6 +88,32 @@ patientRouter.delete(
   paramsParser(),
   validateSplit(relatedAccommodationSchema, undefined, undefined),
   asyncHandler(deleteRelatedAccommodationHandler)
+);
+
+export const relatedQuizSchema: z.ZodType = (
+  Schema.PatientWhereUniqueInputSchema as AnyZodObject
+).extend({
+  quizId: z.number().optional(),
+});
+
+patientRouter.post(
+  '/:id/quiz/:quizId',
+  paramsParser(),
+  validateSplit(relatedQuizSchema, undefined, undefined),
+  asyncHandler(addRelatedQuizHandler)
+);
+
+patientRouter.delete(
+  '/:id/quiz/:quizId',
+  paramsParser(),
+  validateSplit(relatedQuizSchema, undefined, undefined),
+  asyncHandler(deleteRelatedQuizHandler)
+);
+
+patientRouter.get(
+  '/:id/quiz',
+  validateSplit(Schema.PatientWhereUniqueInputSchema, undefined, undefined),
+  asyncHandler(getAllRelatedQuizHandler)
 );
 
 export default patientRouter;

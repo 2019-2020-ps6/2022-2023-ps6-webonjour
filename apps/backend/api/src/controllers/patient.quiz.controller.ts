@@ -9,10 +9,8 @@ import { Accommodation, Patient, Prisma } from '@prisma/client';
 import prisma from '../utils/connectDB';
 import { z } from 'zod';
 import AppError from '../utils/appError';
+import { relatedQuizSchema } from '../routes/patient.route';
 
-const quizIdSchema = Schema.QuizWhereUniqueInputSchema.transform((data) => {
-  return { quizId: data.id };
-});
 export const getAllRelatedQuizHandler = async (
   req: Request<
     z.infer<typeof Schema.PatientWhereUniqueInputSchema>,
@@ -57,13 +55,7 @@ export const getAllRelatedQuizHandler = async (
 };
 
 export const addRelatedQuizHandler = async (
-  req: Request<
-    z.infer<typeof Schema.PatientWhereUniqueInputSchema> &
-      z.infer<typeof quizIdSchema>,
-    unknown,
-    unknown,
-    unknown
-  >,
+  req: Request<z.infer<typeof relatedQuizSchema>, unknown, unknown, unknown>,
   res: Response<RequestWrapper<Patient>>,
   next: NextFunction
 ): Promise<void> => {
@@ -107,13 +99,7 @@ export const addRelatedQuizHandler = async (
 };
 
 export const deleteRelatedQuizHandler = async (
-  req: Request<
-    z.infer<typeof Schema.PatientWhereUniqueInputSchema> &
-      z.infer<typeof quizIdSchema>,
-    unknown,
-    unknown,
-    unknown
-  >,
+  req: Request<z.infer<typeof relatedQuizSchema>, unknown, unknown, unknown>,
   res: Response<RequestWrapper<Patient>>,
   next: NextFunction
 ): Promise<void> => {
@@ -149,39 +135,6 @@ export const deleteRelatedQuizHandler = async (
     res.status(200).send({
       data: patientQuiz,
       message: 'Delete related quiz successful',
-      status: RequestStatus.SUCCESS,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
-
-// related accommodation controller
-export const getAllRelatedAccommodationHandler = async (
-  req: Request<
-    z.infer<typeof Schema.PatientWhereUniqueInputSchema>,
-    unknown,
-    unknown,
-    unknown
-  >,
-  res: Response<RequestWrapper<Accommodation[]>>,
-  next: NextFunction
-): Promise<void> => {
-  try {
-    const patient = await prisma.patient.findUnique({
-      where: {
-        id: req.params.id,
-      },
-      include: {
-        accommodations: true,
-      },
-    });
-    if (!patient) {
-      return next(new AppError('Patient not found', 404));
-    }
-    res.status(200).send({
-      data: patient.accommodations,
-      message: 'Get all related accommodation successful',
       status: RequestStatus.SUCCESS,
     });
   } catch (err) {
