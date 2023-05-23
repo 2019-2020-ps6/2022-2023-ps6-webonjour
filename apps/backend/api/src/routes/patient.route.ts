@@ -75,9 +75,7 @@ patientRouter.post(
   '/:id/accommodation/:accommodationId',
   paramsParser(),
   validateSplit(relatedAccommodationSchema, undefined, undefined),
-  (req, res, next) => {
-    addRelatedAccommodationHandler(req, res, next).then((r) => console.log(r));
-  }
+  asyncHandler(addRelatedAccommodationHandler)
 );
 
 patientRouter.delete(
