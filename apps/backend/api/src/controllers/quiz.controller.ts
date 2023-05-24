@@ -108,3 +108,38 @@ export const createQuizHandler = async (
     next(err);
   }
 };
+
+export const updateQuizHandler = async (
+  req: Request<
+    Prisma.QuizWhereUniqueInput,
+    unknown,
+    Prisma.QuizUpdateInput,
+    unknown
+  >,
+  res: Response<RequestWrapper<Prisma.QuizGetPayload<Quiz.QuizWithQuestions>>>,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const quiz = await prisma.quiz.update({
+      where: {
+        id: req.params.id,
+      },
+      data: req.body,
+      include: {
+        questions: {
+          include: {
+            answers: true,
+            clues: true,
+          },
+        },
+      },
+    });
+    res.status(200).send({
+      data: quiz,
+      message: 'Update quiz successful',
+      status: RequestStatus.SUCCESS,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
