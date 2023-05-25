@@ -6,7 +6,7 @@ import { Prisma } from '@prisma/client';
  */
 export interface GameEntity {
   quiz: Prisma.QuizGetPayload<Quiz.QuizWithQuestions> | null;
-  player: Patient.Patient | null;
+  player: Prisma.PatientGetPayload<Patient.PatientFull> | null;
   currentQuestion: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues> | null;
   accommodation: Patient.Accommodation[];
   learntQuestions: number[];

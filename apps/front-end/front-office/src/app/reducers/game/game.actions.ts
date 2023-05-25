@@ -64,7 +64,7 @@ export const endGame = createAction('[Game Page] End Game');
 export const setPatient = createAction(
   '[Game Page] Set Patient',
   props<{
-    patient: Patient.Patient;
+    patient: Prisma.PatientGetPayload<Patient.PatientFull>;
   }>()
 );
 
