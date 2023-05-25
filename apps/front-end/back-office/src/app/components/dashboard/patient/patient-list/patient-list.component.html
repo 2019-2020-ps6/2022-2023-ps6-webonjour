@@ -33,9 +33,7 @@
 
       <ng-container matColumnDef="Date du dernier quiz">
         <th mat-header-cell *matHeaderCellDef>Date du dernier quiz</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.lastQuizDate | date : 'dd/MM/yyyy' }}
-        </td>
+        <td mat-cell *matCellDef="let element">undefined</td>
       </ng-container>
 
       <ng-container matColumnDef="Stade Alzheimer">
@@ -84,7 +82,7 @@
       ></tr>
     </table>
 
-    <mat-paginator [pageSize]="10" aria-label="Paginator"> </mat-paginator>
+    <mat-paginator [pageSize]="10" aria-label="Paginator"></mat-paginator>
   </div>
   <div class="card-footer">
     <div class="d-flex justify-content-end" style="height: 100%; width: 100%">

@@ -69,7 +69,6 @@ export class PatientEditGeneralComponent implements OnInit {
           description: this.formControls['description'].value,
           profilePictureUrl: this.formControls['image'].value,
           floor: this.formControls['floor'].value,
-          lastQuizDate: new Date(),
         })
         .subscribe((patient) => {
           this.form.patchValue({
@@ -92,7 +91,6 @@ export class PatientEditGeneralComponent implements OnInit {
           description: this.formControls['description'].value,
           profilePictureUrl: this.formControls['image'].value,
           floor: this.formControls['floor'].value,
-          lastQuizDate: new Date(),
         })
         .subscribe((patient) => {
           this.form.patchValue({

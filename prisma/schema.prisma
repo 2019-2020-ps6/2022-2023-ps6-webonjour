@@ -81,7 +81,6 @@ model Patient {
   profilePictureUrl String
   description       String
   diseaseStage      DiseaseStage
-  lastQuizDate      DateTime
   floor             Int
   familyMembers     FamilyMember[]
   accommodations    Accommodation[]
