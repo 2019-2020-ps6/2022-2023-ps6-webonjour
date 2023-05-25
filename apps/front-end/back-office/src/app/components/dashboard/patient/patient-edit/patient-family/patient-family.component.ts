@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Patient } from '@webonjour/util-interface';
 import { ActivatedRoute } from '@angular/router';
 import { PatientFamilyAddPopupComponent } from '../patient-family-add-popup/patient-family-add-popup.component';
+import { FamilyMember } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-patient-family',
@@ -16,7 +17,7 @@ export class PatientFamilyComponent implements AfterViewInit {
   patientId!: number;
 
   displayedColumns: string[] = ['Nom', 'Contact', 'Relation', 'action'];
-  dataSource = new MatTableDataSource<Patient.FamilyMember>([]);
+  dataSource = new MatTableDataSource<FamilyMember>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -35,9 +36,7 @@ export class PatientFamilyComponent implements AfterViewInit {
     this.patientService
       .getPatientFamily(this.patientId)
       .subscribe((familyList) => {
-        this.dataSource = new MatTableDataSource<Patient.FamilyMember>(
-          familyList.data
-        );
+        this.dataSource = new MatTableDataSource<FamilyMember>(familyList.data);
         this.dataSource.paginator = this.paginator;
       });
   }
@@ -55,7 +54,7 @@ export class PatientFamilyComponent implements AfterViewInit {
     });
   }
 
-  onEditFamilyMember(family: Patient.FamilyMember) {
+  onEditFamilyMember(family: FamilyMember) {
     this.dialog.open(PatientFamilyAddPopupComponent, {
       data: { patientId: this.patientId, familyId: family.id },
     });
@@ -64,7 +63,7 @@ export class PatientFamilyComponent implements AfterViewInit {
     });
   }
 
-  onDeleteFamilyMember(family: Patient.FamilyMember) {
+  onDeleteFamilyMember(family: FamilyMember) {
     this.patientService
       .deletePatientFamily(this.patientId, family.id)
       .subscribe(() => {

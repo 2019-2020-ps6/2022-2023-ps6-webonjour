@@ -17,7 +17,6 @@ export class PatientFamilyAddPopupComponent implements OnInit {
   form!: FormGroup;
   loading = false;
   submitted = false;
-  familyMember?: Patient.FamilyMember;
 
   constructor(
     private formBuilder: FormBuilder,

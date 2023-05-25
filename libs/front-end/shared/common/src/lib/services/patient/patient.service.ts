@@ -89,7 +89,7 @@ export class PatientService {
 
   deletePatientFamily(
     id: number,
-    familyId: string
+    familyId: number
   ): Observable<RequestWrapper<FamilyMember>> {
     return this.http.delete<RequestWrapper<FamilyMember>>(
       this.API_URL + '/patients/' + id + '/family/' + familyId
@@ -106,7 +106,7 @@ export class PatientService {
 
   addPatientAccommodation(
     id: number,
-    accommodationId: string
+    accommodationId: number
   ): Observable<RequestWrapper<Accommodation>> {
     return this.http.post<RequestWrapper<Accommodation>>(
       this.API_URL + '/patients/' + id + '/accommodation',
@@ -116,7 +116,7 @@ export class PatientService {
 
   deletePatientAccommodation(
     id: number,
-    accommodationId: string
+    accommodationId: number
   ): Observable<RequestWrapper<Accommodation>> {
     return this.http.delete<RequestWrapper<Accommodation>>(
       this.API_URL + '/patients/' + id + '/accommodation/' + accommodationId
