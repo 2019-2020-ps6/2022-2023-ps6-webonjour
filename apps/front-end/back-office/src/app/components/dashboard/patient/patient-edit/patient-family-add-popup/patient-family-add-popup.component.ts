@@ -73,6 +73,7 @@ export class PatientFamilyAddPopupComponent implements OnInit {
       relation: this.form.controls['relation'].value,
       phone: this.form.controls['phone'].value,
       email: this.form.controls['email'].value,
+      patientId: this.data.patientId,
     };
 
     if (this.familyMember.id === '') {
