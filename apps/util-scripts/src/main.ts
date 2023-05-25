@@ -56,7 +56,6 @@ export async function main() {
         profilePictureUrl: patient.profilePictureUrl,
         description: patient.description,
         diseaseStage: patient.diseaseStage,
-        lastQuizDate: patient.lastQuizDate,
         floor: patient.floor,
         quizzes: {
           connect: Object.keys(patientMocks.patientQuizMocks).map((key) => {

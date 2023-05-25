@@ -1,7 +1,7 @@
 import { Patient } from '@webonjour/util-interface';
-import { DiseaseStage } from '@prisma/client';
+import { DiseaseStage, FamilyMember } from '@prisma/client';
 
-export const patientMocks: Patient.Patient[] = [
+export const patientMocks = [
   {
     id: '1',
     firstName: 'Robert',
@@ -65,7 +65,7 @@ Cependant, Marcelino a toujours le goût du jeu. C'est pourquoi durant son temps
   },
 ];
 
-export const familyMemberMocks: Patient.FamilyMember[] = [
+export const familyMemberMocks = [
   {
     id: '1',
     firstName: 'John Jr.',
@@ -123,7 +123,7 @@ export const familyMemberPatientMocks: Record<string, string[]> = {
   '4': [],
 };
 
-export const accommodationMocks: Patient.Accommodation[] = [
+export const accommodationMocks = [
   {
     id: '1',
     title: 'Peut recommencer le quiz',

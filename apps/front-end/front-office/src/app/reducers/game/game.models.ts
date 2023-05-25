@@ -1,5 +1,5 @@
 import { Patient, Quiz } from '@webonjour/util-interface';
-import { Prisma } from '@prisma/client';
+import { Accommodation, Prisma } from '@prisma/client';
 
 /**
  * Interface for the 'Game' data
@@ -8,7 +8,7 @@ export interface GameEntity {
   quiz: Prisma.QuizGetPayload<Quiz.QuizWithQuestions> | null;
   player: Prisma.PatientGetPayload<Patient.PatientFull> | null;
   currentQuestion: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues> | null;
-  accommodation: Patient.Accommodation[];
+  accommodation: Accommodation[];
   learntQuestions: number[];
   history: HistoryItem[];
   skippedQuestions: number[];
