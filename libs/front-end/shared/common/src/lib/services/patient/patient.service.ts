@@ -77,25 +77,6 @@ export class PatientService {
     );
   }
 
-  addPatientFamily(
-    id: number,
-    familyMemberId: number
-  ): Observable<RequestWrapper<FamilyMember>> {
-    return this.http.post<RequestWrapper<FamilyMember>>(
-      this.API_URL + '/patients/' + id + '/family/' + familyMemberId,
-      { familyMemberId }
-    );
-  }
-
-  deletePatientFamily(
-    id: number,
-    familyId: number
-  ): Observable<RequestWrapper<FamilyMember>> {
-    return this.http.delete<RequestWrapper<FamilyMember>>(
-      this.API_URL + '/patients/' + id + '/family/' + familyId
-    );
-  }
-
   getPatientAccommodation(
     id: number
   ): Observable<RequestWrapper<Accommodation[]>> {
@@ -126,13 +107,6 @@ export class PatientService {
   getAllAccommodations(): Observable<RequestWrapper<Accommodation[]>> {
     return this.http.get<RequestWrapper<Accommodation[]>>(
       this.API_URL + '/accommodation'
-    );
-  }
-
-  updateFamilyPatient(patientId: number, familyMember: FamilyMember) {
-    return this.http.put<RequestWrapper<FamilyMember>>(
-      this.API_URL + '/patients/' + patientId + '/family/' + familyMember.id,
-      familyMember
     );
   }
 }

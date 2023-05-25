@@ -66,7 +66,15 @@ export class PatientFamilyAddPopupComponent implements OnInit {
     if (!this.data.familyId) {
       this.familyMemberService
         .createFamilyMember({
-          ...this.form.value,
+          age: this.form.value.age,
+          description: this.form.value.description,
+          email: this.form.value.email,
+          firstName: this.form.value.first_name,
+          lastName: this.form.value.last_name,
+          phone: this.form.value.phone,
+          profilePictureUrl: this.form.value.image,
+          relation: this.form.value.relation,
+
           patients: {
             connect: {
               id: this.data.patientId,
@@ -87,9 +95,16 @@ export class PatientFamilyAddPopupComponent implements OnInit {
           this.dialog.closeAll();
         });
     } else {
-      this.patientService
-        .updateFamilyPatient(this.data.familyId, {
-          ...this.form.value,
+      this.familyMemberService
+        .updateFamilyMember(this.data.familyId, {
+          age: this.form.value.age,
+          description: this.form.value.description,
+          email: this.form.value.email,
+          firstName: this.form.value.first_name,
+          lastName: this.form.value.last_name,
+          phone: this.form.value.phone,
+          profilePictureUrl: this.form.value.image,
+          relation: this.form.value.relation,
         })
         .subscribe((familyMember) => {
           this.form.patchValue({

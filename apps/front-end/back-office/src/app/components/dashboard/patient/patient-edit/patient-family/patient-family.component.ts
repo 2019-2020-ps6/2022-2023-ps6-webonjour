@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { PatientService } from '@webonjour/front-end/shared/common';
+import {
+  FamilyMemberService,
+  PatientService,
+} from '@webonjour/front-end/shared/common';
 import { MatDialog } from '@angular/material/dialog';
-import { Patient } from '@webonjour/util-interface';
 import { ActivatedRoute } from '@angular/router';
 import { PatientFamilyAddPopupComponent } from '../patient-family-add-popup/patient-family-add-popup.component';
 import { FamilyMember } from '@prisma/client';
@@ -23,6 +25,7 @@ export class PatientFamilyComponent implements AfterViewInit {
 
   constructor(
     private patientService: PatientService,
+    private familyMemberService: FamilyMemberService,
     private route: ActivatedRoute,
     public dialog: MatDialog
   ) {
@@ -64,10 +67,8 @@ export class PatientFamilyComponent implements AfterViewInit {
   }
 
   onDeleteFamilyMember(family: FamilyMember) {
-    this.patientService
-      .deletePatientFamily(this.patientId, family.id)
-      .subscribe(() => {
-        this.refresh();
-      });
+    this.familyMemberService
+      .deleteFamilyMember(family.id)
+      .subscribe(() => this.refresh());
   }
 }
