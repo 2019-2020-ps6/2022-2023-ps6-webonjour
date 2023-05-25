@@ -93,11 +93,7 @@
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
-      "dependsOn": [
-        {
-          "target": "build"
-        }
-      ],
+      "dependsOn": ["build"],
       "options": {
         "engine": "docker",
         "push": true,
