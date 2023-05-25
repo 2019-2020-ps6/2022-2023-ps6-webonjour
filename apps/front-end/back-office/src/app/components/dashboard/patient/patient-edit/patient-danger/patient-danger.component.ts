@@ -7,7 +7,7 @@ import { PatientService } from '@webonjour/front-end/shared/common';
   templateUrl: './patient-danger.component.html',
 })
 export class PatientDangerComponent {
-  private id?: string;
+  private id?: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,

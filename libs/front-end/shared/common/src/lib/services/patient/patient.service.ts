@@ -5,7 +5,7 @@ import { Patient, Quiz, RequestWrapper } from '@webonjour/util-interface';
 import { Prisma } from '@prisma/client';
 
 type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
-
+type Patient = Prisma.PatientGetPayload<Patient.PatientFull>;
 @Injectable({
   providedIn: 'root',
 })
@@ -14,49 +14,48 @@ export class PatientService {
 
   constructor(private http: HttpClient) {}
 
-  getPatients(): Observable<RequestWrapper<Patient.Patient[]>> {
-    return this.http.get<RequestWrapper<Patient.Patient[]>>(
-      this.API_URL + '/patients'
-    );
+  getPatients(): Observable<RequestWrapper<Patient[]>> {
+    return this.http.get<RequestWrapper<Patient[]>>(this.API_URL + '/patients');
   }
 
-  getPatient(id: string): Observable<RequestWrapper<Patient.Patient>> {
-    return this.http.get<RequestWrapper<Patient.Patient>>(
+  getPatient(id: number): Observable<RequestWrapper<Patient>> {
+    return this.http.get<RequestWrapper<Patient>>(
       this.API_URL + '/patients/' + id
     );
   }
 
   createPatient(
-    patient: Patient.Patient
-  ): Observable<RequestWrapper<Patient.Patient>> {
-    return this.http.post<RequestWrapper<Patient.Patient>>(
+    patient: Prisma.PatientCreateInput
+  ): Observable<RequestWrapper<Patient>> {
+    return this.http.post<RequestWrapper<Patient>>(
       this.API_URL + '/patients',
       patient
     );
   }
 
   updatePatient(
-    patient: Patient.Patient
-  ): Observable<RequestWrapper<Patient.Patient>> {
-    return this.http.put<RequestWrapper<Patient.Patient>>(
-      this.API_URL + '/patients/' + patient.id,
+    patientId: number,
+    patient: Prisma.PatientUpdateInput
+  ): Observable<RequestWrapper<Patient>> {
+    return this.http.put<RequestWrapper<Patient>>(
+      this.API_URL + '/patients/' + patientId,
       patient
     );
   }
 
-  deletePatient(id: string): Observable<RequestWrapper<Patient.Patient>> {
-    return this.http.delete<RequestWrapper<Patient.Patient>>(
+  deletePatient(id: number): Observable<RequestWrapper<null>> {
+    return this.http.delete<RequestWrapper<null>>(
       this.API_URL + '/patients/' + id
     );
   }
 
-  getPatientQuiz(id: string): Observable<RequestWrapper<Quiz[]>> {
+  getPatientQuiz(id: number): Observable<RequestWrapper<Quiz[]>> {
     return this.http.get<RequestWrapper<Quiz[]>>(
       this.API_URL + '/patients/' + id + '/quiz'
     );
   }
 
-  addPatientQuiz(id: string, quizId: number): Observable<RequestWrapper<Quiz>> {
+  addPatientQuiz(id: number, quizId: number): Observable<RequestWrapper<Quiz>> {
     return this.http.post<RequestWrapper<Quiz>>(
       this.API_URL + '/patients/' + id + '/quiz/' + quizId,
       { quizId }
@@ -64,7 +63,7 @@ export class PatientService {
   }
 
   deletePatientQuiz(
-    id: string,
+    id: number,
     quizId: number
   ): Observable<RequestWrapper<Quiz>> {
     return this.http.delete<RequestWrapper<Quiz>>(
@@ -73,7 +72,7 @@ export class PatientService {
   }
 
   getPatientFamily(
-    id: string
+    id: number
   ): Observable<RequestWrapper<Patient.FamilyMember[]>> {
     return this.http.get<RequestWrapper<Patient.FamilyMember[]>>(
       this.API_URL + '/patients/' + id + '/family'
@@ -81,7 +80,7 @@ export class PatientService {
   }
 
   addPatientFamily(
-    id: string,
+    id: number,
     familyMember: Patient.FamilyMember
   ): Observable<RequestWrapper<Patient.FamilyMember>> {
     return this.http.post<RequestWrapper<Patient.FamilyMember>>(
@@ -91,7 +90,7 @@ export class PatientService {
   }
 
   deletePatientFamily(
-    id: string,
+    id: number,
     familyId: string
   ): Observable<RequestWrapper<Patient.FamilyMember>> {
     return this.http.delete<RequestWrapper<Patient.FamilyMember>>(
@@ -100,7 +99,7 @@ export class PatientService {
   }
 
   getPatientAccommodation(
-    id: string
+    id: number
   ): Observable<RequestWrapper<Patient.Accommodation[]>> {
     return this.http.get<RequestWrapper<Patient.Accommodation[]>>(
       this.API_URL + '/patients/' + id + '/accommodation'
@@ -108,7 +107,7 @@ export class PatientService {
   }
 
   addPatientAccommodation(
-    id: string,
+    id: number,
     accommodationId: string
   ): Observable<RequestWrapper<Patient.Accommodation>> {
     return this.http.post<RequestWrapper<Patient.Accommodation>>(
@@ -118,7 +117,7 @@ export class PatientService {
   }
 
   deletePatientAccommodation(
-    id: string,
+    id: number,
     accommodationId: string
   ): Observable<RequestWrapper<Patient.Accommodation>> {
     return this.http.delete<RequestWrapper<Patient.Accommodation>>(
@@ -132,7 +131,7 @@ export class PatientService {
     );
   }
 
-  updateFamilyPatient(patientId: string, familyMember: Patient.FamilyMember) {
+  updateFamilyPatient(patientId: number, familyMember: Patient.FamilyMember) {
     return this.http.put<RequestWrapper<Patient.FamilyMember>>(
       this.API_URL + '/patients/' + patientId + '/family/' + familyMember.id,
       familyMember

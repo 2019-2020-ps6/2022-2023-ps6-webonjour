@@ -13,7 +13,7 @@ import { PatientFamilyAddPopupComponent } from '../patient-family-add-popup/pati
   styleUrls: ['./patient-family.component.scss'],
 })
 export class PatientFamilyComponent implements AfterViewInit {
-  patientId!: string;
+  patientId!: number;
 
   displayedColumns: string[] = ['Nom', 'Contact', 'Relation', 'action'];
   dataSource = new MatTableDataSource<Patient.FamilyMember>([]);

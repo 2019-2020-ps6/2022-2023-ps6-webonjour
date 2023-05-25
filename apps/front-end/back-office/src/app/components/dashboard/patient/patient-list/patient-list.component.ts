@@ -5,6 +5,7 @@ import { PatientService } from '@webonjour/front-end/shared/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Patient } from '@webonjour/util-interface';
 import { PatientCreateComponent } from '../patient-create/patient-create.component';
+import { Prisma } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-patient-list',
@@ -19,7 +20,9 @@ export class PatientListComponent implements AfterViewInit {
     'Stade Alzheimer',
     'Étage',
   ];
-  dataSource = new MatTableDataSource<Patient.Patient>([]);
+  dataSource = new MatTableDataSource<
+    Prisma.PatientGetPayload<Patient.PatientFull>
+  >([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -32,9 +35,9 @@ export class PatientListComponent implements AfterViewInit {
 
   refresh() {
     this.patientService.getPatients().subscribe((patientList) => {
-      this.dataSource = new MatTableDataSource<Patient.Patient>(
-        patientList.data
-      );
+      this.dataSource = new MatTableDataSource<
+        Prisma.PatientGetPayload<Patient.PatientFull>
+      >(patientList.data);
       this.dataSource.paginator = this.paginator;
     });
   }

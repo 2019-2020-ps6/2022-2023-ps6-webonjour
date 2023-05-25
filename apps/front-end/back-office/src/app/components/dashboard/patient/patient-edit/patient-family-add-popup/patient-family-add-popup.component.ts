@@ -22,7 +22,7 @@ export class PatientFamilyAddPopupComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA)
-    public data: { familyId: string; patientId: string }
+    public data: { familyId: string; patientId: number }
   ) {}
 
   ngOnInit() {
@@ -73,7 +73,7 @@ export class PatientFamilyAddPopupComponent implements OnInit {
       relation: this.form.controls['relation'].value,
       phone: this.form.controls['phone'].value,
       email: this.form.controls['email'].value,
-      patientId: this.data.patientId,
+      patientId: this.data.patientId.toString(),
     };
 
     if (this.familyMember.id === '') {
