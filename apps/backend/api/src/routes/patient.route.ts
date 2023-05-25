@@ -23,6 +23,11 @@ import {
   deleteRelatedQuizHandler,
   getAllRelatedQuizHandler,
 } from '../controllers/patient.quiz.controller';
+import {
+  addRelatedFamilyMemberHandler,
+  deleteRelatedFamilyMemberHandler,
+  getRelatedFamilyMemberHandler,
+} from '../controllers/patient.family-member.controller';
 
 const patientRouter = Router();
 
@@ -114,6 +119,33 @@ patientRouter.get(
   '/:id/quiz',
   validateSplit(Schema.PatientWhereUniqueInputSchema, undefined, undefined),
   asyncHandler(getAllRelatedQuizHandler)
+);
+
+export const relatedFamilyMemberSchema: z.ZodType = (
+  Schema.PatientWhereUniqueInputSchema as AnyZodObject
+).extend({
+  familyMemberId: z.number().optional(),
+});
+
+patientRouter.post(
+  '/:id/familyMember/:familyMemberId',
+  paramsParser(),
+  validateSplit(relatedFamilyMemberSchema, undefined, undefined),
+  asyncHandler(addRelatedFamilyMemberHandler)
+);
+
+patientRouter.delete(
+  '/:id/familyMember/:familyMemberId',
+  paramsParser(),
+  validateSplit(relatedFamilyMemberSchema, undefined, undefined),
+  asyncHandler(deleteRelatedFamilyMemberHandler)
+);
+
+patientRouter.get(
+  '/:id/familyMember',
+  paramsParser(),
+  validateSplit(Schema.PatientWhereUniqueInputSchema, undefined, undefined),
+  asyncHandler(getRelatedFamilyMemberHandler)
 );
 
 export default patientRouter;
