@@ -27,7 +27,6 @@ describe('CardComponent', () => {
       accommodations: [],
       quizzes: [],
       familyMembers: [],
-      lastQuizDate: new Date(),
       description: '',
       profilePictureUrl: '',
     };
