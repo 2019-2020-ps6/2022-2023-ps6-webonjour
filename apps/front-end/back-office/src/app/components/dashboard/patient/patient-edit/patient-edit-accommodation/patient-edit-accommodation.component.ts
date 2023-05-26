@@ -7,6 +7,7 @@ import { Patient } from '@webonjour/util-interface';
 import { PatientService } from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
+import { Accommodation } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-patient-edit-accommodation',
@@ -14,7 +15,7 @@ import { map } from 'rxjs';
 })
 export class PatientEditAccommodationComponent implements AfterViewInit {
   displayedColumns: string[] = ["titre de l'aménagement", 'action'];
-  dataSource = new MatTableDataSource<Patient.Accommodation>([]);
+  dataSource = new MatTableDataSource<Accommodation>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -37,7 +38,7 @@ export class PatientEditAccommodationComponent implements AfterViewInit {
             .getPatientAccommodation(patientId)
             .subscribe((accommodation) => {
               // add a boolean to each accommodation to know if it's checked or not
-              this.dataSource = new MatTableDataSource<Patient.Accommodation>(
+              this.dataSource = new MatTableDataSource<Accommodation>(
                 accommodationAll.data.map((accommodationAll) => {
                   const accommodationFound = accommodation.data.find(
                     (accommodation) => accommodation.id === accommodationAll.id
@@ -58,7 +59,7 @@ export class PatientEditAccommodationComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  onCheck($event: MatCheckboxChange, element: Patient.Accommodation) {
+  onCheck($event: MatCheckboxChange, element: Accommodation) {
     this.route.params
       .pipe(
         map((params) => params['id']),

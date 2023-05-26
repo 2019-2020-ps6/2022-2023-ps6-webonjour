@@ -21,7 +21,11 @@
         ],
         "styles": ["apps/front-end/back-office/src/styles.scss"],
         "scripts": ["node_modules/apexcharts/dist/apexcharts.min.js"],
-        "allowedCommonJsDependencies": ["apexcharts", "google-tts"]
+        "allowedCommonJsDependencies": [
+          "apexcharts",
+          "google-tts",
+          "@prisma/client"
+        ]
       },
       "configurations": {
         "production": {
@@ -94,11 +98,7 @@
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
-      "dependsOn": [
-        {
-          "target": "build"
-        }
-      ],
+      "dependsOn": ["build"],
       "options": {
         "engine": "docker",
         "push": true,

@@ -6,7 +6,7 @@ import {
   selectGame,
   selectGameCurrentQuestion,
 } from '../../../reducers/game/game.selectors';
-import { Clue, Prisma } from '@prisma/client';
+import { Clue, Prisma, QuestionType } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-help-page',
@@ -63,7 +63,7 @@ export class HelpPageComponent implements OnInit, OnDestroy {
       .subscribe((question) => {
         if (question) {
           this.quizRoute =
-            question.type == Quiz.QuestionType.CHOICE
+            question.type == QuestionType.CHOICE
               ? '/quiz-answer'
               : '/drag-and-drop';
         }

@@ -9,7 +9,12 @@ describe('Game Reducer', () => {
     it('loadGameSuccess should set Game', () => {
       const action = GameActions.loadGameSuccess({
         quiz: quizMocks.quizList[0],
-        accommodation: patientMocks.accommodationMocks,
+        accommodation: patientMocks.accommodationMocks.map((accommodation) => {
+          return {
+            ...accommodation,
+            id: parseInt(accommodation.id),
+          };
+        }),
       });
 
       const result = gameReducer(initialGameState, action);
@@ -18,7 +23,12 @@ describe('Game Reducer', () => {
         ...initialGameState,
         loaded: true,
         quiz: quizMocks.quizList[0],
-        accommodation: patientMocks.accommodationMocks,
+        accommodation: patientMocks.accommodationMocks.map((accommodation) => {
+          return {
+            ...accommodation,
+            id: parseInt(accommodation.id),
+          };
+        }),
         currentQuestion: result.currentQuestion,
       });
     });

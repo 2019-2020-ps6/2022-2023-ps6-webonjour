@@ -32,7 +32,7 @@ export class PatientEditQuizAddPopupComponent implements AfterViewInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private patientService: PatientService,
-    @Inject(MAT_DIALOG_DATA) public data: { patientId: string }
+    @Inject(MAT_DIALOG_DATA) public data: { patientId: number }
   ) {
     this.refresh();
   }

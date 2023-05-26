@@ -56,7 +56,6 @@ export async function main() {
         profilePictureUrl: patient.profilePictureUrl,
         description: patient.description,
         diseaseStage: patient.diseaseStage,
-        lastQuizDate: patient.lastQuizDate,
         floor: patient.floor,
         quizzes: {
           connect: Object.keys(patientMocks.patientQuizMocks).map((key) => {
@@ -91,7 +90,7 @@ export async function main() {
   }
 
   for (const accommodation of patientMocks.accommodationMocks) {
-    await prisma.accomodation.create({
+    await prisma.accommodation.create({
       data: {
         id: parseInt(accommodation.id),
         title: accommodation.title,

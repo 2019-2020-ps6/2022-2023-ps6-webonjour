@@ -5,6 +5,10 @@ import { QuizEditionComponent } from '../../quiz-edition/quiz-edition.component'
 import { PatientListComponent } from '../patient/patient-list/patient-list.component';
 import { PatientEditComponent } from '../patient/patient-edit/patient-edit/patient-edit.component';
 import { QuestionDetailComponent } from '../../quiz-creation/question-detail/question-detail.component';
+import { QuestionListComponent } from '../../quiz-creation/question-list/question-list.component';
+import { QuestionEditGeneralComponent } from '../../quiz-creation/question-edit-general/question-edit-general.component';
+import { QuestionAnswerComponent } from '../../quiz-creation/question-answer/question-answer.component';
+import { QuestionClueComponent } from '../../quiz-creation/question-clue/question-clue.component';
 
 export const dashboardRoutes: Route[] = [
   {
@@ -19,12 +23,12 @@ export const dashboardRoutes: Route[] = [
       },
       {
         path: 'quiz/:id',
-        component: QuizEditionComponent,
+        component: QuestionListComponent,
         title: 'Édition de quiz',
         data: { navPath: 'quiz' },
       },
       {
-        path: 'quiz/:id/:questionId',
+        path: 'quiz/:quizId/:questionId',
         component: QuestionDetailComponent,
         title: 'Édition de question',
         data: { navPath: 'quiz' },
