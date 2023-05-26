@@ -10,7 +10,7 @@ COPY package.json .
 RUN npm i
 COPY . .
 RUN npx prisma generate
-RUN npx nx build backend-api:build:production
+RUN npx nx run backend-api:build:production
 
 
 FROM node:alpine as runner
@@ -21,9 +21,10 @@ ENV PORT=3000
 WORKDIR /app
 COPY --from=builder /app/dist/apps/backend/api /app
 
-# You can remove this install step if you build with `--bundle` option.
-# The bundled output will include external dependencies.
-RUN npm i
-RUN npx prisma generate
+## You can remove this install step if you build with `--bundle` option.
+## The bundled output will include external dependencies.
+RUN npm i --ignore-scripts
+
+RUN npx prisma generate --generator client
 
 CMD [ "node", "." ]
