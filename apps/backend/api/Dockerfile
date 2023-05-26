@@ -9,6 +9,7 @@ WORKDIR /app
 COPY package.json .
 RUN npm i
 COPY . .
+RUN npx prisma generate
 RUN npx nx build backend-api:build:production
 
 
@@ -23,5 +24,6 @@ COPY --from=builder /app/dist/apps/backend/api /app
 # You can remove this install step if you build with `--bundle` option.
 # The bundled output will include external dependencies.
 RUN npm i
+RUN npx prisma generate
 
 CMD [ "node", "." ]
