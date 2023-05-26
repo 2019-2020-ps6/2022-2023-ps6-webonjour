@@ -11,8 +11,7 @@ import {
 } from '../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import * as GameActions from '../../../reducers/game/game.actions';
-import { Answer, DiseaseStage } from '@prisma/client';
-import { Prisma } from '@prisma/client';
+import { Accommodation, Answer, DiseaseStage, Prisma } from '@prisma/client';
 @Component({
   selector: 'webonjour-game-question',
   templateUrl: './game-question.component.html',
@@ -34,7 +33,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   protected readonly document = document;
   protected readonly Array = Array;
   private tries = 0;
-  private accomodations!: Patient.Accommodation[];
+  private accomodations!: Accommodation[];
 
   public ngOnDestroy() {
     this.ngDestroyed$.next(0);

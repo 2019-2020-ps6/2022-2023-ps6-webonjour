@@ -11,6 +11,9 @@ import AppError from './utils/appError';
 import cookieParser from 'cookie-parser';
 import ttsRouter from './routes/tts.route';
 import prisma from './utils/connectDB';
+import quizRouter from './routes/quiz.route';
+import { queryParser } from './middleware/requestPreParsers';
+import patientRouter from './routes/patient.route';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');
@@ -28,6 +31,7 @@ app.use(cookieParser());
 // 3. Logger
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
+app.use(queryParser());
 // 4. Cors
 const origin = `*`;
 app.use(
@@ -47,6 +51,8 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/api/tts', ttsRouter);
+app.use('/api/quiz', quizRouter);
+app.use('/api/patient', patientRouter);
 
 // Unknown Routes
 app.all('*', (req: Request, res: Response, next: NextFunction) => {

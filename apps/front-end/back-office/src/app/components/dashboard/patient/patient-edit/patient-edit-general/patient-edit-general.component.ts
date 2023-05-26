@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Patient } from '@webonjour/util-interface';
 import { PatientService } from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +12,7 @@ export class PatientEditGeneralComponent implements OnInit {
   form!: FormGroup;
   loading = false;
   submitted = false;
-  patient!: Patient.Patient;
+  patientId?: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,18 +36,17 @@ export class PatientEditGeneralComponent implements OnInit {
     });
     this.activatedRoute.params.subscribe((params) => {
       if (params['id']) {
+        this.patientId = params['id'];
         this.patientService.getPatient(params['id']).subscribe((patient) => {
-          this.patient = patient.data;
-          console.log(this.patient);
           this.form.patchValue({
-            first_name: this.patient.firstName,
-            last_name: this.patient.lastName,
-            age: this.patient.age,
-            disease_stage: this.patient.diseaseStage,
-            description: this.patient.description,
-            floor: this.patient.floor,
+            first_name: patient.data.firstName,
+            last_name: patient.data.lastName,
+            age: patient.data.age,
+            disease_stage: patient.data.diseaseStage,
+            description: patient.data.description,
+            floor: patient.data.floor,
           });
-          this.form.controls['image'].setValue(this.patient.profilePictureUrl);
+          this.form.controls['image'].setValue(patient.data.profilePictureUrl);
           console.log(this.form);
         });
       }
@@ -61,47 +59,50 @@ export class PatientEditGeneralComponent implements OnInit {
   }
 
   onSubmit() {
-    this.patient = {
-      id: this.patient?.id || '',
-      firstName: this.form.controls['first_name'].value,
-      lastName: this.form.controls['last_name'].value,
-      age: this.form.controls['age'].value,
-      diseaseStage: this.form.controls['disease_stage'].value,
-      description: this.form.controls['description'].value,
-      profilePictureUrl: this.form.controls['image'].value,
-      lastQuizDate: this.patient?.lastQuizDate || new Date(),
-      successRate: this.patient?.successRate || 0,
-      floor: this.form.controls['floor'].value,
-    };
-
-    if (this.patient.id === '') {
-      this.patientService.createPatient(this.patient).subscribe((patient) => {
-        this.patient = patient.data;
-        this.form.patchValue({
-          first_name: this.patient.firstName,
-          last_name: this.patient.lastName,
-          age: this.patient.age,
-          disease_stage: this.patient.diseaseStage,
-          description: this.patient.description,
-          image: this.patient.profilePictureUrl,
-          floor: this.patient.floor,
+    if (!this.patientId) {
+      this.patientService
+        .createPatient({
+          firstName: this.formControls['first_name'].value,
+          lastName: this.formControls['last_name'].value,
+          age: this.formControls['age'].value,
+          diseaseStage: this.formControls['disease_stage'].value,
+          description: this.formControls['description'].value,
+          profilePictureUrl: this.formControls['image'].value,
+          floor: this.formControls['floor'].value,
+        })
+        .subscribe((patient) => {
+          this.form.patchValue({
+            first_name: patient.data.firstName,
+            last_name: patient.data.lastName,
+            age: patient.data.age,
+            disease_stage: patient.data.diseaseStage,
+            description: patient.data.description,
+            floor: patient.data.floor,
+          });
+          this.dialog.closeAll();
         });
-        this.dialog.closeAll();
-      });
     } else {
-      this.patientService.updatePatient(this.patient).subscribe((patient) => {
-        this.patient = patient.data;
-        this.form.patchValue({
-          first_name: this.patient.firstName,
-          last_name: this.patient.lastName,
-          age: this.patient.age,
-          disease_stage: this.patient.diseaseStage,
-          description: this.patient.description,
-          profilePictureUrl: this.patient.profilePictureUrl,
-          floor: this.patient.floor,
+      this.patientService
+        .updatePatient(this.patientId, {
+          firstName: this.formControls['first_name'].value,
+          lastName: this.formControls['last_name'].value,
+          age: this.formControls['age'].value,
+          diseaseStage: this.formControls['disease_stage'].value,
+          description: this.formControls['description'].value,
+          profilePictureUrl: this.formControls['image'].value,
+          floor: this.formControls['floor'].value,
+        })
+        .subscribe((patient) => {
+          this.form.patchValue({
+            first_name: patient.data.firstName,
+            last_name: patient.data.lastName,
+            age: patient.data.age,
+            disease_stage: patient.data.diseaseStage,
+            description: patient.data.description,
+            floor: patient.data.floor,
+          });
+          this.dialog.closeAll();
         });
-        this.dialog.closeAll();
-      });
     }
   }
 

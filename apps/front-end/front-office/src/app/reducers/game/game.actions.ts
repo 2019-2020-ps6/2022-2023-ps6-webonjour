@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Patient, Quiz } from '@webonjour/util-interface';
-import { Prisma } from '@prisma/client';
+import { Accommodation, Prisma } from '@prisma/client';
 
 export const initGame = createAction(
   '[Game Page] Init',
@@ -11,7 +11,7 @@ export const loadGameSuccess = createAction(
   '[Game/API] Load Game Success',
   props<{
     quiz: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
-    accommodation: Patient.Accommodation[];
+    accommodation: Accommodation[];
   }>()
 );
 
@@ -64,7 +64,7 @@ export const endGame = createAction('[Game Page] End Game');
 export const setPatient = createAction(
   '[Game Page] Set Patient',
   props<{
-    patient: Patient.Patient;
+    patient: Prisma.PatientGetPayload<Patient.PatientFull>;
   }>()
 );
 

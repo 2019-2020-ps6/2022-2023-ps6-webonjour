@@ -4,6 +4,7 @@ import * as GameActions from './game.actions';
 import { GameEffects } from './game.effects';
 import {
   fakeBackendProvider,
+  patientMocks,
   quizMocks,
 } from '@webonjour/data-access-fake-backend';
 import * as fromGame from './game.reducer';
@@ -13,7 +14,6 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable, of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Action } from '@ngrx/store';
-import { patientMocks } from '@webonjour/data-access-fake-backend';
 
 describe('GameEffects', () => {
   let actions$: Observable<Action>;
@@ -37,7 +37,12 @@ describe('GameEffects', () => {
     it('should work', () => {
       const expected = GameActions.loadGameSuccess({
         quiz: quizMocks.quizList[0],
-        accommodation: patientMocks.accommodationMocks,
+        accommodation: patientMocks.accommodationMocks.map((accommodation) => {
+          return {
+            ...accommodation,
+            id: parseInt(accommodation.id),
+          };
+        }),
       });
 
       actions$ = of(

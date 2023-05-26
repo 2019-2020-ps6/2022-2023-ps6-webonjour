@@ -20,7 +20,8 @@
           "apps/front-end/front-office/src/assets"
         ],
         "styles": ["apps/front-end/front-office/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "allowedCommonJsDependencies": ["@prisma/client"]
       },
       "configurations": {
         "production": {

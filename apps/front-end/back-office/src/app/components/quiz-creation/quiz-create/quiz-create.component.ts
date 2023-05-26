@@ -36,7 +36,7 @@ export class QuizCreateComponent implements OnInit {
     private quizService: QuizService,
     private patientService: PatientService,
     @Inject(MAT_DIALOG_DATA)
-    public data: { patientId?: string }
+    public data: { patientId?: number }
   ) {}
 
   ngOnInit() {

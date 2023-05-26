@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PatientService } from '@webonjour/front-end/shared/common';
+import {
+  FamilyMemberService,
+  PatientService,
+} from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Patient } from '@webonjour/util-interface';
@@ -14,15 +17,15 @@ export class PatientFamilyAddPopupComponent implements OnInit {
   form!: FormGroup;
   loading = false;
   submitted = false;
-  familyMember?: Patient.FamilyMember;
 
   constructor(
     private formBuilder: FormBuilder,
     private patientService: PatientService,
+    private familyMemberService: FamilyMemberService,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA)
-    public data: { familyId: string; patientId: string }
+    public data: { familyId?: number; patientId: number }
   ) {}
 
   ngOnInit() {
@@ -36,25 +39,22 @@ export class PatientFamilyAddPopupComponent implements OnInit {
       email: [''],
       relation: ['', [Validators.required]],
     });
-    this.patientService
-      .getPatientFamily(this.data.patientId)
-      .subscribe((familyMembers) => {
-        this.familyMember = familyMembers.data.find(
-          (familyMember) => familyMember.id === this.data.familyId
-        );
-        if (this.familyMember) {
+    if (this.data.familyId) {
+      this.familyMemberService
+        .getFamilyMember(this.data.familyId)
+        .subscribe((familyMember) => {
           this.form.patchValue({
-            first_name: this.familyMember.firstName,
-            last_name: this.familyMember.lastName,
-            age: this.familyMember.age,
-            description: this.familyMember.description,
-            image: this.familyMember.profilePictureUrl,
-            relation: this.familyMember.relation,
-            email: this.familyMember.email,
-            phone: this.familyMember.phone,
+            first_name: familyMember.data.firstName,
+            last_name: familyMember.data.lastName,
+            age: familyMember.data.age,
+            description: familyMember.data.description,
+            image: familyMember.data.profilePictureUrl,
+            relation: familyMember.data.relation,
+            email: familyMember.data.email,
+            phone: familyMember.data.phone,
           });
-        }
-      });
+        });
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -63,37 +63,49 @@ export class PatientFamilyAddPopupComponent implements OnInit {
   }
 
   onSubmit() {
-    this.familyMember = {
-      id: this.familyMember?.id || '',
-      firstName: this.form.controls['first_name'].value,
-      lastName: this.form.controls['last_name'].value,
-      age: this.form.controls['age'].value,
-      description: this.form.controls['description'].value,
-      profilePictureUrl: this.form.controls['image'].value,
-      relation: this.form.controls['relation'].value,
-      phone: this.form.controls['phone'].value,
-      email: this.form.controls['email'].value,
-    };
+    if (!this.data.familyId) {
+      this.familyMemberService
+        .createFamilyMember({
+          age: this.form.value.age,
+          description: this.form.value.description,
+          email: this.form.value.email,
+          firstName: this.form.value.first_name,
+          lastName: this.form.value.last_name,
+          phone: this.form.value.phone,
+          profilePictureUrl: this.form.value.image,
+          relation: this.form.value.relation,
 
-    if (this.familyMember.id === '') {
-      this.patientService
-        .addPatientFamily(this.data.patientId, this.familyMember)
+          patients: {
+            connect: {
+              id: this.data.patientId,
+            },
+          },
+        })
         .subscribe((familyMember) => {
-          this.familyMember = familyMember.data;
           this.form.patchValue({
-            first_name: this.familyMember.firstName,
-            last_name: this.familyMember.lastName,
-            age: this.familyMember.age,
-            description: this.familyMember.description,
-            image: this.familyMember.profilePictureUrl,
-            phone: this.familyMember.phone,
-            email: this.familyMember.email,
+            first_name: familyMember.data.firstName,
+            last_name: familyMember.data.lastName,
+            age: familyMember.data.age,
+            description: familyMember.data.description,
+            image: familyMember.data.profilePictureUrl,
+            relation: familyMember.data.relation,
+            phone: familyMember.data.phone,
+            email: familyMember.data.email,
           });
           this.dialog.closeAll();
         });
     } else {
-      this.patientService
-        .updateFamilyPatient(this.data.patientId, this.familyMember)
+      this.familyMemberService
+        .updateFamilyMember(this.data.familyId, {
+          age: this.form.value.age,
+          description: this.form.value.description,
+          email: this.form.value.email,
+          firstName: this.form.value.first_name,
+          lastName: this.form.value.last_name,
+          phone: this.form.value.phone,
+          profilePictureUrl: this.form.value.image,
+          relation: this.form.value.relation,
+        })
         .subscribe((familyMember) => {
           this.form.patchValue({
             first_name: familyMember.data.firstName,

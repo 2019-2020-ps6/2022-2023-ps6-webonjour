@@ -22,7 +22,13 @@ import {
   patientMocks as patientMock,
   quizMocks,
 } from '@webonjour/data-access-mocks';
-import { Answer, Clue, Prisma } from '@prisma/client';
+import {
+  Accommodation,
+  Answer,
+  Clue,
+  FamilyMember,
+  Prisma,
+} from '@prisma/client';
 
 const credentials = authMocks.credentials;
 const response = authMocks.response;
@@ -130,11 +136,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok(patientMocks);
     }
 
-    function createPatient(body1: Patient.Patient) {
+    function createPatient(body1: Prisma.PatientCreateInput) {
       // get new patient id
       const newPatientId = Math.max(...patientMocks.map((x) => +x.id)) + 1;
-      body1.id = newPatientId.toString();
-      patientMocks.push(body1);
+      patientMocks.push({
+        ...body1,
+        id: newPatientId.toString(),
+      } as any);
       return ok(body1);
     }
 
@@ -144,11 +152,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok(patient);
     }
 
-    function updatePatient(body1: Patient.Patient) {
+    function updatePatient(body1: Prisma.PatientUpdateInput) {
       const id = url.split('/').pop();
       const patient = patientMocks.find((x) => x.id === id);
       if (patient) {
-        patientMocks[patientMocks.indexOf(patient)] = body1;
+        patientMocks[patientMocks.indexOf(patient)] = body1 as any;
         return ok(patientMocks.find((x) => x.id === id));
       }
       return error('Patient not found');
@@ -199,12 +207,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function addPatientFamily() {
       const split = url.split('/');
       const patientId = split[split.length - 2];
-      const familyMember = body as Patient.FamilyMember;
-      familyMember.id = familyMemberMocks.length + 1 + '';
+      const familyMember = body as any;
+      familyMember.id = familyMemberMocks.length + 1;
       familyMemberMocks.push(familyMember);
       familyMemberPatientMocks[patientId] =
         familyMemberPatientMocks[patientId] || [];
-      familyMemberPatientMocks[patientId].push(familyMember.id);
+      familyMemberPatientMocks[patientId].push(String(familyMember.id));
       return ok(familyMember);
     }
 
@@ -234,10 +242,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function addAccommodationPatient() {
       const split = url.split('/');
       const patientId = split[split.length - 2];
-      const accommodation = body as Patient.Accommodation;
+      const accommodation = body as Accommodation;
       accommodationPatientMocks[patientId] =
         accommodationPatientMocks[patientId] || [];
-      accommodationPatientMocks[patientId].push(accommodation.id);
+      accommodationPatientMocks[patientId].push(String(accommodation.id));
       return ok(accommodation);
     }
 
@@ -277,10 +285,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       const familyMemberId = split[split.length - 1];
       const familyMember = familyMemberMocks.find(
         (x) => x.id === familyMemberId
-      ) as Patient.FamilyMember;
+      ) as any;
       if (familyMember) {
         familyMemberMocks[familyMemberMocks.indexOf(familyMember)] =
-          body as Patient.FamilyMember;
+          body as any;
         return ok(familyMemberMocks.find((x) => x.id === familyMemberId));
       }
       return error('Family member not found');
@@ -325,7 +333,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       else if (url.match(/\/patients\/\d+$/) && method === 'GET') {
         return getPatientDetail();
       } else if (url.match(/\/patients\/\d+$/) && method === 'PUT') {
-        return updatePatient(body as Patient.Patient);
+        return updatePatient(body as Prisma.PatientUpdateInput);
       } else if (url.match(/\/patients\/\d+$/) && method === 'DELETE') {
         return deletePatient();
       } else if (
@@ -373,7 +381,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       } else if (url.endsWith('/patients') && method === 'GET') {
         return getAllPatient();
       } else if (url.endsWith('/patients') && method === 'POST') {
-        return createPatient(body as Patient.Patient);
+        return createPatient(body as Prisma.PatientCreateInput);
       }
       // get all accommodations
       else if (url.endsWith('/accommodation') && method === 'GET') {

@@ -6,6 +6,12 @@ generator client {
   binaryTargets = ["debian-openssl-1.1.x", "native", "rhel-openssl-1.1.x"]
 }
 
+generator zod {
+  provider         = "npx zod-prisma-types"
+  useMultipleFiles = true
+  output           = "../libs/util-interface/src/lib/generated-zod-schemas"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -13,6 +19,7 @@ datasource db {
 
 model User {
   id                Int       @id @default(autoincrement())
+  /// @zod.string.email({ message: "Invalid email" })
   email             String    @unique
   name              String?
   password          String
@@ -67,17 +74,16 @@ model Answer {
 }
 
 model Patient {
-  id                Int            @id @default(autoincrement())
+  id                Int             @id @default(autoincrement())
   firstName         String
   lastName          String
   age               Int
   profilePictureUrl String
   description       String
   diseaseStage      DiseaseStage
-  lastQuizDate      DateTime
   floor             Int
   familyMembers     FamilyMember[]
-  accomodations     Accomodation[]
+  accommodations    Accommodation[]
   quizzes           Quiz[]
   users             User[]
 }
@@ -105,7 +111,7 @@ model FamilyMember {
   patients          Patient[]
 }
 
-model Accomodation {
+model Accommodation {
   id       Int       @id @default(autoincrement())
   title    String
   patients Patient[]

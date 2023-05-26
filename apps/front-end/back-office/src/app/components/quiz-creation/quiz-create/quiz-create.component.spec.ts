@@ -63,7 +63,7 @@ describe('QuizCreationComponent', () => {
     fixture = TestBed.createComponent(QuizCreateComponent);
     component = fixture.componentInstance;
     component.data = {
-      patientId: 'a',
+      patientId: 1,
     };
     fixture.detectChanges();
   });

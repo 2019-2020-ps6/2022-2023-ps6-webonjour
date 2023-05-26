@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CardComponent } from './card.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { patientMocks } from '@webonjour/data-access-fake-backend';
 
 describe('CardComponent', () => {
   let component: CardComponent;
@@ -18,7 +17,19 @@ describe('CardComponent', () => {
 
     fixture = TestBed.createComponent(CardComponent);
     component = fixture.componentInstance;
-    component.patient = patientMocks.patientMocks[0];
+    component.patient = {
+      id: 1,
+      firstName: 'John',
+      lastName: 'Doe',
+      age: 42,
+      floor: 1,
+      diseaseStage: 'STAGE_1',
+      accommodations: [],
+      quizzes: [],
+      familyMembers: [],
+      description: '',
+      profilePictureUrl: '',
+    };
     fixture.detectChanges();
   });
 
