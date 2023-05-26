@@ -15,7 +15,13 @@
         "bundle": true,
         "main": "apps/util-scripts/src/main.ts",
         "tsConfig": "apps/util-scripts/tsconfig.app.json",
-        "assets": ["apps/util-scripts/src/assets"],
+        "assets": [
+          {
+            "glob": "prisma/**",
+            "input": ".",
+            "output": "."
+          }
+        ],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,
@@ -70,6 +76,28 @@
         "ci": {
           "ci": true,
           "codeCoverage": true
+        }
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "engine": "docker",
+        "push": true,
+        "metadata": {
+          "images": [
+            "ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/util-scripts"
+          ],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=semver,pattern={{major}}.{{minor}}",
+            "type=semver,pattern={{major}}",
+            "type=sha"
+          ]
         }
       }
     }
