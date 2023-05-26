@@ -34,15 +34,13 @@ quizRouter.post(
   asyncHandler(createQuizHandler)
 );
 
-const combinedMiddleware = [
-  paramsParser(),
-  validateSplit(Schema.QuizWhereUniqueInputSchema, undefined, undefined),
-];
-
 quizRouter.put(
   '/:id',
-  combinedMiddleware,
-  validateSplit(undefined, undefined, Schema.QuizUpdateInputSchema),
+  validateSplit(
+    Schema.QuizWhereUniqueInputSchema,
+    undefined,
+    Schema.QuizUpdateInputSchema
+  ),
   asyncHandler(updateQuizHandler)
 );
 
