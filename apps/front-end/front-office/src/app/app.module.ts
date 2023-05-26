@@ -54,7 +54,10 @@ import { NgOptimizedImage } from '@angular/common';
     BrowserModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
-    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    RouterModule.forRoot(appRoutes, {
+      initialNavigation: 'enabledBlocking',
+      useHash: true,
+    }),
     HttpClientModule,
     CdkDrag,
     CdkDropList,

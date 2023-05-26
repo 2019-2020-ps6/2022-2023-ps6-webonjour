@@ -72,7 +72,10 @@ import { QuestionClueAddPopupComponent } from './components/quiz-creation/questi
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    RouterModule.forRoot(appRoutes, {
+      initialNavigation: 'enabledBlocking',
+      useHash: true,
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
