@@ -143,3 +143,32 @@ export const updateQuizHandler = async (
     next(err);
   }
 };
+
+export const deleteQuizHandler = async (
+  req: Request<Prisma.QuizWhereUniqueInput, unknown, unknown, unknown>,
+  res: Response<RequestWrapper<Prisma.QuizGetPayload<Quiz.QuizWithQuestions>>>,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const quiz = await prisma.quiz.delete({
+      where: {
+        id: req.params.id,
+      },
+      include: {
+        questions: {
+          include: {
+            answers: true,
+            clues: true,
+          },
+        },
+      },
+    });
+    res.status(200).send({
+      data: quiz,
+      message: 'Delete quiz successful',
+      status: RequestStatus.SUCCESS,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
