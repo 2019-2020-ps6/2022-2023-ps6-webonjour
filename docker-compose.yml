@@ -11,5 +11,11 @@ services:
     env_file:
       - .env
 
+  seeder:
+    image: 08c552ca5ffa4e6cba77a85d1af9e47cdf67b6c41d3afede2c9aecbe63b058f8
+    container_name: seeder
+    env_file:
+      - .env
+
 volumes:
   postgres:
