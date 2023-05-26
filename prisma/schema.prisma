@@ -7,9 +7,8 @@ generator client {
 }
 
 generator zod {
-  provider         = "npx zod-prisma-types"
-  useMultipleFiles = true
-  output           = "../libs/util-interface/src/lib/generated-zod-schemas"
+  provider = "npx zod-prisma-types"
+  output   = "../libs/util-interface/src/lib/generated-zod-schemas"
 }
 
 datasource db {

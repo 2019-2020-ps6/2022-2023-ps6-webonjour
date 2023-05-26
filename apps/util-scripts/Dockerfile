@@ -21,7 +21,8 @@ COPY apps/util-scripts/entrypoint.sh /app
 
 # You can remove this install step if you build with `--bundle` option.
 # The bundled output will include external dependencies.
-RUN npm i
+RUN npm i --ignore-scripts
+RUN npx prisma generate --generator client
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT [ "./entrypoint.sh" ]

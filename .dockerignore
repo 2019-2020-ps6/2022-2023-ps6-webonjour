@@ -215,3 +215,5 @@ Dockerfile
 .nx-container
 .vscode
 tmp
+
+node_modules
