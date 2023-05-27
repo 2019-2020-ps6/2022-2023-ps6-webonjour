@@ -44,4 +44,7 @@ quizRouter.put(
   asyncHandler(updateQuizHandler)
 );
 
+// route for delete all quiz
+quizRouter.delete('/', paramsParser(), asyncHandler(deleteQuizHandler));
+
 export default quizRouter;
