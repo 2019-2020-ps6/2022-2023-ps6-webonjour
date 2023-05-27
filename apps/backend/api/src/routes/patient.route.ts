@@ -12,7 +12,6 @@ import {
   addRelatedAccommodationHandler,
   deleteRelatedAccommodationHandler,
   getRelatedAccommodationHandler,
-  updateRelatedAccommodationHandler,
 } from '../controllers/patient.accommodation.controller';
 
 import { validateSplit } from '../middleware/validate';
