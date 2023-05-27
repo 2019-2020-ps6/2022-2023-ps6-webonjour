@@ -14,6 +14,7 @@ import prisma from './utils/connectDB';
 import quizRouter from './routes/quiz.route';
 import { queryParser } from './middleware/requestPreParsers';
 import patientRouter from './routes/patient.route';
+import familyMemberRouter from './routes/family-member.route';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');
@@ -51,8 +52,9 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/api/tts', ttsRouter);
-app.use('/api/quiz', quizRouter);
-app.use('/api/patient', patientRouter);
+app.use('/api/quizzes', quizRouter);
+app.use('/api/patients', patientRouter);
+app.use('/api/family-members', familyMemberRouter);
 
 // Unknown Routes
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
