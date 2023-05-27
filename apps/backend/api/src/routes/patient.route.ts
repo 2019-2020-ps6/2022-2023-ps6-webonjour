@@ -12,6 +12,7 @@ import {
   addRelatedAccommodationHandler,
   deleteRelatedAccommodationHandler,
   getRelatedAccommodationHandler,
+  updateRelatedAccommodationHandler,
 } from '../controllers/patient.accommodation.controller';
 
 import { validateSplit } from '../middleware/validate';
@@ -146,6 +147,17 @@ patientRouter.get(
   paramsParser(),
   validateSplit(Schema.PatientWhereUniqueInputSchema, undefined, undefined),
   asyncHandler(getRelatedFamilyMemberHandler)
+);
+
+patientRouter.put(
+  '/:id/accommodation/:accommodationId',
+  paramsParser(),
+  validateSplit(
+    relatedAccommodationSchema,
+    undefined,
+    Schema.PatientAccommodationUpdateInputSchema
+  ),
+  asyncHandler(updateRelatedAccommodationHandler)
 );
 
 export default patientRouter;
