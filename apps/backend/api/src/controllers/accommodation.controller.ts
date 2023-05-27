@@ -32,3 +32,32 @@ export const getAllAccommodationHandler = async (
     next(err);
   }
 };
+
+export const deleteAccommodationHandler = async (
+  req: Request<
+    z.infer<typeof Schema.AccommodationWhereUniqueInputSchema>,
+    unknown,
+    unknown,
+    unknown
+  >,
+  res: Response<RequestWrapper<Accommodation>>,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const accommodation = await prisma.accommodation.delete({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!accommodation) {
+      return next(new AppError('Accommodation not found', 404));
+    }
+    res.status(200).send({
+      data: accommodation,
+      message: 'Delete accommodation successful',
+      status: RequestStatus.SUCCESS,
+    });
+  } catch (err) {
+    next(err);
+  }
+};

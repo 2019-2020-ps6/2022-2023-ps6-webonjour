@@ -1,16 +1,27 @@
 import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 
-import { getAllAccommodationHandler } from '../controllers/accommodation.controller';
+import {
+  getAllAccommodationHandler,
+  deleteAccommodationHandler,
+} from '../controllers/accommodation.controller';
 import { Schema } from '@webonjour/util-interface';
 import { validateSplit } from '../middleware/validate';
+import { paramsParser } from '../middleware/requestPreParsers';
 
-const router = Router();
+const accommodationRouter = Router();
 
-router.get(
+accommodationRouter.get(
   '/',
   validateSplit(undefined, undefined, Schema.AccommodationWhereInputSchema),
   asyncHandler(getAllAccommodationHandler)
 );
 
-export default router;
+accommodationRouter.delete(
+  '/:id',
+  paramsParser(),
+  validateSplit(Schema.AccommodationWhereUniqueInputSchema),
+  asyncHandler(deleteAccommodationHandler)
+);
+
+export default accommodationRouter;
