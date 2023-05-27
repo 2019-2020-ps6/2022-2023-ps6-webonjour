@@ -149,15 +149,4 @@ patientRouter.get(
   asyncHandler(getRelatedFamilyMemberHandler)
 );
 
-patientRouter.put(
-  '/:id/accommodation/:accommodationId',
-  paramsParser(),
-  validateSplit(
-    relatedAccommodationSchema,
-    undefined,
-    Schema.PatientAccommodationUpdateInputSchema
-  ),
-  asyncHandler(updateRelatedAccommodationHandler)
-);
-
 export default patientRouter;
