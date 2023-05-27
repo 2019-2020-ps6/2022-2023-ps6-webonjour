@@ -6,6 +6,7 @@ import {
   getQuizByIdHandler,
   updateQuizHandler,
   deleteQuizHandler,
+  deleteAllQuizHandler,
 } from '../controllers/quiz.controller';
 import { validateSplit } from '../middleware/validate';
 import { Schema } from '@webonjour/util-interface';
@@ -43,8 +44,5 @@ quizRouter.put(
   ),
   asyncHandler(updateQuizHandler)
 );
-
-// route for delete all quiz
-quizRouter.delete('/', paramsParser(), asyncHandler(deleteQuizHandler));
 
 export default quizRouter;

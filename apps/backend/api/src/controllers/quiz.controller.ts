@@ -172,27 +172,3 @@ export const deleteQuizHandler = async (
     next(err);
   }
 };
-
-export const deleteAllQuizHandler = async (
-  req: Request<
-    unknown,
-    unknown,
-    unknown,
-    z.infer<typeof Schema.QuizWhereInputSchema>
-  >,
-  res: Response<RequestWrapper<Prisma.BatchPayload>>,
-  next: NextFunction
-): Promise<void> => {
-  try {
-    const quizzes = await prisma.quiz.deleteMany({
-      where: req.query,
-    });
-    res.status(200).send({
-      data: quizzes,
-      message: 'Delete all quiz successful',
-      status: RequestStatus.SUCCESS,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
