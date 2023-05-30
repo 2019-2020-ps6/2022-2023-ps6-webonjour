@@ -8,18 +8,20 @@ import { z } from 'zod';
 import { Answer } from '@prisma/client';
 import AppError from '../utils/appError';
 import prisma from '../utils/connectDB';
-import { answerSchema } from '../routes/answer.route';
 
 export const createAnswerHandler = async (
-  req: Request<z.infer<typeof answerSchema>, unknown, unknown, unknown>,
+  req: Request<
+    unknown,
+    unknown,
+    z.infer<typeof Schema.AnswerCreateInputSchema>,
+    unknown
+  >,
   res: Response<RequestWrapper<Answer>>,
   next: NextFunction
 ): Promise<void> => {
   try {
     const answer = await prisma.answer.create({
-      data: {
-        ...req.body,
-      },
+      data: req.body,
     });
     res.status(201).send({
       data: answer,
