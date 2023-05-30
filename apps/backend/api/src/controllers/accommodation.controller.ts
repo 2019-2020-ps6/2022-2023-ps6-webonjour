@@ -61,3 +61,33 @@ export const deleteAccommodationHandler = async (
     next(err);
   }
 };
+
+export const updateAccommodationHandler = async (
+  req: Request<
+    z.infer<typeof Schema.AccommodationWhereUniqueInputSchema>,
+    unknown,
+    Accommodation,
+    unknown
+  >,
+  res: Response<RequestWrapper<Accommodation>>,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const accommodation = await prisma.accommodation.update({
+      where: {
+        id: req.params.id,
+      },
+      data: req.body,
+    });
+    if (!accommodation) {
+      return next(new AppError('Accommodation not found', 404));
+    }
+    res.status(200).send({
+      data: accommodation,
+      message: 'Update accommodation successful',
+      status: RequestStatus.SUCCESS,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
