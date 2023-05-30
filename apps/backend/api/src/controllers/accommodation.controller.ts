@@ -130,7 +130,7 @@ export const createAccommodationHandler = async (
     const accommodation = await prisma.accommodation.create({
       data: req.body,
     });
-    res.status(200).send({
+    res.status(201).send({
       data: accommodation,
       message: 'Create accommodation successful',
       status: RequestStatus.SUCCESS,
