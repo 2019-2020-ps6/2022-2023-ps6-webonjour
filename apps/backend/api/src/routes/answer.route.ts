@@ -1,6 +1,9 @@
 import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
-import { createAnswerHandler } from '../controllers/answer.controller';
+import {
+  createAnswerHandler,
+  getAnswerByIdHandler,
+} from '../controllers/answer.controller';
 
 import { validateSplit } from '../middleware/validate';
 import { Schema } from '@webonjour/util-interface';
@@ -13,4 +16,11 @@ answerRouter.post(
   '/',
   validateSplit(undefined, undefined, Schema.AnswerCreateInputSchema),
   asyncHandler(createAnswerHandler)
+);
+
+answerRouter.get(
+  '/:id',
+  paramsParser(),
+  validateSplit(Schema.AnswerWhereUniqueInputSchema, undefined, undefined),
+  asyncHandler(getAnswerByIdHandler)
 );

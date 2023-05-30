@@ -30,3 +30,32 @@ export const createAnswerHandler = async (
     next(err);
   }
 };
+
+export const getAnswerByIdHandler = async (
+  req: Request<
+    z.infer<typeof Schema.AnswerWhereUniqueInputSchema>,
+    unknown,
+    unknown,
+    unknown
+  >,
+  res: Response<RequestWrapper<Answer>>,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const answer = await prisma.answer.findUnique({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!answer) {
+      return next(new AppError('Answer not found', 404));
+    }
+    res.status(200).send({
+      data: answer,
+      message: 'Get answer by id successful',
+      status: RequestStatus.SUCCESS,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
