@@ -6,6 +6,7 @@ import {
   deleteAccommodationHandler,
   updateAccommodationHandler,
   getAccommodationByIdHandler,
+  createAccommodationHandler,
 } from '../controllers/accommodation.controller';
 import { Schema } from '@webonjour/util-interface';
 import { validateSplit } from '../middleware/validate';
@@ -38,6 +39,12 @@ accommodationRouter.get(
   paramsParser(),
   validateSplit(Schema.AccommodationWhereUniqueInputSchema),
   asyncHandler(getAccommodationByIdHandler)
+);
+
+accommodationRouter.post(
+  '/',
+  validateSplit(undefined, undefined, Schema.AccommodationCreateInputSchema),
+  asyncHandler(createAccommodationHandler)
 );
 
 export default accommodationRouter;

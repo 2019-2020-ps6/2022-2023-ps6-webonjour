@@ -120,3 +120,22 @@ export const getAccommodationByIdHandler = async (
     next(err);
   }
 };
+
+export const createAccommodationHandler = async (
+  req: Request<unknown, unknown, Accommodation, unknown>,
+  res: Response<RequestWrapper<Accommodation>>,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const accommodation = await prisma.accommodation.create({
+      data: req.body,
+    });
+    res.status(200).send({
+      data: accommodation,
+      message: 'Create accommodation successful',
+      status: RequestStatus.SUCCESS,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
