@@ -33,7 +33,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   protected readonly document = document;
   protected readonly Array = Array;
   private tries = 0;
-  private accomodations!: Accommodation[];
+  private accommodations!: Accommodation[];
 
   public ngOnDestroy() {
     this.ngDestroyed$.next(0);
@@ -78,12 +78,12 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     this.store
       .select(selectAccommodation)
       .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((accomodations) => {
-        this.accomodations = accomodations;
+      .subscribe((accommodations) => {
+        this.accommodations = accommodations;
         if (
-          accomodations.filter(function (accomodations) {
+          accommodations.filter(function (accommodations) {
             return (
-              accomodations.title ===
+              accommodations.title ===
               'Peut répondre deux fois à la même question'
             );
           }).length > 0
@@ -152,7 +152,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     }
 
     if (
-      this.accomodations.some(
+      this.accommodations.some(
         (a) => a.title === "Afficher les images en cas d'échec"
       )
     ) {
