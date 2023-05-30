@@ -40,9 +40,16 @@
           }
         }
       },
+
       "configurations": {
         "development": {},
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/environments/src/lib/environment.ts",
+              "with": "libs/shared/environments/src/lib/environment.prod.ts"
+            }
+          ],
           "define": {
             "process.env.NODE_ENV": "\"production\""
           }
@@ -88,6 +95,7 @@
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
+      "defaultConfiguration": "production",
       "options": {
         "engine": "docker",
         "push": true,
