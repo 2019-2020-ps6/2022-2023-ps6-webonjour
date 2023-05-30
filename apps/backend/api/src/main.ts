@@ -16,6 +16,7 @@ import { queryParser } from './middleware/requestPreParsers';
 import patientRouter from './routes/patient.route';
 import accommodationRouter from './routes/accommodation.route';
 import answerRouter from './routes/answer.route';
+import familyMemberRouter from './routes/family-member.route';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');
@@ -53,10 +54,11 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/api/tts', ttsRouter);
-app.use('/api/quiz', quizRouter);
-app.use('/api/patient', patientRouter);
 app.use('/api/accommodation', accommodationRouter);
 app.use('/api/answer', answerRouter);
+app.use('/api/quizzes', quizRouter);
+app.use('/api/patients', patientRouter);
+app.use('/api/family-members', familyMemberRouter);
 
 // Unknown Routes
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
