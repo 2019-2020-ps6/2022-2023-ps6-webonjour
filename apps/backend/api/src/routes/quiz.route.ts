@@ -4,6 +4,8 @@ import {
   createQuizHandler,
   getAllQuizHandler,
   getQuizByIdHandler,
+  updateQuizHandler,
+  deleteQuizHandler,
 } from '../controllers/quiz.controller';
 import { validateSplit } from '../middleware/validate';
 import { Schema } from '@webonjour/util-interface';
@@ -19,10 +21,27 @@ quizRouter.get(
   asyncHandler(getQuizByIdHandler)
 );
 
+quizRouter.delete(
+  '/:id',
+  paramsParser(),
+  validateSplit(Schema.QuizWhereUniqueInputSchema, undefined, undefined),
+  asyncHandler(deleteQuizHandler)
+);
+
 quizRouter.post(
   '/',
   validateSplit(undefined, undefined, Schema.QuizCreateInputSchema),
   asyncHandler(createQuizHandler)
+);
+
+quizRouter.put(
+  '/:id',
+  validateSplit(
+    Schema.QuizWhereUniqueInputSchema,
+    undefined,
+    Schema.QuizUpdateInputSchema
+  ),
+  asyncHandler(updateQuizHandler)
 );
 
 export default quizRouter;
