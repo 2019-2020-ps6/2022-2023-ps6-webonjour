@@ -120,3 +120,27 @@ export const deleteAnswerHandler = async (
     next(err);
   }
 };
+
+export const getAllAnswerHandler = async (
+  req: Request<
+    unknown,
+    unknown,
+    unknown,
+    z.infer<typeof Schema.AnswerWhereInputSchema>
+  >,
+  res: Response<RequestWrapper<Answer[]>>,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const answers = await prisma.answer.findMany({
+      where: req.query,
+    });
+    res.status(200).send({
+      data: answers,
+      message: 'Get all answer successful',
+      status: RequestStatus.SUCCESS,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
