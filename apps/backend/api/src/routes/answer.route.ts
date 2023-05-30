@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler';
 import {
   createAnswerHandler,
   getAnswerByIdHandler,
+  updateAnswerHandler,
 } from '../controllers/answer.controller';
 
 import { validateSplit } from '../middleware/validate';
@@ -24,3 +25,16 @@ answerRouter.get(
   validateSplit(Schema.AnswerWhereUniqueInputSchema, undefined, undefined),
   asyncHandler(getAnswerByIdHandler)
 );
+
+answerRouter.put(
+  '/:id',
+  paramsParser(),
+  validateSplit(
+    Schema.AnswerWhereUniqueInputSchema,
+    undefined,
+    Schema.AnswerUpdateInputSchema
+  ),
+  asyncHandler(updateAnswerHandler)
+);
+
+export default answerRouter;

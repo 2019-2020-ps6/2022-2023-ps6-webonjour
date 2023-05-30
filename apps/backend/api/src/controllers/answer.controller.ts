@@ -61,3 +61,33 @@ export const getAnswerByIdHandler = async (
     next(err);
   }
 };
+
+export const updateAnswerHandler = async (
+  req: Request<
+    z.infer<typeof Schema.AnswerWhereUniqueInputSchema>,
+    unknown,
+    z.infer<typeof Schema.AnswerUpdateInputSchema>,
+    unknown
+  >,
+  res: Response<RequestWrapper<Answer>>,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const answer = await prisma.answer.update({
+      where: {
+        id: req.params.id,
+      },
+      data: req.body,
+    });
+    if (!answer) {
+      return next(new AppError('Answer not found', 404));
+    }
+    res.status(200).send({
+      data: answer,
+      message: 'Update answer successful',
+      status: RequestStatus.SUCCESS,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
