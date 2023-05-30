@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FamilyMember, Prisma } from '@prisma/client';
 import { RequestWrapper } from '@webonjour/util-interface';
+import { environment } from '@webonjour/shared/environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FamilyMemberService {
-  API_URL = 'http://localhost:3333';
+  API_URL = `http://${environment.api.host}:${environment.api.port}`;
 
   constructor(private httpClient: HttpClient) {}
 

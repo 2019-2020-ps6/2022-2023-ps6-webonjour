@@ -22,6 +22,9 @@
       "@webonjour/front-end/shared/common": [
         "libs/front-end/shared/common/src/index.ts"
       ],
+      "@webonjour/shared/environments": [
+        "libs/shared/environments/src/index.ts"
+      ],
       "@webonjour/util-interface": ["libs/util-interface/src/index.ts"]
     }
   },

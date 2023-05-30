@@ -14,10 +14,27 @@ import prisma from './utils/connectDB';
 import quizRouter from './routes/quiz.route';
 import { queryParser } from './middleware/requestPreParsers';
 import patientRouter from './routes/patient.route';
+import { environment } from '@webonjour/shared/environments';
 
-const host = config.get<string>('host');
-const port = config.get<number>('port');
+// Environment Variables
+export let host = environment.api.host;
+export let port = environment.api.port;
 
+if (config.util.getEnv('HOST')) {
+  host = config.util.getEnv('HOST');
+}
+
+if (config.util.getEnv('PORT')) {
+  port = parseInt(config.util.getEnv('PORT'));
+  if (isNaN(port)) {
+    port = environment.api.port;
+    console.warn(
+      'PORT must be a number.\nFalling back to default port: ' + port
+    );
+  }
+}
+
+// App
 const app = express();
 app.disable('x-powered-by');
 
@@ -77,6 +94,7 @@ app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
 });
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
+  console.log(`[ ready ] https://${environment.api.domain}`);
   prisma.$connect().then(() => {
     console.log(`[ ready ] Database connected`);
   });
