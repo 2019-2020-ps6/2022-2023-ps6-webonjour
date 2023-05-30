@@ -4,6 +4,7 @@ import {
   createAnswerHandler,
   getAnswerByIdHandler,
   updateAnswerHandler,
+  deleteAnswerHandler,
 } from '../controllers/answer.controller';
 
 import { validateSplit } from '../middleware/validate';
@@ -35,6 +36,13 @@ answerRouter.put(
     Schema.AnswerUpdateInputSchema
   ),
   asyncHandler(updateAnswerHandler)
+);
+
+answerRouter.delete(
+  '/:id',
+  paramsParser(),
+  validateSplit(Schema.AnswerWhereUniqueInputSchema, undefined, undefined),
+  asyncHandler(deleteAnswerHandler)
 );
 
 export default answerRouter;

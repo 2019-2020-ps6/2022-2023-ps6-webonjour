@@ -91,3 +91,32 @@ export const updateAnswerHandler = async (
     next(err);
   }
 };
+
+export const deleteAnswerHandler = async (
+  req: Request<
+    z.infer<typeof Schema.AnswerWhereUniqueInputSchema>,
+    unknown,
+    unknown,
+    unknown
+  >,
+  res: Response<RequestWrapper<Answer>>,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const answer = await prisma.answer.delete({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!answer) {
+      return next(new AppError('Answer not found', 404));
+    }
+    res.status(200).send({
+      data: answer,
+      message: 'Delete answer successful',
+      status: RequestStatus.SUCCESS,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
