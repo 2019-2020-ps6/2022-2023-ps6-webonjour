@@ -14,12 +14,12 @@ import prisma from './utils/connectDB';
 import quizRouter from './routes/quiz.route';
 import { queryParser } from './middleware/requestPreParsers';
 import patientRouter from './routes/patient.route';
-import { environment } from '@webonjour/shared/environments';
+import { environment, getEnv } from '@webonjour/shared/environments';
 import familyMemberRouter from './routes/family-member.route';
 
 // Environment Variables
-export let host = environment.api.host;
-export let port = environment.api.port;
+export let host = getEnv(config.util.getEnv('NODE_ENV')).api.host;
+export let port = getEnv(config.util.getEnv('NODE_ENV')).api.port;
 
 if (config.util.getEnv('HOST')) {
   host = config.util.getEnv('HOST');
@@ -27,6 +27,7 @@ if (config.util.getEnv('HOST')) {
 
 if (config.util.getEnv('PORT')) {
   port = parseInt(config.util.getEnv('PORT'));
+
   if (isNaN(port)) {
     port = environment.api.port;
     console.warn(
