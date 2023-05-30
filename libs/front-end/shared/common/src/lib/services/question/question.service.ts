@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Quiz, RequestWrapper } from '@webonjour/util-interface';
 import { Answer, Clue, Prisma } from '@prisma/client';
-import { environment } from '@webonjour/shared/environments';
+import { environment, protocol } from '@webonjour/shared/environments';
 
 type Question = Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
 
@@ -11,7 +11,7 @@ type Question = Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   providedIn: 'root',
 })
 export class QuestionService {
-  API_URL = `http://${environment.api.host}:${environment.api.port}`;
+  API_URL = `${protocol(environment.api.secure)}://${environment.api.domain}`;
 
   constructor(private httpClient: HttpClient) {}
 

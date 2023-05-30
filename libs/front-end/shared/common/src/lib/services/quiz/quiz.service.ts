@@ -4,7 +4,7 @@ import { RequestWrapper } from '@webonjour/util-interface';
 import { Observable } from 'rxjs';
 import { Prisma } from '@prisma/client';
 import { Quiz } from '@webonjour/util-interface';
-import { environment } from '@webonjour/shared/environments';
+import { environment, protocol } from '@webonjour/shared/environments';
 
 type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 
@@ -12,7 +12,7 @@ type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
   providedIn: 'root',
 })
 export class QuizService {
-  API_URL = `http://${environment.api.host}:${environment.api.port}`;
+  API_URL = `${protocol(environment.api.secure)}://${environment.api.domain}`;
 
   constructor(private httpClient: HttpClient) {}
 

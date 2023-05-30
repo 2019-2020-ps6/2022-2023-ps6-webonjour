@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { environment } from '@webonjour/shared/environments';
 
 @Component({
   selector: 'webonjour-header',
@@ -6,6 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  protected readonly environment = environment;
+
   @Input() showCareGiver: boolean;
 
   hover = false;

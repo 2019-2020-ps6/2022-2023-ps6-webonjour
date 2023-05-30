@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Patient, Quiz, RequestWrapper } from '@webonjour/util-interface';
 import { Accommodation, FamilyMember, Prisma } from '@prisma/client';
-import { environment } from '@webonjour/shared/environments';
+import { environment, protocol } from '@webonjour/shared/environments';
 
 type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 type Patient = Prisma.PatientGetPayload<Patient.PatientFull>;
@@ -11,7 +11,7 @@ type Patient = Prisma.PatientGetPayload<Patient.PatientFull>;
   providedIn: 'root',
 })
 export class PatientService {
-  API_URL = `http://${environment.api.host}:${environment.api.port}`;
+  API_URL = `${protocol(environment.api.secure)}://${environment.api.domain}`;
 
   constructor(private http: HttpClient) {}
 

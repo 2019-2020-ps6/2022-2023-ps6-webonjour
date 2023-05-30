@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Auth, RequestWrapper } from '@webonjour/util-interface';
 import jwt_decode from 'jwt-decode';
-import { environment } from '@webonjour/shared/environments';
+import { environment, protocol } from '@webonjour/shared/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class AuthService {
   public accessToken?: string;
   public refreshToken?: string;
   public jwtPayload?: Auth.JWTPayload;
-  AUTH_URL = `http://${environment.api.host}:${environment.api.port}`;
+  AUTH_URL = `${protocol(environment.api.secure)}://${environment.api.domain}`;
 
   // load from localstorage if found
   constructor(private httpClient: HttpClient) {

@@ -2,7 +2,7 @@
   <h1 class="title" [routerLink]="['/']">🖐WeBonjour</h1>
   <a
     class="button dark header-button"
-    href="/dashboard"
+    href="https://{{ environment.back_office.domain }}/"
     (mouseenter)="onHover(true)"
     (mouseleave)="onHover(false)"
     [ngClass]="{ hovered: hover }"
