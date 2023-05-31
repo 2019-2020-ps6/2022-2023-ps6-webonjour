@@ -28,10 +28,13 @@ export class QuizService {
     id: number,
     question: Prisma.QuestionCreateInput
   ): Observable<RequestWrapper<Quiz>> {
-    return this.httpClient.post<RequestWrapper<Quiz>>(
-      this.QUIZ_URL + id + '/question',
-      question
-    );
+    const input: Prisma.QuizUpdateInput = {
+      questions: {
+        create: question,
+      },
+    };
+
+    return this.httpClient.put<RequestWrapper<Quiz>>(this.QUIZ_URL + id, input);
   }
 
   create(quiz: Prisma.QuizCreateInput): Observable<RequestWrapper<Quiz>> {
