@@ -7,39 +7,35 @@ import { RequestWrapper } from '@webonjour/util-interface';
   providedIn: 'root',
 })
 export class FamilyMemberService {
-  API_URL = 'http://localhost:3333';
+  FAMILY_URL = 'http://localhost:8000/api/family-members/';
 
   constructor(private httpClient: HttpClient) {}
 
   getFamilyMembers() {
-    return this.httpClient.get<RequestWrapper<FamilyMember[]>>(
-      this.API_URL + '/family-members'
-    );
+    return this.httpClient.get<RequestWrapper<FamilyMember[]>>(this.FAMILY_URL);
   }
 
   getFamilyMember(id: number) {
     return this.httpClient.get<RequestWrapper<FamilyMember>>(
-      this.API_URL + '/family-members/' + id
+      this.FAMILY_URL + id
     );
   }
 
   createFamilyMember(familyMember: Prisma.FamilyMemberCreateInput) {
     return this.httpClient.post<RequestWrapper<FamilyMember>>(
-      this.API_URL + '/family-members',
+      this.FAMILY_URL,
       familyMember
     );
   }
 
   updateFamilyMember(id: number, familyMember: Prisma.FamilyMemberUpdateInput) {
     return this.httpClient.put<RequestWrapper<FamilyMember>>(
-      this.API_URL + '/family-members/' + id,
+      this.FAMILY_URL + id,
       familyMember
     );
   }
 
   deleteFamilyMember(id: number) {
-    return this.httpClient.delete<RequestWrapper<null>>(
-      this.API_URL + '/family-members/' + id
-    );
+    return this.httpClient.delete<RequestWrapper<null>>(this.FAMILY_URL + id);
   }
 }
