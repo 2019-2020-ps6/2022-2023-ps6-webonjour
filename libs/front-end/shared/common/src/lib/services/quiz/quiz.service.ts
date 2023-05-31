@@ -26,11 +26,13 @@ export class QuizService {
 
   addQuestion(
     id: number,
-    question: Prisma.QuestionCreateInput
+    questionId: number
   ): Observable<RequestWrapper<Quiz>> {
     const input: Prisma.QuizUpdateInput = {
       questions: {
-        create: question,
+        connect: {
+          id: questionId,
+        },
       },
     };
 
