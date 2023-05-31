@@ -17,6 +17,7 @@ import patientRouter from './routes/patient.route';
 import accommodationRouter from './routes/accommodation.route';
 import answerRouter from './routes/answer.route';
 import familyMemberRouter from './routes/family-member.route';
+import clueRouter from './routes/clue.route';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');
@@ -56,6 +57,7 @@ app.get('/health', (req, res) => {
 app.get('/api/tts', ttsRouter);
 app.use('/api/accommodation', accommodationRouter);
 app.use('/api/answers', answerRouter);
+app.use('/api/clues', clueRouter);
 app.use('/api/quizzes', quizRouter);
 app.use('/api/patients', patientRouter);
 app.use('/api/family-members', familyMemberRouter);
