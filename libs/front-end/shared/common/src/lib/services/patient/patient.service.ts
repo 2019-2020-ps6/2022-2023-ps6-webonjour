@@ -11,7 +11,9 @@ type Patient = Prisma.PatientGetPayload<Patient.PatientFull>;
   providedIn: 'root',
 })
 export class PatientService {
-  BASE_URL = `${protocol(environment.api.secure)}://${environment.api.domain}/api/`;
+  BASE_URL = `${protocol(environment.api.secure)}://${
+    environment.api.domain
+  }/api/`;
   PATIENT_URL = this.BASE_URL + 'patients/';
 
   constructor(private http: HttpClient) {}

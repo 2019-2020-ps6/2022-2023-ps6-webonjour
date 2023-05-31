@@ -8,7 +8,9 @@ import { environment, protocol } from '@webonjour/shared/environments';
   providedIn: 'root',
 })
 export class FamilyMemberService {
-  FAMILY_URL = `${protocol(environment.api.secure)}://${environment.api.domain}/api/family-members/`;
+  FAMILY_URL = `${protocol(environment.api.secure)}://${
+    environment.api.domain
+  }/api/family-members/`;
 
   constructor(private httpClient: HttpClient) {}
 
