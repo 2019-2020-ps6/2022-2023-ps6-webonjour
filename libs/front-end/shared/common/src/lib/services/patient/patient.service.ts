@@ -11,27 +11,23 @@ type Patient = Prisma.PatientGetPayload<Patient.PatientFull>;
   providedIn: 'root',
 })
 export class PatientService {
-  API_URL = `${protocol(environment.api.secure)}://${environment.api.domain}`;
+  BASE_URL = `${protocol(environment.api.secure)}://${environment.api.domain}/api/`;
+  PATIENT_URL = this.BASE_URL + 'patients/';
 
   constructor(private http: HttpClient) {}
 
   getPatients(): Observable<RequestWrapper<Patient[]>> {
-    return this.http.get<RequestWrapper<Patient[]>>(this.API_URL + '/patients');
+    return this.http.get<RequestWrapper<Patient[]>>(this.PATIENT_URL);
   }
 
   getPatient(id: number): Observable<RequestWrapper<Patient>> {
-    return this.http.get<RequestWrapper<Patient>>(
-      this.API_URL + '/patients/' + id
-    );
+    return this.http.get<RequestWrapper<Patient>>(this.PATIENT_URL + id);
   }
 
   createPatient(
     patient: Prisma.PatientCreateInput
   ): Observable<RequestWrapper<Patient>> {
-    return this.http.post<RequestWrapper<Patient>>(
-      this.API_URL + '/patients',
-      patient
-    );
+    return this.http.post<RequestWrapper<Patient>>(this.PATIENT_URL, patient);
   }
 
   updatePatient(
@@ -39,26 +35,24 @@ export class PatientService {
     patient: Prisma.PatientUpdateInput
   ): Observable<RequestWrapper<Patient>> {
     return this.http.put<RequestWrapper<Patient>>(
-      this.API_URL + '/patients/' + patientId,
+      this.PATIENT_URL + patientId,
       patient
     );
   }
 
   deletePatient(id: number): Observable<RequestWrapper<null>> {
-    return this.http.delete<RequestWrapper<null>>(
-      this.API_URL + '/patients/' + id
-    );
+    return this.http.delete<RequestWrapper<null>>(this.PATIENT_URL + id);
   }
 
   getPatientQuiz(id: number): Observable<RequestWrapper<Quiz[]>> {
     return this.http.get<RequestWrapper<Quiz[]>>(
-      this.API_URL + '/patients/' + id + '/quiz'
+      this.PATIENT_URL + id + '/quiz'
     );
   }
 
   addPatientQuiz(id: number, quizId: number): Observable<RequestWrapper<Quiz>> {
     return this.http.post<RequestWrapper<Quiz>>(
-      this.API_URL + '/patients/' + id + '/quiz/' + quizId,
+      this.PATIENT_URL + id + '/quiz/' + quizId,
       { quizId }
     );
   }
@@ -68,13 +62,13 @@ export class PatientService {
     quizId: number
   ): Observable<RequestWrapper<Quiz>> {
     return this.http.delete<RequestWrapper<Quiz>>(
-      this.API_URL + '/patients/' + id + '/quiz/' + quizId
+      this.PATIENT_URL + id + '/quiz/' + quizId
     );
   }
 
   getPatientFamily(id: number): Observable<RequestWrapper<FamilyMember[]>> {
     return this.http.get<RequestWrapper<FamilyMember[]>>(
-      this.API_URL + '/patients/' + id + '/family'
+      this.PATIENT_URL + id + '/family'
     );
   }
 
@@ -82,7 +76,7 @@ export class PatientService {
     id: number
   ): Observable<RequestWrapper<Accommodation[]>> {
     return this.http.get<RequestWrapper<Accommodation[]>>(
-      this.API_URL + '/patients/' + id + '/accommodation'
+      this.PATIENT_URL + id + '/accommodation'
     );
   }
 
@@ -91,7 +85,7 @@ export class PatientService {
     accommodationId: number
   ): Observable<RequestWrapper<Accommodation>> {
     return this.http.post<RequestWrapper<Accommodation>>(
-      this.API_URL + '/patients/' + id + '/accommodation',
+      this.PATIENT_URL + id + '/accommodation',
       { id: accommodationId }
     );
   }
@@ -101,13 +95,13 @@ export class PatientService {
     accommodationId: number
   ): Observable<RequestWrapper<Accommodation>> {
     return this.http.delete<RequestWrapper<Accommodation>>(
-      this.API_URL + '/patients/' + id + '/accommodation/' + accommodationId
+      this.PATIENT_URL + id + '/accommodation/' + accommodationId
     );
   }
 
   getAllAccommodations(): Observable<RequestWrapper<Accommodation[]>> {
     return this.http.get<RequestWrapper<Accommodation[]>>(
-      this.API_URL + '/accommodation'
+      this.BASE_URL + 'accommodations'
     );
   }
 }

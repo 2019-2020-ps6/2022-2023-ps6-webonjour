@@ -15,7 +15,10 @@ import quizRouter from './routes/quiz.route';
 import { queryParser } from './middleware/requestPreParsers';
 import patientRouter from './routes/patient.route';
 import { environment, getEnv } from '@webonjour/shared/environments';
+import accommodationRouter from './routes/accommodation.route';
+import answerRouter from './routes/answer.route';
 import familyMemberRouter from './routes/family-member.route';
+import clueRouter from './routes/clue.route';
 
 // Environment Variables
 export let host = getEnv(config.util.getEnv('NODE_ENV')).api.host;
@@ -70,6 +73,9 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/api/tts', ttsRouter);
+app.use('/api/accommodation', accommodationRouter);
+app.use('/api/answer', answerRouter);
+app.use('/api/clues', clueRouter);
 app.use('/api/quizzes', quizRouter);
 app.use('/api/patients', patientRouter);
 app.use('/api/family-members', familyMemberRouter);

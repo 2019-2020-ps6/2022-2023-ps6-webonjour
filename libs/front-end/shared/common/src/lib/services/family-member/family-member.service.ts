@@ -8,39 +8,35 @@ import { environment, protocol } from '@webonjour/shared/environments';
   providedIn: 'root',
 })
 export class FamilyMemberService {
-  API_URL = `${protocol(environment.api.secure)}://${environment.api.domain}`;
+  FAMILY_URL = `${protocol(environment.api.secure)}://${environment.api.domain}/api/family-members/`;
 
   constructor(private httpClient: HttpClient) {}
 
   getFamilyMembers() {
-    return this.httpClient.get<RequestWrapper<FamilyMember[]>>(
-      this.API_URL + '/family-members'
-    );
+    return this.httpClient.get<RequestWrapper<FamilyMember[]>>(this.FAMILY_URL);
   }
 
   getFamilyMember(id: number) {
     return this.httpClient.get<RequestWrapper<FamilyMember>>(
-      this.API_URL + '/family-members/' + id
+      this.FAMILY_URL + id
     );
   }
 
   createFamilyMember(familyMember: Prisma.FamilyMemberCreateInput) {
     return this.httpClient.post<RequestWrapper<FamilyMember>>(
-      this.API_URL + '/family-members',
+      this.FAMILY_URL,
       familyMember
     );
   }
 
   updateFamilyMember(id: number, familyMember: Prisma.FamilyMemberUpdateInput) {
     return this.httpClient.put<RequestWrapper<FamilyMember>>(
-      this.API_URL + '/family-members/' + id,
+      this.FAMILY_URL + id,
       familyMember
     );
   }
 
   deleteFamilyMember(id: number) {
-    return this.httpClient.delete<RequestWrapper<null>>(
-      this.API_URL + '/family-members/' + id
-    );
+    return this.httpClient.delete<RequestWrapper<null>>(this.FAMILY_URL + id);
   }
 }

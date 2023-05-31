@@ -93,8 +93,7 @@ export const addRelatedAccommodationHandler = async (
 
 export const deleteRelatedAccommodationHandler = async (
   req: Request<
-    z.infer<typeof Schema.PatientWhereUniqueInputSchema> &
-      z.infer<typeof relatedAccommodationSchema>,
+    z.infer<typeof relatedAccommodationSchema>,
     unknown,
     unknown,
     unknown
