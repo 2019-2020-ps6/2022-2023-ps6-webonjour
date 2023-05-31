@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 
 import { QuizService } from './quiz.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
 
 describe('QuizService', () => {
   let service: QuizService;
@@ -10,7 +9,6 @@ describe('QuizService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [fakeBackendProvider],
     });
     service = TestBed.inject(QuizService);
   });
