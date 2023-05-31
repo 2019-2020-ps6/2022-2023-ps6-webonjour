@@ -18,7 +18,6 @@ export class QuestionEditGeneralComponent implements OnInit {
   form!: FormGroup;
   loading = false;
   submitted = false;
-  question!: Prisma.QuestionUpdateInput;
   questionId!: number;
   quizId!: number;
   questionTypes = Object.values(QuestionType);
@@ -76,6 +75,15 @@ export class QuestionEditGeneralComponent implements OnInit {
   // convenience getter for easy access to form fields
   get formControls() {
     return this.form.controls;
+  }
+
+  get question(): Prisma.QuestionUpdateInput {
+    console.log(this.formControls['image'].value);
+    return {
+      title: this.formControls['title'].value as string,
+      image: this.formControls['image'].value as string,
+      type: this.formControls['questionType'].value as QuestionType,
+    };
   }
 
   onSubmit() {
