@@ -56,7 +56,7 @@ app.get('/health', (req, res) => {
 
 app.get('/api/tts', ttsRouter);
 app.use('/api/accommodation', accommodationRouter);
-app.use('/api/answer', answerRouter);
+app.use('/api/answers', answerRouter);
 app.use('/api/clues', clueRouter);
 app.use('/api/quizzes', quizRouter);
 app.use('/api/patients', patientRouter);
