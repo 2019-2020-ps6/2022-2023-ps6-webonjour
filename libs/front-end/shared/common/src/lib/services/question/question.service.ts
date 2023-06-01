@@ -11,19 +11,20 @@ type Question = Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   providedIn: 'root',
 })
 export class QuestionService {
-  API_URL = `${protocol(environment.api.secure)}://${environment.api.domain}`;
+  BASE_URL = `${protocol(environment.api.secure)}://${environment.api.domain}/api/`;
+  QUESTION_URL = this.BASE_URL + 'questions/';
+  CLUE_URL = this.BASE_URL + 'clues/';
+  ANSWER_URL = this.BASE_URL + 'answers/';
 
   constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<RequestWrapper<Question[]>> {
-    return this.httpClient.get<RequestWrapper<Question[]>>(
-      this.API_URL + '/question'
-    );
+    return this.httpClient.get<RequestWrapper<Question[]>>(this.QUESTION_URL);
   }
 
   getById(id: number): Observable<RequestWrapper<Question>> {
     return this.httpClient.get<RequestWrapper<Question>>(
-      this.API_URL + '/question/' + id
+      this.QUESTION_URL + id
     );
   }
 
@@ -31,15 +32,13 @@ export class QuestionService {
     question: Prisma.QuestionCreateInput
   ): Observable<RequestWrapper<Question>> {
     return this.httpClient.post<RequestWrapper<Question>>(
-      this.API_URL + '/question',
+      this.QUESTION_URL,
       question
     );
   }
 
   delete(id: number) {
-    return this.httpClient.delete<RequestWrapper<null>>(
-      this.API_URL + '/question/' + id
-    );
+    return this.httpClient.delete<RequestWrapper<null>>(this.QUESTION_URL + id);
   }
 
   update(
@@ -47,7 +46,7 @@ export class QuestionService {
     question: Prisma.QuestionUpdateInput
   ): Observable<RequestWrapper<Question>> {
     return this.httpClient.put<RequestWrapper<Question>>(
-      this.API_URL + '/question/' + id,
+      this.QUESTION_URL + id,
       question
     );
   }
@@ -56,7 +55,7 @@ export class QuestionService {
     answer: Prisma.AnswerCreateInput
   ): Observable<RequestWrapper<Answer>> {
     return this.httpClient.post<RequestWrapper<Answer>>(
-      this.API_URL + '/answer',
+      this.ANSWER_URL,
       answer
     );
   }
@@ -66,40 +65,31 @@ export class QuestionService {
     answer: Prisma.AnswerUpdateInput
   ): Observable<RequestWrapper<Answer>> {
     return this.httpClient.put<RequestWrapper<Answer>>(
-      this.API_URL + '/answer/' + id,
+      this.ANSWER_URL + id,
       answer
     );
   }
 
   deleteAnswer(id: number) {
-    return this.httpClient.delete<RequestWrapper<null>>(
-      this.API_URL + '/answer/' + id
-    );
+    return this.httpClient.delete<RequestWrapper<null>>(this.ANSWER_URL + id);
   }
 
   getAnswerById(answerId: number) {
     return this.httpClient.get<RequestWrapper<Answer>>(
-      this.API_URL + '/answer/' + answerId
+      this.ANSWER_URL + answerId
     );
   }
 
   deleteClue(id: number) {
-    return this.httpClient.delete<RequestWrapper<null>>(
-      this.API_URL + '/clue/' + id
-    );
+    return this.httpClient.delete<RequestWrapper<null>>(this.CLUE_URL + id);
   }
 
   getClueById(clueId: number) {
-    return this.httpClient.get<RequestWrapper<Clue>>(
-      this.API_URL + '/clue/' + clueId
-    );
+    return this.httpClient.get<RequestWrapper<Clue>>(this.CLUE_URL + clueId);
   }
 
   createClue(clue: Prisma.ClueCreateInput): Observable<RequestWrapper<Clue>> {
-    return this.httpClient.post<RequestWrapper<Clue>>(
-      this.API_URL + '/clue',
-      clue
-    );
+    return this.httpClient.post<RequestWrapper<Clue>>(this.CLUE_URL, clue);
   }
 
   updateClue(
@@ -107,7 +97,7 @@ export class QuestionService {
     clue: Prisma.ClueUpdateInput
   ): Observable<RequestWrapper<Clue>> {
     return this.httpClient.put<RequestWrapper<Clue>>(
-      this.API_URL + '/clue/' + questionId,
+      this.CLUE_URL + questionId,
       clue
     );
   }
