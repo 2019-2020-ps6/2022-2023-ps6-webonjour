@@ -32,6 +32,7 @@ export class QuestionClueComponent implements AfterViewInit {
 
   refresh() {
     this.questionService.getById(this.questionId).subscribe((question) => {
+      question.data.clues.sort((a, b) => a.id - b.id);
       this.dataSource = new MatTableDataSource<Clue>(question.data.clues);
       this.dataSource.paginator = this.paginator;
     });

@@ -66,7 +66,7 @@ export class QuestionClueAddPopupComponent implements OnInit {
         });
     } else {
       this.questionService
-        .updateClue(this.data.questionId, {
+        .updateClue(this.data.clueId, {
           text: (this.formControls['text'].value as string) || '',
           image: (this.formControls['image'].value as string) || '',
         })

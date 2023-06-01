@@ -32,6 +32,7 @@ export class QuestionAnswerComponent implements AfterViewInit {
 
   refresh() {
     this.questionService.getById(this.questionId).subscribe((question) => {
+      question.data.answers.sort((a, b) => a.id - b.id);
       this.dataSource = new MatTableDataSource<Answer>(question.data.answers);
       this.dataSource.paginator = this.paginator;
     });

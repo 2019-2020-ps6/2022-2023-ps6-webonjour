@@ -39,7 +39,7 @@ export class QuestionEditGeneralComponent implements OnInit {
     this.form = this.formBuilder.group({
       title: ['', [Validators.required]],
       image: [null],
-      questionType: new FormControl(this.questionTypes[0], Validators.required),
+      type: new FormControl(this.questionTypes[0], Validators.required),
     });
     this.activatedRoute.params.subscribe((params) => {
       if (params['questionId']) {
@@ -51,7 +51,7 @@ export class QuestionEditGeneralComponent implements OnInit {
             this.form.patchValue(
               {
                 title: question.data.title,
-                questionType: question.data.type,
+                type: question.data.type,
                 image: question.data.image,
               },
               {
@@ -86,7 +86,7 @@ export class QuestionEditGeneralComponent implements OnInit {
           .create({
             title: this.formControls['title'].value as string,
             image: this.formControls['image'].value as string,
-            type: this.formControls['questionType'].value as QuestionType,
+            type: this.formControls['type'].value as QuestionType,
             quiz: {
               connect: {
                 id: this.quizId,
@@ -97,18 +97,22 @@ export class QuestionEditGeneralComponent implements OnInit {
             this.form.patchValue({
               title: question.data.title,
               image: question.data.image,
-              questionType: question.data.type,
+              type: question.data.type,
             });
             this.dialog.closeAll();
           });
       } else {
         this.questionService
-          .update(this.questionId, this.question)
+          .update(this.questionId, {
+            title: this.formControls['title'].value as string,
+            image: this.formControls['image'].value as string,
+            type: this.formControls['type'].value as QuestionType,
+          })
           .subscribe((question) => {
             this.form.patchValue({
               title: question.data.title,
               image: question.data.image,
-              questionType: question.data.type,
+              type: question.data.type,
             });
             this.dialog.closeAll();
           });
