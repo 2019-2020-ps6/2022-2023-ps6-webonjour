@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export const registerHandler = async (
-  req: Request<unknown, unknown, Auth.RegisterUserSchema['body']>,
+  req: Request<unknown, unknown, Auth.RegisterUserSchema>,
   res: Response<RequestWrapper<Partial<User> | null>>,
   next: NextFunction
 ): Promise<void> => {
@@ -60,7 +60,7 @@ export const registerHandler = async (
 };
 
 export const loginHandler = async (
-  req: Request<unknown, unknown, Auth.LoginSchema['body']>,
+  req: Request<unknown, unknown, Auth.LoginSchema>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -104,7 +104,7 @@ export const loginHandler = async (
 };
 
 export const refreshTokenHandler = async (
-  req: Request<unknown, unknown, Auth.RefreshTokenSchema['body']>,
+  req: Request<unknown, unknown, Auth.RefreshTokenSchema>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
