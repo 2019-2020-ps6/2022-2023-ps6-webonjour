@@ -2,16 +2,15 @@ import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import {
   createQuestionHandler,
-  getQuestionByIdHandler,
-  updateQuestionHandler,
   deleteQuestionHandler,
   getAllQuestionHandler,
+  getQuestionByIdHandler,
+  updateQuestionHandler,
 } from '../controllers/question.controller';
 
 import { validateSplit } from '../middleware/validate';
 import { Schema } from '@webonjour/util-interface';
 import { paramsParser } from '../middleware/requestPreParsers';
-import { AnyZodObject, z } from 'zod';
 
 const questionRouter = Router();
 

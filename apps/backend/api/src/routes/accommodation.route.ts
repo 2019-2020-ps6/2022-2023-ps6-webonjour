@@ -2,11 +2,11 @@ import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 
 import {
-  getAllAccommodationHandler,
-  deleteAccommodationHandler,
-  updateAccommodationHandler,
-  getAccommodationByIdHandler,
   createAccommodationHandler,
+  deleteAccommodationHandler,
+  getAccommodationByIdHandler,
+  getAllAccommodationHandler,
+  updateAccommodationHandler,
 } from '../controllers/accommodation.controller';
 import { Schema } from '@webonjour/util-interface';
 import { validateSplit } from '../middleware/validate';

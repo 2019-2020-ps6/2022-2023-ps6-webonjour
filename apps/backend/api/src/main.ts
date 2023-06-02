@@ -19,6 +19,7 @@ import answerRouter from './routes/answer.route';
 import familyMemberRouter from './routes/family-member.route';
 import clueRouter from './routes/clue.route';
 import questionRouter from './routes/question.route';
+import authRoute from './routes/auth.route';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');
@@ -63,6 +64,7 @@ app.use('/api/questions', questionRouter);
 app.use('/api/quizzes', quizRouter);
 app.use('/api/patients', patientRouter);
 app.use('/api/family-members', familyMemberRouter);
+app.use('/api/auth', authRoute);
 
 // Unknown Routes
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
