@@ -11,7 +11,9 @@ type Question = Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   providedIn: 'root',
 })
 export class QuestionService {
-  BASE_URL = `${protocol(environment.api.secure)}://${environment.api.domain}/api/`;
+  BASE_URL = `${protocol(environment.api.secure)}://${
+    environment.api.domain
+  }/api/`;
   QUESTION_URL = this.BASE_URL + 'questions/';
   CLUE_URL = this.BASE_URL + 'clues/';
   ANSWER_URL = this.BASE_URL + 'answers/';
