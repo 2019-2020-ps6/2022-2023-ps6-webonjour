@@ -17,7 +17,6 @@ import { QuizResultsComponent } from './components/quiz-view/quiz-results/quiz-r
 import { MessageComponent } from './components/quiz-view/message/message.component';
 import { HelpPopupComponent } from './components/quiz-view/help-popup/help-popup.component';
 import { HttpClientModule } from '@angular/common/http';
-import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromGame from './reducers/game/game.reducer';
@@ -68,7 +67,6 @@ import { NgOptimizedImage } from '@angular/common';
     }),
     NgOptimizedImage,
   ],
-  providers: [fakeBackendProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

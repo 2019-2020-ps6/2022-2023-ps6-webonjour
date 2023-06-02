@@ -2,11 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import * as GameActions from './game.actions';
 import { GameEffects } from './game.effects';
-import {
-  fakeBackendProvider,
-  patientMocks,
-  quizMocks,
-} from '@webonjour/data-access-fake-backend';
+import { patientMocks, quizMocks } from '@webonjour/data-access-mocks';
 import * as fromGame from './game.reducer';
 import { GameState } from './game.reducer';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -26,7 +22,6 @@ describe('GameEffects', () => {
         GameEffects,
         provideMockActions(() => actions$),
         provideMockStore({ initialState: fromGame.initialGameState }),
-        fakeBackendProvider,
       ],
     });
     effects = TestBed.inject(GameEffects);
