@@ -63,10 +63,6 @@ export interface LoginResponse {
   refreshToken: string;
 }
 
-export interface RefreshResponse {
-  refreshToken: string;
-}
-
 export interface JWTPayload
   extends Omit<User, 'password'>,
     Record<string, unknown> {

@@ -404,7 +404,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function refresh() {
-      const refreshToken = (body as Auth.RefreshResponse).refreshToken;
+      const refreshToken = (body as Auth.LoginResponse).refreshToken;
       if (refreshToken == response.refreshToken) {
         return ok(response);
       }

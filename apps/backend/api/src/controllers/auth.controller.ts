@@ -61,7 +61,7 @@ export const registerHandler = async (
 
 export const loginHandler = async (
   req: Request<unknown, unknown, Auth.LoginSchema>,
-  res: Response,
+  res: Response<RequestWrapper<Auth.LoginResponse | null>>,
   next: NextFunction
 ): Promise<void> => {
   try {
@@ -95,8 +95,12 @@ export const loginHandler = async (
 
     // Send Access Token
     res.status(200).json({
-      accessToken,
-      refreshToken,
+      status: RequestStatus.SUCCESS,
+      data: {
+        accessToken,
+        refreshToken,
+      },
+      message: 'Login successful',
     });
   } catch (err: unknown) {
     next(err);
@@ -105,7 +109,7 @@ export const loginHandler = async (
 
 export const refreshTokenHandler = async (
   req: Request<unknown, unknown, Auth.RefreshTokenSchema>,
-  res: Response,
+  res: Response<RequestWrapper<Auth.LoginResponse | null>>,
   next: NextFunction
 ): Promise<void> => {
   try {
@@ -141,8 +145,12 @@ export const refreshTokenHandler = async (
 
     // Send Access Token
     res.status(200).json({
-      accessToken,
-      refreshToken,
+      status: RequestStatus.SUCCESS,
+      data: {
+        accessToken,
+        refreshToken,
+      },
+      message: 'Token refreshed successfully',
     });
   } catch (err: unknown) {
     next(err);
