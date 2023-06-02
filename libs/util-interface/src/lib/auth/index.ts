@@ -34,27 +34,12 @@ export const changeUserPasswordSchema = object({
   path: ['newPasswordConfirm'],
   message: 'Passwords do not match',
 });
-
-export const createUserSchema = object({
-  username: string({ required_error: 'Username is required' }),
-  email: string({ required_error: 'Email is required' }).email('Invalid email'),
-  password: string({ required_error: 'Password is required' })
-    .min(8, 'Password must be more than 8 characters')
-    .max(32, 'Password must be less than 32 characters'),
-  passwordConfirm: string({ required_error: 'Please confirm your password' }),
-  permissions: string({ required_error: 'Permissions are required' }).array(),
-}).refine((data) => data.password === data.passwordConfirm, {
-  path: ['passwordConfirm'],
-  message: 'Passwords do not match',
-});
-
 export const refreshTokenSchema = object({
   refreshToken: string({ required_error: 'Refresh token is required' }),
 });
 
 export type RefreshTokenSchema = TypeOf<typeof refreshTokenSchema>;
-export type CreateUserSchema = TypeOf<typeof createUserSchema>;
-export type ChangeUserPasswordSchema = TypeOf<typeof changeUserPasswordSchema>;
+export type ChangeUserPasswordSchema = TypeOf<typeof changeUserPasswordSchema>; //TODO: Must be used in user.controller.ts
 export type RegisterUserSchema = TypeOf<typeof registerUserSchema>;
 export type LoginSchema = TypeOf<typeof loginUserSchema>;
 
