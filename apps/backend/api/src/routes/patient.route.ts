@@ -33,7 +33,8 @@ const patientRouter = Router();
 
 patientRouter.get(
   '/',
-  validateSplit(undefined, undefined, Schema.PatientWhereInputSchema),
+  paramsParser(),
+  validateSplit(Schema.PatientWhereInputSchema, undefined, undefined),
   asyncHandler(getAllPatientHandler)
 );
 
@@ -103,8 +104,7 @@ export const relatedQuizSchema: z.ZodType = (
 
 patientRouter.post(
   '/:id/quiz/:quizId',
-  paramsParser(),
-  validateSplit(relatedQuizSchema, undefined, undefined),
+  validateSplit(undefined, undefined, relatedQuizSchema),
   asyncHandler(addRelatedQuizHandler)
 );
 
@@ -129,8 +129,7 @@ export const relatedFamilyMemberSchema: z.ZodType = (
 
 patientRouter.post(
   '/:id/familyMember/:familyMemberId',
-  paramsParser(),
-  validateSplit(relatedFamilyMemberSchema, undefined, undefined),
+  validateSplit(undefined, undefined, relatedFamilyMemberSchema),
   asyncHandler(addRelatedFamilyMemberHandler)
 );
 

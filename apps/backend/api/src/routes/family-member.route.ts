@@ -14,7 +14,8 @@ import { paramsParser } from '../middleware/requestPreParsers';
 const familyMemberRouter = Router();
 familyMemberRouter.get(
   '/',
-  validateSplit(undefined, undefined, Schema.FamilyMemberWhereInputSchema),
+  paramsParser(),
+  validateSplit(Schema.FamilyMemberWhereInputSchema, undefined, undefined),
   asyncHandler(getAllFamilyMemberHandler)
 );
 

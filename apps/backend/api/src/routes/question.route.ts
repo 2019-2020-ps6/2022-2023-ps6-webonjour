@@ -47,7 +47,7 @@ questionRouter.delete(
 
 questionRouter.get(
   '/',
-  validateSplit(undefined, undefined, Schema.QuestionWhereInputSchema),
+  validateSplit(Schema.QuestionWhereInputSchema, undefined, undefined),
   asyncHandler(getAllQuestionHandler)
 );
 
