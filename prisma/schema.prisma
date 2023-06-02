@@ -88,10 +88,9 @@ model Patient {
 }
 
 model Quiz {
-  id        Int          @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   title     String
   imageUrl  String
-  stage     DiseaseStage
   questions Question[]
   isPrivate Boolean
   patients  Patient[]
