@@ -18,7 +18,6 @@ export class QuizListComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'Nom du Quiz',
     'Nombre de questions',
-    'stage',
     'isPrivate',
   ];
   dataSource = new MatTableDataSource<Quiz>([]);

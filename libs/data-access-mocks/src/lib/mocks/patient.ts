@@ -152,12 +152,16 @@ export const accommodationMocks = [
     id: '10',
     title: 'Active le TTS (prononciation du texte)',
   },
+  {
+    id: '11',
+    title: "Affiche l'aide",
+  },
 ];
 
 export const accommodationPatientMocks: Record<string, string[]> = {
   '1': ['1', '2', '7'],
   '2': ['1', '2', '3', '8', '9'],
-  '3': ['1', '2', '3', '4', '5', '6', '8', '9'],
+  '3': ['1', '2', '3', '4', '5', '6', '8', '9', '10', '11'],
   '4': ['1', '5', '6', '8', '9'],
 };
 

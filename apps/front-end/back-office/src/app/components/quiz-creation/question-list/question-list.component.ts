@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { DiseaseStage, Prisma, Question } from '@prisma/client';
+import { Prisma, Question } from '@prisma/client';
 import { Quiz } from '@webonjour/util-interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -34,7 +34,6 @@ export class QuestionListComponent implements AfterViewInit {
       imageUrl: '',
       isPrivate: false,
       questions: [],
-      stage: DiseaseStage.STAGE_6,
     };
     this.route.params.subscribe((params) => {
       this.quizService.getById(params['id']).subscribe((quiz) => {

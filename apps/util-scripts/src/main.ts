@@ -13,7 +13,6 @@ export async function main() {
       data: {
         id: quiz.id,
         title: quiz.title,
-        stage: quiz.stage,
         isPrivate: quiz.isPrivate,
         imageUrl: quiz.imageUrl,
         questions: {
