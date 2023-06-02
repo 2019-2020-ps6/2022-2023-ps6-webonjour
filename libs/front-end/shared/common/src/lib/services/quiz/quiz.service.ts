@@ -11,40 +11,39 @@ type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
   providedIn: 'root',
 })
 export class QuizService {
-  API_URL = 'http://localhost:3333';
+  API_URL = 'http://localhost:8000/api';
+  QUIZ_URL = this.API_URL + '/quizzes/';
 
   constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<RequestWrapper<Quiz[]>> {
-    return this.httpClient.get<RequestWrapper<Quiz[]>>(this.API_URL + '/quiz');
+    return this.httpClient.get<RequestWrapper<Quiz[]>>(this.QUIZ_URL);
   }
 
   getById(id: number): Observable<RequestWrapper<Quiz>> {
-    return this.httpClient.get<RequestWrapper<Quiz>>(
-      this.API_URL + '/quiz/' + id
-    );
+    return this.httpClient.get<RequestWrapper<Quiz>>(this.QUIZ_URL + id);
   }
 
   addQuestion(
     id: number,
-    question: Prisma.QuestionCreateInput
+    questionId: number
   ): Observable<RequestWrapper<Quiz>> {
-    return this.httpClient.post<RequestWrapper<Quiz>>(
-      this.API_URL + '/quiz/' + id + '/question',
-      question
-    );
+    const input: Prisma.QuizUpdateInput = {
+      questions: {
+        connect: {
+          id: questionId,
+        },
+      },
+    };
+
+    return this.httpClient.put<RequestWrapper<Quiz>>(this.QUIZ_URL + id, input);
   }
 
   create(quiz: Prisma.QuizCreateInput): Observable<RequestWrapper<Quiz>> {
-    return this.httpClient.post<RequestWrapper<Quiz>>(
-      this.API_URL + '/quiz',
-      quiz
-    );
+    return this.httpClient.post<RequestWrapper<Quiz>>(this.QUIZ_URL, quiz);
   }
 
   delete(id: number) {
-    return this.httpClient.delete<RequestWrapper<null>>(
-      this.API_URL + '/quiz/' + id
-    );
+    return this.httpClient.delete<RequestWrapper<null>>(this.QUIZ_URL + id);
   }
 }

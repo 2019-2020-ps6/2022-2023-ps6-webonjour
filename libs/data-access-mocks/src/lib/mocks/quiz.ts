@@ -1,4 +1,4 @@
-import { DiseaseStage, Prisma, QuestionType } from '@prisma/client';
+import { Prisma, QuestionType } from '@prisma/client';
 import { Quiz } from '@webonjour/util-interface';
 
 export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
@@ -6,7 +6,6 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
     id: 1,
     title: 'Les chevaux célèbres',
     imageUrl: 'https://cf.ozeliurs.com/tmp/horse.png',
-    stage: DiseaseStage.STAGE_3,
     isPrivate: false,
     questions: [
       {
@@ -192,7 +191,6 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
     id: 2,
     title: 'Quiz sur les Templiers',
     imageUrl: 'https://cf.ozeliurs.com/tmp/temp.png',
-    stage: DiseaseStage.STAGE_4,
     isPrivate: false,
     questions: [
       {
@@ -316,7 +314,6 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
     id: 3,
     title: 'Quiz autobiographique de Marcelino',
     imageUrl: 'https://cf.ozeliurs.com/tmp/person.png',
-    stage: DiseaseStage.STAGE_4,
     isPrivate: true,
     questions: [
       {
@@ -477,7 +474,6 @@ export const quizList: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[] = [
     id: 4,
     title: 'Actions du quotidien',
     imageUrl: 'https://cf.ozeliurs.com/tmp/person.png',
-    stage: DiseaseStage.STAGE_4,
     isPrivate: true,
     questions: [
       {

@@ -15,12 +15,7 @@ import { Prisma } from '@prisma/client';
   templateUrl: './patient-edit-quiz-add-popup.component.html',
 })
 export class PatientEditQuizAddPopupComponent implements AfterViewInit {
-  displayedColumns: string[] = [
-    'Nom du Quiz',
-    'Nombre de questions',
-    'stage',
-    'action',
-  ];
+  displayedColumns: string[] = ['Nom du Quiz', 'Nombre de questions', 'action'];
   dataSource = new MatTableDataSource<
     Prisma.QuizGetPayload<Quiz.QuizWithQuestions>
   >([]);

@@ -23,7 +23,6 @@ export class PatientEditQuizComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'Nom du Quiz',
     'Nombre de questions',
-    'stage',
     'isPrivate',
     'actions',
   ];
