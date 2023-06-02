@@ -78,13 +78,12 @@ patientRouter.get(
 export const relatedAccommodationSchema: z.ZodType = (
   Schema.PatientWhereUniqueInputSchema as AnyZodObject
 ).extend({
-  accommodationId: z.number().optional(),
+  accommodationId: z.number(),
 });
 
 patientRouter.post(
-  '/:id/accommodation/:accommodationId',
-  paramsParser(),
-  validateSplit(relatedAccommodationSchema, undefined, undefined),
+  '/:id/accommodation',
+  validateSplit(undefined, undefined, relatedAccommodationSchema),
   asyncHandler(addRelatedAccommodationHandler)
 );
 

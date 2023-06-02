@@ -85,7 +85,7 @@ export class PatientService {
   ): Observable<RequestWrapper<Accommodation>> {
     return this.http.post<RequestWrapper<Accommodation>>(
       this.PATIENT_URL + id + '/accommodation',
-      { id: accommodationId }
+      { id, accommodationId }
     );
   }
 
