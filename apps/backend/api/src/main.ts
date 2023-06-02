@@ -20,8 +20,6 @@ import familyMemberRouter from './routes/family-member.route';
 import clueRouter from './routes/clue.route';
 import questionRouter from './routes/question.route';
 import authRoute from './routes/auth.route';
-import { AnyZodObject, z } from 'zod';
-import { Schema } from '@webonjour/util-interface';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');

@@ -4,7 +4,7 @@ import {
   refreshTokenHandler,
   registerHandler,
 } from '../controllers/auth.controller';
-import { validate, validateSplit } from '../middleware/validate';
+import { validateSplit } from '../middleware/validate';
 import { Auth } from '@webonjour/util-interface';
 import asyncHandler from 'express-async-handler';
 
