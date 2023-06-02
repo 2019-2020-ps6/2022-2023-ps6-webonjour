@@ -1,4 +1,11 @@
 {
   "port": "PORT",
-  "host": "HOST"
+  "host": "HOST",
+  "privateKey": "PRIVATE_KEY",
+  "publicKey": "PUBLIC_KEY",
+  "accessTokenExpiresIn": "ACCESS_TOKEN_EXPIRES_IN",
+  "refreshTokenExpiresIn": "REFRESH_TOKEN_EXPIRES_IN",
+  "superAdminEmail": "SUPER_ADMIN_EMAIL",
+  "superAdminPassword": "SUPER_ADMIN_PASSWORD",
+  "superAdminName": "SUPER_ADMIN_NAME"
 }
