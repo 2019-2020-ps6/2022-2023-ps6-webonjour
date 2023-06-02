@@ -67,7 +67,7 @@ export class PatientService {
 
   getPatientFamily(id: number): Observable<RequestWrapper<FamilyMember[]>> {
     return this.http.get<RequestWrapper<FamilyMember[]>>(
-      this.PATIENT_URL + id + '/family'
+      this.PATIENT_URL + id + '/familyMember'
     );
   }
 
