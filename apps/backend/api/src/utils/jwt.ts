@@ -26,7 +26,6 @@ export const verifyJwt = <T>(token: string): T | null => {
 };
 
 // Sign Token
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const signToken = async (user: User) => {
   const payload: Auth.JWTPayload = {
     sub: user.id.toString(),
