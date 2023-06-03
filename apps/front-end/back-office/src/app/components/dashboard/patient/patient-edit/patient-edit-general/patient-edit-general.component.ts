@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PatientService } from '@webonjour/front-end/shared/common';
+import {
+  fileToBase64,
+  PatientService,
+} from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DiseaseStage } from '@prisma/client';
@@ -60,7 +63,7 @@ export class PatientEditGeneralComponent implements OnInit {
     return this.form.controls;
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (!this.patientId) {
       this.patientService
         .createPatient({
@@ -69,7 +72,9 @@ export class PatientEditGeneralComponent implements OnInit {
           age: this.formControls['age'].value,
           diseaseStage: this.formControls['disease_stage'].value,
           description: this.formControls['description'].value,
-          profilePictureUrl: this.formControls['image'].value,
+          profilePictureUrl: await fileToBase64(
+            this.formControls['image'].value
+          ),
           floor: this.formControls['floor'].value,
         })
         .subscribe((patient) => {
