@@ -47,7 +47,7 @@ clueRouter.delete(
 
 clueRouter.get(
   '/',
-  validateSplit(Schema.ClueWhereInputSchema, undefined, undefined),
+  validateSplit(undefined, Schema.ClueWhereInputSchema, undefined),
   asyncHandler(getAllClueHandler)
 );
 
