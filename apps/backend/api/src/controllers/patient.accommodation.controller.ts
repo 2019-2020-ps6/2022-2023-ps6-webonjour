@@ -76,7 +76,7 @@ export const addRelatedAccommodationHandler = async (
       data: {
         accommodations: {
           connect: {
-            id: req.params.id,
+            id: req.params.accommodationId,
           },
         },
       },
