@@ -33,7 +33,8 @@ const patientRouter = Router();
 
 patientRouter.get(
   '/',
-  validateSplit(undefined, undefined, Schema.PatientWhereInputSchema),
+  paramsParser(),
+  validateSplit(undefined, Schema.PatientWhereInputSchema, undefined),
   asyncHandler(getAllPatientHandler)
 );
 
@@ -98,12 +99,11 @@ patientRouter.delete(
 export const relatedQuizSchema: z.ZodType = (
   Schema.PatientWhereUniqueInputSchema as AnyZodObject
 ).extend({
-  quizId: z.number().optional(),
+  quizId: z.number(),
 });
 
 patientRouter.post(
   '/:id/quiz/:quizId',
-  paramsParser(),
   validateSplit(relatedQuizSchema, undefined, undefined),
   asyncHandler(addRelatedQuizHandler)
 );
@@ -124,12 +124,11 @@ patientRouter.get(
 export const relatedFamilyMemberSchema: z.ZodType = (
   Schema.PatientWhereUniqueInputSchema as AnyZodObject
 ).extend({
-  familyMemberId: z.number().optional(),
+  familyMemberId: z.number(),
 });
 
 patientRouter.post(
   '/:id/familyMember/:familyMemberId',
-  paramsParser(),
   validateSplit(relatedFamilyMemberSchema, undefined, undefined),
   asyncHandler(addRelatedFamilyMemberHandler)
 );
