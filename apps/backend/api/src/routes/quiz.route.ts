@@ -13,7 +13,11 @@ import { paramsParser } from '../middleware/requestPreParsers';
 
 const quizRouter = Router();
 
-quizRouter.get('/', asyncHandler(getAllQuizHandler));
+quizRouter.get(
+  '/',
+  validateSplit(undefined, Schema.QuizWhereInputSchema, undefined),
+  asyncHandler(getAllQuizHandler)
+);
 quizRouter.get(
   '/:id',
   paramsParser(),
