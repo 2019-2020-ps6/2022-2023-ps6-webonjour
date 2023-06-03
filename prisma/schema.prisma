@@ -45,14 +45,15 @@ enum QuestionType {
 }
 
 model Question {
-  id      Int          @id @default(autoincrement())
-  title   String
-  image   String?
-  answers Answer[]
-  clues   Clue[]
-  type    QuestionType
-  quiz    Quiz         @relation(fields: [quizId], references: [id])
-  quizId  Int
+  id          Int              @id @default(autoincrement())
+  title       String
+  image       String?
+  answers     Answer[]
+  clues       Clue[]
+  type        QuestionType
+  quiz        Quiz             @relation(fields: [quizId], references: [id])
+  quizId      Int
+  HistoryItem QuestionResult[]
 }
 
 model Clue {
@@ -85,15 +86,17 @@ model Patient {
   accommodations    Accommodation[]
   quizzes           Quiz[]
   users             User[]
+  QuizSession       QuizSession[]
 }
 
 model Quiz {
-  id        Int        @id @default(autoincrement())
-  title     String
-  imageUrl  String?
-  questions Question[]
-  isPrivate Boolean
-  patients  Patient[]
+  id          Int           @id @default(autoincrement())
+  title       String
+  imageUrl    String?
+  questions   Question[]
+  isPrivate   Boolean
+  patients    Patient[]
+  QuizSession QuizSession[]
 }
 
 model FamilyMember {
@@ -113,4 +116,27 @@ model Accommodation {
   id       Int       @id @default(autoincrement())
   title    String
   patients Patient[]
+}
+
+model QuizSession {
+  id         Int              @id @default(autoincrement())
+  quiz       Quiz             @relation(fields: [quizId], references: [id])
+  quizId     Int
+  patient    Patient          @relation(fields: [patientId], references: [id])
+  patientId  Int
+  questions  QuestionResult[]
+  isFinished Boolean
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+  deletedAt  DateTime         @default(now())
+}
+
+model QuestionResult {
+  id            Int          @id @default(autoincrement())
+  question      Question     @relation(fields: [questionId], references: [id])
+  questionId    Int
+  isCorrect     Boolean
+  timeTaken     Int
+  QuizSession   QuizSession? @relation(fields: [quizSessionId], references: [id])
+  quizSessionId Int?
 }
