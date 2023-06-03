@@ -1,26 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import {
   PatientService,
   QuizService,
 } from '@webonjour/front-end/shared/common';
-import { DiseaseStage, Prisma } from '@prisma/client';
-
-export function validateStage(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const allowed = ['3', '4', '5', '6', '7'];
-    const forbidden = !allowed.includes(control.value);
-    return forbidden ? { invalidStage: { value: control.value } } : null;
-  };
-}
+import { Prisma } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-quiz-create',
@@ -45,7 +30,6 @@ export class QuizCreateComponent implements OnInit {
         title: ['', [Validators.required, Validators.minLength(6)]],
         description: ['', [Validators.required]],
         image23: [null, [Validators.required]],
-        recommended_stage: [null, [Validators.required]],
       },
       {}
     );
@@ -61,10 +45,8 @@ export class QuizCreateComponent implements OnInit {
   }
 
   getQuiz(): Prisma.QuizCreateInput {
-    const stage = this.form.controls['recommended_stage'].value as DiseaseStage;
     return {
       title: this.form.controls['title'].value,
-      stage: stage,
       imageUrl: '',
       isPrivate: !!this.data.patientId,
     };

@@ -113,7 +113,7 @@ export class PatientEditStatsComponent implements AfterViewInit {
     },
 
     title: {
-      text: 'Temps de réponse moyen',
+      text: 'Temps de réponse moyen et précision du clic',
       align: 'left',
     },
     subtitle: {

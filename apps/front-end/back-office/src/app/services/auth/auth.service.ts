@@ -11,7 +11,7 @@ export class AuthService {
   public accessToken?: string;
   public refreshToken?: string;
   public jwtPayload?: Auth.JWTPayload;
-  AUTH_URL = 'http://localhost:3333';
+  AUTH_URL = 'http://localhost:8000/api/auth';
 
   // load from localstorage if found
   constructor(private httpClient: HttpClient) {

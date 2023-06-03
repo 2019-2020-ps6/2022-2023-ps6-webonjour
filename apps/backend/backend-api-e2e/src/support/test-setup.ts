@@ -1,9 +1,5 @@
 /* eslint-disable */
 import axios from 'axios';
-import fs from 'fs';
-import path from 'path';
-import { config as dotenv } from 'dotenv';
-import config from 'config';
 
 module.exports = async function () {
   // check if there is a .env file in the current directory
