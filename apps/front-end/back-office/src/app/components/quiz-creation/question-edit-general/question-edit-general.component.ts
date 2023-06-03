@@ -41,27 +41,25 @@ export class QuestionEditGeneralComponent implements OnInit {
     });
     this.activatedRoute.params.subscribe((params) => {
       if (params['questionId']) {
-        this.questionId = params['questionId'];
-        this.questionService
-          .getById(params['questionId'])
-          .subscribe((question) => {
-            this.form.patchValue(
-              {
-                title: question.data.title,
-                type: question.data.type,
-                image: question.data.image,
-              },
-              {
-                emitEvent: true,
-              }
-            );
+        this.questionId = parseInt(params['questionId']);
+        this.questionService.getById(this.questionId).subscribe((question) => {
+          this.form.patchValue(
+            {
+              title: question.data.title,
+              type: question.data.type,
+              image: question.data.image,
+            },
+            {
+              emitEvent: true,
+            }
+          );
 
-            this.form.controls['image'].setValue(question.data.image);
-            console.log(this.form);
-          });
+          this.form.controls['image'].setValue(question.data.image);
+          console.log(this.form);
+        });
       }
       if (params['quizId']) {
-        this.quizId = params['quizId'];
+        this.quizId = parseInt(params['quizId']);
       }
     });
 
