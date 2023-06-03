@@ -96,8 +96,11 @@ export class GameEffects {
   chooseAnswer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.chooseAnswer),
-      withLatestFrom(this.store.select(selectGameState)),
-      mergeMap(([action, state]) => {
+      withLatestFrom(
+        this.store.select(selectGameState),
+        this.store.select(selectClickRatio)
+      ),
+      mergeMap(([action, state, clickRatio]) => {
         const { isCorrect } = action;
         const delta = Date.now() - this.stopwatch;
         this.stopwatch = Date.now();
@@ -121,8 +124,19 @@ export class GameEffects {
             },
           })
           .pipe(
-            map(() => {
-              return GameActions.chooseAnswerSuccess();
+            mergeMap(() => {
+              if (!state.quizSession) {
+                return EMPTY;
+              }
+              return this.quizSessionService
+                .updateQuizSession(state.quizSession.id, {
+                  clickRatio: clickRatio,
+                })
+                .pipe(
+                  map(() => {
+                    return GameActions.chooseAnswerSuccess();
+                  })
+                );
             })
           );
       })
@@ -176,8 +190,11 @@ export class GameEffects {
   endGame$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.endGame),
-      withLatestFrom(this.store.select(selectGameState)),
-      mergeMap(([, state]) => {
+      withLatestFrom(
+        this.store.select(selectGameState),
+        this.store.select(selectClickRatio)
+      ),
+      mergeMap(([, state, clickRatio]) => {
         if (!state.quizSession) {
           return of(GameActions.error());
         }
@@ -185,6 +202,7 @@ export class GameEffects {
         return this.quizSessionService
           .updateQuizSession(state.quizSession.id, {
             isFinished: true,
+            clickRatio: clickRatio,
           })
           .pipe(
             map(() => {
