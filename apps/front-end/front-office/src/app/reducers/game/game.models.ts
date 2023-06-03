@@ -14,7 +14,6 @@ export interface GameEntity {
   history: HistoryItem[];
   skippedQuestions: number[];
   quizSession: QuizSession | null;
-  skippedQuestions: string[];
   clickCount: number;
   usefulClick: number;
 }

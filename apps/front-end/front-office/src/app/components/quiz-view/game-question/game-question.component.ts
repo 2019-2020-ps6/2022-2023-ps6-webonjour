@@ -184,6 +184,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
 
   skip() {
     this.store.dispatch(GameActions.skipQuestion());
+    this.store.dispatch(GameActions.usefulClick());
   }
 
   helpClick() {
