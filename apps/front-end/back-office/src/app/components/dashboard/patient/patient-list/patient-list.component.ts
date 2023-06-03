@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Patient } from '@webonjour/util-interface';
 import { PatientCreateComponent } from '../patient-create/patient-create.component';
 import { Prisma } from '@prisma/client';
+import { DEFAULT_IMAGE_URL } from '../../../util/file-field/file-field.component';
 
 @Component({
   selector: 'webonjour-patient-list',
@@ -53,4 +54,6 @@ export class PatientListComponent implements AfterViewInit {
       this.refresh();
     });
   }
+
+  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
 }

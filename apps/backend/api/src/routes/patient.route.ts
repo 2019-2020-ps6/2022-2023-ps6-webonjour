@@ -104,6 +104,7 @@ export const relatedQuizSchema: z.ZodType = (
 
 patientRouter.post(
   '/:id/quiz/:quizId',
+  paramsParser(),
   validateSplit(relatedQuizSchema, undefined, undefined),
   asyncHandler(addRelatedQuizHandler)
 );
@@ -117,6 +118,7 @@ patientRouter.delete(
 
 patientRouter.get(
   '/:id/quiz',
+  paramsParser(),
   validateSplit(Schema.PatientWhereUniqueInputSchema, undefined, undefined),
   asyncHandler(getAllRelatedQuizHandler)
 );
@@ -129,6 +131,7 @@ export const relatedFamilyMemberSchema: z.ZodType = (
 
 patientRouter.post(
   '/:id/familyMember/:familyMemberId',
+  paramsParser(),
   validateSplit(relatedFamilyMemberSchema, undefined, undefined),
   asyncHandler(addRelatedFamilyMemberHandler)
 );
