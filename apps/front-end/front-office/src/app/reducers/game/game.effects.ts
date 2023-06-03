@@ -112,6 +112,7 @@ export class GameEffects {
           .createQuestionResult({
             timeTaken: delta,
             isCorrect,
+            clickRatio: clickRatio,
             question: {
               connect: {
                 id: state.currentQuestion.id,
@@ -124,19 +125,8 @@ export class GameEffects {
             },
           })
           .pipe(
-            mergeMap(() => {
-              if (!state.quizSession) {
-                return EMPTY;
-              }
-              return this.quizSessionService
-                .updateQuizSession(state.quizSession.id, {
-                  clickRatio: clickRatio,
-                })
-                .pipe(
-                  map(() => {
-                    return GameActions.chooseAnswerSuccess();
-                  })
-                );
+            map(() => {
+              return GameActions.chooseAnswerSuccess();
             })
           );
       })

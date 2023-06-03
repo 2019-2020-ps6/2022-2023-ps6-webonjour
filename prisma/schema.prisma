@@ -126,7 +126,6 @@ model QuizSession {
   patientId       Int
   questionResults QuestionResult[]
   isFinished      Boolean          @default(false)
-  clickRatio      Float            @default(0)
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   deletedAt       DateTime         @default(now())
@@ -140,5 +139,6 @@ model QuestionResult {
   timeTaken     Int
   quizSession   QuizSession? @relation(fields: [quizSessionId], references: [id])
   quizSessionId Int?
+  clickRatio    Float        @default(0)
   createdAt     DateTime     @default(now())
 }

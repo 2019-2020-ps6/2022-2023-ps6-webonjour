@@ -12,6 +12,8 @@ import {
   ApexYAxis,
   ChartComponent,
 } from 'ng-apexcharts';
+import { ActivatedRoute } from '@angular/router';
+import { PatientService } from '@webonjour/front-end/shared/common';
 
 const array = new Uint32Array(1);
 
@@ -136,8 +138,6 @@ export class PatientEditStatsComponent implements AfterViewInit {
           show: true,
           color: '#008FFB',
         },
-        max: 1000,
-        min: 0,
         title: {
           text: 'Temps de réponse (s)',
           style: {
@@ -193,9 +193,33 @@ export class PatientEditStatsComponent implements AfterViewInit {
     },
   };
 
+  constructor(
+    private route: ActivatedRoute,
+    private patientService: PatientService
+  ) {}
+
   ngAfterViewInit() {
     setTimeout(() => {
-      this.chart.hideSeries('Temps de réponse');
+      this.route.params.subscribe((params) => {
+        this.patientService
+          .getPatientQuestionResults(parseInt(params['id']))
+          .subscribe((data) => {
+            this.chartOptions.series[0].data = data.data.map((item) => {
+              return item.timeTaken;
+            });
+            this.chartOptions.series[1].data = data.data.map((item) => {
+              return item.clickRatio;
+            });
+
+            this.chartOptions.labels = data.data.map((item) => {
+              return item.createdAt.toString();
+            });
+            this.chart.updateOptions(this.chartOptions).then(() => {
+              this.chart.hideSeries('Précision du clic');
+              this.chart.showSeries('Temps de réponse');
+            });
+          });
+      });
     }, 300);
   }
 }
