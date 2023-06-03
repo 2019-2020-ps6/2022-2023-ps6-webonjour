@@ -10,6 +10,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable, of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Action } from '@ngrx/store';
+import { QuizSession } from '@prisma/client';
 
 describe('GameEffects', () => {
   let actions$: Observable<Action>;
@@ -32,6 +33,7 @@ describe('GameEffects', () => {
     it('should work', () => {
       const expected = GameActions.loadGameSuccess({
         quiz: quizMocks.quizList[0],
+        quizSession: null as unknown as QuizSession,
         accommodation: patientMocks.accommodationMocks.map((accommodation) => {
           return {
             ...accommodation,
