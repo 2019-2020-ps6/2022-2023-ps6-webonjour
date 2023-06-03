@@ -125,7 +125,7 @@ model QuizSession {
   patient    Patient          @relation(fields: [patientId], references: [id])
   patientId  Int
   questions  QuestionResult[]
-  isFinished Boolean
+  isFinished Boolean          @default(false)
   createdAt  DateTime         @default(now())
   updatedAt  DateTime         @updatedAt
   deletedAt  DateTime         @default(now())
