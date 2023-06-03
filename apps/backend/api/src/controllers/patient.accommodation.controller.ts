@@ -44,9 +44,9 @@ export const getRelatedAccommodationHandler = async (
 
 export const addRelatedAccommodationHandler = async (
   req: Request<
-    unknown,
-    unknown,
     z.infer<typeof relatedAccommodationSchema>,
+    unknown,
+    unknown,
     unknown
   >,
   res: Response<RequestWrapper<Patient>>,
@@ -55,7 +55,7 @@ export const addRelatedAccommodationHandler = async (
   try {
     const patient = await prisma.patient.findUnique({
       where: {
-        id: req.body.id,
+        id: req.params.id,
       },
     });
     if (!patient) {
@@ -63,7 +63,7 @@ export const addRelatedAccommodationHandler = async (
     }
     const accommodation = await prisma.accommodation.findUnique({
       where: {
-        id: req.body.accommodationId,
+        id: req.params.accommodationId,
       },
     });
     if (!accommodation) {
@@ -71,12 +71,12 @@ export const addRelatedAccommodationHandler = async (
     }
     const result = await prisma.patient.update({
       where: {
-        id: req.body.id,
+        id: req.params.id,
       },
       data: {
         accommodations: {
           connect: {
-            id: req.body.accommodationId,
+            id: req.params.accommodationId,
           },
         },
       },

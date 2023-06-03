@@ -82,8 +82,9 @@ export const relatedAccommodationSchema: z.ZodType = (
 });
 
 patientRouter.post(
-  '/:id/accommodation',
-  validateSplit(undefined, undefined, relatedAccommodationSchema),
+  '/:id/accommodation/:accommodationId',
+  paramsParser(),
+  validateSplit(relatedAccommodationSchema, undefined, undefined),
   asyncHandler(addRelatedAccommodationHandler)
 );
 
