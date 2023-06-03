@@ -30,19 +30,16 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Type</label>
-          <select formControlName="questionType" class="form-select">
-            <option
-              *ngFor="let state of questionTypes"
-              [ngValue]="formControls['questionType'].value"
-            >
+          <select formControlName="type" class="form-select">
+            <option *ngFor="let state of questionTypes">
               {{ state }}
             </option>
           </select>
           <div
-            *ngIf="submitted && formControls['questionType'].errors"
+            *ngIf="submitted && formControls['type'].errors"
             class="invalid-feedback"
           >
-            <div *ngIf="formControls['questionType']['errors']['required']">
+            <div *ngIf="formControls['type']['errors']['required']">
               Le type est obligatoire
             </div>
           </div>

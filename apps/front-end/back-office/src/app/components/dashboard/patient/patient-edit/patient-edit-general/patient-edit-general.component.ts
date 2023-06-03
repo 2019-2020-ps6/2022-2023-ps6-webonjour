@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PatientService } from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { DiseaseStage } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-patient-edit-general',
@@ -13,6 +14,7 @@ export class PatientEditGeneralComponent implements OnInit {
   loading = false;
   submitted = false;
   patientId?: number;
+  diseaseStages = Object.values(DiseaseStage);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,7 +29,7 @@ export class PatientEditGeneralComponent implements OnInit {
       last_name: ['', [Validators.required]],
       age: ['', [Validators.required, Validators.min(0), Validators.max(120)]],
       disease_stage: [
-        '',
+        this.diseaseStages[0],
         [Validators.required, Validators.min(0), Validators.max(7)],
       ],
       description: [''],

@@ -72,7 +72,7 @@ export class QuestionAnswerAddPopupComponent implements OnInit {
         });
     } else {
       this.questionService
-        .updateAnswer(this.data.questionId, {
+        .updateAnswer(this.data.answerId, {
           text: (this.formControls['text'].value as string) || '',
           image: (this.formControls['image'].value as string) || '',
           isCorrect: this.formControls['isCorrect'].value as boolean,
