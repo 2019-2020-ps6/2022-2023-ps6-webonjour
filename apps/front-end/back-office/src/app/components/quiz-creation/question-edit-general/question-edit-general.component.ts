@@ -18,6 +18,7 @@ import { Observable, ReplaySubject, map, merge, mergeMap } from 'rxjs';
 export class QuestionEditGeneralComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
+  loading = false;
   questionId!: number;
   quizId!: number;
   questionTypes = Object.values(QuestionType);
@@ -112,6 +113,7 @@ export class QuestionEditGeneralComponent implements OnInit {
     this.submitted = true;
     if (!this.form.valid) return;
 
+    this.loading = true;
     this.question
       .pipe(
         mergeMap((question) => {
@@ -124,6 +126,7 @@ export class QuestionEditGeneralComponent implements OnInit {
       )
       .subscribe((question) => {
         this.dialog.closeAll();
+        this.loading = false;
         this.form.patchValue({
           title: question.data.title,
           image: question.data.image,
