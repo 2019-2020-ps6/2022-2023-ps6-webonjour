@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { patientMocks, quizMocks } from '@webonjour/data-access-fake-backend';
+import { patientMocks, quizMocks } from '@webonjour/data-access-mocks';
 
 import * as GameActions from './game.actions';
 import { gameReducer, initialGameState } from './game.reducer';

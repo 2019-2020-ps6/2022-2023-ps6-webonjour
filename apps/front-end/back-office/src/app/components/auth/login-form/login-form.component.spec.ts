@@ -10,7 +10,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestStatus } from '@webonjour/util-interface';
-import { authMocks } from '@webonjour/data-access-fake-backend';
+import { authMocks } from '@webonjour/data-access-mocks';
 import { HttpErrorResponse } from '@angular/common/http';
 
 describe('LoginFormComponent', () => {
