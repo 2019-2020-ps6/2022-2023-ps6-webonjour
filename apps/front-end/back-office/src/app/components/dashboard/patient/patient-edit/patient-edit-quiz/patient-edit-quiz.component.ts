@@ -21,12 +21,14 @@ type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
   styleUrls: ['./patient-edit-quiz.component.scss'],
 })
 export class PatientEditQuizComponent implements AfterViewInit {
+  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
   displayedColumns: string[] = [
     'Nom du Quiz',
     'Nombre de questions',
     'isPrivate',
     'actions',
   ];
+
   dataSource = new MatTableDataSource<Quiz>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -107,6 +109,4 @@ export class PatientEditQuizComponent implements AfterViewInit {
     event.stopPropagation();
     this.router.navigate(['/dashboard/quiz', row.id]);
   }
-
-  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
 }

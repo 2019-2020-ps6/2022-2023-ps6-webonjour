@@ -14,6 +14,7 @@ import { DEFAULT_IMAGE_URL } from '../../../util/file-field/file-field.component
   styleUrls: ['./patient-list.component.scss'],
 })
 export class PatientListComponent implements AfterViewInit {
+  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
   displayedColumns: string[] = [
     'Nom du Patient',
     'Taux de réussite',
@@ -21,6 +22,7 @@ export class PatientListComponent implements AfterViewInit {
     'Stade Alzheimer',
     'Étage',
   ];
+
   dataSource = new MatTableDataSource<
     Prisma.PatientGetPayload<Patient.PatientFull>
   >([]);
@@ -54,6 +56,4 @@ export class PatientListComponent implements AfterViewInit {
       this.refresh();
     });
   }
-
-  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
 }

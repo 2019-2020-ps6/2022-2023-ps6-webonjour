@@ -16,11 +16,13 @@ type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
   styleUrls: ['./quiz-list.component.scss'],
 })
 export class QuizListComponent implements AfterViewInit {
+  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
   displayedColumns: string[] = [
     'Nom du Quiz',
     'Nombre de questions',
     'isPrivate',
   ];
+
   dataSource = new MatTableDataSource<Quiz>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -52,6 +54,4 @@ export class QuizListComponent implements AfterViewInit {
       this.refresh();
     });
   }
-
-  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
 }

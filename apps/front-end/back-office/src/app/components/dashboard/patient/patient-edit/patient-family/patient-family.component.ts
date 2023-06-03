@@ -17,8 +17,8 @@ import { DEFAULT_IMAGE_URL } from '../../../../util/file-field/file-field.compon
   styleUrls: ['./patient-family.component.scss'],
 })
 export class PatientFamilyComponent implements AfterViewInit {
+  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
   patientId!: number;
-
   displayedColumns: string[] = ['Nom', 'Contact', 'Relation', 'action'];
   dataSource = new MatTableDataSource<FamilyMember>([]);
 
@@ -72,6 +72,4 @@ export class PatientFamilyComponent implements AfterViewInit {
       .deleteFamilyMember(family.id)
       .subscribe(() => this.refresh());
   }
-
-  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
 }
