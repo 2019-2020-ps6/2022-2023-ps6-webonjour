@@ -45,7 +45,6 @@ export class QuestionEditGeneralComponent implements OnInit {
         this.questionService
           .getById(params['questionId'])
           .subscribe((question) => {
-            console.log(question);
             this.form.patchValue(
               {
                 title: question.data.title,
@@ -81,50 +80,32 @@ export class QuestionEditGeneralComponent implements OnInit {
     return {
       title: this.formControls['title'].value as string,
       image: this.formControls['image'].value as string,
-      type: this.formControls['questionType'].value as QuestionType,
+      type: this.formControls['type'].value as QuestionType,
+      quiz: {
+        connect: {
+          id: this.quizId,
+        },
+      },
     };
   }
 
   onSubmit() {
     this.submitted = true;
-    if (this.form.valid) {
-      if (!this.questionId) {
-        this.questionService
-          .create({
-            title: this.formControls['title'].value as string,
-            image: this.formControls['image'].value as string,
-            type: this.formControls['type'].value as QuestionType,
-            quiz: {
-              connect: {
-                id: this.quizId,
-              },
-            },
-          })
-          .subscribe((question) => {
-            this.form.patchValue({
-              title: question.data.title,
-              image: question.data.image,
-              type: question.data.type,
-            });
-            this.dialog.closeAll();
-          });
-      } else {
-        this.questionService
-          .update(this.questionId, {
-            title: this.formControls['title'].value as string,
-            image: this.formControls['image'].value as string,
-            type: this.formControls['type'].value as QuestionType,
-          })
-          .subscribe((question) => {
-            this.form.patchValue({
-              title: question.data.title,
-              image: question.data.image,
-              type: question.data.type,
-            });
-            this.dialog.closeAll();
-          });
-      }
-    }
+    if (!this.form.valid) return;
+
+    const s = this.questionService;
+    const res = this.questionId
+      ? s.update(this.questionId, this.question)
+      : s.create(this.question as Prisma.QuestionCreateInput);
+
+    res.subscribe((question) => {
+      this.dialog.closeAll();
+      this.form.patchValue({
+        title: question.data.title,
+        image: question.data.image,
+        type: question.data.type,
+      });
+    });
   }
 
   get profilePictureUrl() {
