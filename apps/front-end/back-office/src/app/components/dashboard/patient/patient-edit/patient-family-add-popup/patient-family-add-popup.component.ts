@@ -6,7 +6,6 @@ import {
 } from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { Patient } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-patient-family-add-popup',
@@ -63,62 +62,63 @@ export class PatientFamilyAddPopupComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.data.familyId) {
-      this.familyMemberService
-        .createFamilyMember({
-          age: this.form.value.age,
-          description: this.form.value.description,
-          email: this.form.value.email,
-          firstName: this.form.value.first_name,
-          lastName: this.form.value.last_name,
-          phone: this.form.value.phone,
-          profilePictureUrl: this.form.value.image,
-          relation: this.form.value.relation,
+    this.submitted = true;
+    if (!this.form.invalid) {
+      if (!this.data.familyId) {
+        this.familyMemberService
+          .createFamilyMember({
+            age: this.form.value.age,
+            description: this.form.value.description,
+            email: this.form.value.email,
+            firstName: this.form.value.first_name,
+            lastName: this.form.value.last_name,
+            phone: this.form.value.phone,
+            relation: this.form.value.relation,
 
-          patients: {
-            connect: {
-              id: this.data.patientId,
+            patients: {
+              connect: {
+                id: this.data.patientId,
+              },
             },
-          },
-        })
-        .subscribe((familyMember) => {
-          this.form.patchValue({
-            first_name: familyMember.data.firstName,
-            last_name: familyMember.data.lastName,
-            age: familyMember.data.age,
-            description: familyMember.data.description,
-            image: familyMember.data.profilePictureUrl,
-            relation: familyMember.data.relation,
-            phone: familyMember.data.phone,
-            email: familyMember.data.email,
+          })
+          .subscribe((familyMember) => {
+            this.form.patchValue({
+              first_name: familyMember.data.firstName,
+              last_name: familyMember.data.lastName,
+              age: familyMember.data.age,
+              description: familyMember.data.description,
+              image: familyMember.data.profilePictureUrl,
+              relation: familyMember.data.relation,
+              phone: familyMember.data.phone,
+              email: familyMember.data.email,
+            });
+            this.dialog.closeAll();
           });
-          this.dialog.closeAll();
-        });
-    } else {
-      this.familyMemberService
-        .updateFamilyMember(this.data.familyId, {
-          age: this.form.value.age,
-          description: this.form.value.description,
-          email: this.form.value.email,
-          firstName: this.form.value.first_name,
-          lastName: this.form.value.last_name,
-          phone: this.form.value.phone,
-          profilePictureUrl: this.form.value.image,
-          relation: this.form.value.relation,
-        })
-        .subscribe((familyMember) => {
-          this.form.patchValue({
-            first_name: familyMember.data.firstName,
-            last_name: familyMember.data.lastName,
-            age: familyMember.data.age,
-            description: familyMember.data.description,
-            image: familyMember.data.profilePictureUrl,
-            relation: familyMember.data.relation,
-            phone: familyMember.data.phone,
-            email: familyMember.data.email,
+      } else {
+        this.familyMemberService
+          .updateFamilyMember(this.data.familyId, {
+            age: this.form.value.age,
+            description: this.form.value.description,
+            email: this.form.value.email,
+            firstName: this.form.value.first_name,
+            lastName: this.form.value.last_name,
+            phone: this.form.value.phone,
+            relation: this.form.value.relation,
+          })
+          .subscribe((familyMember) => {
+            this.form.patchValue({
+              first_name: familyMember.data.firstName,
+              last_name: familyMember.data.lastName,
+              age: familyMember.data.age,
+              description: familyMember.data.description,
+              image: familyMember.data.profilePictureUrl,
+              relation: familyMember.data.relation,
+              phone: familyMember.data.phone,
+              email: familyMember.data.email,
+            });
+            this.dialog.closeAll();
           });
-          this.dialog.closeAll();
-        });
+      }
     }
   }
 

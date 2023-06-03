@@ -11,6 +11,7 @@ import {
 import { PatientEditQuizAddPopupComponent } from '../patient-edit-quiz-add-popup/patient-edit-quiz-add-popup.component';
 import { QuizCreateComponent } from '../../../../quiz-creation/quiz-create/quiz-create.component';
 import { Prisma } from '@prisma/client';
+import { DEFAULT_IMAGE_URL } from '../../../../util/file-field/file-field.component';
 
 type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 
@@ -20,12 +21,14 @@ type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
   styleUrls: ['./patient-edit-quiz.component.scss'],
 })
 export class PatientEditQuizComponent implements AfterViewInit {
+  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
   displayedColumns: string[] = [
     'Nom du Quiz',
     'Nombre de questions',
     'isPrivate',
     'actions',
   ];
+
   dataSource = new MatTableDataSource<Quiz>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

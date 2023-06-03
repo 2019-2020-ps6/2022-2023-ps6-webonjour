@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { PatientFamilyAddPopupComponent } from '../patient-family-add-popup/patient-family-add-popup.component';
 import { FamilyMember } from '@prisma/client';
+import { DEFAULT_IMAGE_URL } from '../../../../util/file-field/file-field.component';
 
 @Component({
   selector: 'webonjour-patient-family',
@@ -16,8 +17,8 @@ import { FamilyMember } from '@prisma/client';
   styleUrls: ['./patient-family.component.scss'],
 })
 export class PatientFamilyComponent implements AfterViewInit {
+  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
   patientId!: number;
-
   displayedColumns: string[] = ['Nom', 'Contact', 'Relation', 'action'];
   dataSource = new MatTableDataSource<FamilyMember>([]);
 
@@ -30,7 +31,7 @@ export class PatientFamilyComponent implements AfterViewInit {
     public dialog: MatDialog
   ) {
     this.route.params.subscribe((params) => {
-      this.patientId = params['id'];
+      this.patientId = parseInt(params['id']);
     });
     this.refresh();
   }
