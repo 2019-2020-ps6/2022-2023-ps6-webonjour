@@ -66,7 +66,7 @@ export const updateAccommodationHandler = async (
   req: Request<
     z.infer<typeof Schema.AccommodationWhereUniqueInputSchema>,
     unknown,
-    Accommodation,
+    z.infer<typeof Schema.AccommodationUpdateInputSchema>,
     unknown
   >,
   res: Response<RequestWrapper<Accommodation>>,
