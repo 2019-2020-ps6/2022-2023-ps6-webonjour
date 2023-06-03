@@ -7,7 +7,7 @@ import { Prisma, QuestionResult } from '@prisma/client';
   providedIn: 'root',
 })
 export class QuestionResultService {
-  QUESTION_RESULT_URL = 'http://localhost:8000/api/quiz-sessions/';
+  QUESTION_RESULT_URL = 'http://localhost:8000/api/question-results/';
 
   constructor(private httpClient: HttpClient) {}
 

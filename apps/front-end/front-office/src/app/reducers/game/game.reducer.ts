@@ -6,7 +6,7 @@ import { GameEntity } from './game.models';
 import { selectAvailableQuestions } from './game.selectors';
 
 export const GAME_FEATURE_KEY = 'game';
-
+let stopwatch = Date.now();
 export interface GameState extends GameEntity {
   loaded: boolean; // has the Quiz been loaded
   error?: string | null; // last known error (if any)
@@ -29,6 +29,7 @@ export const initialGameState: GameState = gameAdapter.getInitialState({
   history: [],
   learntQuestions: [],
   skippedQuestions: [],
+  quizSession: null,
 });
 
 const reducer = createReducer(
@@ -43,43 +44,33 @@ const reducer = createReducer(
     skippedQuestions: [],
   })),
 
-  on(GameActions.loadGameSuccess, (state, { quiz, accommodation }) => ({
-    ...state,
-    quiz: quiz,
-    loaded: true,
-    accommodation: accommodation,
-    // currentQuestion: quiz.questions[Math.floor(Math.random() * quiz.questions.length)],
-    currentQuestion: quiz.questions[0],
-    history: [],
-  })),
+  on(
+    GameActions.loadGameSuccess,
+    (state, { quiz, accommodation, quizSession }) => ({
+      ...state,
+      quiz: quiz,
+      loaded: true,
+      accommodation: accommodation,
+      // currentQuestion: quiz.questions[Math.floor(Math.random() * quiz.questions.length)],
+      currentQuestion: quiz.questions[0],
+      history: [],
+      quizSession: quizSession,
+    })
+  ),
 
   on(GameActions.loadGameFailure, (state, { error }) => ({ ...state, error })),
 
-  on(GameActions.correctAnswer, (state, { delta }) => {
+  on(GameActions.chooseAnswer, (state, { isCorrect }) => {
     if (!state.quiz) return state;
+    const delta = Date.now() - stopwatch;
+    stopwatch = Date.now();
     return {
       ...state,
       history: [
         ...state.history,
         {
           questionId: state.currentQuestion?.id || -1,
-          isCorrect: true,
-          timeTaken: delta,
-        },
-      ],
-    };
-  }),
-
-  on(GameActions.wrongAnswer, (state, { delta }) => {
-    if (!state.quiz) return state;
-
-    return {
-      ...state,
-      history: [
-        ...state.history,
-        {
-          questionId: state.currentQuestion?.id || -1,
-          isCorrect: false,
+          isCorrect: isCorrect,
           timeTaken: delta,
         },
       ],

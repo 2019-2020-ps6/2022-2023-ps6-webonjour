@@ -24,10 +24,6 @@ export class QuizItemComponent {
     return this.quiz.title;
   }
 
-  get quizImageUrl(): string {
-    return this.quiz.imageUrl;
-  }
-
   constructor(private router: Router, private store: Store) {}
 
   onHover(hover: boolean) {

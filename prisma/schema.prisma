@@ -45,15 +45,15 @@ enum QuestionType {
 }
 
 model Question {
-  id          Int              @id @default(autoincrement())
-  title       String
-  image       String?
-  answers     Answer[]
-  clues       Clue[]
-  type        QuestionType
-  quiz        Quiz             @relation(fields: [quizId], references: [id])
-  quizId      Int
-  HistoryItem QuestionResult[]
+  id              Int              @id @default(autoincrement())
+  title           String
+  image           String?
+  answers         Answer[]
+  clues           Clue[]
+  type            QuestionType
+  quiz            Quiz             @relation(fields: [quizId], references: [id])
+  quizId          Int
+  questionResults QuestionResult[]
 }
 
 model Clue {
@@ -86,17 +86,17 @@ model Patient {
   accommodations    Accommodation[]
   quizzes           Quiz[]
   users             User[]
-  QuizSession       QuizSession[]
+  quizSessions      QuizSession[]
 }
 
 model Quiz {
-  id          Int           @id @default(autoincrement())
-  title       String
-  imageUrl    String?
-  questions   Question[]
-  isPrivate   Boolean
-  patients    Patient[]
-  QuizSession QuizSession[]
+  id           Int           @id @default(autoincrement())
+  title        String
+  imageUrl     String?
+  questions    Question[]
+  isPrivate    Boolean
+  patients     Patient[]
+  quizSessions QuizSession[]
 }
 
 model FamilyMember {
@@ -119,16 +119,16 @@ model Accommodation {
 }
 
 model QuizSession {
-  id         Int              @id @default(autoincrement())
-  quiz       Quiz             @relation(fields: [quizId], references: [id])
-  quizId     Int
-  patient    Patient          @relation(fields: [patientId], references: [id])
-  patientId  Int
-  questions  QuestionResult[]
-  isFinished Boolean          @default(false)
-  createdAt  DateTime         @default(now())
-  updatedAt  DateTime         @updatedAt
-  deletedAt  DateTime         @default(now())
+  id              Int              @id @default(autoincrement())
+  quiz            Quiz             @relation(fields: [quizId], references: [id])
+  quizId          Int
+  patient         Patient          @relation(fields: [patientId], references: [id])
+  patientId       Int
+  questionResults QuestionResult[]
+  isFinished      Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  deletedAt       DateTime         @default(now())
 }
 
 model QuestionResult {
@@ -137,6 +137,7 @@ model QuestionResult {
   questionId    Int
   isCorrect     Boolean
   timeTaken     Int
-  QuizSession   QuizSession? @relation(fields: [quizSessionId], references: [id])
+  quizSession   QuizSession? @relation(fields: [quizSessionId], references: [id])
   quizSessionId Int?
+  createdAt     DateTime     @default(now())
 }

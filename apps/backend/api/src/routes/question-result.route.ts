@@ -12,15 +12,15 @@ import { validateSplit } from '../middleware/validate';
 import { Schema } from '@webonjour/util-interface';
 import { paramsParser } from '../middleware/requestPreParsers';
 
-const clueRouter = Router();
+const questionResultRouter = Router();
 
-clueRouter.post(
+questionResultRouter.post(
   '/',
   validateSplit(undefined, undefined, Schema.QuestionResultCreateInputSchema),
   asyncHandler(createQuestionResultHandler)
 );
 
-clueRouter.get(
+questionResultRouter.get(
   '/:id',
   paramsParser(),
   validateSplit(
@@ -31,7 +31,7 @@ clueRouter.get(
   asyncHandler(getQuestionResultByIdHandler)
 );
 
-clueRouter.put(
+questionResultRouter.put(
   '/:id',
   paramsParser(),
   validateSplit(
@@ -42,7 +42,7 @@ clueRouter.put(
   asyncHandler(updateQuestionResultHandler)
 );
 
-clueRouter.delete(
+questionResultRouter.delete(
   '/:id',
   paramsParser(),
   validateSplit(
@@ -53,10 +53,10 @@ clueRouter.delete(
   asyncHandler(deleteQuestionResultHandler)
 );
 
-clueRouter.get(
+questionResultRouter.get(
   '/',
   validateSplit(undefined, Schema.QuestionResultWhereInputSchema, undefined),
   asyncHandler(getAllQuestionResultHandler)
 );
 
-export default clueRouter;
+export default questionResultRouter;
