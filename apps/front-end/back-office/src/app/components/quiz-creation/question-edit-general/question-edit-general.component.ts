@@ -16,7 +16,6 @@ import { Prisma, QuestionType } from '@prisma/client';
 })
 export class QuestionEditGeneralComponent implements OnInit {
   form!: FormGroup;
-  loading = false;
   submitted = false;
   questionId!: number;
   quizId!: number;

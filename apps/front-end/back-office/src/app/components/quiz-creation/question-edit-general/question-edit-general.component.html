@@ -54,16 +54,7 @@
     </form>
   </div>
   <div class="card-footer">
-    <button
-      type="submit"
-      class="btn btn-primary"
-      [disabled]="loading"
-      (click)="onSubmit()"
-    >
-      <span
-        *ngIf="loading"
-        class="spinner-border spinner-border-sm mr-1"
-      ></span>
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">
       Enregistrer
     </button>
   </div>
