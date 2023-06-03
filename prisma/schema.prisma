@@ -77,7 +77,7 @@ model Patient {
   firstName         String
   lastName          String
   age               Int
-  profilePictureUrl String
+  profilePictureUrl String?
   description       String
   diseaseStage      DiseaseStage
   floor             Int
@@ -90,7 +90,7 @@ model Patient {
 model Quiz {
   id        Int        @id @default(autoincrement())
   title     String
-  imageUrl  String
+  imageUrl  String?
   questions Question[]
   isPrivate Boolean
   patients  Patient[]
@@ -101,7 +101,7 @@ model FamilyMember {
   firstName         String
   lastName          String
   age               Int
-  profilePictureUrl String
+  profilePictureUrl String?
   description       String
   relation          String
   phone             String?
