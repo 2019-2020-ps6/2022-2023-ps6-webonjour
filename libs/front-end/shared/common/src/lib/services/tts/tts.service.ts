@@ -9,16 +9,17 @@ import { RequestWrapper, Tts } from '@webonjour/util-interface';
   providedIn: 'root',
 })
 export class TtsService {
-  API_URL = 'http://localhost:8000';
+  API_URL = 'http://localhost:8000/api/tts';
   private audio = new Audio();
 
   constructor(private http: HttpClient) {}
 
   sayTTS(text: string, slow: boolean = false) {
     this.http
-      .get<RequestWrapper<Tts.TtsResponse>>(
-        `${this.API_URL}/api/tts?text=${text}&slow=${slow}`
-      )
+      .post<RequestWrapper<Tts.TtsResponse>>(this.API_URL, {
+        text,
+        slow,
+      })
       .subscribe((res) => {
         console.log('test: ', text);
         this.audio.pause();
