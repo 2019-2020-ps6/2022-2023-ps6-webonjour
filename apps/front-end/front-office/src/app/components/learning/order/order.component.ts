@@ -1,8 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Quiz } from '@webonjour/util-interface';
 import { Store } from '@ngrx/store';
-import { learntQuestion } from '../../../reducers/game/game.actions';
 import { Prisma } from '@prisma/client';
+import {
+  learntQuestion,
+  usefulClick,
+} from '../../../reducers/game/game.actions';
 
 @Component({
   selector: 'webonjour-order',
@@ -17,5 +20,6 @@ export class OrderComponent {
 
   nextQuestion() {
     this.store.dispatch(learntQuestion({ question: this.question }));
+    this.store.dispatch(usefulClick());
   }
 }

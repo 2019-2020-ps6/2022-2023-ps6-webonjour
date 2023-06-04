@@ -2,12 +2,17 @@ import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import * as fromGame from './reducers/game/game.reducer';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [AppComponent, NxWelcomeComponent],
+      providers: [
+        provideMockStore({ initialState: fromGame.initialGameState }),
+      ],
     }).compileComponents();
   });
 

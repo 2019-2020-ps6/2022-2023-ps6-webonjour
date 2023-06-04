@@ -1,11 +1,14 @@
 <header class="header-title">
-  <h1 class="title" [routerLink]="['/']">🖐WeBonjour</h1>
+  <h1 class="title" [routerLink]="['/']" (click)="onUsefulClick()">
+    🖐WeBonjour
+  </h1>
   <a
     class="button dark header-button"
     href="/dashboard"
     (mouseenter)="onHover(true)"
     (mouseleave)="onHover(false)"
     [ngClass]="{ hovered: hover }"
+    (click)="onUsefulClick()"
   >
     <span class="hide-s">Espace Soignant</span><span class="show-s">👩‍</span>
   </a>

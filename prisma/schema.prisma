@@ -45,14 +45,15 @@ enum QuestionType {
 }
 
 model Question {
-  id      Int          @id @default(autoincrement())
-  title   String
-  image   String?
-  answers Answer[]
-  clues   Clue[]
-  type    QuestionType
-  quiz    Quiz         @relation(fields: [quizId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  quizId  Int
+  id              Int              @id @default(autoincrement())
+  title           String
+  image           String?
+  answers         Answer[]
+  clues           Clue[]
+  type            QuestionType
+  quiz            Quiz             @relation(fields: [quizId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quizId          Int
+  questionResults QuestionResult[]
 }
 
 model Clue {
@@ -85,15 +86,17 @@ model Patient {
   accommodations    Accommodation[]
   quizzes           Quiz[]
   users             User[]
+  quizSessions      QuizSession[]
 }
 
 model Quiz {
-  id        Int        @id @default(autoincrement())
-  title     String
-  imageUrl  String?
-  questions Question[]
-  isPrivate Boolean
-  patients  Patient[]
+  id           Int           @id @default(autoincrement())
+  title        String
+  imageUrl     String?
+  questions    Question[]
+  isPrivate    Boolean
+  patients     Patient[]
+  quizSessions QuizSession[]
 }
 
 model FamilyMember {
@@ -113,4 +116,30 @@ model Accommodation {
   id       Int       @id @default(autoincrement())
   title    String
   patients Patient[]
+}
+
+model QuizSession {
+  id              Int              @id @default(autoincrement())
+  quiz            Quiz             @relation(fields: [quizId], references: [id])
+  quizId          Int
+  patient         Patient          @relation(fields: [patientId], references: [id])
+  patientId       Int
+  score           Float?           @default(0)
+  questionResults QuestionResult[]
+  isFinished      Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  deletedAt       DateTime         @default(now())
+}
+
+model QuestionResult {
+  id            Int          @id @default(autoincrement())
+  question      Question     @relation(fields: [questionId], references: [id])
+  questionId    Int
+  isCorrect     Boolean
+  timeTaken     Int
+  quizSession   QuizSession? @relation(fields: [quizSessionId], references: [id])
+  quizSessionId Int?
+  clickRatio    Float        @default(0)
+  createdAt     DateTime     @default(now())
 }

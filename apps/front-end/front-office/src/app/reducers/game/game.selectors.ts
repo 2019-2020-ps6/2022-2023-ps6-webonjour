@@ -91,3 +91,8 @@ export const selectAvailableQuestions = createSelector(
     });
   }
 );
+
+export const selectClickRatio = createSelector(
+  selectGameState,
+  (state: GameState) => state.usefulClick / state.clickCount
+);

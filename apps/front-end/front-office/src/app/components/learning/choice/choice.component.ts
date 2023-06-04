@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { learntQuestion } from '../../../reducers/game/game.actions';
+import {
+  learntQuestion,
+  usefulClick,
+} from '../../../reducers/game/game.actions';
 import { Store } from '@ngrx/store';
 import { Answer, Prisma } from '@prisma/client';
 import { Quiz } from '@webonjour/util-interface';
@@ -23,5 +26,6 @@ export class ChoiceComponent implements OnInit {
 
   nextQuestion() {
     this.store.dispatch(learntQuestion({ question: this.question }));
+    this.store.dispatch(usefulClick());
   }
 }

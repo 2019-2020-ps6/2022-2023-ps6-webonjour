@@ -85,6 +85,7 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
   }
 
   validateOrder() {
+    this.store.dispatch(GameActions.usefulClick());
     const isValidLength = this.answer.length === this.desiredResult.length;
     const isValidOrder =
       isValidLength &&
@@ -113,9 +114,11 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
     clearTimeout(this.modalTimer);
     this.store.dispatch(GameActions.chooseAnswer({ isCorrect: true }));
     this.store.dispatch(GameActions.nextQuestion({ skipLearning: true }));
+    this.store.dispatch(GameActions.usefulClick());
   }
 
   skip() {
     this.store.dispatch(GameActions.skipQuestion());
+    this.store.dispatch(GameActions.usefulClick());
   }
 }

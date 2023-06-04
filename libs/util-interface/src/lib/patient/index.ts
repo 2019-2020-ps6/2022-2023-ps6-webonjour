@@ -1,4 +1,4 @@
-import { DiseaseStage, Prisma } from '@prisma/client';
+import { DiseaseStage, Prisma, Quiz, QuizSession } from '@prisma/client';
 
 export const patientFull = Prisma.validator<Prisma.PatientArgs>()({
   include: {
@@ -16,5 +16,13 @@ export const patientFull = Prisma.validator<Prisma.PatientArgs>()({
     accommodations: true,
   },
 });
+
+export interface AggregatedQuestionResult {
+  numberOfQuizPlayed: number;
+  mostPlayedQuiz: Quiz | null;
+  lastPlayedQuiz: (QuizSession & { quiz: Quiz }) | null;
+  averageScore: Prisma.GetQuizSessionAggregateType<{ _avg: { score: true } }>;
+  bestQuiz: (QuizSession & { quiz: Quiz }) | null;
+}
 
 export type PatientFull = typeof patientFull;

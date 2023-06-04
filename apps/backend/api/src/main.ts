@@ -20,6 +20,9 @@ import familyMemberRouter from './routes/family-member.route';
 import clueRouter from './routes/clue.route';
 import questionRouter from './routes/question.route';
 import authRoute from './routes/auth.route';
+import quizSessionRouter from './routes/quiz-session.route';
+import questionResultRoute from './routes/question-result.route';
+import questionResultRouter from './routes/question-result.route';
 
 const host = config.get<string>('host');
 const port = config.get<number>('port');
@@ -65,6 +68,8 @@ app.use('/api/quizzes', quizRouter);
 app.use('/api/patients', patientRouter);
 app.use('/api/family-members', familyMemberRouter);
 app.use('/api/auth', authRoute);
+app.use('/api/quiz-sessions', quizSessionRouter);
+app.use('/api/question-results', questionResultRouter);
 
 // Unknown Routes
 app.all('*', (req: Request, res: Response, next: NextFunction) => {

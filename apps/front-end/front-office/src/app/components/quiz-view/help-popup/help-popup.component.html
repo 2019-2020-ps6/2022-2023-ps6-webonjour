@@ -1,7 +1,7 @@
 <div
   class="modal_container"
   [ngClass]="{ hidden: !show_help }"
-  (click)="show_help = false"
+  (click)="click()"
 >
   <div class="modal">
     <h2 *ngIf="randomClue.text">{{ randomClue.text }}</h2>

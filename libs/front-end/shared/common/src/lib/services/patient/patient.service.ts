@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Patient, Quiz, RequestWrapper } from '@webonjour/util-interface';
-import { Accommodation, FamilyMember, Prisma } from '@prisma/client';
+import {
+  Accommodation,
+  FamilyMember,
+  Prisma,
+  QuestionResult,
+} from '@prisma/client';
 
 type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 type Patient = Prisma.PatientGetPayload<Patient.PatientFull>;
@@ -101,6 +106,22 @@ export class PatientService {
   getAllAccommodations(): Observable<RequestWrapper<Accommodation[]>> {
     return this.http.get<RequestWrapper<Accommodation[]>>(
       this.BASE_URL + 'accommodations'
+    );
+  }
+
+  getPatientQuestionResults(
+    id: number
+  ): Observable<RequestWrapper<QuestionResult[]>> {
+    return this.http.get<RequestWrapper<QuestionResult[]>>(
+      this.PATIENT_URL + id + '/questionResult'
+    );
+  }
+
+  getPatientAggregatedQuestionResults(
+    id: number
+  ): Observable<RequestWrapper<Patient.AggregatedQuestionResult>> {
+    return this.http.get<RequestWrapper<Patient.AggregatedQuestionResult>>(
+      this.PATIENT_URL + id + '/questionResult/aggregated'
     );
   }
 }
