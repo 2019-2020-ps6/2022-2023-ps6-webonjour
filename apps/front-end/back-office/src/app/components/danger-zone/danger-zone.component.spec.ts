@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PatientDangerComponent } from './patient-danger.component';
+import { DangerZoneComponent } from './danger-zone.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PatientDangerComponent', () => {
-  let component: PatientDangerComponent;
-  let fixture: ComponentFixture<PatientDangerComponent>;
+  let component: DangerZoneComponent;
+  let fixture: ComponentFixture<DangerZoneComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule],
-      declarations: [PatientDangerComponent],
+      declarations: [DangerZoneComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PatientDangerComponent);
+    fixture = TestBed.createComponent(DangerZoneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
