@@ -7,7 +7,9 @@ import { PatientService } from '@webonjour/front-end/shared/common';
   templateUrl: './danger-zone.component.html',
 })
 export class DangerZoneComponent {
-  @Input() elementName: string = 'cet élément';
+  @Input() elementName = 'cet élément';
   // callback provided by parent component
-  @Input() deleteCallback: Function = () => {};
+  @Input() deleteCallback: () => void = () => {
+    console.error('deleteCallback not provided');
+  };
 }
