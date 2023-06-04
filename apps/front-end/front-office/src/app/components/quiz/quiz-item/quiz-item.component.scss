@@ -17,6 +17,14 @@
   cursor: pointer;
 }
 
+.quiz-item-button > img {
+  height: 20vh;
+  aspect-ratio: 1/1;
+  padding: 20px;
+  border-radius: 100vh;
+  object-fit: cover;
+}
+
 svg {
   height: 4rem;
   padding-left: 20px;
