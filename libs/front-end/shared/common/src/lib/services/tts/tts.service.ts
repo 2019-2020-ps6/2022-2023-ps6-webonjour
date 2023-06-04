@@ -10,7 +10,9 @@ import { environment, protocol } from '@webonjour/shared/environments';
   providedIn: 'root',
 })
 export class TtsService {
-  API_URL = `${protocol(environment.api.secure)}://${environment.api.domain}`;
+  API_URL = `${protocol(environment.api.secure)}://${
+    environment.api.domain
+  }/api`;
   private audio = new Audio();
 
   constructor(private http: HttpClient) {}

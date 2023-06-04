@@ -12,7 +12,9 @@ type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
   providedIn: 'root',
 })
 export class QuizService {
-  API_URL = `${protocol(environment.api.secure)}://${environment.api.domain}`;
+  API_URL = `${protocol(environment.api.secure)}://${
+    environment.api.domain
+  }/api`;
   QUIZ_URL = this.API_URL + '/quizzes/';
 
   constructor(private httpClient: HttpClient) {}
