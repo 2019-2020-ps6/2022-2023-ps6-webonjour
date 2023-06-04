@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Prisma, QuizSession } from '@prisma/client';
 import { RequestWrapper } from '@webonjour/util-interface';
+import { environment, protocol } from '@webonjour/shared/environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuizSessionService {
-  QUIZ_SESSION_URL = 'http://localhost:8000/api/quiz-sessions/';
+  QUIZ_SESSION_URL = `${protocol(environment.api.secure)}://${
+    environment.api.domain
+  }/api/quiz-sessions/`;
 
   constructor(private httpClient: HttpClient) {}
 

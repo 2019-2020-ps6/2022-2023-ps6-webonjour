@@ -12,7 +12,9 @@ export class AuthService {
   public accessToken?: string;
   public refreshToken?: string;
   public jwtPayload?: Auth.JWTPayload;
-  AUTH_URL = `${protocol(environment.api.secure)}://${environment.api.domain}`;
+  AUTH_URL = `${protocol(environment.api.secure)}://${
+    environment.api.domain
+  }/api/auth`;
 
   // load from localstorage if found
   constructor(private httpClient: HttpClient) {
