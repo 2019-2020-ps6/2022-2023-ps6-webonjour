@@ -164,6 +164,7 @@ patientRouter.get(
 patientRouter.get(
   '/:id/questionResult/aggregated',
   paramsParser(),
+  validateSplit(Schema.PatientWhereUniqueInputSchema, undefined, undefined),
   asyncHandler(getRelatedAggregatedQuestionResultHandler)
 );
 export default patientRouter;

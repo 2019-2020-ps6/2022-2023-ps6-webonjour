@@ -116,4 +116,12 @@ export class PatientService {
       this.PATIENT_URL + id + '/questionResult'
     );
   }
+
+  getPatientAggregatedQuestionResults(
+    id: number
+  ): Observable<RequestWrapper<Patient.AggregatedQuestionResult>> {
+    return this.http.get<RequestWrapper<Patient.AggregatedQuestionResult>>(
+      this.PATIENT_URL + id + '/questionResult/aggregated'
+    );
+  }
 }

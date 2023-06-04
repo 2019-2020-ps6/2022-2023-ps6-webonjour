@@ -8,6 +8,11 @@ import { PatientCreateComponent } from '../patient-create/patient-create.compone
 import { Prisma } from '@prisma/client';
 import { DEFAULT_IMAGE_URL } from '../../../util/file-field/file-field.component';
 
+interface PatientWithAggregatedQuestionResults {
+  patient: Prisma.PatientGetPayload<Patient.PatientFull>;
+  aggregate: Patient.AggregatedQuestionResult;
+}
+
 @Component({
   selector: 'webonjour-patient-list',
   templateUrl: './patient-list.component.html',
@@ -23,9 +28,7 @@ export class PatientListComponent implements AfterViewInit {
     'Étage',
   ];
 
-  dataSource = new MatTableDataSource<
-    Prisma.PatientGetPayload<Patient.PatientFull>
-  >([]);
+  dataSource = new MatTableDataSource<PatientWithAggregatedQuestionResults>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -38,9 +41,20 @@ export class PatientListComponent implements AfterViewInit {
 
   refresh() {
     this.patientService.getPatients().subscribe((patientList) => {
-      this.dataSource = new MatTableDataSource<
-        Prisma.PatientGetPayload<Patient.PatientFull>
-      >(patientList.data);
+      const data: PatientWithAggregatedQuestionResults[] = [];
+
+      for (const patient of patientList.data) {
+        this.patientService
+          .getPatientAggregatedQuestionResults(patient.id)
+          .subscribe((aggregate) => {
+            data.push({ patient, aggregate: aggregate.data });
+            this.dataSource =
+              new MatTableDataSource<PatientWithAggregatedQuestionResults>(
+                data
+              );
+          });
+      }
+
       this.dataSource.paginator = this.paginator;
     });
   }

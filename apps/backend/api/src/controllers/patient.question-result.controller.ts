@@ -3,9 +3,10 @@ import {
   RequestStatus,
   RequestWrapper,
   Schema,
+  Patient,
 } from '@webonjour/util-interface';
 import { z } from 'zod';
-import { QuestionResult } from '@prisma/client';
+import { Prisma, QuestionResult, Quiz, QuizSession } from '@prisma/client';
 import AppError from '../utils/appError';
 import prisma from '../utils/connectDB';
 
@@ -47,7 +48,7 @@ export const getRelatedAggregatedQuestionResultHandler = async (
     unknown,
     unknown
   >,
-  res: Response<RequestWrapper<any>>,
+  res: Response<RequestWrapper<Patient.AggregatedQuestionResult>>,
   next: NextFunction
 ): Promise<void> => {
   const questionsResults = await prisma.questionResult.findMany({
