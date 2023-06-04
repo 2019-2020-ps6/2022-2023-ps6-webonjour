@@ -43,6 +43,13 @@ export class QuizService {
     return this.httpClient.post<RequestWrapper<Quiz>>(this.QUIZ_URL, quiz);
   }
 
+  update(
+    id: number,
+    quiz: Prisma.QuizUpdateInput
+  ): Observable<RequestWrapper<Quiz>> {
+    return this.httpClient.put<RequestWrapper<Quiz>>(this.QUIZ_URL + id, quiz);
+  }
+
   delete(id: number) {
     return this.httpClient.delete<RequestWrapper<null>>(this.QUIZ_URL + id);
   }

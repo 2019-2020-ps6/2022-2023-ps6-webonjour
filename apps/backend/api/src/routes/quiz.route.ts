@@ -40,6 +40,7 @@ quizRouter.post(
 
 quizRouter.put(
   '/:id',
+  paramsParser(),
   validateSplit(
     Schema.QuizWhereUniqueInputSchema,
     undefined,
