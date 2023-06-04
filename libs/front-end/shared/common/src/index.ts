@@ -7,3 +7,6 @@ export * from './lib/services/family-member/family-member.service';
 export * from './lib/services/quiz-session/quiz-session.service';
 export * from './lib/services/question-result/question-result.service';
 export * from './lib/utils/fileToBase64';
+
+export const DEFAULT_IMAGE_URL =
+  'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';

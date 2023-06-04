@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Patient } from '@webonjour/util-interface';
 import { PatientCreateComponent } from '../patient-create/patient-create.component';
 import { Prisma } from '@prisma/client';
-import { DEFAULT_IMAGE_URL } from '../../../util/file-field/file-field.component';
+import { DEFAULT_IMAGE_URL } from '@webonjour/front-end/shared/common';
 
 interface PatientWithAggregatedQuestionResults {
   patient: Prisma.PatientGetPayload<Patient.PatientFull>;

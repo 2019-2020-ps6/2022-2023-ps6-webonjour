@@ -11,7 +11,7 @@ import {
 import { PatientEditQuizAddPopupComponent } from '../patient-edit-quiz-add-popup/patient-edit-quiz-add-popup.component';
 import { QuizCreateComponent } from '../../../../quiz-creation/quiz-create/quiz-create.component';
 import { Prisma } from '@prisma/client';
-import { DEFAULT_IMAGE_URL } from '../../../../util/file-field/file-field.component';
+import { DEFAULT_IMAGE_URL } from '@webonjour/front-end/shared/common';
 
 type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 

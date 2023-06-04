@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import * as GameActions from '../../../reducers/game/game.actions';
 import { Prisma } from '@prisma/client';
 import { Quiz } from '@webonjour/util-interface';
+import { DEFAULT_IMAGE_URL } from '@webonjour/front-end/shared/common';
 
 @Component({
   selector: 'webonjour-quiz-item',
@@ -22,6 +23,10 @@ export class QuizItemComponent {
 
   get quizTitle(): string {
     return this.quiz.title;
+  }
+
+  get quizImageUrl(): string {
+    return this.quiz.imageUrl || DEFAULT_IMAGE_URL;
   }
 
   constructor(private router: Router, private store: Store) {}
