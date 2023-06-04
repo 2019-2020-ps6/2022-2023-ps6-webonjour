@@ -31,6 +31,7 @@ describe('Game Reducer', () => {
             id: parseInt(accommodation.id),
           };
         }),
+        stopwatch: result.stopwatch,
         currentQuestion: result.currentQuestion,
       });
     });
