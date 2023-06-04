@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PatientEditStatsComponent } from './patient-edit-stats.component';
 import { Component } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PatientEditStatsComponent', () => {
   let component: PatientEditStatsComponent;
@@ -11,6 +13,8 @@ describe('PatientEditStatsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [PatientEditStatsComponent],
       imports: [
+        RouterTestingModule,
+        HttpClientTestingModule,
         // NgApexchartsModule,
       ],
     }).compileComponents();

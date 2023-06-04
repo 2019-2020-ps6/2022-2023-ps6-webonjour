@@ -39,3 +39,86 @@ export const getRelatedQuestionResultHandler = async (
     next(err);
   }
 };
+
+export const getRelatedAggregatedQuestionResultHandler = async (
+  req: Request<
+    z.infer<typeof Schema.PatientWhereUniqueInputSchema>,
+    unknown,
+    unknown,
+    unknown
+  >,
+  res: Response<RequestWrapper<any>>,
+  next: NextFunction
+): Promise<void> => {
+  const questionsResults = await prisma.questionResult.findMany({
+    where: {
+      quizSession: {
+        patientId: req.params.id,
+      },
+    },
+  });
+  if (!questionsResults) {
+    return next(new AppError('Patient not found', 404));
+  }
+  const numberOfQuizPlayed = await prisma.quizSession.count({
+    where: {
+      patientId: req.params.id,
+    },
+  });
+  const mostPlayedQuiz = await prisma.quizSession.groupBy({
+    by: ['quizId'],
+    _count: {
+      quizId: true,
+    },
+    where: {
+      patientId: req.params.id,
+    },
+    orderBy: {
+      _count: {
+        quizId: 'desc',
+      },
+    },
+    take: 1,
+  });
+
+  const lastPlayedQuiz = await prisma.quizSession.findFirst({
+    where: {
+      patientId: req.params.id,
+    },
+    include: {
+      quiz: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  const averageScore = await prisma.quizSession.aggregate({
+    _avg: {
+      score: true,
+    },
+  });
+  const bestQuiz = await prisma.quizSession.findFirst({
+    where: {
+      patientId: req.params.id,
+    },
+    include: {
+      quiz: true,
+    },
+    orderBy: {
+      score: 'desc',
+    },
+  });
+
+  res.status(200).send({
+    data: {
+      numberOfQuizPlayed,
+      mostPlayedQuiz,
+      lastPlayedQuiz,
+      averageScore,
+      bestQuiz,
+    },
+    message: 'Get all related question result successful',
+    status: RequestStatus.SUCCESS,
+  });
+};

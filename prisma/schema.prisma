@@ -124,6 +124,7 @@ model QuizSession {
   quizId          Int
   patient         Patient          @relation(fields: [patientId], references: [id])
   patientId       Int
+  score           Float?           @default(0)
   questionResults QuestionResult[]
   isFinished      Boolean          @default(false)
   createdAt       DateTime         @default(now())

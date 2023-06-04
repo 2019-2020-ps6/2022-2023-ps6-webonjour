@@ -22,6 +22,7 @@ import {
   selectAccommodation,
   selectClickRatio,
   selectGameCurrentQuestion,
+  selectGameScore,
   selectGameState,
   selectPatient,
   selectQuestionsToLearn,
@@ -182,9 +183,9 @@ export class GameEffects {
       ofType(GameActions.endGame),
       withLatestFrom(
         this.store.select(selectGameState),
-        this.store.select(selectClickRatio)
+        this.store.select(selectGameScore)
       ),
-      mergeMap(([, state, clickRatio]) => {
+      mergeMap(([, state, score]) => {
         if (!state.quizSession) {
           return of(GameActions.error());
         }
@@ -192,7 +193,7 @@ export class GameEffects {
         return this.quizSessionService
           .updateQuizSession(state.quizSession.id, {
             isFinished: true,
-            clickRatio: clickRatio,
+            score: score / state.history.length || 0,
           })
           .pipe(
             map(() => {

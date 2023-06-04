@@ -28,7 +28,10 @@ import {
   deleteRelatedFamilyMemberHandler,
   getRelatedFamilyMemberHandler,
 } from '../controllers/patient.family-member.controller';
-import { getRelatedQuestionResultHandler } from '../controllers/patient.question-result.controller';
+import {
+  getRelatedAggregatedQuestionResultHandler,
+  getRelatedQuestionResultHandler,
+} from '../controllers/patient.question-result.controller';
 
 const patientRouter = Router();
 
@@ -156,5 +159,11 @@ patientRouter.get(
   paramsParser(),
   validateSplit(Schema.PatientWhereUniqueInputSchema, undefined, undefined),
   asyncHandler(getRelatedQuestionResultHandler)
+);
+
+patientRouter.get(
+  '/:id/questionResult/aggregated',
+  paramsParser(),
+  asyncHandler(getRelatedAggregatedQuestionResultHandler)
 );
 export default patientRouter;
