@@ -25,7 +25,7 @@ export class QuizItemComponent {
   }
 
   get quizImageUrl(): string {
-    return this.quiz.imageUrl;
+    return this.quiz.imageUrl || '';
   }
 
   constructor(private router: Router, private store: Store) {}
