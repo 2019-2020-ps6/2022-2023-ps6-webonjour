@@ -6,10 +6,10 @@ import { GameEntity } from './game.models';
 import { selectAvailableQuestions } from './game.selectors';
 
 export const GAME_FEATURE_KEY = 'game';
-let stopwatch = Date.now();
 export interface GameState extends GameEntity {
   loaded: boolean; // has the Quiz been loaded
   error?: string | null; // last known error (if any)
+  stopwatch: number;
 }
 
 export interface GamePartialState {
@@ -32,6 +32,7 @@ export const initialGameState: GameState = gameAdapter.getInitialState({
   quizSession: null,
   clickCount: 0,
   usefulClick: 0,
+  stopwatch: 0,
 });
 
 const reducer = createReducer(
@@ -44,6 +45,7 @@ const reducer = createReducer(
     history: [],
     learntQuestions: [],
     skippedQuestions: [],
+    stopwatch: Date.now(),
   })),
 
   on(
@@ -59,6 +61,7 @@ const reducer = createReducer(
       quizSession: quizSession,
       clickCount: 0,
       usefulClick: 0,
+      stopwatch: Date.now(),
     })
   ),
 
@@ -66,8 +69,7 @@ const reducer = createReducer(
 
   on(GameActions.chooseAnswer, (state, { isCorrect }) => {
     if (!state.quiz) return state;
-    const delta = Date.now() - stopwatch;
-    stopwatch = Date.now();
+    const delta = Date.now() - state.stopwatch;
     return {
       ...state,
       history: [
@@ -78,6 +80,7 @@ const reducer = createReducer(
           timeTaken: delta,
         },
       ],
+      stopwatch: Date.now(),
     };
   }),
 

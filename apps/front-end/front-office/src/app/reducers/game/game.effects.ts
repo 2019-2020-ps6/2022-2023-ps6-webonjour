@@ -108,12 +108,11 @@ export class GameEffects {
         if (!state.quizSession || !state.currentQuestion) {
           return EMPTY;
         }
-
         return this.questionResultService
           .createQuestionResult({
             timeTaken: delta,
             isCorrect,
-            clickRatio: clickRatio,
+            clickRatio: state.usefulClick / (state.clickCount + 1),
             question: {
               connect: {
                 id: state.currentQuestion.id,

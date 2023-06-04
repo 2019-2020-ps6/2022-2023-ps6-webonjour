@@ -27,6 +27,9 @@ export const getRelatedQuestionResultHandler = async (
           patientId: req.params.id,
         },
       },
+      orderBy: {
+        createdAt: 'asc',
+      },
     });
     if (!questionsResults) {
       return next(new AppError('Patient not found', 404));

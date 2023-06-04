@@ -216,15 +216,16 @@ export class PatientEditStatsComponent implements AfterViewInit {
           .getPatientQuestionResults(parseInt(params['id']))
           .subscribe((data) => {
             this.chartOptions.series[0].data = data.data.map((item) => {
-              return item.timeTaken;
+              return Math.round(item.timeTaken * 10) / 10;
             });
             this.chartOptions.series[1].data = data.data.map((item) => {
-              return item.clickRatio;
+              return Math.round(item.clickRatio * 100);
             });
 
             this.chartOptions.labels = data.data.map((item) => {
               return item.createdAt.toString();
             });
+
             this.chart.updateOptions(this.chartOptions).then(() => {
               this.chart.hideSeries('Précision du clic');
               this.chart.showSeries('Temps de réponse');
