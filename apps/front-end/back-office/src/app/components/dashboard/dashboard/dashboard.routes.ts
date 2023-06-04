@@ -23,7 +23,7 @@ export const dashboardRoutes: Route[] = [
       },
       {
         path: 'quiz/:id',
-        component: QuestionListComponent,
+        component: QuizEditionComponent,
         title: 'Édition de quiz',
         data: { navPath: 'quiz' },
       },

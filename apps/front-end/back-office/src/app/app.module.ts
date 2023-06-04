@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -40,10 +39,11 @@ import { QuestionAnswerComponent } from './components/quiz-creation/question-ans
 import { QuestionAnswerAddPopupComponent } from './components/quiz-creation/question-answer-add-popup/question-answer-add-popup.component';
 import { QuestionClueComponent } from './components/quiz-creation/question-clue/question-clue.component';
 import { QuestionClueAddPopupComponent } from './components/quiz-creation/question-clue-add-popup/question-clue-add-popup.component';
+import { QuizEditionComponent } from './components/quiz-edition/quiz-edition.component';
+import { QuizEditGeneralComponent } from './components/quiz-creation/quiz-edit-general/quiz-edit-general.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NxWelcomeComponent,
     LoginComponent,
     LoginFormComponent,
     AlertComponent,
@@ -64,6 +64,8 @@ import { QuestionClueAddPopupComponent } from './components/quiz-creation/questi
     QuestionListComponent,
     QuestionEditGeneralComponent,
     QuestionCreateComponent,
+    QuizEditionComponent,
+    QuizEditGeneralComponent,
     QuestionAnswerComponent,
     QuestionAnswerAddPopupComponent,
     QuestionClueComponent,
