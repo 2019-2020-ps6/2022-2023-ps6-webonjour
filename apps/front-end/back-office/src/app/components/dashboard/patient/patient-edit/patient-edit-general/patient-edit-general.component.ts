@@ -65,6 +65,11 @@ export class PatientEditGeneralComponent implements OnInit {
   }
 
   async onSubmit() {
+    const img = await fileToBase64(
+      this.formControls['image'].value,
+      DEFAULT_IMAGE_URL
+    );
+
     if (!this.patientId) {
       this.patientService
         .createPatient({
@@ -73,10 +78,7 @@ export class PatientEditGeneralComponent implements OnInit {
           age: this.formControls['age'].value,
           diseaseStage: this.formControls['disease_stage'].value,
           description: this.formControls['description'].value,
-          profilePictureUrl: await fileToBase64(
-            this.formControls['image'].value,
-            DEFAULT_IMAGE_URL
-          ),
+          profilePictureUrl: img,
           floor: this.formControls['floor'].value,
         })
         .subscribe((patient) => {
@@ -98,7 +100,7 @@ export class PatientEditGeneralComponent implements OnInit {
           age: this.formControls['age'].value,
           diseaseStage: this.formControls['disease_stage'].value,
           description: this.formControls['description'].value,
-          profilePictureUrl: this.formControls['image'].value,
+          profilePictureUrl: img,
           floor: this.formControls['floor'].value,
         })
         .subscribe((patient) => {
