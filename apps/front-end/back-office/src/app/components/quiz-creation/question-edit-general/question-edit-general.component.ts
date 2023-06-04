@@ -77,7 +77,7 @@ export class QuestionEditGeneralComponent implements OnInit {
     return this.form.controls;
   }
 
-  async question(): Promise<Prisma.QuestionUpdateInput> {
+  async questionUpdate(): Promise<Prisma.QuestionUpdateInput> {
     return {
       title: this.formControls['title'].value as string,
       image: await fileToBase64(
@@ -85,6 +85,15 @@ export class QuestionEditGeneralComponent implements OnInit {
         DEFAULT_IMAGE_URL
       ),
       type: this.formControls['type'].value as QuestionType,
+    };
+  }
+
+  async questionCreate(): Promise<Prisma.QuestionCreateInput> {
+    const question = await this.questionUpdate();
+    return {
+      title: question.title as string,
+      image: question.image as string,
+      type: question.type as QuestionType,
       quiz: {
         connect: {
           id: this.quizId,
@@ -99,10 +108,12 @@ export class QuestionEditGeneralComponent implements OnInit {
 
     this.loading = true;
 
-    const question = await this.question();
     const res = this.questionId
-      ? this.questionService.update(this.questionId, question)
-      : this.questionService.create(question as Prisma.QuestionCreateInput);
+      ? this.questionService.update(
+          this.questionId,
+          await this.questionUpdate()
+        )
+      : this.questionService.create(await this.questionCreate());
 
     res.subscribe((question) => {
       this.dialog.closeAll();
