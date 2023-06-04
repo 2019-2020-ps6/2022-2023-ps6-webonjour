@@ -194,7 +194,7 @@ export class PatientEditStatsComponent implements AfterViewInit {
     },
   };
 
-  aggregateData!: Patient.AggregatedQuestionResult;
+  aggregateData?: Patient.AggregatedQuestionResult;
 
   constructor(
     private route: ActivatedRoute,
