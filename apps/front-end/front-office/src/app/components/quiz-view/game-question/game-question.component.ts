@@ -131,9 +131,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   handleAnswerError(question: Element) {
     this.tries++;
 
-    if (this.tries >= this.maxTries) {
-      question.classList.add('disabled');
-    }
+    question.classList.add('disabled');
 
     if (this.accommodations.some((a) => a.title === "Afficher l'aide")) {
       this.show_modal_help(true);
