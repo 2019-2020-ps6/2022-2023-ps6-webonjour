@@ -59,7 +59,7 @@ app.get('/health', (req, res) => {
   res.send({ message: 'OK' });
 });
 
-app.get('/api/tts', ttsRouter);
+app.use('/api/tts', ttsRouter);
 app.use('/api/accommodations', accommodationRouter);
 app.use('/api/answers', answerRouter);
 app.use('/api/clues', clueRouter);
