@@ -34,6 +34,7 @@ export class CardComponent {
 
   onClick() {
     this.store.dispatch(GameActions.setPatient({ patient: this.patient }));
+    this.store.dispatch(GameActions.usefulClick());
     this.router.navigate(['/list-quiz']);
   }
 }

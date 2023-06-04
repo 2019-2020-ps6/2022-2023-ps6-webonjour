@@ -4,6 +4,7 @@ import {
   patientMocks,
   quizMocks,
 } from '@webonjour/data-access-mocks';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -13,7 +14,6 @@ export async function main() {
       data: {
         id: quiz.id,
         title: quiz.title,
-        stage: quiz.stage,
         isPrivate: quiz.isPrivate,
         imageUrl: quiz.imageUrl,
         questions: {
@@ -114,6 +114,10 @@ export async function main() {
   await prisma.user.create({
     data: {
       ...authMocks.user,
+      password: await bcrypt.hash(
+        authMocks.credentials.password,
+        await bcrypt.genSalt(10)
+      ),
       patients: {
         connect: (
           await prisma.patient.findMany({})

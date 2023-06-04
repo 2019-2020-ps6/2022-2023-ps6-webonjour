@@ -5,7 +5,7 @@ import {
   RequestWrapper,
   Schema,
 } from '@webonjour/util-interface';
-import { Accommodation, Patient, Prisma } from '@prisma/client';
+import { Patient, Prisma } from '@prisma/client';
 import prisma from '../utils/connectDB';
 import { z } from 'zod';
 import AppError from '../utils/appError';

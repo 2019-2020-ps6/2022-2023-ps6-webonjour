@@ -2,11 +2,11 @@ import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 
 import {
-  getAllAccommodationHandler,
-  deleteAccommodationHandler,
-  updateAccommodationHandler,
-  getAccommodationByIdHandler,
   createAccommodationHandler,
+  deleteAccommodationHandler,
+  getAccommodationByIdHandler,
+  getAllAccommodationHandler,
+  updateAccommodationHandler,
 } from '../controllers/accommodation.controller';
 import { Schema } from '@webonjour/util-interface';
 import { validateSplit } from '../middleware/validate';
@@ -16,7 +16,7 @@ const accommodationRouter = Router();
 
 accommodationRouter.get(
   '/',
-  validateSplit(undefined, undefined, Schema.AccommodationWhereInputSchema),
+  validateSplit(undefined, Schema.AccommodationWhereInputSchema, undefined),
   asyncHandler(getAllAccommodationHandler)
 );
 
@@ -30,7 +30,11 @@ accommodationRouter.delete(
 accommodationRouter.put(
   '/:id',
   paramsParser(),
-  validateSplit(Schema.AccommodationWhereUniqueInputSchema),
+  validateSplit(
+    Schema.AccommodationWhereUniqueInputSchema,
+    undefined,
+    Schema.AccommodationUpdateInputSchema
+  ),
   asyncHandler(updateAccommodationHandler)
 );
 

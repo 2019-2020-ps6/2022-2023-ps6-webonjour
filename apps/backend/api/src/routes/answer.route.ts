@@ -2,16 +2,15 @@ import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import {
   createAnswerHandler,
-  getAnswerByIdHandler,
-  updateAnswerHandler,
   deleteAnswerHandler,
   getAllAnswerHandler,
+  getAnswerByIdHandler,
+  updateAnswerHandler,
 } from '../controllers/answer.controller';
 
 import { validateSplit } from '../middleware/validate';
 import { Schema } from '@webonjour/util-interface';
 import { paramsParser } from '../middleware/requestPreParsers';
-import { AnyZodObject, z } from 'zod';
 
 const answerRouter = Router();
 
@@ -48,7 +47,7 @@ answerRouter.delete(
 
 answerRouter.get(
   '/',
-  validateSplit(undefined, undefined, Schema.AnswerWhereInputSchema),
+  validateSplit(undefined, Schema.AnswerWhereInputSchema, undefined),
   asyncHandler(getAllAnswerHandler)
 );
 

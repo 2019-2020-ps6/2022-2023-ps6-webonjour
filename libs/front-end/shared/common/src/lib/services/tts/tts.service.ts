@@ -17,9 +17,10 @@ export class TtsService {
 
   sayTTS(text: string, slow: boolean = false) {
     this.http
-      .get<RequestWrapper<Tts.TtsResponse>>(
-        `${this.API_URL}/api/tts?text=${text}&slow=${slow}`
-      )
+      .post<RequestWrapper<Tts.TtsResponse>>(this.API_URL, {
+        text,
+        slow,
+      })
       .subscribe((res) => {
         console.log('test: ', text);
         this.audio.pause();

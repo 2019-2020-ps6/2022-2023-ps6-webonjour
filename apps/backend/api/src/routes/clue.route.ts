@@ -2,16 +2,15 @@ import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import {
   createClueHandler,
-  getClueByIdHandler,
-  updateClueHandler,
   deleteClueHandler,
   getAllClueHandler,
+  getClueByIdHandler,
+  updateClueHandler,
 } from '../controllers/clue.controller';
 
 import { validateSplit } from '../middleware/validate';
 import { Schema } from '@webonjour/util-interface';
 import { paramsParser } from '../middleware/requestPreParsers';
-import { AnyZodObject, z } from 'zod';
 
 const clueRouter = Router();
 
@@ -48,7 +47,7 @@ clueRouter.delete(
 
 clueRouter.get(
   '/',
-  validateSplit(undefined, undefined, Schema.ClueWhereInputSchema),
+  validateSplit(undefined, Schema.ClueWhereInputSchema, undefined),
   asyncHandler(getAllClueHandler)
 );
 

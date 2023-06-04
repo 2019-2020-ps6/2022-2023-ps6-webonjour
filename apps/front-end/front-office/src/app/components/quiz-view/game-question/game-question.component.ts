@@ -7,18 +7,16 @@ import { TtsService } from '@webonjour/front-end/shared/common';
 import {
   selectAccommodation,
   selectGameCurrentQuestion,
-  selectPatientDiseaseStage,
 } from '../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import * as GameActions from '../../../reducers/game/game.actions';
-import { Accommodation, Answer, DiseaseStage, Prisma } from '@prisma/client';
+import { Accommodation, Answer, Prisma } from '@prisma/client';
 @Component({
   selector: 'webonjour-game-question',
   templateUrl: './game-question.component.html',
   styleUrls: ['./game-question.component.scss'],
 })
 export class GameQuestionComponent implements OnDestroy, OnInit {
-  diseaseStage!: DiseaseStage;
   question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   show_help = false;
   image_enabled = false;
@@ -94,12 +92,6 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
         }
       });
 
-    this.store
-      .select(selectPatientDiseaseStage)
-      .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((diseaseStage) => {
-        this.diseaseStage = diseaseStage ? diseaseStage : DiseaseStage.STAGE_1;
-      });
     this.actions$
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((action: Action) => {
@@ -111,7 +103,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
 
   onSelectAnswer(answer: Answer, index: number) {
     const question = document.querySelector('#answer-' + index);
-
+    this.helpClick();
     if (!question || question.classList.contains('disabled')) {
       return;
     }
@@ -139,15 +131,9 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   handleAnswerError(question: Element) {
     this.tries++;
 
-    if (this.tries >= this.maxTries) {
-      question.classList.add('disabled');
-    }
+    question.classList.add('disabled');
 
-    if (this.diseaseStage >= DiseaseStage.STAGE_3) {
-      question.classList.add('disabled');
-    }
-
-    if (this.diseaseStage >= DiseaseStage.STAGE_4) {
+    if (this.accommodations.some((a) => a.title === "Afficher l'aide")) {
       this.show_modal_help(true);
     }
 
@@ -196,5 +182,10 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
 
   skip() {
     this.store.dispatch(GameActions.skipQuestion());
+    this.store.dispatch(GameActions.usefulClick());
+  }
+
+  helpClick() {
+    this.store.dispatch(GameActions.usefulClick());
   }
 }

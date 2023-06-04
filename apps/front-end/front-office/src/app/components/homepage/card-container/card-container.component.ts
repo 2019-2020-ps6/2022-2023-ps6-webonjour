@@ -19,6 +19,7 @@ export class CardContainerComponent {
     this.patientService.getPatients().subscribe((patients) => {
       this.patients = patients.data;
       this.floors = [...new Set(this.patients.map((patient) => patient.floor))];
+      this.floors.sort();
     });
   }
 

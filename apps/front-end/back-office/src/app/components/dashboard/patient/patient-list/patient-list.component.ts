@@ -6,6 +6,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { Patient } from '@webonjour/util-interface';
 import { PatientCreateComponent } from '../patient-create/patient-create.component';
 import { Prisma } from '@prisma/client';
+import { DEFAULT_IMAGE_URL } from '@webonjour/front-end/shared/common';
+
+interface PatientWithAggregatedQuestionResults {
+  patient: Prisma.PatientGetPayload<Patient.PatientFull>;
+  aggregate: Patient.AggregatedQuestionResult;
+}
 
 @Component({
   selector: 'webonjour-patient-list',
@@ -13,6 +19,7 @@ import { Prisma } from '@prisma/client';
   styleUrls: ['./patient-list.component.scss'],
 })
 export class PatientListComponent implements AfterViewInit {
+  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
   displayedColumns: string[] = [
     'Nom du Patient',
     'Taux de réussite',
@@ -20,9 +27,8 @@ export class PatientListComponent implements AfterViewInit {
     'Stade Alzheimer',
     'Étage',
   ];
-  dataSource = new MatTableDataSource<
-    Prisma.PatientGetPayload<Patient.PatientFull>
-  >([]);
+
+  dataSource = new MatTableDataSource<PatientWithAggregatedQuestionResults>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -35,10 +41,21 @@ export class PatientListComponent implements AfterViewInit {
 
   refresh() {
     this.patientService.getPatients().subscribe((patientList) => {
-      this.dataSource = new MatTableDataSource<
-        Prisma.PatientGetPayload<Patient.PatientFull>
-      >(patientList.data);
-      this.dataSource.paginator = this.paginator;
+      const data: PatientWithAggregatedQuestionResults[] = [];
+
+      for (const patient of patientList.data) {
+        this.patientService
+          .getPatientAggregatedQuestionResults(patient.id)
+          .subscribe((aggregate) => {
+            data.push({ patient, aggregate: aggregate.data });
+            data.sort((a, b) => a.patient.id - b.patient.id);
+            this.dataSource =
+              new MatTableDataSource<PatientWithAggregatedQuestionResults>(
+                data
+              );
+            this.dataSource.paginator = this.paginator;
+          });
+      }
     });
   }
 

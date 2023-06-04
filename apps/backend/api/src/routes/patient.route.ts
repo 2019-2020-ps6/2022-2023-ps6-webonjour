@@ -28,12 +28,17 @@ import {
   deleteRelatedFamilyMemberHandler,
   getRelatedFamilyMemberHandler,
 } from '../controllers/patient.family-member.controller';
+import {
+  getRelatedAggregatedQuestionResultHandler,
+  getRelatedQuestionResultHandler,
+} from '../controllers/patient.question-result.controller';
 
 const patientRouter = Router();
 
 patientRouter.get(
   '/',
-  validateSplit(undefined, undefined, Schema.PatientWhereInputSchema),
+  paramsParser(),
+  validateSplit(undefined, Schema.PatientWhereInputSchema, undefined),
   asyncHandler(getAllPatientHandler)
 );
 
@@ -78,7 +83,7 @@ patientRouter.get(
 export const relatedAccommodationSchema: z.ZodType = (
   Schema.PatientWhereUniqueInputSchema as AnyZodObject
 ).extend({
-  accommodationId: z.number().optional(),
+  accommodationId: z.number(),
 });
 
 patientRouter.post(
@@ -98,7 +103,7 @@ patientRouter.delete(
 export const relatedQuizSchema: z.ZodType = (
   Schema.PatientWhereUniqueInputSchema as AnyZodObject
 ).extend({
-  quizId: z.number().optional(),
+  quizId: z.number(),
 });
 
 patientRouter.post(
@@ -117,6 +122,7 @@ patientRouter.delete(
 
 patientRouter.get(
   '/:id/quiz',
+  paramsParser(),
   validateSplit(Schema.PatientWhereUniqueInputSchema, undefined, undefined),
   asyncHandler(getAllRelatedQuizHandler)
 );
@@ -124,7 +130,7 @@ patientRouter.get(
 export const relatedFamilyMemberSchema: z.ZodType = (
   Schema.PatientWhereUniqueInputSchema as AnyZodObject
 ).extend({
-  familyMemberId: z.number().optional(),
+  familyMemberId: z.number(),
 });
 
 patientRouter.post(
@@ -148,4 +154,17 @@ patientRouter.get(
   asyncHandler(getRelatedFamilyMemberHandler)
 );
 
+patientRouter.get(
+  '/:id/questionResult',
+  paramsParser(),
+  validateSplit(Schema.PatientWhereUniqueInputSchema, undefined, undefined),
+  asyncHandler(getRelatedQuestionResultHandler)
+);
+
+patientRouter.get(
+  '/:id/questionResult/aggregated',
+  paramsParser(),
+  validateSplit(Schema.PatientWhereUniqueInputSchema, undefined, undefined),
+  asyncHandler(getRelatedAggregatedQuestionResultHandler)
+);
 export default patientRouter;

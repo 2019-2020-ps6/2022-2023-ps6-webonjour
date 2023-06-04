@@ -1,4 +1,11 @@
 {
   "port": 8000,
-  "host": "localhost"
+  "host": "localhost",
+  "privateKey": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDJvPLdGrlApRXe\n/ZVccoK735Cr+XcBmEq2qCMPp3QyD+bjZ4Bgwgb5Wra9dpi1x1C+eb7LO7bYPvTU\nARBJEo0OiDJhvXCIPG7PhL4rkOm00t/fB+K/SbeQfcKnB3PG6SRDfBgAFno5lseB\nZySR3OCuhbhMa2T7FMQf9vjVN6A2Q0p8wYaf1bV6IulyyRvthcTH6Xec+p2Ql8is\nfsCETY34F+cv6cU94EuH+VVW0hgKpThBP173GFqdbfnP90DLPodFaXqFvgSNh2cF\nxNSsk1+PkU+SqeEWL3FR5Xj7scP3s33NwTqO1+9L5a5dZiUxo4eNjaOkGNJvF9vR\nINGWwmnJAgMBAAECggEAcO5cChgeoiiIAMd16EWWF7PEGfFRhEwLbwrabbXw3uF1\n/9D91axoGQiGCbOtMv07nxUqED0CUzWS+mcKBc3jtsHZakuRBkLGSVbm2h6KJZZy\nijiw3yJWJwWvhK8wSaZTjY+XI91xWHGmhzMFDr5V7Hygue7YnZF3ZOltTHaSMi0j\n7fDxEQ8y03PPkHJP58/FIUdbye/8A5ezTeVYEjpSNsfAwWAP/6ZzRGEak1BprqrT\nrvCO9wkGloucDigglvXxh0EnRlz/ovz8gi2Zl2mW6D0j7ZxBCgbDLt2MVz+DN+5O\nEh0D45sEbEZ/8WxkappR4q9jOwD+sSZ35mmm27YI8QKBgQD2aE9H8zLuLFYUnVpW\nDt7ExpbbOk9WBb/vIpjDHRVIptM68EtuDy4X2ySYrW3E0BESJhhNUozQLxsCTTal\n8wBA9642V5MJEpgUK4GZtbZeTCV8T4mV2emFNRc8Q8VxDseQJuXJluKQAcwDqrx/\n9v7s5a9y2G4RfEBxDzWlBgcRzQKBgQDRl3cS0WTSds4Z66wbTMYLmihEqd+mONx6\nE3+/yniuXqi/MVfIrkVTVAp+0ff/3Nq1GY2Pyv5fW+v+/FsVnv/afGjDKVSMy8xG\n5CgWdKHw/Cl8FqP0zfsm8jphRwABYiVV/XlPdMYRigMHX2DmxBixXnGtV5172E9o\n00+SJ5+r7QKBgCNhQtDv6IYuM4XuOgRVSkMyyIJd0vplBPQPIaQSTvYJjhbOXeZF\no7alLpIFhNdXkLvsYFzp13Ik8VnZQFl/lK+/YHJJDMGmu9NZk9hAMRlFEbTRrs2n\nZlJMFzP9/yGGn7zg+OmDErDesS5tm3c8PcpCCHkS/mrgTlhteKRjQyyZAoGAHaIe\nschtStyFU2Dg2pNGRQmsu9iQyH2tnoz3OPS1j2HO1glx8evB3YA6Y6foOoLNYWGV\nhEkdIfprKYggkLQEVK3WWhGT5LxDy5oimNows1PTwbmpwMkGw4DoBCz3sTphMQE/\nj55hCsXKm9Y+ayI6o4lI5UtH9uSkhZuq2m1DxBkCgYAERZ1+qDcR9tmeVzpdXuXq\nbR8Em6kQTWjVbCmnZnLA6N79SlcCkh8DdRMXCBniN+Qz7X+vyjXVs9jimBgNyD/f\nGjW9F1sTRPjcm58U8NEmVUwK/dz3DORHOv2QhqgKQgnqBMpTjE+tMl7IbOIF8dw1\nnH3J6t9JiBN+4oxS9Oqjeg==\n-----END PRIVATE KEY-----\n",
+  "publicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAybzy3Rq5QKUV3v2VXHKC\nu9+Qq/l3AZhKtqgjD6d0Mg/m42eAYMIG+Vq2vXaYtcdQvnm+yzu22D701AEQSRKN\nDogyYb1wiDxuz4S+K5DptNLf3wfiv0m3kH3CpwdzxukkQ3wYABZ6OZbHgWckkdzg\nroW4TGtk+xTEH/b41TegNkNKfMGGn9W1eiLpcskb7YXEx+l3nPqdkJfIrH7AhE2N\n+BfnL+nFPeBLh/lVVtIYCqU4QT9e9xhanW35z/dAyz6HRWl6hb4EjYdnBcTUrJNf\nj5FPkqnhFi9xUeV4+7HD97N9zcE6jtfvS+WuXWYlMaOHjY2jpBjSbxfb0SDRlsJp\nyQIDAQAB\n-----END PUBLIC KEY-----\n",
+  "accessTokenExpiresIn": 30,
+  "refreshTokenExpiresIn": 720,
+  "superAdminEmail": "admin@localhost.com",
+  "superAdminPassword": "superSecretPassword",
+  "superAdminName": "Admin"
 }

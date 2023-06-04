@@ -2,10 +2,10 @@ import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import {
   createQuizHandler,
+  deleteQuizHandler,
   getAllQuizHandler,
   getQuizByIdHandler,
   updateQuizHandler,
-  deleteQuizHandler,
 } from '../controllers/quiz.controller';
 import { validateSplit } from '../middleware/validate';
 import { Schema } from '@webonjour/util-interface';
@@ -13,7 +13,11 @@ import { paramsParser } from '../middleware/requestPreParsers';
 
 const quizRouter = Router();
 
-quizRouter.get('/', asyncHandler(getAllQuizHandler));
+quizRouter.get(
+  '/',
+  validateSplit(undefined, Schema.QuizWhereInputSchema, undefined),
+  asyncHandler(getAllQuizHandler)
+);
 quizRouter.get(
   '/:id',
   paramsParser(),

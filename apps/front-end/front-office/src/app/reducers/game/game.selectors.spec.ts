@@ -4,7 +4,7 @@ import {
   initialGameState,
 } from './game.reducer';
 import * as GameSelectors from './game.selectors';
-import { quizMocks } from '@webonjour/data-access-fake-backend';
+import { quizMocks } from '@webonjour/data-access-mocks';
 
 describe('Game Selectors', () => {
   const ERROR_MSG = 'No Error Available';

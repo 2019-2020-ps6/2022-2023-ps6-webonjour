@@ -25,13 +25,14 @@ export class QuestionAnswerComponent implements AfterViewInit {
     public dialog: MatDialog
   ) {
     this.route.params.subscribe((params) => {
-      this.questionId = params['questionId'];
+      this.questionId = parseInt(params['questionId']);
+      this.refresh();
     });
-    this.refresh();
   }
 
   refresh() {
     this.questionService.getById(this.questionId).subscribe((question) => {
+      question.data.answers.sort((a, b) => a.id - b.id);
       this.dataSource = new MatTableDataSource<Answer>(question.data.answers);
       this.dataSource.paginator = this.paginator;
     });

@@ -3,10 +3,9 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { Patient } from '@webonjour/util-interface';
 import { PatientService } from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { map, mergeMap } from 'rxjs';
 import { Accommodation } from '@prisma/client';
 
 @Component({
@@ -29,7 +28,7 @@ export class PatientEditAccommodationComponent implements AfterViewInit {
 
   refresh() {
     this.route.params.subscribe((params) => {
-      const patientId = params['id'];
+      const patientId = parseInt(params['id']);
 
       this.patientService
         .getAllAccommodations()
@@ -62,8 +61,8 @@ export class PatientEditAccommodationComponent implements AfterViewInit {
   onCheck($event: MatCheckboxChange, element: Accommodation) {
     this.route.params
       .pipe(
-        map((params) => params['id']),
-        map((patientId) => {
+        map((params) => parseInt(params['id'])),
+        mergeMap((patientId) => {
           const s = this.patientService;
           return $event.checked
             ? s.addPatientAccommodation(patientId, element.id)
@@ -71,8 +70,8 @@ export class PatientEditAccommodationComponent implements AfterViewInit {
         })
       )
       .subscribe({
-        error: (error) => {
-          console.log(error);
+        error: (err) => {
+          console.error(err);
           this.refresh();
         },
       });

@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
-import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
 import { LoginComponent } from './components/auth/login/login.component';
 import { LoginFormComponent } from './components/auth/login-form/login-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -32,7 +31,7 @@ import { QuestionDetailComponent } from './components/quiz-creation/question-det
 
 import { PatientFamilyAddPopupComponent } from './components/dashboard/patient/patient-edit/patient-family-add-popup/patient-family-add-popup.component';
 import { FileFieldComponent } from './components/util/file-field/file-field.component';
-import { PatientDangerComponent } from './components/dashboard/patient/patient-edit/patient-danger/patient-danger.component';
+import { DangerZoneComponent } from './components/danger-zone/danger-zone.component';
 import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { QuestionListComponent } from './components/quiz-creation/question-list/question-list.component';
 import { QuestionEditGeneralComponent } from './components/quiz-creation/question-edit-general/question-edit-general.component';
@@ -60,7 +59,7 @@ import { QuestionClueAddPopupComponent } from './components/quiz-creation/questi
     QuestionDetailComponent,
     PatientFamilyAddPopupComponent,
     FileFieldComponent,
-    PatientDangerComponent,
+    DangerZoneComponent,
     PatientEditQuizAddPopupComponent,
     QuestionListComponent,
     QuestionEditGeneralComponent,
@@ -90,10 +89,6 @@ import { QuestionClueAddPopupComponent } from './components/quiz-creation/questi
     MatCheckboxModule,
     NgApexchartsModule,
     NgxBootstrapIconsModule.pick(allIcons),
-  ],
-  providers: [
-    // provider used to create fake backend
-    fakeBackendProvider,
   ],
   bootstrap: [AppComponent],
 })

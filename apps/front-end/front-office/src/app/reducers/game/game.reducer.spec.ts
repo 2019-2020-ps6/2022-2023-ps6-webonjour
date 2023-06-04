@@ -1,14 +1,16 @@
 import { Action } from '@ngrx/store';
-import { patientMocks, quizMocks } from '@webonjour/data-access-fake-backend';
+import { patientMocks, quizMocks } from '@webonjour/data-access-mocks';
 
 import * as GameActions from './game.actions';
 import { gameReducer, initialGameState } from './game.reducer';
+import { QuizSession } from '@prisma/client';
 
 describe('Game Reducer', () => {
   describe('loading', () => {
     it('loadGameSuccess should set Game', () => {
       const action = GameActions.loadGameSuccess({
         quiz: quizMocks.quizList[0],
+        quizSession: null as unknown as QuizSession,
         accommodation: patientMocks.accommodationMocks.map((accommodation) => {
           return {
             ...accommodation,
@@ -29,6 +31,7 @@ describe('Game Reducer', () => {
             id: parseInt(accommodation.id),
           };
         }),
+        stopwatch: result.stopwatch,
         currentQuestion: result.currentQuestion,
       });
     });
@@ -40,36 +43,6 @@ describe('Game Reducer', () => {
       expect(result).toEqual({
         ...initialGameState,
         error: 'error',
-      });
-    });
-  });
-
-  describe('game', () => {
-    it('correctAnswer should add to history', () => {
-      const action = GameActions.correctAnswer({
-        delta: 1000,
-      });
-
-      const result = gameReducer(
-        {
-          ...initialGameState,
-          quiz: quizMocks.quizList[0],
-          currentQuestion: quizMocks.quizList[0].questions[0],
-        },
-        action
-      );
-
-      expect(result).toEqual({
-        ...initialGameState,
-        quiz: quizMocks.quizList[0],
-        currentQuestion: quizMocks.quizList[0].questions[0],
-        history: [
-          {
-            questionId: 1,
-            isCorrect: true,
-            timeTaken: 1000,
-          },
-        ],
       });
     });
   });

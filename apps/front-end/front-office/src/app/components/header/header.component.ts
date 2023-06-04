@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { environment } from '@webonjour/shared/environments';
+import { Store } from '@ngrx/store';
+import * as GameActions from '../../reducers/game/game.actions';
 
 @Component({
   selector: 'webonjour-header',
@@ -13,12 +15,16 @@ export class HeaderComponent {
 
   hover = false;
 
-  constructor() {
+  constructor(private store: Store) {
     this.showCareGiver = true;
   }
   isToggled = false;
 
   onHover(hover: boolean) {
     this.hover = hover;
+  }
+
+  onUsefulClick() {
+    this.store.dispatch(GameActions.usefulClick());
   }
 }

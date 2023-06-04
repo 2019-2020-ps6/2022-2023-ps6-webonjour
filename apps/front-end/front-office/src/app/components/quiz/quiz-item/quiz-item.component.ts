@@ -2,8 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as GameActions from '../../../reducers/game/game.actions';
-import { DiseaseStage, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { Quiz } from '@webonjour/util-interface';
+import { DEFAULT_IMAGE_URL } from '@webonjour/front-end/shared/common';
 
 @Component({
   selector: 'webonjour-quiz-item',
@@ -15,11 +16,9 @@ export class QuizItemComponent {
     id: 1,
     title: '',
     imageUrl: '',
-    stage: DiseaseStage.STAGE_1,
     questions: [],
     isPrivate: false,
   };
-  @Input() diseaseStage: DiseaseStage = DiseaseStage.STAGE_3;
   hover = false;
 
   get quizTitle(): string {
@@ -27,7 +26,7 @@ export class QuizItemComponent {
   }
 
   get quizImageUrl(): string {
-    return this.quiz.imageUrl;
+    return this.quiz.imageUrl || DEFAULT_IMAGE_URL;
   }
 
   constructor(private router: Router, private store: Store) {}
@@ -38,5 +37,6 @@ export class QuizItemComponent {
 
   onClick() {
     this.store.dispatch(GameActions.initGame({ quizId: this.quiz.id }));
+    this.store.dispatch(GameActions.usefulClick());
   }
 }

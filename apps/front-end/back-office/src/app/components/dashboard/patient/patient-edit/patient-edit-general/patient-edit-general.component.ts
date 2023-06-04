@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PatientService } from '@webonjour/front-end/shared/common';
+import {
+  fileToBase64,
+  PatientService,
+} from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { DiseaseStage } from '@prisma/client';
+import { DEFAULT_IMAGE_URL } from '@webonjour/front-end/shared/common';
 
 @Component({
   selector: 'webonjour-patient-edit-general',
@@ -13,6 +18,7 @@ export class PatientEditGeneralComponent implements OnInit {
   loading = false;
   submitted = false;
   patientId?: number;
+  diseaseStages = Object.values(DiseaseStage);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,7 +33,7 @@ export class PatientEditGeneralComponent implements OnInit {
       last_name: ['', [Validators.required]],
       age: ['', [Validators.required, Validators.min(0), Validators.max(120)]],
       disease_stage: [
-        '',
+        this.diseaseStages[0],
         [Validators.required, Validators.min(0), Validators.max(7)],
       ],
       description: [''],
@@ -58,7 +64,12 @@ export class PatientEditGeneralComponent implements OnInit {
     return this.form.controls;
   }
 
-  onSubmit() {
+  async onSubmit() {
+    const img = await fileToBase64(
+      this.formControls['image'].value,
+      DEFAULT_IMAGE_URL
+    );
+
     if (!this.patientId) {
       this.patientService
         .createPatient({
@@ -67,7 +78,7 @@ export class PatientEditGeneralComponent implements OnInit {
           age: this.formControls['age'].value,
           diseaseStage: this.formControls['disease_stage'].value,
           description: this.formControls['description'].value,
-          profilePictureUrl: this.formControls['image'].value,
+          profilePictureUrl: img,
           floor: this.formControls['floor'].value,
         })
         .subscribe((patient) => {
@@ -89,7 +100,7 @@ export class PatientEditGeneralComponent implements OnInit {
           age: this.formControls['age'].value,
           diseaseStage: this.formControls['disease_stage'].value,
           description: this.formControls['description'].value,
-          profilePictureUrl: this.formControls['image'].value,
+          profilePictureUrl: img,
           floor: this.formControls['floor'].value,
         })
         .subscribe((patient) => {

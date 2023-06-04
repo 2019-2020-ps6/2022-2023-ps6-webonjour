@@ -3,8 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Quiz } from '@webonjour/util-interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { QuizService } from '@webonjour/front-end/shared/common';
+import {
+  QuestionService,
+  QuizService,
+} from '@webonjour/front-end/shared/common';
 import { Prisma, PrismaClient, QuestionType } from '@prisma/client';
+import { map, mergeMap } from 'rxjs';
 
 type Question = Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
 
@@ -24,7 +28,8 @@ export class QuizEditionComponent implements OnInit, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
-    private quizService: QuizService
+    private quizService: QuizService,
+    private questionService: QuestionService
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +42,7 @@ export class QuizEditionComponent implements OnInit, AfterViewInit {
   }
 
   onAddQuestion() {
-    const newQuestion: Prisma.QuestionCreateInput = {
+    const questionInput: Prisma.QuestionCreateInput = {
       title: 'Nouvelle question',
       type: QuestionType.CHOICE,
       image: null,
@@ -48,10 +53,17 @@ export class QuizEditionComponent implements OnInit, AfterViewInit {
       },
     };
 
-    this.quizService
-      .addQuestion(this.quiz.id, newQuestion)
+    this.questionService
+      .create(questionInput)
+      .pipe(
+        map((question) => question.data.id),
+        mergeMap((questionId) =>
+          this.quizService.addQuestion(this.quiz.id, questionId)
+        ),
+        map((quiz) => quiz.data)
+      )
       .subscribe((quiz) => {
-        this.quiz = quiz.data;
+        this.quiz = quiz;
         this.dataSource = new MatTableDataSource<Question>(this.quiz.questions);
         this.dataSource.paginator = this.paginator;
       });

@@ -20,6 +20,10 @@ import answerRouter from './routes/answer.route';
 import familyMemberRouter from './routes/family-member.route';
 import clueRouter from './routes/clue.route';
 import questionRouter from './routes/question.route';
+import authRoute from './routes/auth.route';
+import quizSessionRouter from './routes/quiz-session.route';
+import questionResultRoute from './routes/question-result.route';
+import questionResultRouter from './routes/question-result.route';
 
 // Environment Variables
 export let host = getEnv(config.util.getEnv('NODE_ENV')).api.host;
@@ -47,7 +51,7 @@ app.disable('x-powered-by');
 // Middleware
 // 1. Body Parser
 
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json({ limit: '10mb' }));
 // 2. Cookie Parser
 
 app.use(cookieParser());
@@ -73,14 +77,17 @@ app.get('/health', (req, res) => {
   res.send({ message: 'OK' });
 });
 
-app.get('/api/tts', ttsRouter);
-app.use('/api/accommodation', accommodationRouter);
+app.use('/api/tts', ttsRouter);
+app.use('/api/accommodations', accommodationRouter);
 app.use('/api/answers', answerRouter);
 app.use('/api/clues', clueRouter);
 app.use('/api/questions', questionRouter);
 app.use('/api/quizzes', quizRouter);
 app.use('/api/patients', patientRouter);
 app.use('/api/family-members', familyMemberRouter);
+app.use('/api/auth', authRoute);
+app.use('/api/quiz-sessions', quizSessionRouter);
+app.use('/api/question-results', questionResultRouter);
 
 // Unknown Routes
 app.all('*', (req: Request, res: Response, next: NextFunction) => {

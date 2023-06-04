@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "QuizSession" ADD COLUMN     "clickRatio" DOUBLE PRECISION NOT NULL DEFAULT 0;
