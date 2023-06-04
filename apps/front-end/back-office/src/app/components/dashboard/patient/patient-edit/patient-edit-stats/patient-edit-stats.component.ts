@@ -14,6 +14,7 @@ import {
 } from 'ng-apexcharts';
 import { ActivatedRoute } from '@angular/router';
 import { PatientService } from '@webonjour/front-end/shared/common';
+import { Patient } from '@webonjour/util-interface';
 
 const array = new Uint32Array(1);
 
@@ -193,10 +194,20 @@ export class PatientEditStatsComponent implements AfterViewInit {
     },
   };
 
+  aggregateData!: Patient.AggregatedQuestionResult;
+
   constructor(
     private route: ActivatedRoute,
     private patientService: PatientService
-  ) {}
+  ) {
+    this.route.params.subscribe((params) => {
+      this.patientService
+        .getPatientAggregatedQuestionResults(parseInt(params['id']))
+        .subscribe((data) => {
+          this.aggregateData = data.data;
+        });
+    });
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {

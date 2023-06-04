@@ -48,14 +48,14 @@ export class PatientListComponent implements AfterViewInit {
           .getPatientAggregatedQuestionResults(patient.id)
           .subscribe((aggregate) => {
             data.push({ patient, aggregate: aggregate.data });
+            data.sort((a, b) => a.patient.id - b.patient.id);
             this.dataSource =
               new MatTableDataSource<PatientWithAggregatedQuestionResults>(
                 data
               );
+            this.dataSource.paginator = this.paginator;
           });
       }
-
-      this.dataSource.paginator = this.paginator;
     });
   }
 

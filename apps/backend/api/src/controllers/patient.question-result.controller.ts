@@ -66,21 +66,29 @@ export const getRelatedAggregatedQuestionResultHandler = async (
       patientId: req.params.id,
     },
   });
-  const mostPlayedQuiz = await prisma.quizSession.groupBy({
+  const mostPlayedQuizIds = await prisma.quizSession.groupBy({
     by: ['quizId'],
     _count: {
       quizId: true,
-    },
-    where: {
-      patientId: req.params.id,
     },
     orderBy: {
       _count: {
         quizId: 'desc',
       },
     },
-    take: 1,
+    where: {
+      patientId: req.params.id,
+    },
   });
+  let mostPlayedQuiz: Quiz | null = null;
+
+  if (mostPlayedQuizIds.length > 0) {
+    mostPlayedQuiz = await prisma.quiz.findFirst({
+      where: {
+        id: mostPlayedQuizIds[0].quizId,
+      },
+    });
+  }
 
   const lastPlayedQuiz = await prisma.quizSession.findFirst({
     where: {

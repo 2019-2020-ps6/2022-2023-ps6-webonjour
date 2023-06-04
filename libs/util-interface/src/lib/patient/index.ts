@@ -19,10 +19,7 @@ export const patientFull = Prisma.validator<Prisma.PatientArgs>()({
 
 export interface AggregatedQuestionResult {
   numberOfQuizPlayed: number;
-  mostPlayedQuiz: (Prisma.PickArray<
-    Prisma.QuizSessionGroupByOutputType,
-    'quizId'[]
-  > & { _count: { quizId: number } })[];
+  mostPlayedQuiz: Quiz | null;
   lastPlayedQuiz: (QuizSession & { quiz: Quiz }) | null;
   averageScore: Prisma.GetQuizSessionAggregateType<{ _avg: { score: true } }>;
   bestQuiz: (QuizSession & { quiz: Quiz }) | null;
