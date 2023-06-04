@@ -33,7 +33,7 @@ app.disable('x-powered-by');
 // Middleware
 // 1. Body Parser
 
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json({ limit: '10mb' }));
 // 2. Cookie Parser
 
 app.use(cookieParser());
