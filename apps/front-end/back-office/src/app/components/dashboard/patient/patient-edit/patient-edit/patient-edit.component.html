@@ -4,5 +4,8 @@
   <webonjour-patient-family></webonjour-patient-family>
   <webonjour-patient-edit-quiz></webonjour-patient-edit-quiz>
   <webonjour-patient-edit-accommodation></webonjour-patient-edit-accommodation>
-  <webonjour-patient-danger></webonjour-patient-danger>
+  <webonjour-danger-zone
+    [deleteCallback]="deletePatient.bind(this)"
+    elementName="le patient"
+  ></webonjour-danger-zone>
 </div>
