@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { QuizService } from '@webonjour/front-end/shared/common';
 import { MatDialog } from '@angular/material/dialog';
 import { PatientCreateComponent } from '../../dashboard/patient/patient-create/patient-create.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuizCreateComponent } from '../quiz-create/quiz-create.component';
 import { QuestionCreateComponent } from '../question-create/question-create.component';
 
@@ -26,7 +26,8 @@ export class QuestionListComponent implements AfterViewInit {
   constructor(
     private quizService: QuizService,
     public dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.quiz = {
       id: 0,
@@ -36,7 +37,7 @@ export class QuestionListComponent implements AfterViewInit {
       questions: [],
     };
     this.route.params.subscribe((params) => {
-      this.quizService.getById(params['id']).subscribe((quiz) => {
+      this.quizService.getById(parseInt(params['id'])).subscribe((quiz) => {
         this.quiz = quiz.data;
         this.refresh();
       });
@@ -65,6 +66,12 @@ export class QuestionListComponent implements AfterViewInit {
 
     this.dialog.afterAllClosed.subscribe(() => {
       this.refresh();
+    });
+  }
+
+  onDelete() {
+    this.quizService.delete(this.quiz.id).subscribe(() => {
+      this.router.navigate(['../'], { relativeTo: this.route });
     });
   }
 }
