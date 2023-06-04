@@ -40,6 +40,7 @@ import { QuestionAnswerComponent } from './components/quiz-creation/question-ans
 import { QuestionAnswerAddPopupComponent } from './components/quiz-creation/question-answer-add-popup/question-answer-add-popup.component';
 import { QuestionClueComponent } from './components/quiz-creation/question-clue/question-clue.component';
 import { QuestionClueAddPopupComponent } from './components/quiz-creation/question-clue-add-popup/question-clue-add-popup.component';
+import { QuizEditionComponent } from './components/quiz-edition/quiz-edition.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +65,7 @@ import { QuestionClueAddPopupComponent } from './components/quiz-creation/questi
     QuestionListComponent,
     QuestionEditGeneralComponent,
     QuestionCreateComponent,
+    QuizEditionComponent,
     QuestionAnswerComponent,
     QuestionAnswerAddPopupComponent,
     QuestionClueComponent,
