@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { environment } from '@webonjour/shared/environments';
 import { Store } from '@ngrx/store';
 import * as GameActions from '../../reducers/game/game.actions';
 
@@ -8,6 +9,8 @@ import * as GameActions from '../../reducers/game/game.actions';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  protected readonly environment = environment;
+
   @Input() showCareGiver: boolean;
 
   hover = false;

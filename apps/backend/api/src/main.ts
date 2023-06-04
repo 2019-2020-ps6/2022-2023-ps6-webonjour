@@ -14,6 +14,7 @@ import prisma from './utils/connectDB';
 import quizRouter from './routes/quiz.route';
 import { queryParser } from './middleware/requestPreParsers';
 import patientRouter from './routes/patient.route';
+import { environment, getEnv } from '@webonjour/shared/environments';
 import accommodationRouter from './routes/accommodation.route';
 import answerRouter from './routes/answer.route';
 import familyMemberRouter from './routes/family-member.route';
@@ -24,9 +25,26 @@ import quizSessionRouter from './routes/quiz-session.route';
 import questionResultRoute from './routes/question-result.route';
 import questionResultRouter from './routes/question-result.route';
 
-const host = config.get<string>('host');
-const port = config.get<number>('port');
+// Environment Variables
+export let host = getEnv(config.util.getEnv('NODE_ENV')).api.host;
+export let port = getEnv(config.util.getEnv('NODE_ENV')).api.port;
 
+if (config.util.getEnv('HOST')) {
+  host = config.util.getEnv('HOST');
+}
+
+if (config.util.getEnv('PORT')) {
+  port = parseInt(config.util.getEnv('PORT'));
+
+  if (isNaN(port)) {
+    port = environment.api.port;
+    console.warn(
+      'PORT must be a number.\nFalling back to default port: ' + port
+    );
+  }
+}
+
+// App
 const app = express();
 app.disable('x-powered-by');
 
@@ -94,6 +112,7 @@ app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
 });
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
+  console.log(`[ ready ] https://${environment.api.domain}`);
   prisma.$connect().then(() => {
     console.log(`[ ready ] Database connected`);
   });

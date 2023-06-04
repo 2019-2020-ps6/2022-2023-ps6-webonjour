@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FamilyMember, Prisma } from '@prisma/client';
 import { RequestWrapper } from '@webonjour/util-interface';
+import { environment, protocol } from '@webonjour/shared/environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FamilyMemberService {
-  FAMILY_URL = 'http://localhost:8000/api/family-members/';
+  FAMILY_URL = `${protocol(environment.api.secure)}://${
+    environment.api.domain
+  }/api/family-members/`;
 
   constructor(private httpClient: HttpClient) {}
 
