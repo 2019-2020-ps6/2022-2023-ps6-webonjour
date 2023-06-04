@@ -120,9 +120,9 @@ model Accommodation {
 
 model QuizSession {
   id              Int              @id @default(autoincrement())
-  quiz            Quiz             @relation(fields: [quizId], references: [id])
+  quiz            Quiz             @relation(fields: [quizId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   quizId          Int
-  patient         Patient          @relation(fields: [patientId], references: [id])
+  patient         Patient          @relation(fields: [patientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   patientId       Int
   score           Float?           @default(0)
   questionResults QuestionResult[]
@@ -134,11 +134,11 @@ model QuizSession {
 
 model QuestionResult {
   id            Int          @id @default(autoincrement())
-  question      Question     @relation(fields: [questionId], references: [id])
+  question      Question     @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   questionId    Int
   isCorrect     Boolean
   timeTaken     Int
-  quizSession   QuizSession? @relation(fields: [quizSessionId], references: [id])
+  quizSession   QuizSession? @relation(fields: [quizSessionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   quizSessionId Int?
   clickRatio    Float        @default(0)
   createdAt     DateTime     @default(now())
