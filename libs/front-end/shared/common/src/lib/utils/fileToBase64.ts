@@ -1,7 +1,10 @@
-export const fileToBase64 = (file: File): Promise<string> => {
-  return new Promise<string>((resolve, reject) => {
-    if (!file) {
-      reject('No file');
+export const fileToBase64 = (
+  file: File,
+  orelse: string | undefined = undefined
+): Promise<string> => {
+  const res = new Promise<string>((resolve, reject) => {
+    if (typeof file === 'string') {
+      resolve(file);
     }
     if (!(file instanceof File)) {
       reject('Not a file');
@@ -15,4 +18,9 @@ export const fileToBase64 = (file: File): Promise<string> => {
     reader.onload = () => resolve(reader.result?.toString() as string);
     reader.onerror = (error) => reject(error);
   });
+
+  if (orelse !== undefined) {
+    return res.catch(() => orelse);
+  }
+  return res;
 };

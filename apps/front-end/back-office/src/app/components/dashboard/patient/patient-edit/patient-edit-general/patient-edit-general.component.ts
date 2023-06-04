@@ -7,6 +7,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DiseaseStage } from '@prisma/client';
+import { DEFAULT_IMAGE_URL } from '../../../../util/file-field/file-field.component';
 
 @Component({
   selector: 'webonjour-patient-edit-general',
@@ -73,7 +74,8 @@ export class PatientEditGeneralComponent implements OnInit {
           diseaseStage: this.formControls['disease_stage'].value,
           description: this.formControls['description'].value,
           profilePictureUrl: await fileToBase64(
-            this.formControls['image'].value
+            this.formControls['image'].value,
+            DEFAULT_IMAGE_URL
           ),
           floor: this.formControls['floor'].value,
         })
