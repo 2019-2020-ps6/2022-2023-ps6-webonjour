@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { PatientFamilyAddPopupComponent } from '../patient-family-add-popup/patient-family-add-popup.component';
 import { FamilyMember } from '@prisma/client';
-import { DEFAULT_IMAGE_URL } from '../../../../util/file-field/file-field.component';
+import { DEFAULT_IMAGE_URL } from '@webonjour/front-end/shared/common';
 
 @Component({
   selector: 'webonjour-patient-family',

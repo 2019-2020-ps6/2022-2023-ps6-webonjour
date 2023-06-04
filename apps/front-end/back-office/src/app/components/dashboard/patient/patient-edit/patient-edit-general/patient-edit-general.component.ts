@@ -7,7 +7,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DiseaseStage } from '@prisma/client';
-import { DEFAULT_IMAGE_URL } from '../../../../util/file-field/file-field.component';
+import { DEFAULT_IMAGE_URL } from '@webonjour/front-end/shared/common';
 
 @Component({
   selector: 'webonjour-patient-edit-general',

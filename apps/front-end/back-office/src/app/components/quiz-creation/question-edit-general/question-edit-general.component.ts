@@ -12,7 +12,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Prisma, QuestionType } from '@prisma/client';
-import { DEFAULT_IMAGE_URL } from '../../util/file-field/file-field.component';
+import { DEFAULT_IMAGE_URL } from '@webonjour/front-end/shared/common';
 
 @Component({
   selector: 'webonjour-question-edit-general',

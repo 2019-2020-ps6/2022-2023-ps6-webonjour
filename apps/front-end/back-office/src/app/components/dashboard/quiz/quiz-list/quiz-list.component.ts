@@ -6,7 +6,7 @@ import { Quiz } from '@webonjour/util-interface';
 import { QuizCreateComponent } from '../../../quiz-creation/quiz-create/quiz-create.component';
 import { QuizService } from '@webonjour/front-end/shared/common';
 import { Prisma } from '@prisma/client';
-import { DEFAULT_IMAGE_URL } from '../../../util/file-field/file-field.component';
+import { DEFAULT_IMAGE_URL } from '@webonjour/front-end/shared/common';
 
 type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 

@@ -1,8 +1,6 @@
 import { Component, ElementRef, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export const DEFAULT_IMAGE_URL =
-  'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
 @Component({
   selector: 'webonjour-file-field',
   templateUrl: './file-field.component.html',
