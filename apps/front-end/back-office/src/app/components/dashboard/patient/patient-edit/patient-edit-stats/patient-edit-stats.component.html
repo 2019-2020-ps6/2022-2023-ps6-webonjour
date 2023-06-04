@@ -43,7 +43,7 @@
       <div class="card text-center p-3">
         <h6 class="text-center">Pourcentage de réussite</h6>
         <h3 class="text-center">
-          {{ aggregateData?.averageScore?._avg?.score * 100 || 0 }}%
+          {{ (aggregateData?.averageScore?._avg?.score || 0) * 100 }}%
         </h3>
       </div>
     </div>
