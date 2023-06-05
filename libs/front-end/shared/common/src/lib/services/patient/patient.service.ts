@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Patient, Quiz, RequestWrapper } from '@webonjour/util-interface';
-import { environment, protocol } from '@webonjour/shared/environments';
+import { api_root, environment } from '@webonjour/shared/environments';
 import {
   Accommodation,
   FamilyMember,
@@ -16,10 +16,8 @@ type Patient = Prisma.PatientGetPayload<Patient.PatientFull>;
   providedIn: 'root',
 })
 export class PatientService {
-  BASE_URL = `${protocol(environment.api.secure)}://${
-    environment.api.domain
-  }/api/`;
-  PATIENT_URL = this.BASE_URL + 'patients/';
+  PATIENT_URL = `${api_root(environment)}/patients/`;
+  ACCOMMODATION_URL = `${api_root(environment)}/accommodations/`;
 
   constructor(private http: HttpClient) {}
 
@@ -108,7 +106,7 @@ export class PatientService {
 
   getAllAccommodations(): Observable<RequestWrapper<Accommodation[]>> {
     return this.http.get<RequestWrapper<Accommodation[]>>(
-      this.BASE_URL + 'accommodations'
+      this.ACCOMMODATION_URL
     );
   }
 

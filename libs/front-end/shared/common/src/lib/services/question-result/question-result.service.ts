@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RequestWrapper } from '@webonjour/util-interface';
 import { Prisma, QuestionResult } from '@prisma/client';
+import { api_root, environment } from '@webonjour/shared/environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuestionResultService {
-  QUESTION_RESULT_URL = 'http://localhost:8000/api/question-results/';
+  QUESTION_RESULT_URL = `${api_root(environment)}/question-results/`;
 
   constructor(private httpClient: HttpClient) {}
 
