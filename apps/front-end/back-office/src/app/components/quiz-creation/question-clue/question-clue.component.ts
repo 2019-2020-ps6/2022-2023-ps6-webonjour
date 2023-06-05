@@ -25,7 +25,7 @@ export class QuestionClueComponent implements AfterViewInit {
     public dialog: MatDialog
   ) {
     this.route.params.subscribe((params) => {
-      this.questionId = params['questionId'];
+      this.questionId = parseInt(params['questionId']);
     });
     this.refresh();
   }
