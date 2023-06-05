@@ -2,8 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import {
+  DEFAULT_IMAGE_URL,
   PatientService,
   QuizService,
+  fileToBase64,
 } from '@webonjour/front-end/shared/common';
 import { Prisma } from '@prisma/client';
 
@@ -25,17 +27,9 @@ export class QuizCreateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group(
-      {
-        title: ['', [Validators.required, Validators.minLength(6)]],
-        description: ['', [Validators.required]],
-        image23: [null, [Validators.required]],
-      },
-      {}
-    );
-
-    this.form.valueChanges.subscribe((value) => {
-      console.log(value);
+    this.form = this.formBuilder.group({
+      title: ['', [Validators.required, Validators.minLength(4)]],
+      image: [null],
     });
   }
 
@@ -44,24 +38,26 @@ export class QuizCreateComponent implements OnInit {
     return this.form.controls;
   }
 
-  getQuiz(): Prisma.QuizCreateInput {
+  async getQuiz(): Promise<Prisma.QuizCreateInput> {
     return {
       title: this.form.controls['title'].value,
-      imageUrl: '',
-      isPrivate: !!this.data.patientId,
+      imageUrl: await fileToBase64(
+        this.form.controls['image'].value,
+        DEFAULT_IMAGE_URL
+      ),
+      isPrivate: !!this.data?.patientId,
     };
   }
 
-  onSubmit() {
-    console.log('submit');
+  async onSubmit() {
     // stop here if form is invalid
     if (this.form.invalid) {
       return;
     }
-    this.quizService.create(this.getQuiz()).subscribe((quiz) => {
-      if (this.data.patientId) {
+    this.quizService.create(await this.getQuiz()).subscribe((quiz) => {
+      if (this.data?.patientId) {
         this.patientService
-          .addPatientQuiz(this.data.patientId, quiz.data.id)
+          .addPatientQuiz(this.data?.patientId, quiz.data.id)
           .subscribe(() => {
             this.matDialog.closeAll();
           });
