@@ -9,11 +9,11 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
-import { QuizEditionComponent } from '../../quiz-edition/quiz-edition.component';
 import { QuizListComponent } from '../quiz/quiz-list/quiz-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PatientFamilyComponent } from '../patient/patient-edit/patient-family/patient-family.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     SideNavComponent,
     ProfileComponent,
     DashboardHeaderComponent,
-    QuizEditionComponent,
     QuizListComponent,
     PatientFamilyComponent,
   ],
@@ -33,6 +32,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     CdkOverlayOrigin,
     MatDialogModule,
     NgApexchartsModule,
+    NgxBootstrapIconsModule,
   ],
   bootstrap: [DashboardComponent],
   exports: [PatientFamilyComponent],

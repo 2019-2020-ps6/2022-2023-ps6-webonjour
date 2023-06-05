@@ -7,11 +7,6 @@ module.exports = async function () {
   // Hint: `globalThis` is shared between setup and teardown.
   // stop the server
   killSubProcesses('API');
-  killSubProcesses('DB');
-  subProcessSync(
-    'docker-compose -f apps/backend/api/docker-compose.yml down',
-    true
-  );
-
+  subProcessSync('docker compose -f docker-compose.yml down', true);
   console.log(globalThis.__TEARDOWN_MESSAGE__);
 };

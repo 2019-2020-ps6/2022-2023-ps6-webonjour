@@ -1,0 +1,75 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Réponses</h3>
+  </div>
+  <div class="card-body">
+    <table mat-table [dataSource]="dataSource" aria-label="Réponses">
+      <ng-container matColumnDef="text">
+        <th mat-header-cell *matHeaderCellDef>Texte</th>
+        <td mat-cell *matCellDef="let answer">
+          <span *ngIf="!answer.text">Pas de texte</span>
+          {{ answer.text }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef>Image</th>
+        <td mat-cell *matCellDef="let answer">
+          <img
+            *ngIf="answer.image"
+            [src]="answer.image"
+            alt="image"
+            style="width: 100px; height: 100px"
+          />
+          <span *ngIf="!answer.image">Pas d'image</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="isCorrect">
+        <th mat-header-cell *matHeaderCellDef>Correct</th>
+        <td mat-cell *matCellDef="let answer">
+          <mat-checkbox
+            [checked]="answer.isCorrect"
+            [disabled]="true"
+          ></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let answer">
+          <div class="hstack gap-3">
+            <button
+              class="btn btn-primary btn-sm"
+              (click)="onEditAnswer(answer)"
+            >
+              Modifier
+            </button>
+            <button
+              class="btn btn-danger btn-sm ml-2"
+              (click)="onDeleteAnswer(answer)"
+            >
+              Supprimer
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="row-hover"
+      ></tr>
+    </table>
+
+    <mat-paginator [pageSize]="10" aria-label="Paginator"> </mat-paginator>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-end" style="height: 100%; width: 100%">
+      <button class="btn btn-primary" (click)="onAddAnswer()">
+        Ajouter une réponse
+      </button>
+    </div>
+  </div>
+</div>

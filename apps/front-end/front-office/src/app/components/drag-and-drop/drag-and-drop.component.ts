@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import * as GameActions from '../../reducers/game/game.actions';
 import { Subject, takeUntil } from 'rxjs';
 import { selectGameCurrentQuestion } from '../../reducers/game/game.selectors';
+import { Prisma } from '@prisma/client';
 import { Quiz } from '@webonjour/util-interface';
 
 @Component({
@@ -17,12 +18,13 @@ import { Quiz } from '@webonjour/util-interface';
   styleUrls: ['./drag-and-drop.component.scss'],
 })
 export class DragAndDropComponent implements OnInit, OnDestroy {
-  question!: Quiz.Question;
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   elements!: string[];
   answer!: string[];
   desiredResult!: string[];
   showModal = false;
   showInvalid = false;
+  array = new Uint32Array(1);
 
   public ngDestroyed$ = new Subject();
   private modalTimer!: number;
@@ -56,7 +58,10 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
   }
 
   shuffle() {
-    this.elements.sort(() => Math.random() - 0.5);
+    this.elements.sort(() => {
+      window.crypto.getRandomValues(this.array);
+      return this.array[0] - Number.MAX_SAFE_INTEGER;
+    });
   }
 
   onDrop(event: CdkDragDrop<string[]>) {
@@ -80,6 +85,7 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
   }
 
   validateOrder() {
+    this.store.dispatch(GameActions.usefulClick());
     const isValidLength = this.answer.length === this.desiredResult.length;
     const isValidOrder =
       isValidLength &&
@@ -108,9 +114,11 @@ export class DragAndDropComponent implements OnInit, OnDestroy {
     clearTimeout(this.modalTimer);
     this.store.dispatch(GameActions.chooseAnswer({ isCorrect: true }));
     this.store.dispatch(GameActions.nextQuestion({ skipLearning: true }));
+    this.store.dispatch(GameActions.usefulClick());
   }
 
   skip() {
     this.store.dispatch(GameActions.skipQuestion());
+    this.store.dispatch(GameActions.usefulClick());
   }
 }

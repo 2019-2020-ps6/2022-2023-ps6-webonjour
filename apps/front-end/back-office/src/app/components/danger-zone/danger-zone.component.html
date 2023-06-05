@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title text-danger">Attention</h3>
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      Si vous supprimez cet élément, il n'y a pas de retour en arrière possible.
+    </p>
+    <button (click)="deleteCallback()" class="btn btn-danger">
+      Supprimer {{ elementName }}
+    </button>
+  </div>
+</div>

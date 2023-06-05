@@ -20,10 +20,17 @@
           "apps/front-end/front-office/src/assets"
         ],
         "styles": ["apps/front-end/front-office/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "allowedCommonJsDependencies": ["@prisma/client"]
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/environments/src/lib/environment.ts",
+              "with": "libs/shared/environments/src/lib/environment.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
@@ -93,6 +100,7 @@
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
       "options": {
         "engine": "docker",
         "push": true,

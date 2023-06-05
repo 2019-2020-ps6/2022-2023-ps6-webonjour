@@ -3,12 +3,12 @@ import * as googleTTS from 'google-tts-api';
 import { RequestStatus, RequestWrapper, Tts } from '@webonjour/util-interface';
 
 export async function textToSpeech(
-  req: Request<unknown, unknown, unknown, Tts.TtsSchema['query']>,
+  req: Request<unknown, unknown, Tts.TtsSchema, unknown>,
   res: Response<RequestWrapper<Tts.TtsResponse>>,
   next: NextFunction
 ): Promise<void> {
-  const text = req.query.text;
-  const slow = req.query.slow === 'true';
+  const text = req.body.text;
+  const slow = req.body.slow;
 
   try {
     const audio = await googleTTS

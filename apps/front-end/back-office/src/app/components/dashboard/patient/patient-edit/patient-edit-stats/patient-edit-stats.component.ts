@@ -12,6 +12,11 @@ import {
   ApexYAxis,
   ChartComponent,
 } from 'ng-apexcharts';
+import { ActivatedRoute } from '@angular/router';
+import { PatientService } from '@webonjour/front-end/shared/common';
+import { Patient } from '@webonjour/util-interface';
+
+const array = new Uint32Array(1);
 
 const dates = [
   '13 Nov 2017',
@@ -38,8 +43,9 @@ const dates = [
 export const series = {
   responseTimeDataSeries: {
     responseTime: dates.map((date, index) => {
+      window.crypto.getRandomValues(array);
       return Math.floor(
-        Math.random() * ((300 * index) / dates.length) +
+        (array[0] % ((300 * index) / dates.length)) +
           300 +
           (index / dates.length) * 300
       );
@@ -49,7 +55,8 @@ export const series = {
 
   clickAccuracyDataSeries: {
     clickAccuracy: dates.map(() => {
-      return Math.floor(Math.random() * 20 + 80);
+      window.crypto.getRandomValues(array);
+      return Math.floor((array[0] % 20) + 80);
     }),
     dates: dates,
   },
@@ -72,7 +79,6 @@ export type ChartOptions = {
 @Component({
   selector: 'webonjour-patient-edit-stats',
   templateUrl: './patient-edit-stats.component.html',
-  styleUrls: ['./patient-edit-stats.component.scss'],
 })
 export class PatientEditStatsComponent implements AfterViewInit {
   @ViewChild('chart') chart!: ChartComponent;
@@ -110,7 +116,7 @@ export class PatientEditStatsComponent implements AfterViewInit {
     },
 
     title: {
-      text: 'Temps de réponse moyen',
+      text: 'Temps de réponse moyen et précision du clic',
       align: 'left',
     },
     subtitle: {
@@ -133,8 +139,6 @@ export class PatientEditStatsComponent implements AfterViewInit {
           show: true,
           color: '#008FFB',
         },
-        max: 1000,
-        min: 0,
         title: {
           text: 'Temps de réponse (s)',
           style: {
@@ -190,9 +194,44 @@ export class PatientEditStatsComponent implements AfterViewInit {
     },
   };
 
+  aggregateData?: Patient.AggregatedQuestionResult;
+
+  constructor(
+    private route: ActivatedRoute,
+    private patientService: PatientService
+  ) {
+    this.route.params.subscribe((params) => {
+      this.patientService
+        .getPatientAggregatedQuestionResults(parseInt(params['id']))
+        .subscribe((data) => {
+          this.aggregateData = data.data;
+        });
+    });
+  }
+
   ngAfterViewInit() {
     setTimeout(() => {
-      this.chart.hideSeries('Temps de réponse');
+      this.route.params.subscribe((params) => {
+        this.patientService
+          .getPatientQuestionResults(parseInt(params['id']))
+          .subscribe((data) => {
+            this.chartOptions.series[0].data = data.data.map((item) => {
+              return Math.round(item.timeTaken * 10) / 10;
+            });
+            this.chartOptions.series[1].data = data.data.map((item) => {
+              return Math.round(item.clickRatio * 100);
+            });
+
+            this.chartOptions.labels = data.data.map((item) => {
+              return item.createdAt.toString();
+            });
+
+            this.chart.updateOptions(this.chartOptions).then(() => {
+              this.chart.hideSeries('Précision du clic');
+              this.chart.showSeries('Temps de réponse');
+            });
+          });
+      });
     }, 300);
   }
 }

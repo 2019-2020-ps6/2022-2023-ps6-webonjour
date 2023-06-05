@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Quiz } from '@webonjour/util-interface';
-import { QuizService } from '@webonjour/front-end/shared/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { QuestionService } from '@webonjour/front-end/shared/common';
+import { map, mergeMap } from 'rxjs';
 
 @Component({
   selector: 'webonjour-question-detail',
@@ -9,13 +9,20 @@ import { QuizService } from '@webonjour/front-end/shared/common';
   styleUrls: ['./question-detail.component.scss'],
 })
 export class QuestionDetailComponent {
-  question!: Quiz.Question;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private questionService: QuestionService
+  ) {}
 
-  constructor(route: ActivatedRoute, quizService: QuizService) {
-    route.params.subscribe((params) => {
-      quizService.getById(params['id']).subscribe((quiz) => {
-        this.question = quiz.data.questions[params['questionId']];
+  onDelete() {
+    this.route.params
+      .pipe(
+        map((params) => parseInt(params['questionId'])),
+        mergeMap((id) => this.questionService.delete(id))
+      )
+      .subscribe(() => {
+        this.router.navigate(['../'], { relativeTo: this.route });
       });
-    });
   }
 }

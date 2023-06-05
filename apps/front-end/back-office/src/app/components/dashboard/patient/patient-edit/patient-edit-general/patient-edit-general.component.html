@@ -70,18 +70,14 @@
           <label class="form-label">Stade de la maladie</label>
           <select
             formControlName="disease_stage"
-            class="form-control"
+            class="form-control form-select"
             [ngClass]="{
               'is-invalid': submitted && formControls['disease_stage'].errors
             }"
           >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
+            <ng-container *ngFor="let stage of diseaseStages">
+              <option [value]="stage">{{ stage }}</option>
+            </ng-container>
           </select>
           <div
             *ngIf="submitted && formControls['disease_stage'].errors"

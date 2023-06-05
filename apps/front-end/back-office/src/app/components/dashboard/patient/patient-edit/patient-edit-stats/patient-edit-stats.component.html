@@ -24,19 +24,27 @@
     <div class="vstack gap-2 col-md-5 mx-auto">
       <div class="card text-center p-3">
         <h6 class="text-center">Quiz joués</h6>
-        <h3 class="text-center">39</h3>
+        <h3 class="text-center">
+          {{ aggregateData?.numberOfQuizPlayed || 0 }}
+        </h3>
       </div>
       <div class="card text-center p-3">
         <h6 class="text-center">Meilleur Quiz</h6>
-        <h3 class="text-center">Les chevaux célèbres</h3>
+        <h3 class="text-center">
+          {{ aggregateData?.bestQuiz?.quiz?.title || 'Aucun' }}
+        </h3>
       </div>
       <div class="card text-center p-3">
         <h6 class="text-center">Quiz le plus joué</h6>
-        <h3 class="text-center">Quiz sur les Templiers</h3>
+        <h3 class="text-center">
+          {{ aggregateData?.mostPlayedQuiz?.title || 'Aucun' }}
+        </h3>
       </div>
       <div class="card text-center p-3">
         <h6 class="text-center">Pourcentage de réussite</h6>
-        <h3 class="text-center">71.69%</h3>
+        <h3 class="text-center">
+          {{ (aggregateData?.averageScore?._avg?.score || 0) * 100 }}%
+        </h3>
       </div>
     </div>
   </div>

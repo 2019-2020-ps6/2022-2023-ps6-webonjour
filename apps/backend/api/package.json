@@ -1,0 +1,30 @@
+{
+  "name": "webonjour",
+  "version": "0.0.0",
+  "license": "MIT",
+  "prisma": {
+    "seed": "npx nx run util-scripts:serve:production"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.14.0",
+    "@types/express": "~4.17.13",
+    "axios": "^1.0.0",
+    "config": "^3.3.9",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "~4.18.1",
+    "express-async-handler": "^1.2.0",
+    "google-tts-api": "^2.0.2",
+    "jwt-decode": "^3.1.2",
+    "morgan": "^1.10.0",
+    "subspawn": "^1.0.1",
+    "tslib": "^2.3.0",
+    "url": "^0.11.0",
+    "zod": "^3.21.4",
+    "prisma": "^4.14.0",
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0"
+  }
+}

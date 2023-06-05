@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
-import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
 import { LoginComponent } from './components/auth/login/login.component';
 import { LoginFormComponent } from './components/auth/login-form/login-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,19 +27,23 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PatientEditStatsComponent } from './components/dashboard/patient/patient-edit/patient-edit-stats/patient-edit-stats.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { QuestionDetailComponent } from './components/quiz-creation/question-detail/question-detail.component';
-import { QuestionDetailMainComponent } from './components/quiz-creation/question-detail-main/question-detail-main.component';
-import { QuestionDetailAnswersComponent } from './components/quiz-creation/question-detail-answers/question-detail-answers.component';
-import { QuestionDetailCluesComponent } from './components/quiz-creation/question-detail-clues/question-detail-clues.component';
-import { QuestionDetailClueComponent } from './components/quiz-creation/question-detail-clue/question-detail-clue.component';
-import { QuestionDetailAnswerComponent } from './components/quiz-creation/question-detail-answer/question-detail-answer.component';
 
 import { PatientFamilyAddPopupComponent } from './components/dashboard/patient/patient-edit/patient-family-add-popup/patient-family-add-popup.component';
 import { FileFieldComponent } from './components/util/file-field/file-field.component';
-import { PatientDangerComponent } from './components/dashboard/patient/patient-edit/patient-danger/patient-danger.component';
+import { DangerZoneComponent } from './components/danger-zone/danger-zone.component';
+import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { QuestionListComponent } from './components/quiz-creation/question-list/question-list.component';
+import { QuestionEditGeneralComponent } from './components/quiz-creation/question-edit-general/question-edit-general.component';
+import { QuestionCreateComponent } from './components/quiz-creation/question-create/question-create.component';
+import { QuestionAnswerComponent } from './components/quiz-creation/question-answer/question-answer.component';
+import { QuestionAnswerAddPopupComponent } from './components/quiz-creation/question-answer-add-popup/question-answer-add-popup.component';
+import { QuestionClueComponent } from './components/quiz-creation/question-clue/question-clue.component';
+import { QuestionClueAddPopupComponent } from './components/quiz-creation/question-clue-add-popup/question-clue-add-popup.component';
+import { QuizEditionComponent } from './components/quiz-edition/quiz-edition.component';
+import { QuizEditGeneralComponent } from './components/quiz-creation/quiz-edit-general/quiz-edit-general.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NxWelcomeComponent,
     LoginComponent,
     LoginFormComponent,
     AlertComponent,
@@ -55,19 +57,26 @@ import { PatientDangerComponent } from './components/dashboard/patient/patient-e
     PatientEditAccommodationComponent,
     PatientEditStatsComponent,
     QuestionDetailComponent,
-    QuestionDetailMainComponent,
-    QuestionDetailAnswersComponent,
-    QuestionDetailCluesComponent,
-    QuestionDetailClueComponent,
-    QuestionDetailAnswerComponent,
     PatientFamilyAddPopupComponent,
     FileFieldComponent,
-    PatientDangerComponent,
+    DangerZoneComponent,
     PatientEditQuizAddPopupComponent,
+    QuestionListComponent,
+    QuestionEditGeneralComponent,
+    QuestionCreateComponent,
+    QuizEditionComponent,
+    QuizEditGeneralComponent,
+    QuestionAnswerComponent,
+    QuestionAnswerAddPopupComponent,
+    QuestionClueComponent,
+    QuestionClueAddPopupComponent,
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    RouterModule.forRoot(appRoutes, {
+      initialNavigation: 'enabledBlocking',
+      useHash: true,
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -81,10 +90,7 @@ import { PatientDangerComponent } from './components/dashboard/patient/patient-e
     DashboardModule,
     MatCheckboxModule,
     NgApexchartsModule,
-  ],
-  providers: [
-    // provider used to create fake backend
-    fakeBackendProvider,
+    NgxBootstrapIconsModule.pick(allIcons),
   ],
   bootstrap: [AppComponent],
 })

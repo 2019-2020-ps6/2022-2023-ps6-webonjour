@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PatientService } from '@webonjour/front-end/shared/common';
 import { Patient } from '@webonjour/util-interface';
+import { Prisma } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-card-container',
@@ -9,7 +10,7 @@ import { Patient } from '@webonjour/util-interface';
 })
 export class CardContainerComponent {
   patientService!: PatientService;
-  patients!: Patient.Patient[];
+  patients!: Prisma.PatientGetPayload<Patient.PatientFull>[];
   floors!: number[];
   showPatients = false;
 
@@ -18,6 +19,7 @@ export class CardContainerComponent {
     this.patientService.getPatients().subscribe((patients) => {
       this.patients = patients.data;
       this.floors = [...new Set(this.patients.map((patient) => patient.floor))];
+      this.floors.sort();
     });
   }
 

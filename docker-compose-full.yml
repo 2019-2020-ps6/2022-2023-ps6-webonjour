@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:13.3-alpine
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  api:
+    image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/backend-api
+    container_name: api
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
+      - PORT=3000
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+  front-end-back-office:
+    image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/front-end-back-office
+    container_name: front-end-back-office
+    restart: unless-stopped
+    ports:
+      - '4200:80'
+
+  front-end-front-office:
+    image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/front-end-front-office
+    container_name: front-end-front-office
+    restart: unless-stopped
+    ports:
+      - '4201:80'
+
+volumes:
+  postgres:

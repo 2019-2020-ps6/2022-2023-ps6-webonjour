@@ -10,6 +10,10 @@ import {
 } from '@webonjour/front-end/shared/common';
 import { PatientEditQuizAddPopupComponent } from '../patient-edit-quiz-add-popup/patient-edit-quiz-add-popup.component';
 import { QuizCreateComponent } from '../../../../quiz-creation/quiz-create/quiz-create.component';
+import { Prisma } from '@prisma/client';
+import { DEFAULT_IMAGE_URL } from '@webonjour/front-end/shared/common';
+
+type Quiz = Prisma.QuizGetPayload<Quiz.QuizWithQuestions>;
 
 @Component({
   selector: 'webonjour-patient-edit-quiz',
@@ -17,14 +21,15 @@ import { QuizCreateComponent } from '../../../../quiz-creation/quiz-create/quiz-
   styleUrls: ['./patient-edit-quiz.component.scss'],
 })
 export class PatientEditQuizComponent implements AfterViewInit {
+  protected readonly DEFAULT_IMAGE_URL = DEFAULT_IMAGE_URL;
   displayedColumns: string[] = [
     'Nom du Quiz',
     'Nombre de questions',
-    'stage',
     'isPrivate',
     'actions',
   ];
-  dataSource = new MatTableDataSource<Quiz.Quiz>([]);
+
+  dataSource = new MatTableDataSource<Quiz>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -47,9 +52,7 @@ export class PatientEditQuizComponent implements AfterViewInit {
       this.patientService
         .getPatientQuiz(patientId)
         .subscribe((patientQuizList) => {
-          this.dataSource = new MatTableDataSource<Quiz.Quiz>(
-            patientQuizList.data
-          );
+          this.dataSource = new MatTableDataSource<Quiz>(patientQuizList.data);
           this.dataSource.paginator = this.paginator;
         });
     });
@@ -72,7 +75,7 @@ export class PatientEditQuizComponent implements AfterViewInit {
       });
   }
 
-  onDeleteQuiz(id: string, event: MouseEvent) {
+  onDeleteQuiz(id: number, event: MouseEvent) {
     event.stopPropagation();
     this.route.params.subscribe((params) => {
       const patientId = params['id'];
@@ -102,7 +105,7 @@ export class PatientEditQuizComponent implements AfterViewInit {
       });
   }
 
-  onQuizClicked(row: Quiz.Quiz, event: MouseEvent) {
+  onQuizClicked(row: Quiz, event: MouseEvent) {
     event.stopPropagation();
     this.router.navigate(['/dashboard/quiz', row.id]);
   }

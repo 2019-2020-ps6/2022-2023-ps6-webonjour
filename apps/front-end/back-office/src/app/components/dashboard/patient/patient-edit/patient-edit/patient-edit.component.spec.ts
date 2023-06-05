@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PatientEditComponent } from './patient-edit.component';
 import { Component } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('PatientEditComponent', () => {
   let component: PatientEditComponent;
@@ -17,6 +19,8 @@ describe('PatientEditComponent', () => {
         PatientEditAccommodationMockComponent,
         PatientEditStatsMockComponent,
       ],
+      // provide mock for ActivatedRoute
+      imports: [RouterTestingModule.withRoutes([]), HttpClientModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PatientEditComponent);

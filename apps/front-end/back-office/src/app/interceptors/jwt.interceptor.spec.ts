@@ -10,7 +10,7 @@ import {
   HttpClient,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { authMocks } from '@webonjour/data-access-fake-backend';
+import { authMocks } from '@webonjour/data-access-mocks';
 import { AuthService } from '../services/auth/auth.service';
 import { Observable } from 'rxjs';
 import { RequestStatus } from '@webonjour/util-interface';

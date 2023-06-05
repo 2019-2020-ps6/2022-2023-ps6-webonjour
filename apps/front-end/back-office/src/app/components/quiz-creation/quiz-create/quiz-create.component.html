@@ -19,45 +19,8 @@
               }"
             />
           </div>
-          <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea
-              class="form-control"
-              id="description"
-              formControlName="description"
-              [ngClass]="{
-                'is-invalid':
-                  formControls['description'].errors &&
-                  formControls['description'].touched
-              }"
-            ></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="recommended_stage" class="form-label"
-              >Stade recommandé</label
-            >
-            <select
-              class="form-select"
-              aria-label="Stade recommandé"
-              [ngClass]="{
-                'is-invalid':
-                  formControls['recommended_stage'].errors &&
-                  formControls['recommended_stage'].touched
-              }"
-              id="recommended_stage"
-              formControlName="recommended_stage"
-            >
-              <option value="1">Stade 1</option>
-              <option value="2">Stade 2</option>
-              <option value="3">Stade 3</option>
-              <option value="4">Stade 4</option>
-              <option value="5">Stade 5</option>
-              <option value="6">Stade 6</option>
-              <option value="7">Stade 7</option>
-            </select>
-          </div>
         </div>
-        <webonjour-file-field formControlName="image23"></webonjour-file-field>
+        <webonjour-file-field formControlName="image"></webonjour-file-field>
       </div>
 
       <div class="d-flex justify-content-end">

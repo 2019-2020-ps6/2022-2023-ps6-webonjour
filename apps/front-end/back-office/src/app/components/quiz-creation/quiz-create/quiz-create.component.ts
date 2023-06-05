@@ -1,26 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
-import { Quiz } from '@webonjour/util-interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import {
+  DEFAULT_IMAGE_URL,
   PatientService,
   QuizService,
+  fileToBase64,
 } from '@webonjour/front-end/shared/common';
-
-export function validateStage(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const allowed = ['3', '4', '5', '6', '7'];
-    const forbidden = !allowed.includes(control.value);
-    return forbidden ? { invalidStage: { value: control.value } } : null;
-  };
-}
+import { Prisma } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-quiz-create',
@@ -36,22 +23,13 @@ export class QuizCreateComponent implements OnInit {
     private quizService: QuizService,
     private patientService: PatientService,
     @Inject(MAT_DIALOG_DATA)
-    public data: { patientId?: string }
+    public data: { patientId?: number }
   ) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group(
-      {
-        title: ['', [Validators.required, Validators.minLength(6)]],
-        description: ['', [Validators.required]],
-        image23: [null, [Validators.required]],
-        recommended_stage: [null, [Validators.required]],
-      },
-      {}
-    );
-
-    this.form.valueChanges.subscribe((value) => {
-      console.log(value);
+    this.form = this.formBuilder.group({
+      title: ['', [Validators.required, Validators.minLength(4)]],
+      image: [null],
     });
   }
 
@@ -60,29 +38,26 @@ export class QuizCreateComponent implements OnInit {
     return this.form.controls;
   }
 
-  getQuiz(): Quiz.Quiz {
-    const stage = this.form.controls['recommended_stage']
-      .value as Quiz.DiseaseStage;
+  async getQuiz(): Promise<Prisma.QuizCreateInput> {
     return {
       title: this.form.controls['title'].value,
-      questions: [],
-      stage: stage,
-      id: '',
-      imageUrl: '',
-      isPrivate: !!this.data.patientId,
+      imageUrl: await fileToBase64(
+        this.form.controls['image'].value,
+        DEFAULT_IMAGE_URL
+      ),
+      isPrivate: !!this.data?.patientId,
     };
   }
 
-  onSubmit() {
-    console.log('submit');
+  async onSubmit() {
     // stop here if form is invalid
     if (this.form.invalid) {
       return;
     }
-    this.quizService.create(this.getQuiz()).subscribe((quiz) => {
-      if (this.data.patientId) {
+    this.quizService.create(await this.getQuiz()).subscribe((quiz) => {
+      if (this.data?.patientId) {
         this.patientService
-          .addPatientQuiz(this.data.patientId, quiz.data.id)
+          .addPatientQuiz(this.data?.patientId, quiz.data.id)
           .subscribe(() => {
             this.matDialog.closeAll();
           });
