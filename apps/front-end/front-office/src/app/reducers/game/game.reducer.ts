@@ -6,10 +6,10 @@ import { GameEntity } from './game.models';
 import { selectAvailableQuestions } from './game.selectors';
 
 export const GAME_FEATURE_KEY = 'game';
-
 export interface GameState extends GameEntity {
   loaded: boolean; // has the Quiz been loaded
   error?: string | null; // last known error (if any)
+  stopwatch: number;
 }
 
 export interface GamePartialState {
@@ -29,6 +29,10 @@ export const initialGameState: GameState = gameAdapter.getInitialState({
   history: [],
   learntQuestions: [],
   skippedQuestions: [],
+  quizSession: null,
+  clickCount: 0,
+  usefulClick: 0,
+  stopwatch: 0,
 });
 
 const reducer = createReducer(
@@ -41,48 +45,42 @@ const reducer = createReducer(
     history: [],
     learntQuestions: [],
     skippedQuestions: [],
+    stopwatch: Date.now(),
   })),
 
-  on(GameActions.loadGameSuccess, (state, { quiz, accommodation }) => ({
-    ...state,
-    quiz: quiz,
-    loaded: true,
-    accommodation: accommodation,
-    // currentQuestion: quiz.questions[Math.floor(Math.random() * quiz.questions.length)],
-    currentQuestion: quiz.questions[0],
-    history: [],
-  })),
+  on(
+    GameActions.loadGameSuccess,
+    (state, { quiz, accommodation, quizSession }) => ({
+      ...state,
+      quiz: quiz,
+      loaded: true,
+      accommodation: accommodation,
+      // currentQuestion: quiz.questions[Math.floor(Math.random() * quiz.questions.length)],
+      currentQuestion: quiz.questions[0],
+      history: [],
+      quizSession: quizSession,
+      clickCount: 0,
+      usefulClick: 0,
+      stopwatch: Date.now(),
+    })
+  ),
 
   on(GameActions.loadGameFailure, (state, { error }) => ({ ...state, error })),
 
-  on(GameActions.correctAnswer, (state, { delta }) => {
+  on(GameActions.chooseAnswer, (state, { isCorrect }) => {
     if (!state.quiz) return state;
+    const delta = Date.now() - state.stopwatch;
     return {
       ...state,
       history: [
         ...state.history,
         {
-          questionId: state.currentQuestion?.id || '',
-          isCorrect: true,
+          questionId: state.currentQuestion?.id || -1,
+          isCorrect: isCorrect,
           timeTaken: delta,
         },
       ],
-    };
-  }),
-
-  on(GameActions.wrongAnswer, (state, { delta }) => {
-    if (!state.quiz) return state;
-
-    return {
-      ...state,
-      history: [
-        ...state.history,
-        {
-          questionId: state.currentQuestion?.id || '',
-          isCorrect: false,
-          timeTaken: delta,
-        },
-      ],
+      stopwatch: Date.now(),
     };
   }),
 
@@ -121,8 +119,20 @@ const reducer = createReducer(
       ...state,
       skippedQuestions: [
         ...state.skippedQuestions,
-        state.currentQuestion?.id || '',
+        state.currentQuestion?.id || -1,
       ],
+    };
+  }),
+  on(GameActions.click, (state) => {
+    return {
+      ...state,
+      clickCount: state.clickCount + 1,
+    };
+  }),
+  on(GameActions.usefulClick, (state) => {
+    return {
+      ...state,
+      usefulClick: state.usefulClick + 1,
     };
   })
 );

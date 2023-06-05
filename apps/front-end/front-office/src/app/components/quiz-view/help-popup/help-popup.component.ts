@@ -3,6 +3,8 @@ import { Quiz } from '@webonjour/util-interface';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { selectGameCurrentQuestion } from '../../../reducers/game/game.selectors';
+import { Clue, Prisma } from '@prisma/client';
+import * as GameActions from '../../../reducers/game/game.actions';
 
 @Component({
   selector: 'webonjour-help-popup',
@@ -10,10 +12,12 @@ import { selectGameCurrentQuestion } from '../../../reducers/game/game.selectors
   styleUrls: ['./help-popup.component.scss'],
 })
 export class HelpPopupComponent implements OnInit, OnDestroy {
-  @Input() question!: Quiz.Question;
+  @Input()
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   @Input() show_help = false;
   protected readonly Math = Math;
-  randomClue!: Quiz.Clue;
+  randomClue!: Clue;
+  array = new Uint32Array(1);
 
   public ngDestroyed$ = new Subject();
 
@@ -30,11 +34,16 @@ export class HelpPopupComponent implements OnInit, OnDestroy {
       .subscribe((question) => {
         if (question) {
           this.question = question;
+          window.crypto.getRandomValues(this.array);
           this.randomClue =
             this.question.clues[
-              Math.floor(Math.random() * this.question.clues.length)
+              Math.floor(this.array[0] % this.question.clues.length)
             ];
         }
       });
+  }
+  click() {
+    this.show_help = false;
+    this.store.dispatch(GameActions.usefulClick());
   }
 }

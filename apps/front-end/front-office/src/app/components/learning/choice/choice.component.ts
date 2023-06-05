@@ -1,16 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Quiz } from '@webonjour/util-interface';
-import { learntQuestion } from '../../../reducers/game/game.actions';
+import {
+  learntQuestion,
+  usefulClick,
+} from '../../../reducers/game/game.actions';
 import { Store } from '@ngrx/store';
+import { Answer, Prisma } from '@prisma/client';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-choice',
   templateUrl: './choice.component.html',
-  styleUrls: ['./choice.component.scss'],
 })
 export class ChoiceComponent implements OnInit {
-  @Input() question!: Quiz.Question;
-  rightAnswers!: Quiz.Answer[];
+  @Input()
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
+  rightAnswers!: Answer[];
 
   constructor(private store: Store) {}
 
@@ -22,5 +26,6 @@ export class ChoiceComponent implements OnInit {
 
   nextQuestion() {
     this.store.dispatch(learntQuestion({ question: this.question }));
+    this.store.dispatch(usefulClick());
   }
 }

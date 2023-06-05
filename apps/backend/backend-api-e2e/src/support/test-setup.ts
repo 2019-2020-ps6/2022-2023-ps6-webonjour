@@ -1,31 +1,16 @@
-/* eslint-disable */
 import axios from 'axios';
-import fs from 'fs';
-import path from 'path';
-import { config as dotenv } from 'dotenv';
-if (fs.existsSync(path.resolve('.env'))) {
-  dotenv({
-    path: path.resolve('.env'),
-    debug: true,
-  });
-} else {
-  dotenv({
-    path: path.resolve('apps/backend/backend-api-e2e/.env'),
-    debug: true,
-  });
-}
-import config from 'config';
+import { environment, protocol } from '@webonjour/shared/environments';
 
 module.exports = async function () {
   // check if there is a .env file in the current directory
   // if there is, load it else load the .env file in the api directory
 
-  const port = config.get('port');
-  const host = config.get('host');
-  axios.defaults.baseURL = `http://${host}:${port}`;
-
+  axios.defaults.baseURL = `${protocol(environment.api.secure)}://${
+    environment.api.domain
+  }`;
+  console.log('axios.defaults.baseURL', axios.defaults.baseURL);
   // wait for the server to start
-  while (true) {
+  for (let i = 0; i < 200; i++) {
     try {
       await axios.get(`/health`);
       break;

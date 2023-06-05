@@ -1,12 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  selectPatient,
-  selectPatientDiseaseStage,
-} from '../../../reducers/game/game.selectors';
-import { Quiz } from '@webonjour/util-interface';
+import { selectPatient } from '../../../reducers/game/game.selectors';
 import { PatientService } from '@webonjour/front-end/shared/common';
 import { Subject, takeUntil } from 'rxjs';
+import { Prisma } from '@prisma/client';
+import { Quiz } from '@webonjour/util-interface';
 
 @Component({
   selector: 'webonjour-quiz-list-item',
@@ -14,8 +12,7 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./quiz-list-item.component.scss'],
 })
 export class QuizListItemComponent implements OnInit, OnDestroy {
-  diseaseStage!: Quiz.DiseaseStage;
-  listQuizzes!: Quiz.Quiz[];
+  listQuizzes!: Prisma.QuizGetPayload<Quiz.QuizWithQuestions>[];
   public ngDestroyed$ = new Subject();
 
   public ngOnDestroy() {
@@ -25,15 +22,6 @@ export class QuizListItemComponent implements OnInit, OnDestroy {
   constructor(private store: Store, private patientService: PatientService) {}
 
   ngOnInit(): void {
-    this.store
-      .select(selectPatientDiseaseStage)
-      .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((diseaseStage) => {
-        this.diseaseStage = diseaseStage
-          ? diseaseStage
-          : Quiz.DiseaseStage.STAGE_1;
-      });
-
     this.store
       .select(selectPatient)
       .pipe(takeUntil(this.ngDestroyed$))

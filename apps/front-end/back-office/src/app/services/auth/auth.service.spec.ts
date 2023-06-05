@@ -6,7 +6,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { fail } from 'assert';
-import { authMocks } from '@webonjour/data-access-fake-backend';
+import { authMocks } from '@webonjour/data-access-mocks';
 
 describe('AuthService', () => {
   let service: AuthService;

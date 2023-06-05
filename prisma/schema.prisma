@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["debian-openssl-1.1.x", "native", "rhel-openssl-1.1.x"]
+}
+
+generator zod {
+  provider = "npx zod-prisma-types"
+  output   = "../libs/util-interface/src/lib/generated-zod-schemas"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int       @id @default(autoincrement())
+  /// @zod.string.email({ message: "Invalid email" })
+  email             String    @unique
+  name              String?
+  password          String
+  createdAt         DateTime? @default(now())
+  updatedAt         DateTime? @updatedAt
+  deletedAt         DateTime? @default(now())
+  profilePictureUrl String?
+  patients          Patient[]
+}
+
+enum DiseaseStage {
+  STAGE_1
+  STAGE_2
+  STAGE_3
+  STAGE_4
+  STAGE_5
+  STAGE_6
+  STAGE_7
+}
+
+enum QuestionType {
+  CHOICE
+  REORDER
+}
+
+model Question {
+  id              Int              @id @default(autoincrement())
+  title           String
+  image           String?
+  answers         Answer[]
+  clues           Clue[]
+  type            QuestionType
+  quiz            Quiz             @relation(fields: [quizId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quizId          Int
+  questionResults QuestionResult[]
+}
+
+model Clue {
+  id         Int      @id @default(autoincrement())
+  text       String?
+  image      String?
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  questionId Int
+}
+
+model Answer {
+  id         Int      @id @default(autoincrement())
+  text       String?
+  image      String?
+  isCorrect  Boolean
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  questionId Int
+}
+
+model Patient {
+  id                Int             @id @default(autoincrement())
+  firstName         String
+  lastName          String
+  age               Int
+  profilePictureUrl String?
+  description       String
+  diseaseStage      DiseaseStage
+  floor             Int
+  familyMembers     FamilyMember[]
+  accommodations    Accommodation[]
+  quizzes           Quiz[]
+  users             User[]
+  quizSessions      QuizSession[]
+}
+
+model Quiz {
+  id           Int           @id @default(autoincrement())
+  title        String
+  imageUrl     String?
+  questions    Question[]
+  isPrivate    Boolean
+  patients     Patient[]
+  quizSessions QuizSession[]
+}
+
+model FamilyMember {
+  id                Int       @id @default(autoincrement())
+  firstName         String
+  lastName          String
+  age               Int
+  profilePictureUrl String?
+  description       String
+  relation          String
+  phone             String?
+  email             String?
+  patients          Patient[]
+}
+
+model Accommodation {
+  id       Int       @id @default(autoincrement())
+  title    String
+  patients Patient[]
+}
+
+model QuizSession {
+  id              Int              @id @default(autoincrement())
+  quiz            Quiz             @relation(fields: [quizId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quizId          Int
+  patient         Patient          @relation(fields: [patientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  patientId       Int
+  score           Float?           @default(0)
+  questionResults QuestionResult[]
+  isFinished      Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  deletedAt       DateTime         @default(now())
+}
+
+model QuestionResult {
+  id            Int          @id @default(autoincrement())
+  question      Question     @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  questionId    Int
+  isCorrect     Boolean
+  timeTaken     Int
+  quizSession   QuizSession? @relation(fields: [quizSessionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quizSessionId Int?
+  clickRatio    Float        @default(0)
+  createdAt     DateTime     @default(now())
+}

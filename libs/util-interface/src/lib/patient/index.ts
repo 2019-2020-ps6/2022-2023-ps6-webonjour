@@ -1,30 +1,28 @@
-import { DiseaseStage } from '../quiz';
+import { DiseaseStage, Prisma, Quiz, QuizSession } from '@prisma/client';
 
-export interface Person {
-  id: string;
-  firstName: string;
-  lastName: string;
-  age: number;
-  profilePictureUrl: string;
+export const patientFull = Prisma.validator<Prisma.PatientArgs>()({
+  include: {
+    quizzes: {
+      include: {
+        questions: {
+          include: {
+            answers: true,
+            clues: true,
+          },
+        },
+      },
+    },
+    familyMembers: true,
+    accommodations: true,
+  },
+});
 
-  description: string;
+export interface AggregatedQuestionResult {
+  numberOfQuizPlayed: number;
+  mostPlayedQuiz: Quiz | null;
+  lastPlayedQuiz: (QuizSession & { quiz: Quiz }) | null;
+  averageScore: Prisma.GetQuizSessionAggregateType<{ _avg: { score: true } }>;
+  bestQuiz: (QuizSession & { quiz: Quiz }) | null;
 }
 
-export interface Patient extends Person {
-  diseaseStage: DiseaseStage;
-  lastQuizDate: Date;
-  successRate: number;
-  floor: number;
-}
-
-export interface FamilyMember extends Person {
-  relation: string;
-  patientId?: string;
-  phone?: string;
-  email?: string;
-}
-
-export interface Accommodation {
-  id: string;
-  title: string;
-}
+export type PatientFull = typeof patientFull;

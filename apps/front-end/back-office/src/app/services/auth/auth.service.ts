@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Auth, RequestWrapper } from '@webonjour/util-interface';
 import jwt_decode from 'jwt-decode';
+import { api_root, environment } from '@webonjour/shared/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class AuthService {
   public accessToken?: string;
   public refreshToken?: string;
   public jwtPayload?: Auth.JWTPayload;
-  AUTH_URL = 'http://localhost:3333';
+  AUTH_URL = `${api_root(environment)}/auth`;
 
   // load from localstorage if found
   constructor(private httpClient: HttpClient) {

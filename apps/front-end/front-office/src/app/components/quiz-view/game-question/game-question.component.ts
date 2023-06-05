@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Quiz, Patient } from '@webonjour/util-interface';
+import { Patient, Quiz } from '@webonjour/util-interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
@@ -7,19 +7,17 @@ import { TtsService } from '@webonjour/front-end/shared/common';
 import {
   selectAccommodation,
   selectGameCurrentQuestion,
-  selectPatientDiseaseStage,
 } from '../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import * as GameActions from '../../../reducers/game/game.actions';
-
+import { Accommodation, Answer, Prisma } from '@prisma/client';
 @Component({
   selector: 'webonjour-game-question',
   templateUrl: './game-question.component.html',
   styleUrls: ['./game-question.component.scss'],
 })
 export class GameQuestionComponent implements OnDestroy, OnInit {
-  diseaseStage!: Quiz.DiseaseStage;
-  question!: Quiz.Question;
+  question!: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>;
   show_help = false;
   image_enabled = false;
   colors = new Map([
@@ -33,7 +31,7 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   protected readonly document = document;
   protected readonly Array = Array;
   private tries = 0;
-  private accomodations!: Patient.Accommodation[];
+  private accommodations!: Accommodation[];
 
   public ngOnDestroy() {
     this.ngDestroyed$.next(0);
@@ -47,7 +45,9 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     private tts: TtsService
   ) {}
 
-  ttsQuestion(question: Quiz.Question) {
+  ttsQuestion(
+    question: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues>
+  ) {
     // we have to concatenate the question title and the answers text
     // because the TTS API only accepts one string
     let text = question.title;
@@ -76,12 +76,12 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
     this.store
       .select(selectAccommodation)
       .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((accomodations) => {
-        this.accomodations = accomodations;
+      .subscribe((accommodations) => {
+        this.accommodations = accommodations;
         if (
-          accomodations.filter(function (accomodations) {
+          accommodations.filter(function (accommodations) {
             return (
-              accomodations.title ===
+              accommodations.title ===
               'Peut répondre deux fois à la même question'
             );
           }).length > 0
@@ -92,14 +92,6 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
         }
       });
 
-    this.store
-      .select(selectPatientDiseaseStage)
-      .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((diseaseStage) => {
-        this.diseaseStage = diseaseStage
-          ? diseaseStage
-          : Quiz.DiseaseStage.STAGE_1;
-      });
     this.actions$
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((action: Action) => {
@@ -109,9 +101,9 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
       });
   }
 
-  onSelectAnswer(answer: Quiz.Answer, index: number) {
+  onSelectAnswer(answer: Answer, index: number) {
     const question = document.querySelector('#answer-' + index);
-
+    this.helpClick();
     if (!question || question.classList.contains('disabled')) {
       return;
     }
@@ -139,24 +131,20 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
   handleAnswerError(question: Element) {
     this.tries++;
 
-    if (this.tries >= this.maxTries) {
-      question.classList.add('disabled');
-    }
+    question.classList.add('disabled');
 
-    if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_3) {
-      question.classList.add('disabled');
-    }
-
-    if (this.diseaseStage >= Quiz.DiseaseStage.STAGE_4) {
+    if (this.accommodations.some((a) => a.title === "Afficher l'aide")) {
       this.show_modal_help(true);
     }
 
     if (
-      this.accomodations.some(
+      this.accommodations.some(
         (a) => a.title === "Afficher les images en cas d'échec"
       )
     ) {
-      this.image_enabled = true;
+      if (this.question.answers.some((a) => a.image)) {
+        this.image_enabled = true;
+      }
     }
   }
 
@@ -194,5 +182,10 @@ export class GameQuestionComponent implements OnDestroy, OnInit {
 
   skip() {
     this.store.dispatch(GameActions.skipQuestion());
+    this.store.dispatch(GameActions.usefulClick());
+  }
+
+  helpClick() {
+    this.store.dispatch(GameActions.usefulClick());
   }
 }

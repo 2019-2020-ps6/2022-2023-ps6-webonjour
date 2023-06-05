@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RequestWrapper, Tts } from '@webonjour/util-interface';
+import { api_root, environment } from '@webonjour/shared/environments';
 
 // Note: we might be able to use the Web Speech API instead of Google TTS
 // https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API
@@ -9,16 +10,18 @@ import { RequestWrapper, Tts } from '@webonjour/util-interface';
   providedIn: 'root',
 })
 export class TtsService {
-  API_URL = 'http://localhost:8000';
+  API_URL = `${api_root(environment)}/tts/`;
+
   private audio = new Audio();
 
   constructor(private http: HttpClient) {}
 
   sayTTS(text: string, slow: boolean = false) {
     this.http
-      .get<RequestWrapper<Tts.TtsResponse>>(
-        `${this.API_URL}/api/tts?text=${text}&slow=${slow}`
-      )
+      .post<RequestWrapper<Tts.TtsResponse>>(this.API_URL, {
+        text,
+        slow,
+      })
       .subscribe((res) => {
         console.log('test: ', text);
         this.audio.pause();

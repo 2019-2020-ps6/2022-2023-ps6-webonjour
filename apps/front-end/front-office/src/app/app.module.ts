@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -17,7 +16,6 @@ import { QuizResultsComponent } from './components/quiz-view/quiz-results/quiz-r
 import { MessageComponent } from './components/quiz-view/message/message.component';
 import { HelpPopupComponent } from './components/quiz-view/help-popup/help-popup.component';
 import { HttpClientModule } from '@angular/common/http';
-import { fakeBackendProvider } from '@webonjour/data-access-fake-backend';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromGame from './reducers/game/game.reducer';
@@ -33,7 +31,6 @@ import { NgOptimizedImage } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
-    NxWelcomeComponent,
     GameQuestionComponent,
     QuizItemComponent,
     QuizListItemComponent,
@@ -54,7 +51,10 @@ import { NgOptimizedImage } from '@angular/common';
     BrowserModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
-    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    RouterModule.forRoot(appRoutes, {
+      initialNavigation: 'enabledBlocking',
+      useHash: true,
+    }),
     HttpClientModule,
     CdkDrag,
     CdkDropList,
@@ -65,7 +65,6 @@ import { NgOptimizedImage } from '@angular/common';
     }),
     NgOptimizedImage,
   ],
-  providers: [fakeBackendProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

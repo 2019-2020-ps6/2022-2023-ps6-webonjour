@@ -4,11 +4,11 @@ import {
   selectAccommodation,
   selectGameScore,
   selectGameState,
-  selectPatient,
 } from '../../../reducers/game/game.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import { PatientService } from '@webonjour/front-end/shared/common';
 import { GameState } from '../../../reducers/game/game.reducer';
+import { usefulClick } from '../../../reducers/game/game.actions';
 
 @Component({
   selector: 'webonjour-quiz-results',
@@ -65,6 +65,6 @@ export class QuizResultsComponent implements OnDestroy, OnInit {
   }
 
   score() {
-    console.log('score');
+    this.store.dispatch(usefulClick());
   }
 }

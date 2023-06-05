@@ -1,20 +1,25 @@
 import { Patient, Quiz } from '@webonjour/util-interface';
+import { Accommodation, Prisma, QuizSession } from '@prisma/client';
+import { usefulClick } from './game.actions';
 
 /**
  * Interface for the 'Game' data
  */
 export interface GameEntity {
-  quiz: Quiz.Quiz | null;
-  player: Patient.Patient | null;
-  currentQuestion: Quiz.Question | null;
-  accommodation: Patient.Accommodation[];
-  learntQuestions: string[];
+  quiz: Prisma.QuizGetPayload<Quiz.QuizWithQuestions> | null;
+  player: Prisma.PatientGetPayload<Patient.PatientFull> | null;
+  currentQuestion: Prisma.QuestionGetPayload<Quiz.QuestionWithAnswersAndClues> | null;
+  accommodation: Accommodation[];
+  learntQuestions: number[];
   history: HistoryItem[];
-  skippedQuestions: string[];
+  skippedQuestions: number[];
+  quizSession: QuizSession | null;
+  clickCount: number;
+  usefulClick: number;
 }
 
 export interface HistoryItem {
-  questionId: string;
+  questionId: number;
   isCorrect: boolean;
   timeTaken: number;
 }

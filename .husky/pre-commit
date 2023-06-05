@@ -3,7 +3,6 @@
 
 npx --no-install lint-staged
 
-
 regex='.*?@etu.univ-cotedazur.fr'
 email="$(git config user.email)"
 

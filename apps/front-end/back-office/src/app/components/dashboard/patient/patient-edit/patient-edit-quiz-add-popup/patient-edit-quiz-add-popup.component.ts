@@ -8,20 +8,17 @@ import {
   PatientService,
   QuizService,
 } from '@webonjour/front-end/shared/common';
+import { Prisma } from '@prisma/client';
 
 @Component({
   selector: 'webonjour-patient-edit-quiz-add-popup',
   templateUrl: './patient-edit-quiz-add-popup.component.html',
-  styleUrls: ['./patient-edit-quiz-add-popup.component.scss'],
 })
 export class PatientEditQuizAddPopupComponent implements AfterViewInit {
-  displayedColumns: string[] = [
-    'Nom du Quiz',
-    'Nombre de questions',
-    'stage',
-    'action',
-  ];
-  dataSource = new MatTableDataSource<Quiz.Quiz>([]);
+  displayedColumns: string[] = ['Nom du Quiz', 'Nombre de questions', 'action'];
+  dataSource = new MatTableDataSource<
+    Prisma.QuizGetPayload<Quiz.QuizWithQuestions>
+  >([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -30,7 +27,7 @@ export class PatientEditQuizAddPopupComponent implements AfterViewInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private patientService: PatientService,
-    @Inject(MAT_DIALOG_DATA) public data: { patientId: string }
+    @Inject(MAT_DIALOG_DATA) public data: { patientId: number }
   ) {
     this.refresh();
   }
@@ -51,7 +48,9 @@ export class PatientEditQuizAddPopupComponent implements AfterViewInit {
               return !quiz.isPrivate;
             });
 
-          this.dataSource = new MatTableDataSource<Quiz.Quiz>(quizListFiltered);
+          this.dataSource = new MatTableDataSource<
+            Prisma.QuizGetPayload<Quiz.QuizWithQuestions>
+          >(quizListFiltered);
           this.dataSource.paginator = this.paginator;
         });
       });
@@ -61,7 +60,7 @@ export class PatientEditQuizAddPopupComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  onAddQuiz(id: string) {
+  onAddQuiz(id: number) {
     this.patientService
       .addPatientQuiz(this.data.patientId, id)
       .subscribe(() => {

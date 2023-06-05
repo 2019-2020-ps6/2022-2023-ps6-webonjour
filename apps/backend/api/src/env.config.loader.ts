@@ -5,6 +5,6 @@ import * as fs from 'fs';
 // if there is, load it else load the .env file in the api directory
 if (fs.existsSync(path.resolve('.env'))) {
   config();
-} else {
+} else if (fs.existsSync(path.resolve('apps/backend/api/.env'))) {
   config({ path: path.resolve('apps/backend/api/.env') });
 }
