@@ -12,12 +12,6 @@
         "outputPath": "dist/apps/front-end/back-office",
         "index": "apps/front-end/back-office/src/index.html",
         "main": "apps/front-end/back-office/src/main.ts",
-        "fileReplacements": [
-          {
-            "replace": "libs/shared/environments/src/lib/environment.ts",
-            "with": "libs/shared/environments/src/lib/environment.prod.ts"
-          }
-        ],
         "polyfills": ["zone.js"],
         "tsConfig": "apps/front-end/back-office/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
