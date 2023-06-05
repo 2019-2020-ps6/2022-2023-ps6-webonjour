@@ -17,6 +17,11 @@ export function getEnv(mode: string) {
   }
 }
 
-export function api_root(env) {
+export function api_root(env: {
+  production: boolean;
+  back_office: { port: number; domain: string; host: string; secure: boolean };
+  api: { port: number; domain: string; host: string; secure: boolean };
+  front_office: { port: number; domain: string; host: string; secure: boolean };
+}) {
   return `${protocol(env.api.secure)}://${env.api.domain}:${env.api.port}/api`;
 }
