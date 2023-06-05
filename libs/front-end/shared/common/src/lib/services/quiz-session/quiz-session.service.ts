@@ -8,7 +8,7 @@ import { api_root, environment } from '@webonjour/shared/environments';
   providedIn: 'root',
 })
 export class QuizSessionService {
-  QUIZ_SESSION_URL = `${api_root(environment)}/api/quiz-sessions/`;
+  QUIZ_SESSION_URL = `${api_root(environment)}/quiz-sessions/`;
 
   constructor(private httpClient: HttpClient) {}
 
