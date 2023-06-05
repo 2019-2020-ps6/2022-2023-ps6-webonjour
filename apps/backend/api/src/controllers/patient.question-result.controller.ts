@@ -109,6 +109,9 @@ export const getRelatedAggregatedQuestionResultHandler = async (
     _avg: {
       score: true,
     },
+    where: {
+      patientId: req.params.id,
+    },
   });
   const bestQuiz = await prisma.quizSession.findFirst({
     where: {
