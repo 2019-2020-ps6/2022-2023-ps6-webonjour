@@ -16,3 +16,7 @@ export function getEnv(mode: string) {
       return dev_env;
   }
 }
+
+export function api_root(env) {
+  return `${protocol(env.api.secure)}://${env.api.domain}:${env.api.port}/api`;
+}
