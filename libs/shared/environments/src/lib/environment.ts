@@ -13,13 +13,13 @@ export const environment = {
   back_office: {
     port: 8080,
     host: '0.0.0.0',
-    domain: 'localhost:8080',
+    domain: 'localhost',
     secure: false,
   },
   api: {
     port: 8000,
-    host: 'localhost',
-    domain: 'localhost:8000',
+    host: '0.0.0.0',
+    domain: 'localhost',
     secure: false,
   },
 };
