@@ -8,6 +8,7 @@ module.exports = async function () {
   axios.defaults.baseURL = `${protocol(environment.api.secure)}://${
     environment.api.domain
   }`;
+  console.log('axios.defaults.baseURL', axios.defaults.baseURL);
   // wait for the server to start
   for (let i = 0; i < 200; i++) {
     try {
