@@ -23,5 +23,5 @@ export function api_root(env: {
   api: { port: number; domain: string; host: string; secure: boolean };
   front_office: { port: number; domain: string; host: string; secure: boolean };
 }) {
-  return `${protocol(env.api.secure)}://${env.api.domain}:${env.api.port}/api`;
+  return `${protocol(env.api.secure)}://${env.api.domain}/api`;
 }
