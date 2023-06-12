@@ -9,11 +9,19 @@ test.describe('Floor Selection', () => {
     await expect(floorSelectionPage.floors).toHaveCount(3);
   });
 
-  test('should click on the first floor', async ({
+  test('should display correct number of patients for the corresponding floor', async ({
     fixtures: { floorSelectionPage, patientSelectionPage },
   }) => {
     await floorSelectionPage.goto();
     await floorSelectionPage.selectFloor(0);
     await expect(patientSelectionPage.patients).toHaveCount(2);
+
+    await floorSelectionPage.goto();
+    await floorSelectionPage.selectFloor(1);
+    await expect(patientSelectionPage.patients).toHaveCount(1);
+
+    await floorSelectionPage.goto();
+    await floorSelectionPage.selectFloor(2);
+    await expect(patientSelectionPage.patients).toHaveCount(1);
   });
 });
