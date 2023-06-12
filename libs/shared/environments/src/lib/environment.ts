@@ -7,19 +7,19 @@ export const environment = {
   front_office: {
     port: 4200,
     host: '0.0.0.0',
-    domain: '127.0.0.1:4200',
+    domain: 'localhost:4200',
     secure: false,
   },
   back_office: {
     port: 8080,
     host: '0.0.0.0',
-    domain: '127.0.0.1:8080',
+    domain: 'localhost:8080',
     secure: false,
   },
   api: {
     port: 8000,
     host: '0.0.0.0',
-    domain: '127.0.0.1:8000',
+    domain: 'localhost:8000',
     secure: false,
   },
 };
