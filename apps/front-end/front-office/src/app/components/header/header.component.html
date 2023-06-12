@@ -4,7 +4,7 @@
   </h1>
   <a
     class="button dark header-button"
-    href="https://{{ environment.back_office.domain }}/"
+    href="{{ getBackOfficeUrl() }}"
     (mouseenter)="onHover(true)"
     (mouseleave)="onHover(false)"
     [ngClass]="{ hovered: hover }"
