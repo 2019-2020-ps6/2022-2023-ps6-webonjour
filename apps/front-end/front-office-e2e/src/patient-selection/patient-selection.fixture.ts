@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+import { FloorSelectionFixture } from '../floor-selection/floor-selection.fixture';
 
 export class PatientSelectionFixture {
   readonly patients: Locator;
@@ -8,7 +9,10 @@ export class PatientSelectionFixture {
   }
 
   async goto() {
-    await this.page.goto('/');
+    // select the first floor
+    const floor_fixture = new FloorSelectionFixture(this.page);
+    await floor_fixture.goto();
+    await floor_fixture.selectFloor(0);
   }
 
   async selectPatient(patientNumber: number) {
