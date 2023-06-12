@@ -10,6 +10,11 @@ const config: PlaywrightTestConfig = {
   globalTeardown: require.resolve(
     'apps/front-end/back-office-e2e/src/support/global-teardown.ts'
   ),
+  use: {
+    ignoreHTTPSErrors: true,
+    video: 'on-first-retry',
+    screenshot: 'only-on-failure',
+  },
 };
 
 export default config;
