@@ -121,7 +121,7 @@ export async function main() {
       patients: {
         connect: (
           await prisma.patient.findMany({})
-        )?.map((patient) => {
+        )?.map((patient: any) => {
           return {
             id: patient.id,
           };

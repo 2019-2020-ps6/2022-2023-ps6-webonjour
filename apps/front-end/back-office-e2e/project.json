@@ -5,23 +5,40 @@
   "projectType": "application",
   "targets": {
     "e2e": {
-      "executor": "@nrwl/cypress:cypress",
+      "executor": "@mands/nx-playwright:playwright-executor",
       "options": {
-        "cypressConfig": "apps/front-end/back-office-e2e/cypress.config.ts",
-        "devServerTarget": "front-end-back-office:serve:development",
-        "testingType": "e2e"
+        "e2eFolder": "apps/front-end/back-office-e2e",
+        "devServerTarget": "front-end-back-office:serve",
+        "packageRunner": "npx",
+        "ui": true
       },
       "configurations": {
         "production": {
+          "ui": false,
           "devServerTarget": "front-end-back-office:serve:production"
+        },
+        "development": {
+          "devServerTarget": "front-end-back-office:serve:development"
         }
+      }
+    },
+    "ts-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --build --force --verbose apps/front-end-back-office-e2e/tsconfig.json"
+          }
+        ]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/front-end/back-office-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": [
+          "apps/front-end/back-office-e2e/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     }
   },

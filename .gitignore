@@ -57,3 +57,8 @@ prisma/dev.sqlite-journal
 
 # generated
 libs/util-interface/src/lib/generated-zod-schemas/**/*
+
+# Playwright
+**/test-results
+**/playwright-report
+**/playwright/.cache
