@@ -14,7 +14,7 @@ export const environment = {
   },
   api: {
     port: 8000,
-    host: 'localhost',
+    host: '0.0.0.0',
     domain: 'api.webonjour.ozeliurs.com',
     secure: true,
   },
