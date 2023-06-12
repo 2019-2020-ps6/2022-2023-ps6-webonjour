@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { environment } from '@webonjour/shared/environments';
+import { environment, protocol } from '@webonjour/shared/environments';
 import { Store } from '@ngrx/store';
 import * as GameActions from '../../reducers/game/game.actions';
 
@@ -26,5 +26,11 @@ export class HeaderComponent {
 
   onUsefulClick() {
     this.store.dispatch(GameActions.usefulClick());
+  }
+
+  getBackOfficeUrl() {
+    return `${protocol(environment.back_office.secure)}://${
+      environment.back_office.domain
+    }`;
   }
 }
