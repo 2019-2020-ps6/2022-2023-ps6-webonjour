@@ -13,6 +13,9 @@ test.describe('Quiz', () => {
     await expect(fixtures.quizPage.page).toHaveURL(
       new RegExp('.*/dashboard/quiz.*')
     );
+    await fixtures.quizPage.quizzes.first().waitFor({
+      state: 'visible',
+    });
     expect(await fixtures.quizPage.quizzes.count()).toBe(DEFAULT_QUIZ_COUNT);
   });
 
@@ -53,6 +56,9 @@ test.describe('Quiz', () => {
     await fixtures.questionAddPage.addQuestion('Question 1', 'CHOICE');
     await fixtures.quizPage.goto();
     await fixtures.quizPage.quizzes.last().click();
+    await fixtures.quizEditPage.questions.last().waitFor({
+      state: 'visible',
+    });
     expect(await fixtures.quizEditPage.questions.count()).toBe(1);
   });
 
