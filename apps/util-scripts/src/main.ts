@@ -12,7 +12,6 @@ export async function main() {
   for (const quiz of quizMocks.quizList) {
     await prisma.quiz.create({
       data: {
-        id: quiz.id,
         title: quiz.title,
         isPrivate: quiz.isPrivate,
         imageUrl: quiz.imageUrl,
@@ -49,7 +48,6 @@ export async function main() {
   for (const patient of patientMocks.patientMocks) {
     await prisma.patient.create({
       data: {
-        id: parseInt(patient.id),
         firstName: patient.firstName,
         lastName: patient.lastName,
         age: patient.age,
@@ -71,7 +69,6 @@ export async function main() {
   for (const familyMember of patientMocks.familyMemberMocks) {
     await prisma.familyMember.create({
       data: {
-        id: parseInt(familyMember.id),
         firstName: familyMember.firstName,
         lastName: familyMember.lastName,
         age: familyMember.age,
@@ -92,7 +89,6 @@ export async function main() {
   for (const accommodation of patientMocks.accommodationMocks) {
     await prisma.accommodation.create({
       data: {
-        id: parseInt(accommodation.id),
         title: accommodation.title,
         patients: {
           connect: Object.keys(patientMocks.accommodationPatientMocks)
@@ -113,7 +109,8 @@ export async function main() {
 
   await prisma.user.create({
     data: {
-      ...authMocks.user,
+      email: authMocks.credentials.email,
+      profilePictureUrl: authMocks.user.profilePictureUrl,
       password: await bcrypt.hash(
         authMocks.credentials.password,
         await bcrypt.genSalt(10)
