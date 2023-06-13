@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test';
-import { SimpleQuestionSelectionFixture } from '../simple-question/simple-question.fixture';
+import { QuestionSelectionFixture } from '../question/question.fixture';
 
 export class HelpPageFixture {
   readonly button: Locator;
@@ -24,7 +24,7 @@ export class HelpPageFixture {
   }
 
   async goto(floor: number, patient: number, quiz: number) {
-    const quiz_fixture = new SimpleQuestionSelectionFixture(this.page);
+    const quiz_fixture = new QuestionSelectionFixture(this.page);
     await quiz_fixture.goto(floor, patient, quiz);
     await this.clickHelpButton();
     await this.page.waitForSelector('webonjour-help-page');
