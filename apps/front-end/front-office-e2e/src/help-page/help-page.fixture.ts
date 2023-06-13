@@ -15,12 +15,13 @@ export class HelpPageFixture {
       .locator('p');
     this.backButton = page
       .locator('webonjour-help-page')
-      .locator('is-horizontal-align')
+      .locator('.is-horizontal-align')
       .locator('a');
     this.title = page
       .locator('webonjour-help-page')
-      .locator('clue-header')
-      .locator('p');
+      .locator('.clue-header')
+      .locator('p')
+      .first();
   }
 
   async goto(floor: number, patient: number, quiz: number) {

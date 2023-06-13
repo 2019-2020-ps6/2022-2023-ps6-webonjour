@@ -9,7 +9,7 @@ interface Fixtures {
   floorSelectionPage: FloorSelectionFixture;
   patientSelectionPage: PatientSelectionFixture;
   quizSelectionPage: QuizSelectionFixture;
-  QuestionSelectionPage: QuestionSelectionFixture;
+  questionSelectionPage: QuestionSelectionFixture;
   helpPage: HelpPageFixture;
 }
 
@@ -19,7 +19,7 @@ const test = base.extend<{ fixtures: Fixtures }>({
       floorSelectionPage: new FloorSelectionFixture(page),
       patientSelectionPage: new PatientSelectionFixture(page),
       quizSelectionPage: new QuizSelectionFixture(page),
-      QuestionSelectionPage: new QuestionSelectionFixture(page),
+      questionSelectionPage: new QuestionSelectionFixture(page),
       helpPage: new HelpPageFixture(page),
     });
   },
