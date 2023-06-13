@@ -51,7 +51,7 @@ model Question {
   answers         Answer[]
   clues           Clue[]
   type            QuestionType
-  quiz            Quiz             @relation(fields: [quizId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quiz            Quiz             @relation(fields: [quizId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   quizId          Int
   questionResults QuestionResult[]
 }
@@ -60,7 +60,7 @@ model Clue {
   id         Int      @id @default(autoincrement())
   text       String?
   image      String?
-  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   questionId Int
 }
 
@@ -69,7 +69,7 @@ model Answer {
   text       String?
   image      String?
   isCorrect  Boolean
-  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   questionId Int
 }
 
@@ -120,9 +120,9 @@ model Accommodation {
 
 model QuizSession {
   id              Int              @id @default(autoincrement())
-  quiz            Quiz             @relation(fields: [quizId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quiz            Quiz             @relation(fields: [quizId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   quizId          Int
-  patient         Patient          @relation(fields: [patientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  patient         Patient          @relation(fields: [patientId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   patientId       Int
   score           Float?           @default(0)
   questionResults QuestionResult[]
@@ -134,11 +134,11 @@ model QuizSession {
 
 model QuestionResult {
   id            Int          @id @default(autoincrement())
-  question      Question     @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  question      Question     @relation(fields: [questionId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   questionId    Int
   isCorrect     Boolean
   timeTaken     Int
-  quizSession   QuizSession? @relation(fields: [quizSessionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quizSession   QuizSession? @relation(fields: [quizSessionId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   quizSessionId Int?
   clickRatio    Float        @default(0)
   createdAt     DateTime     @default(now())

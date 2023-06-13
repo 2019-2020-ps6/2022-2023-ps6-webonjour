@@ -2,6 +2,8 @@ import { test } from '../fixtures';
 import { expect } from '@playwright/test';
 
 const DEFAULT_PATIENT_COUNT = 4;
+const DEFAULT_QUIZ_COUNT = 4;
+
 test.describe('Patient', () => {
   test('should show patient list', async ({ fixtures }) => {
     await fixtures.patientPage.goto();
@@ -38,6 +40,25 @@ test.describe('Patient', () => {
     await fixtures.patientEditPage.deletePatient();
     expect(await fixtures.patientPage.patients.count()).toBe(
       DEFAULT_PATIENT_COUNT
+    );
+  });
+
+  test('should remove and add quiz', async ({ fixtures }) => {
+    await fixtures.patientPage.goto();
+    await fixtures.patientPage.patients.last().click();
+
+    console.log(await fixtures.patientEditPage.quiz.allInnerTexts());
+    expect(await fixtures.patientEditPage.quiz.count()).toBe(
+      DEFAULT_QUIZ_COUNT
+    );
+
+    await fixtures.patientEditPage.deleteQuiz(0);
+    expect(await fixtures.patientEditPage.quiz.count()).toBe(
+      DEFAULT_QUIZ_COUNT - 1
+    );
+    await fixtures.patientEditPage.assignQuiz(0);
+    expect(await fixtures.patientEditPage.quiz.count()).toBe(
+      DEFAULT_QUIZ_COUNT
     );
   });
 });
