@@ -36,6 +36,7 @@ export class QuestionEditFixture {
   }
 
   async updateQuestion(title: string, type?: string, image?: string) {
+    await this.page.waitForLoadState('networkidle');
     await this.questionGeneralTitle.fill(title);
     if (image) {
       await this.questionGeneralImage.setInputFiles(image);
