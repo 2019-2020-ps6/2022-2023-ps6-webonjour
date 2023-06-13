@@ -1,13 +1,13 @@
 import { PlaywrightTestConfig } from '@playwright/test';
 
-const baseURL = process.env.E2E_BASE_URL || 'http://127.0.0.1:4200/';
-
 export const baseConfig: PlaywrightTestConfig = {
   retries: 3,
   maxFailures: 2,
   timeout: 120000,
   workers: 1,
   use: {
-    baseURL,
+    ignoreHTTPSErrors: true,
+    video: 'on-first-retry',
+    screenshot: 'only-on-failure',
   },
 };

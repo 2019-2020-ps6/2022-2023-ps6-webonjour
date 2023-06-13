@@ -12,9 +12,6 @@ const config: PlaywrightTestConfig = {
   ),
   use: {
     ...baseConfig.use,
-    ignoreHTTPSErrors: true,
-    video: 'on-first-retry',
-    screenshot: 'only-on-failure',
   },
 };
 
