@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { QuestionService } from '@webonjour/front-end/shared/common';
+import {
+  fileToBase64,
+  QuestionService,
+} from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Answer } from '@prisma/client';
@@ -49,12 +52,14 @@ export class QuestionAnswerAddPopupComponent implements OnInit {
     return this.form.controls;
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (!this.data.answerId) {
       this.questionService
         .createAnswer({
           text: (this.formControls['text'].value as string) || '',
-          image: (this.formControls['image'].value as string) || '',
+          image: this.formControls['image'].value
+            ? await fileToBase64(this.formControls['image'].value)
+            : undefined,
           question: {
             connect: {
               id: this.data.questionId,
@@ -74,7 +79,9 @@ export class QuestionAnswerAddPopupComponent implements OnInit {
       this.questionService
         .updateAnswer(this.data.answerId, {
           text: (this.formControls['text'].value as string) || '',
-          image: (this.formControls['image'].value as string) || '',
+          image: this.formControls['image'].value
+            ? await fileToBase64(this.formControls['image'].value)
+            : undefined,
           isCorrect: this.formControls['isCorrect'].value as boolean,
         })
         .subscribe((answer) => {

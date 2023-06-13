@@ -7,6 +7,10 @@ import { QuizEditFixture } from './quiz/quiz.edit.fixture';
 import { PatientAddFixture } from './patient/patient.add.fixture';
 import { PatientFixture } from './patient/patient.fixture';
 import { PatientEditFixture } from './patient/patient.edit.fixture';
+import { QuestionAddFixture } from './quiz/question.add.fixture';
+import { QuestionEditFixture } from './quiz/question.edit.fixture';
+import { AnswerFixture } from './quiz/answer.fixture';
+import { ClueFixture } from './quiz/clue.fixture';
 
 interface Fixtures {
   loginPage: LoginFixture;
@@ -17,6 +21,10 @@ interface Fixtures {
   patientPage: PatientFixture;
   patientAddPage: PatientAddFixture;
   patientEditPage: PatientEditFixture;
+  questionAddPage: QuestionAddFixture;
+  questionEditPage: QuestionEditFixture;
+  answerPage: AnswerFixture;
+  cluePage: ClueFixture;
 }
 
 export const test = base.extend<{ fixtures: Fixtures }>({
@@ -30,6 +38,10 @@ export const test = base.extend<{ fixtures: Fixtures }>({
       patientPage: new PatientFixture(page),
       patientAddPage: new PatientAddFixture(page),
       patientEditPage: new PatientEditFixture(page),
+      questionAddPage: new QuestionAddFixture(page),
+      questionEditPage: new QuestionEditFixture(page),
+      answerPage: new AnswerFixture(page),
+      cluePage: new ClueFixture(page)
     });
   },
 });
