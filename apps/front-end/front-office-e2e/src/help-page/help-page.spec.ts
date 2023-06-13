@@ -13,4 +13,9 @@ test.describe('Help page', () => {
       'Vous êtes en train de répondre au quiz'
     );
   });
+
+  test('should display back button', async ({ fixtures: { helpPage } }) => {
+    await helpPage.goto(0, 0, 0);
+    await expect(helpPage.backButton).toHaveText('Retourner à la question');
+  });
 });
