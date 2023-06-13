@@ -1,4 +1,4 @@
-import { test } from '../fixtures';
+import { backOfficeTest as test } from '@webonjour/fixtures-e2e';
 import { expect } from '@playwright/test';
 
 test.describe('Menu', () => {

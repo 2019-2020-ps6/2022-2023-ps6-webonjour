@@ -1,4 +1,4 @@
-import { test } from '../fixture';
+import { frontOfficeTest as test } from '@webonjour/fixtures-e2e';
 import { expect } from '@playwright/test';
 import { environment, protocol } from '@webonjour/shared/environments';
 
