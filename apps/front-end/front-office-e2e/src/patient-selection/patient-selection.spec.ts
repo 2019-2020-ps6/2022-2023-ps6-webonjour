@@ -15,4 +15,16 @@ test.describe('Floor Selection', () => {
       }/#/list-quiz`
     );
   });
+
+  test('should redirect to /list-quiz when patient selected', async ({
+    fixtures: { floorSelectionPage, patientSelectionPage },
+  }) => {
+    await patientSelectionPage.goto();
+    await patientSelectionPage.selectPatient(0);
+    await expect(floorSelectionPage.page.url()).toBe(
+      `${protocol(environment.front_office.secure)}://${
+        environment.front_office.domain
+      }/#/list-quiz`
+    );
+  });
 });
