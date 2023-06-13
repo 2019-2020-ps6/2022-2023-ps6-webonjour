@@ -66,6 +66,7 @@ test.describe('Quiz', () => {
     await fixtures.quizPage.goto();
     await fixtures.quizPage.quizzes.last().click();
     await fixtures.quizEditPage.questions.last().click();
+    await fixtures.questionEditPage.page.waitForLoadState('networkidle');
     await fixtures.questionEditPage.updateQuestion('Question 2');
     await fixtures.quizPage.goto();
     await fixtures.quizPage.quizzes.last().click();
