@@ -15,7 +15,7 @@ export class ResultSelectionFixture {
     await question_fixture.goto(floor, patient, quiz);
 
     while (await this.page.locator('.answer-button').first().isVisible()) {
-      await this.page.locator('.answer-button').first().click({ timeout: 100 });
+      await this.page.locator('.answer-button').first().click({ timeout: 200 });
       // wait for the page to reload
       await this.page.waitForTimeout(100);
     }

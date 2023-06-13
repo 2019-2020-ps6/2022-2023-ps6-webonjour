@@ -6,6 +6,7 @@ import { SimpleQuestionSelectionFixture } from './simple-question/simple-questio
 import { ResultSelectionFixture } from './results-selection/result-selection.fixture';
 import { QuestionSelectionFixture } from './question/question.fixture';
 import { HelpPageFixture } from './help-page/help-page.fixture';
+import { LearningCardSelectionFixture } from './learning-card-selection/learning-card-selection.fixture';
 
 interface Fixtures {
   floorSelectionPage: FloorSelectionFixture;
@@ -15,6 +16,7 @@ interface Fixtures {
   resultSelectionPage: ResultSelectionFixture;
   questionSelectionPage: QuestionSelectionFixture;
   helpPage: HelpPageFixture;
+  learningCardSelectionPage: LearningCardSelectionFixture;
 }
 
 const test = base.extend<{ fixtures: Fixtures }>({
@@ -27,6 +29,7 @@ const test = base.extend<{ fixtures: Fixtures }>({
       resultSelectionPage: new ResultSelectionFixture(page),
       questionSelectionPage: new QuestionSelectionFixture(page),
       helpPage: new HelpPageFixture(page),
+      learningCardSelectionPage: new LearningCardSelectionFixture(page),
     });
   },
 });
