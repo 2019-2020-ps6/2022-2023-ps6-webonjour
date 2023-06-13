@@ -3,12 +3,14 @@ import { FloorSelectionFixture } from './floor-selection/floor-selection.fixture
 import { PatientSelectionFixture } from './patient-selection/patient-selection.fixture';
 import { QuizSelectionFixture } from './quiz-selection/quiz-selection.fixture';
 import { SimpleQuestionSelectionFixture } from './simple-question/simple-question.fixture';
+import { HelpPageFixture } from './help-page/help-page.fixture';
 
 interface Fixtures {
   floorSelectionPage: FloorSelectionFixture;
   patientSelectionPage: PatientSelectionFixture;
   quizSelectionPage: QuizSelectionFixture;
   simpleQuestionSelectionPage: SimpleQuestionSelectionFixture;
+  helpPage: HelpPageFixture;
 }
 
 const test = base.extend<{ fixtures: Fixtures }>({
@@ -18,6 +20,7 @@ const test = base.extend<{ fixtures: Fixtures }>({
       patientSelectionPage: new PatientSelectionFixture(page),
       quizSelectionPage: new QuizSelectionFixture(page),
       simpleQuestionSelectionPage: new SimpleQuestionSelectionFixture(page),
+      helpPage: new HelpPageFixture(page),
     });
   },
 });
