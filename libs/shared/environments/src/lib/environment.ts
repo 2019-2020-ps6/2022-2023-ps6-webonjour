@@ -11,9 +11,9 @@ export const environment = {
     secure: false,
   },
   back_office: {
-    port: 8080,
+    port: 4201,
     host: '0.0.0.0',
-    domain: '127.0.0.1:8080',
+    domain: '127.0.0.1:4201',
     secure: false,
   },
   api: {

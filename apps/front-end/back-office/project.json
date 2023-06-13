@@ -64,10 +64,13 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "front-end-back-office:build:production"
+          "browserTarget": "front-end-back-office:build:production",
+          "port": 4200,
+          "host": "0.0.0.0"
         },
         "development": {
           "host": "127.0.0.1",
+          "port": 4200,
           "browserTarget": "front-end-back-office:build:development"
         }
       },
