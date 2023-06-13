@@ -52,14 +52,14 @@ test.describe('Drag and Drop Question', () => {
   test('should display all answers', async ({
     fixtures: { questionSelectionPage },
   }) => {
-    await questionSelectionPage.gotoDragndrop(0, 0, 3);
+    await questionSelectionPage.goto(0, 0, 3);
     await expect(questionSelectionPage.answers).toHaveCount(4);
   });
 
   test('should display correct title', async ({
     fixtures: { questionSelectionPage },
   }) => {
-    await questionSelectionPage.gotoDragndrop(0, 0, 3);
+    await questionSelectionPage.goto(0, 0, 3);
     await expect(questionSelectionPage.title).toHaveText(
       "Réordonner par ordre logique pour s'habiller"
     );
@@ -68,7 +68,7 @@ test.describe('Drag and Drop Question', () => {
   test('should go to next question', async ({
     fixtures: { questionSelectionPage },
   }) => {
-    await questionSelectionPage.gotoDragndrop(0, 0, 3);
+    await questionSelectionPage.goto(0, 0, 3);
 
     const answer0 = await questionSelectionPage.answers.nth(0).textContent();
     const answer1 = await questionSelectionPage.answers.nth(1).textContent();
