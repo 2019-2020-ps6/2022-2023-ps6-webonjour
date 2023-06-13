@@ -3,9 +3,21 @@ import { QuizFixture } from './quiz.fixture';
 
 export class QuizEditFixture {
   readonly deleteQuizButton: Locator;
+  readonly quizGeneralTitle: Locator;
+  private quizGeneralImage: Locator;
+  private quizUpdateButton: Locator;
 
   constructor(readonly page: Page) {
     this.deleteQuizButton = page.locator('button:has-text("Supprimer")');
+    this.quizGeneralTitle = page.locator(
+      'webonjour-quiz-edit-general input[formcontrolname="title"]'
+    );
+    this.quizGeneralImage = page.locator(
+      'webonjour-quiz-edit-general input[type="file"]'
+    );
+    this.quizUpdateButton = page.locator(
+      'webonjour-quiz-edit-general button[type="submit"]'
+    );
   }
 
   async goto(quiz: number) {
@@ -22,5 +34,15 @@ export class QuizEditFixture {
     await quizFixture.quizzes.first().waitFor({
       state: 'attached',
     });
+  }
+  async updateQuiz(title: string, image?: string) {
+    await this.quizGeneralTitle.fill(title);
+    if (image) {
+      console.log(image);
+      await this.quizGeneralImage.setInputFiles(image);
+    }
+    await this.quizUpdateButton.click();
+    // wait for the page to reload
+    await this.page.waitForLoadState('networkidle');
   }
 }
