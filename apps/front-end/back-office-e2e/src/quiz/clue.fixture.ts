@@ -34,6 +34,7 @@ export class ClueFixture {
   }
 
   async updateClue(index: number, text: string, image?: string) {
+    await this.page.waitForLoadState('networkidle');
     const answer = await this.clues.nth(index);
     const updateButton = await answer.locator('button:has-text("Modifier")');
     await updateButton.click();

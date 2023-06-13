@@ -47,6 +47,7 @@ export class AnswerFixture {
     isCorrect: boolean,
     image?: string
   ) {
+    await this.page.waitForLoadState('networkidle');
     const answer = await this.answers.nth(index);
     const updateButton = await answer.locator('button:has-text("Modifier")');
     await updateButton.click();

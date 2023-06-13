@@ -39,6 +39,7 @@ export class QuizEditFixture {
     });
   }
   async updateQuiz(title: string, image?: string) {
+    await this.page.waitForLoadState('networkidle');
     await this.quizGeneralTitle.fill(title);
     if (image) {
       console.log(image);
