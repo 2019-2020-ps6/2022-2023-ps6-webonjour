@@ -1,7 +1,23 @@
-import { expect, test } from '@playwright/test';
+import { expect } from '@playwright/test';
+import { test } from '@webonjour/fixtures-e2e';
 
-test('should start page', async ({ page }) => {
-  await page.goto('/');
+const b_test = test.extend({ baseURL: 'http://localhost:4200' });
+const f_test = test.extend({ baseURL: 'http://localhost:4201' });
 
-  expect(true).toBeTruthy();
+test.describe('cross-office', () => {
+  b_test('back should work', async ({ page }) => {
+    await page.goto('/');
+    expect(true).toBeTruthy();
+  });
+
+  f_test('front should work', async ({ page }) => {
+    await page.goto('/');
+    expect(true).toBeTruthy();
+  });
+
+  f_test('floor selection should work', async ({ fixtures }) => {
+    await fixtures.FrontOffice.floorSelectionPage.goto();
+    fixtures.FrontOffice.floorSelectionPage.selectFloor(0);
+    expect(true).toBeTruthy();
+  });
 });

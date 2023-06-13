@@ -11,6 +11,7 @@ import { QuestionAddFixture } from './quiz/question.add.fixture';
 import { QuestionEditFixture } from './quiz/question.edit.fixture';
 import { AnswerFixture } from './quiz/answer.fixture';
 import { ClueFixture } from './quiz/clue.fixture';
+import { environment, protocol } from '@webonjour/shared/environments';
 
 interface Fixtures {
   loginPage: LoginFixture;
@@ -28,20 +29,32 @@ interface Fixtures {
 }
 
 export const test = base.extend<{ fixtures: Fixtures }>({
+  baseURL: `${protocol(environment.back_office.secure)}://${
+    environment.back_office.domain
+  }`,
   fixtures: async ({ page }, use) => {
-    await use({
-      loginPage: new LoginFixture(page),
-      menuComponent: new MenuFixture(page),
-      quizPage: new QuizFixture(page),
-      quizAddPage: new QuizAddFixture(page),
-      quizEditPage: new QuizEditFixture(page),
-      patientPage: new PatientFixture(page),
-      patientAddPage: new PatientAddFixture(page),
-      patientEditPage: new PatientEditFixture(page),
-      questionAddPage: new QuestionAddFixture(page),
-      questionEditPage: new QuestionEditFixture(page),
-      answerPage: new AnswerFixture(page),
-      cluePage: new ClueFixture(page),
-    });
+    await use(buildFixtures(page));
   },
 });
+
+const buildFixtures = (page) => {
+  return {
+    loginPage: new LoginFixture(page),
+    menuComponent: new MenuFixture(page),
+    quizPage: new QuizFixture(page),
+    quizAddPage: new QuizAddFixture(page),
+    quizEditPage: new QuizEditFixture(page),
+    patientPage: new PatientFixture(page),
+    patientAddPage: new PatientAddFixture(page),
+    patientEditPage: new PatientEditFixture(page),
+    questionAddPage: new QuestionAddFixture(page),
+    questionEditPage: new QuestionEditFixture(page),
+    answerPage: new AnswerFixture(page),
+    cluePage: new ClueFixture(page),
+  };
+};
+
+export {
+  buildFixtures as backOfficeBuildFixtures,
+  Fixtures as BackOfficeFixtures,
+};

@@ -4,14 +4,32 @@
   "sourceRoot": "apps/front-end/cross-office-e2e/src",
   "projectType": "application",
   "targets": {
+    "front-end-serve": {
+      "executor": "@angular-devkit/architect:allOf",
+      "options": {
+        "targets": [
+          {
+            "target": "front-end-back-office:serve"
+          },
+          {
+            "target": "front-end-front-office:serve"
+          }
+        ]
+      }
+    },
     "e2e": {
       "executor": "@mands/nx-playwright:playwright-executor",
       "options": {
+        "ui": true,
         "e2eFolder": "apps/front-end/cross-office-e2e",
-        "packageRunner": "pnpm"
+        "packageRunner": "npx",
+        "devServerTarget": "front-end-cross-office-e2e:front-end-serve"
       },
       "configurations": {
-        "production": {}
+        "ci": {
+          "ui": false
+        },
+        "development": {}
       }
     },
     "ts-check": {
