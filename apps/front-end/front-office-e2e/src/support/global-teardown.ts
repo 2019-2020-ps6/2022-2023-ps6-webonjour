@@ -7,18 +7,23 @@ module.exports = async function () {
   // Hint: `globalThis` is shared between setup and teardown.
   // stop the server
 
-  let executor = 'docker compose';
+  let executor = 'docker-compose';
 
   // Check if docker compose is installed
   try {
-    subProcessSync('docker compose --version', true);
+    subProcessSync('docker-compose --version', true);
   } catch (e) {
     executor = 'podman-compose';
     try {
       subProcessSync('podman-compose --version', true);
     } catch (e) {
-      console.log('Please install docker compose or podman compose');
-      process.exit(1);
+      executor = 'docker compose';
+      try {
+        subProcessSync('docker compose --version', true);
+      } catch (e) {
+        console.log('Please install docker-compose or podman-compose');
+        process.exit(1);
+      }
     }
   }
 

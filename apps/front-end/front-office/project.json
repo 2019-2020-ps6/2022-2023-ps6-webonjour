@@ -63,6 +63,7 @@
           "browserTarget": "front-end-front-office:build:production"
         },
         "development": {
+          "host": "127.0.0.1",
           "browserTarget": "front-end-front-office:build:development"
         }
       },
