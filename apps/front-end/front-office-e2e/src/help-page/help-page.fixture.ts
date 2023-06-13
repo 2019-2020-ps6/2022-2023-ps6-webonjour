@@ -9,19 +9,10 @@ export class HelpPageFixture {
 
   constructor(readonly page: Page) {
     this.button = page.locator('.help-button');
-    this.clue = page
-      .locator('webonjour-help-page')
-      .locator('.clue-container')
-      .locator('p');
-    this.backButton = page
-      .locator('webonjour-help-page')
-      .locator('.is-horizontal-align')
-      .locator('a');
-    this.title = page
-      .locator('webonjour-help-page')
-      .locator('.clue-header')
-      .locator('p')
-      .first();
+    this.clue = page.locator('.clue-container').locator('p');
+    // button containing Retourner à la question
+    this.backButton = page.getByText('Retourner à la question');
+    this.title = page.locator('.clue-header').locator('p').first();
   }
 
   async goto(floor: number, patient: number, quiz: number) {

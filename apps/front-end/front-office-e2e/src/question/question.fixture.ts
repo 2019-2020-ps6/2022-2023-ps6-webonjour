@@ -8,16 +8,13 @@ export class QuestionSelectionFixture {
   CLASSIC_ANSWER_LOCATOR = '.answer-button';
   DRAG_AND_DROP_ANSWER_LOCATOR = '.action';
 
-  CLASSIC_QUESTION_TITLE_LOCATOR = '.webonjour-game-question h1';
-  DRAG_AND_DROP_QUESTION_TITLE = '.question-title h2';
-
   constructor(readonly page: Page) {
     this.answers = page
       .locator(this.CLASSIC_ANSWER_LOCATOR)
       .or(page.locator(this.DRAG_AND_DROP_ANSWER_LOCATOR));
     this.title = page
-      .locator(this.CLASSIC_QUESTION_TITLE_LOCATOR)
-      .or(page.locator(this.DRAG_AND_DROP_QUESTION_TITLE));
+      .locator('.question-title')
+      .or(page.locator('.question-title').locator('h2'));
   }
 
   private async gotoIndex(floor: number, patient: number, quiz: number) {
