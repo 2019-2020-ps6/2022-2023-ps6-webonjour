@@ -2,13 +2,13 @@ import { test as base } from '@playwright/test';
 import { FloorSelectionFixture } from './floor-selection/floor-selection.fixture';
 import { PatientSelectionFixture } from './patient-selection/patient-selection.fixture';
 import { QuizSelectionFixture } from './quiz-selection/quiz-selection.fixture';
-import { SimpleQuestionSelectionFixture } from './simple-question/simple-question.fixture';
+import { QuestionSelectionFixture } from './question/question.fixture';
 
 interface Fixtures {
   floorSelectionPage: FloorSelectionFixture;
   patientSelectionPage: PatientSelectionFixture;
   quizSelectionPage: QuizSelectionFixture;
-  simpleQuestionSelectionPage: SimpleQuestionSelectionFixture;
+  questionSelectionPage: QuestionSelectionFixture;
 }
 
 const test = base.extend<{ fixtures: Fixtures }>({
@@ -17,7 +17,7 @@ const test = base.extend<{ fixtures: Fixtures }>({
       floorSelectionPage: new FloorSelectionFixture(page),
       patientSelectionPage: new PatientSelectionFixture(page),
       quizSelectionPage: new QuizSelectionFixture(page),
-      simpleQuestionSelectionPage: new SimpleQuestionSelectionFixture(page),
+      questionSelectionPage: new QuestionSelectionFixture(page),
     });
   },
 });
