@@ -41,7 +41,7 @@ export const test = base.extend<{ fixtures: Fixtures }>({
       questionAddPage: new QuestionAddFixture(page),
       questionEditPage: new QuestionEditFixture(page),
       answerPage: new AnswerFixture(page),
-      cluePage: new ClueFixture(page)
+      cluePage: new ClueFixture(page),
     });
   },
 });
