@@ -13,6 +13,9 @@ test.describe('Quiz', () => {
     await expect(fixtures.quizPage.page).toHaveURL(
       new RegExp('.*/dashboard/quiz.*')
     );
+    await fixtures.quizPage.quizzes.first().waitFor({
+      state: 'visible',
+    });
     expect(await fixtures.quizPage.quizzes.count()).toBe(DEFAULT_QUIZ_COUNT);
   });
 
