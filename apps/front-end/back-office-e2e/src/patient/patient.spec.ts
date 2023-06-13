@@ -40,4 +40,12 @@ test.describe('Patient', () => {
       DEFAULT_PATIENT_COUNT
     );
   });
+
+  test('should add accommodation', async ({ fixtures }) => {
+    await fixtures.patientPage.goto();
+    await fixtures.patientPage.patients.last().click();
+    expect(fixtures.patientEditPage.accommodations.first()).toBeChecked();
+    await fixtures.patientEditPage.flipAccommodation(0);
+    expect(fixtures.patientEditPage.accommodations.first()).not.toBeChecked();
+  });
 });
