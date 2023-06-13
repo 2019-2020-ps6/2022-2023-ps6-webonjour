@@ -1,7 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Clue } from '@prisma/client';
-import { QuestionService } from '@webonjour/front-end/shared/common';
+import {
+  fileToBase64,
+  QuestionService,
+} from '@webonjour/front-end/shared/common';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
@@ -45,12 +48,14 @@ export class QuestionClueAddPopupComponent implements OnInit {
     return this.form.controls;
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (!this.data.clueId) {
       this.questionService
         .createClue({
           text: (this.formControls['text'].value as string) || '',
-          image: (this.formControls['image'].value as string) || '',
+          image: this.formControls['image'].value
+            ? await fileToBase64(this.formControls['image'].value)
+            : undefined,
           question: {
             connect: {
               id: this.data.questionId,
@@ -68,7 +73,9 @@ export class QuestionClueAddPopupComponent implements OnInit {
       this.questionService
         .updateClue(this.data.clueId, {
           text: (this.formControls['text'].value as string) || '',
-          image: (this.formControls['image'].value as string) || '',
+          image: this.formControls['image'].value
+            ? await fileToBase64(this.formControls['image'].value)
+            : undefined,
         })
         .subscribe((clue) => {
           this.form.patchValue({
