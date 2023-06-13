@@ -18,6 +18,6 @@ export class SimpleQuestionSelectionFixture {
   }
 
   async selectAnswer(quizNumber: number) {
-    await this.answers.nth(quizNumber).click();
+    await this.page.locator(`#answer-${quizNumber}`).click();
   }
 }

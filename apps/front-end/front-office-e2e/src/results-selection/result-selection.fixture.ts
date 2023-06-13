@@ -14,14 +14,10 @@ export class ResultSelectionFixture {
     const question_fixture = new SimpleQuestionSelectionFixture(this.page);
     await question_fixture.goto(floor, patient, quiz);
 
-    // click on the first answer while there is a question (wait between each click)
-    while ((await this.page.locator('webonjour-quiz-results').count()) === 0) {
-      if ((await this.page.locator('webonjour-game-question').count()) === 0) {
-        break;
-      }
-
-      await question_fixture.selectAnswer(0);
-      await this.page.waitForLoadState('networkidle');
+    while (await this.page.locator('.answer-button').first().isVisible()) {
+      await this.page.locator('.answer-button').first().click({ timeout: 100 });
+      // wait for the page to reload
+      await this.page.waitForTimeout(100);
     }
   }
 

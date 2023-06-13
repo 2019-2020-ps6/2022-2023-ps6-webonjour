@@ -3,8 +3,10 @@ import { PatientSelectionFixture } from '../patient-selection/patient-selection.
 
 export class QuizSelectionFixture {
   readonly quiz: Locator;
+  quizContainer: Locator;
 
   constructor(readonly page: Page) {
+    this.quizContainer = page.locator('webonjour-quiz-list-item');
     this.quiz = page.locator('.quiz-item-button');
   }
 
