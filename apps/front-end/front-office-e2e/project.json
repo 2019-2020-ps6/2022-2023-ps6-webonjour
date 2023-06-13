@@ -13,9 +13,9 @@
         "ui": true
       },
       "configurations": {
-        "production": {
+        "ci": {
           "ui": false,
-          "devServerTarget": "front-end-front-office:serve:production"
+          "devServerTarget": "front-end-front-office:serve:development"
         },
         "development": {
           "devServerTarget": "front-end-front-office:serve:development"
