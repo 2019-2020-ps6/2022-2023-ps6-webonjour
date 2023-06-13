@@ -25,7 +25,6 @@ export class QuizAddFixture {
   async addQuiz(title: string, image?: string) {
     await this.quizTitle.fill(title);
     if (image) {
-      console.log(image);
       await this.quizImage.setInputFiles(image);
     }
     await this.submit.click();
