@@ -5,16 +5,17 @@ export class QuestionSelectionFixture {
   readonly answers: Locator;
   readonly title: Locator;
 
-  CLASSIC_ANSWER_LOCATOR = '.answer-button';
-  DRAG_AND_DROP_ANSWER_LOCATOR = '.action';
-
   constructor(readonly page: Page) {
-    this.answers = page
-      .locator(this.CLASSIC_ANSWER_LOCATOR)
-      .or(page.locator(this.DRAG_AND_DROP_ANSWER_LOCATOR));
+    this.answers = page.locator('.answer-button').or(page.locator('.action'));
     this.title = page
-      .locator('.question-title')
-      .or(page.locator('.question-title').locator('h2'));
+      .locator('webonjour-game-question')
+      .locator('h1')
+      .or(
+        page
+          .locator('webonjour-drag-and-drop')
+          .locator('.question-title')
+          .locator('h2')
+      );
   }
 
   private async gotoIndex(floor: number, patient: number, quiz: number) {
@@ -25,12 +26,8 @@ export class QuestionSelectionFixture {
 
   async goto(floor: number, patient: number, quiz: number) {
     await this.gotoIndex(floor, patient, quiz);
-    await this.page.waitForSelector(this.CLASSIC_ANSWER_LOCATOR);
-  }
 
-  async gotoDragndrop(floor: number, patient: number, quiz: number) {
-    await this.gotoIndex(floor, patient, quiz);
-    await this.page.waitForSelector(this.DRAG_AND_DROP_ANSWER_LOCATOR);
+    await this.page.waitForSelector('.question-title', { timeout: 100 });
   }
 
   async selectAnswer(quizNumber: number) {
