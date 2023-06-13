@@ -25,4 +25,8 @@ export class HelpPageFixture {
   async clickHelpButton() {
     await this.button.click();
   }
+
+  async clickBackButton() {
+    await this.backButton.click();
+  }
 }

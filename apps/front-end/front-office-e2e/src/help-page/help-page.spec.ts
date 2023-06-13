@@ -18,4 +18,14 @@ test.describe('Help page', () => {
     await helpPage.goto(0, 0, 0);
     await expect(helpPage.backButton).toHaveText('Retourner à la question');
   });
+
+  test('should return to question', async ({ fixtures: { helpPage } }) => {
+    await helpPage.goto(0, 0, 0);
+    await helpPage.clickBackButton();
+    await expect(helpPage.page.url()).toBe(
+      `${protocol(environment.front_office.secure)}://${
+        environment.front_office.domain
+      }/#/quiz-answer`
+    );
+  });
 });
