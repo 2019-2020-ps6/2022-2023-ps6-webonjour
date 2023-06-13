@@ -29,8 +29,8 @@ export class QuizAddFixture {
     }
     await this.submit.click();
     // wait for the page to reload
-    const quizFixture = new QuizFixture(this.page);
     await this.page.waitForLoadState('networkidle');
+    const quizFixture = new QuizFixture(this.page);
     await quizFixture.quizzes.first().waitFor({
       state: 'visible',
     });
