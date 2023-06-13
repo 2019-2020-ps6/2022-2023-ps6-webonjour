@@ -30,6 +30,7 @@ export class QuestionEditFixture {
   }
 
   async deleteQuestion() {
+    await this.page.waitForLoadState('networkidle');
     await this.deleteQuestionButton.click();
     // wait for the page to reload
     await this.page.waitForLoadState('networkidle');

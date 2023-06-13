@@ -29,6 +29,7 @@ export class AnswerFixture {
 
   async addAnswer(text: string, isCorrect: boolean, image?: string) {
     await this.answerAddButton.click();
+    await this.page.waitForLoadState('networkidle');
     await this.text.fill(text);
     if (image) {
       await this.image.setInputFiles(image);
@@ -51,6 +52,7 @@ export class AnswerFixture {
     const answer = await this.answers.nth(index);
     const updateButton = await answer.locator('button:has-text("Modifier")');
     await updateButton.click();
+    await this.page.waitForLoadState('networkidle');
     await this.text.fill(text);
     if (image) {
       await this.image.setInputFiles(image);
@@ -64,6 +66,7 @@ export class AnswerFixture {
   }
 
   async deleteAnswer(index: number) {
+    await this.page.waitForLoadState('networkidle');
     const answer = await this.answers.nth(index);
     const deleteButton = await answer.locator('button:has-text("Supprimer")');
     await deleteButton.click();

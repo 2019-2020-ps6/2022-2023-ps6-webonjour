@@ -23,6 +23,7 @@ export class QuizAddFixture {
   }
 
   async addQuiz(title: string, image?: string) {
+    await this.page.waitForLoadState('networkidle');
     await this.quizTitle.fill(title);
     if (image) {
       await this.quizImage.setInputFiles(image);

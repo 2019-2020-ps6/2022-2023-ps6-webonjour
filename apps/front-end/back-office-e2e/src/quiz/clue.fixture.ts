@@ -24,6 +24,7 @@ export class ClueFixture {
 
   async addClue(text?: string, image?: string) {
     await this.clueAddButton.click();
+    await this.page.waitForLoadState('networkidle');
     await this.text.fill(text);
     if (image) {
       await this.image.setInputFiles(image);
@@ -38,6 +39,7 @@ export class ClueFixture {
     const answer = await this.clues.nth(index);
     const updateButton = await answer.locator('button:has-text("Modifier")');
     await updateButton.click();
+    await this.page.waitForLoadState('networkidle');
     await this.text.fill(text);
     if (image) {
       await this.image.setInputFiles(image);
@@ -49,6 +51,7 @@ export class ClueFixture {
   }
 
   async deleteClue(index: number) {
+    await this.page.waitForLoadState('networkidle');
     const answer = await this.clues.nth(index);
     const deleteButton = await answer.locator('button:has-text("Supprimer")');
     await deleteButton.click();

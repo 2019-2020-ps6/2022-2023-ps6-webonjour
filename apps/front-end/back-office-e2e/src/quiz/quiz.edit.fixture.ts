@@ -30,6 +30,7 @@ export class QuizEditFixture {
   }
 
   async deleteQuiz() {
+    await this.page.waitForLoadState('networkidle');
     await this.deleteQuizButton.click();
     // wait for the page to reload
     const quizFixture = new QuizFixture(this.page);
