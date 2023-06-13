@@ -10,4 +10,5 @@ export const baseConfig: PlaywrightTestConfig = {
   use: {
     baseURL,
   },
+  workers: 1,
 };

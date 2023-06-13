@@ -11,6 +11,7 @@ const config: PlaywrightTestConfig = {
     'apps/front-end/back-office-e2e/src/support/global-teardown.ts'
   ),
   use: {
+    ...baseConfig.use,
     ignoreHTTPSErrors: true,
     video: 'on-first-retry',
     screenshot: 'only-on-failure',
