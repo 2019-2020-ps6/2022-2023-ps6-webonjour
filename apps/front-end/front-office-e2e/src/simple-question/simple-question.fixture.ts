@@ -10,10 +10,10 @@ export class SimpleQuestionSelectionFixture {
     this.title = page.locator('webonjour-game-question').locator('h1');
   }
 
-  async goto() {
+  async goto(floor: number, patient: number, quiz: number) {
     const quiz_fixture = new QuizSelectionFixture(this.page);
-    await quiz_fixture.goto();
-    await quiz_fixture.selectQuiz(0);
+    await quiz_fixture.goto(floor, patient);
+    await quiz_fixture.selectQuiz(quiz);
     await this.page.waitForSelector('webonjour-game-question');
   }
 

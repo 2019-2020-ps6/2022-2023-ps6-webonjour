@@ -8,10 +8,10 @@ export class QuizSelectionFixture {
     this.quiz = page.locator('.quiz-item-button');
   }
 
-  async goto() {
+  async goto(floor: number, patient: number) {
     const patient_fixture = new PatientSelectionFixture(this.page);
-    await patient_fixture.goto();
-    await patient_fixture.selectPatient(0);
+    await patient_fixture.goto(floor);
+    await patient_fixture.selectPatient(patient);
   }
 
   async selectQuiz(quizNumber: number) {

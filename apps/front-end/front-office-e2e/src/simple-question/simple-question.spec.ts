@@ -6,14 +6,14 @@ test.describe('Quiz Selection', () => {
   test('should display all answers', async ({
     fixtures: { simpleQuestionSelectionPage },
   }) => {
-    await simpleQuestionSelectionPage.goto();
+    await simpleQuestionSelectionPage.goto(0, 0, 0);
     await expect(simpleQuestionSelectionPage.answers).toHaveCount(4);
   });
 
   test('should display correct title', async ({
     fixtures: { simpleQuestionSelectionPage },
   }) => {
-    await simpleQuestionSelectionPage.goto();
+    await simpleQuestionSelectionPage.goto(0, 0, 0);
     await expect(simpleQuestionSelectionPage.title).toHaveText(
       "Quelle était la couleur du cheval blanc d'Henri IV ?"
     );
@@ -22,7 +22,7 @@ test.describe('Quiz Selection', () => {
   test('should go to next question', async ({
     fixtures: { simpleQuestionSelectionPage },
   }) => {
-    await simpleQuestionSelectionPage.goto();
+    await simpleQuestionSelectionPage.goto(0, 0, 0);
     await simpleQuestionSelectionPage.selectAnswer(0);
     await expect(simpleQuestionSelectionPage.title).not.toHaveText(
       "Quelle est la couleur du cheval blanc d'Henri IV ?"
@@ -35,7 +35,7 @@ test.describe('Quiz Selection', () => {
   test('should redirect to /#/result when done', async ({
     fixtures: { simpleQuestionSelectionPage },
   }) => {
-    await simpleQuestionSelectionPage.goto();
+    await simpleQuestionSelectionPage.goto(0, 0, 0);
     await simpleQuestionSelectionPage.selectAnswer(0);
     await simpleQuestionSelectionPage.selectAnswer(0);
     await simpleQuestionSelectionPage.selectAnswer(0);
