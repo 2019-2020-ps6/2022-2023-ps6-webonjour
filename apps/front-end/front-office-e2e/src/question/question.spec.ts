@@ -46,6 +46,16 @@ test.describe('Quiz Selection', () => {
       }/#/result`
     );
   });
+
+  test('should skip question', async ({
+    fixtures: { questionSelectionPage },
+  }) => {
+    await questionSelectionPage.goto(0, 0, 0);
+    await questionSelectionPage.skipQuestion();
+    await expect(questionSelectionPage.title).toHaveText(
+      'Quel était le nom du cheval de Napoléon Bonaparte ?'
+    );
+  });
 });
 
 test.describe('Drag and Drop Question', () => {
@@ -77,5 +87,15 @@ test.describe('Drag and Drop Question', () => {
 
     await expect(questionSelectionPage.answers.nth(0)).toHaveText(answer1);
     await expect(questionSelectionPage.answers.nth(1)).toHaveText(answer0);
+  });
+
+  test('skip should skip question', async ({
+    fixtures: { questionSelectionPage },
+  }) => {
+    await questionSelectionPage.goto(0, 0, 3);
+    await questionSelectionPage.skipQuestion();
+    await expect(questionSelectionPage.title).toHaveText(
+      'Réordonner par ordre logique pour faire des pâtes.'
+    );
   });
 });

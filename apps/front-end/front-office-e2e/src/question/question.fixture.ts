@@ -4,9 +4,11 @@ import { QuizSelectionFixture } from '../quiz-selection/quiz-selection.fixture';
 export class QuestionSelectionFixture {
   readonly answers: Locator;
   readonly title: Locator;
+  readonly skip_button: Locator;
 
   constructor(readonly page: Page) {
     this.answers = page.locator('.answer-button').or(page.locator('.action'));
+    this.skip_button = page.locator('.skip-button');
     this.title = page
       .locator('webonjour-game-question')
       .locator('h1')
@@ -27,7 +29,7 @@ export class QuestionSelectionFixture {
   async goto(floor: number, patient: number, quiz: number) {
     await this.gotoIndex(floor, patient, quiz);
 
-    await this.page.waitForSelector('.question-title', { timeout: 100 });
+    await this.page.waitForSelector('.question-title', { timeout: 200 });
   }
 
   async selectAnswer(quizNumber: number) {
@@ -45,5 +47,9 @@ export class QuestionSelectionFixture {
     await this.page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
     await new_element.hover();
     await this.page.mouse.up();
+  }
+
+  async skipQuestion() {
+    await this.skip_button.click();
   }
 }
