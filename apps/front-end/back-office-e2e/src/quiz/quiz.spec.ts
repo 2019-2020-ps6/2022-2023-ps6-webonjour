@@ -21,7 +21,6 @@ test.describe('Quiz', () => {
 
   test('should add quiz', async ({ fixtures }) => {
     await fixtures.quizAddPage.goto();
-    await fixtures.quizAddPage.page.waitForLoadState('networkidle');
     await fixtures.quizAddPage.addQuiz(QUIZ_NAME, QUIZ_IMAGE_PATH);
     await fixtures.quizPage.goto();
     await fixtures.quizPage.quizzes.last().waitFor({
@@ -41,6 +40,7 @@ test.describe('Quiz', () => {
     await fixtures.quizPage.quizzes.last().waitFor({
       state: 'visible',
     });
+    await fixtures.quizEditPage.page.waitForLoadState('networkidle');
     expect(await fixtures.quizPage.quizzes.count()).toBe(
       DEFAULT_QUIZ_COUNT + 1
     );
