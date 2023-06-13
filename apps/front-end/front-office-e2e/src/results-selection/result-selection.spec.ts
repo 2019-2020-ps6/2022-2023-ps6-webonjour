@@ -1,5 +1,5 @@
-import { test } from '../fixture';
 import { expect } from '@playwright/test';
+import { frontOfficeTest as test } from '@webonjour/fixtures-e2e';
 
 test.describe('Result Page', () => {
   test('should display the correct result', async ({

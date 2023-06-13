@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { test } from '../fixture';
+import { frontOfficeTest as test } from '@webonjour/fixtures-e2e';
 import { environment, protocol } from '@webonjour/shared/environments';
 
 test.describe('Quiz Selection', () => {
