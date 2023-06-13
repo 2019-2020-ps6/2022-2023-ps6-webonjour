@@ -56,6 +56,16 @@ test.describe('Quiz Selection', () => {
       'Quel était le nom du cheval de Napoléon Bonaparte ?'
     );
   });
+
+  test('should allow to select 2 answers when accomodation is enabled', async ({
+    fixtures: { questionSelectionPage },
+  }) => {
+    await questionSelectionPage.goto(0, 1, 0);
+    await questionSelectionPage.selectAnswer(1);
+    await expect(questionSelectionPage.title).toHaveText(
+      "Quelle était la couleur du cheval blanc d'Henri IV ?"
+    );
+  });
 });
 
 test.describe('Drag and Drop Question', () => {
