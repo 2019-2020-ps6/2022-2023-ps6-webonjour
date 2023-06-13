@@ -8,8 +8,14 @@ export class QuestionSelectionFixture {
   constructor(readonly page: Page) {
     this.answers = page.locator('.answer-button').or(page.locator('.action'));
     this.title = page
-      .locator('.question-title')
-      .or(page.locator('.question-title').locator('h2'));
+      .locator('webonjour-game-question')
+      .locator('h1')
+      .or(
+        page
+          .locator('webonjour-drag-and-drop')
+          .locator('.question-title')
+          .locator('h2')
+      );
   }
 
   private async gotoIndex(floor: number, patient: number, quiz: number) {
