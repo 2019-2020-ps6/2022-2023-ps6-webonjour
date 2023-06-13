@@ -6,6 +6,7 @@ export class QuizEditFixture {
   readonly quizGeneralTitle: Locator;
   private quizGeneralImage: Locator;
   private quizUpdateButton: Locator;
+  readonly questions: Locator;
 
   constructor(readonly page: Page) {
     this.deleteQuizButton = page.locator('button:has-text("Supprimer")');
@@ -18,6 +19,8 @@ export class QuizEditFixture {
     this.quizUpdateButton = page.locator(
       'webonjour-quiz-edit-general button[type="submit"]'
     );
+
+    this.questions = page.locator('webonjour-question-list tbody tr');
   }
 
   async goto(quiz: number) {
