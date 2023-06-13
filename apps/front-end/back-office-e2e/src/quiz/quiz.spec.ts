@@ -56,6 +56,9 @@ test.describe('Quiz', () => {
     await fixtures.questionAddPage.addQuestion('Question 1', 'CHOICE');
     await fixtures.quizPage.goto();
     await fixtures.quizPage.quizzes.last().click();
+    await fixtures.quizEditPage.questions.last().waitFor({
+      state: 'visible',
+    });
     expect(await fixtures.quizEditPage.questions.count()).toBe(1);
   });
 
