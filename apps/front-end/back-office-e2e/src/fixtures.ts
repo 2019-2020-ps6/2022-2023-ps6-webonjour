@@ -4,6 +4,10 @@ import { MenuFixture } from './menu/menu.fixture';
 import { QuizFixture } from './quiz/quiz.fixture';
 import { QuizAddFixture } from './quiz/quiz.add.fixture';
 import { QuizEditFixture } from './quiz/quiz.edit.fixture';
+import { QuestionAddFixture } from './quiz/question.add.fixture';
+import { QuestionEditFixture } from './quiz/question.edit.fixture';
+import { AnswerFixture } from './quiz/answer.fixture';
+import { ClueFixture } from './quiz/clue.fixture';
 
 interface Fixtures {
   loginPage: LoginFixture;
@@ -11,6 +15,10 @@ interface Fixtures {
   quizPage: QuizFixture;
   quizAddPage: QuizAddFixture;
   quizEditPage: QuizEditFixture;
+  questionAddPage: QuestionAddFixture;
+  questionEditPage: QuestionEditFixture;
+  answerPage: AnswerFixture;
+  cluePage: ClueFixture;
 }
 
 export const test = base.extend<{ fixtures: Fixtures }>({
@@ -21,6 +29,10 @@ export const test = base.extend<{ fixtures: Fixtures }>({
       quizPage: new QuizFixture(page),
       quizAddPage: new QuizAddFixture(page),
       quizEditPage: new QuizEditFixture(page),
+      questionAddPage: new QuestionAddFixture(page),
+      questionEditPage: new QuestionEditFixture(page),
+      answerPage: new AnswerFixture(page),
+      cluePage: new ClueFixture(page),
     });
   },
 });
