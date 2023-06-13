@@ -66,6 +66,18 @@ test.describe('Quiz Selection', () => {
       "Quelle était la couleur du cheval blanc d'Henri IV ?"
     );
   });
+
+  test('shoud display images when accomodation is enabled', async ({
+    fixtures: { questionSelectionPage },
+  }) => {
+    await questionSelectionPage.goto(0, 1, 0);
+    questionSelectionPage.selectAnswer(1);
+    // 'background-image: url(.*);'
+    await expect(questionSelectionPage.answers.nth(0)).toHaveAttribute(
+      'style',
+      /background-image: url\(.*\);/
+    );
+  });
 });
 
 test.describe('Drag and Drop Question', () => {
