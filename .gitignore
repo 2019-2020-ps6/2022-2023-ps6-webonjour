@@ -62,3 +62,5 @@ libs/util-interface/src/lib/generated-zod-schemas/**/*
 **/test-results
 **/playwright-report
 **/playwright/.cache
+
+test-results
