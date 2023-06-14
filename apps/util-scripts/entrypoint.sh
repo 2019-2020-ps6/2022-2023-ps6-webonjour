@@ -1,3 +1,4 @@
+
 #!/bin/sh
 echo "Generating Prisma Client"
 npx prisma generate

@@ -55,7 +55,7 @@ services:
         API_DOMAIN: localhost
         SECURE: 'false'
     ports:
-      - '4200:80'
+      - '4200:8080'
     depends_on:
       api:
         condition: service_healthy
@@ -72,7 +72,7 @@ services:
         API_DOMAIN: localhost
         SECURE: 'false'
     ports:
-      - '4201:80'
+      - '4201:8080'
     depends_on:
       api:
         condition: service_healthy
