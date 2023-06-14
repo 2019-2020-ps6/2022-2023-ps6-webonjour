@@ -13,5 +13,6 @@ export class FloorSelectionFixture {
 
   async selectFloor(floorNumber: number) {
     await this.floors.nth(floorNumber).click();
+    await this.page.waitForLoadState('networkidle');
   }
 }

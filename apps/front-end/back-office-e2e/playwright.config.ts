@@ -1,6 +1,7 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 
 import { baseConfig } from '../../../playwright.config.base';
+import { environment, protocol } from '@webonjour/shared/environments';
 
 const config: PlaywrightTestConfig = {
   ...baseConfig,
@@ -12,9 +13,9 @@ const config: PlaywrightTestConfig = {
   ),
   use: {
     ...baseConfig.use,
-    ignoreHTTPSErrors: true,
-    video: 'on-first-retry',
-    screenshot: 'only-on-failure',
+    baseURL: `${protocol(environment.back_office.secure)}://${
+      environment.back_office.domain
+    }`,
   },
 };
 
