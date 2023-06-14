@@ -4,7 +4,7 @@
 # Tip: Modify "container" options in project.json to change docker build args.
 #
 # Run the container with `docker run -p 3000:3000 -t util-scripts`.
-FROM node:buster as builder
+FROM node:alpine as builder
 WORKDIR /app
 COPY package.json .
 RUN npm i
