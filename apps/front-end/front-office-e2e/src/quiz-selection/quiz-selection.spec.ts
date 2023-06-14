@@ -3,7 +3,7 @@ import { frontOfficeTest as test } from '@webonjour/fixtures-e2e';
 import { environment, protocol } from '@webonjour/shared/environments';
 
 test.describe('Quiz Selection', () => {
-  test('should redirect to /#/quiz-answer', async ({
+  test('should redirect to quiz-answer', async ({
     fixtures: { quizSelectionPage },
   }) => {
     await quizSelectionPage.goto(0, 0);
@@ -12,7 +12,7 @@ test.describe('Quiz Selection', () => {
     await expect(quizSelectionPage.page.url()).toBe(
       `${protocol(environment.front_office.secure)}://${
         environment.front_office.domain
-      }/#/quiz-answer`
+      }quiz-answer`
     );
   });
 });

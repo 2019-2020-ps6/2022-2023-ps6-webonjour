@@ -12,7 +12,7 @@ test.describe('Floor Selection', () => {
     await expect(floorSelectionPage.page.url()).toBe(
       `${protocol(environment.front_office.secure)}://${
         environment.front_office.domain
-      }/#/list-quiz`
+      }list-quiz`
     );
   });
 });

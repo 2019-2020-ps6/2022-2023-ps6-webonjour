@@ -3,14 +3,14 @@ import { frontOfficeTest as test } from '@webonjour/fixtures-e2e';
 import { environment, protocol } from '@webonjour/shared/environments';
 
 test.describe('Learning Card Selection', () => {
-  test('should have url /#/learning-card', async ({
+  test('should have url /learning-card', async ({
     fixtures: { learningCardSelectionPage },
   }) => {
     await learningCardSelectionPage.goto();
     await expect(learningCardSelectionPage.page.url()).toBe(
       `${protocol(environment.front_office.secure)}://${
         environment.front_office.domain
-      }/#/learning-card`
+      }learning-card`
     );
   });
 

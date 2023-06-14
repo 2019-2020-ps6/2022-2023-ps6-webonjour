@@ -32,7 +32,7 @@ test.describe('Quiz Selection', () => {
     );
   });
 
-  test('should redirect to /#/result when done', async ({
+  test('should redirect to /result when done', async ({
     fixtures: { questionSelectionPage },
   }) => {
     await questionSelectionPage.goto(0, 0, 0);
@@ -43,7 +43,7 @@ test.describe('Quiz Selection', () => {
     await expect(questionSelectionPage.page).toHaveURL(
       `${protocol(environment.front_office.secure)}://${
         environment.front_office.domain
-      }/#/result`
+      }result`
     );
   });
 

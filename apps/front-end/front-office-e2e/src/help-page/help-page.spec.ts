@@ -25,7 +25,7 @@ test.describe('Help page', () => {
     await expect(helpPage.page.url()).toBe(
       `${protocol(environment.front_office.secure)}://${
         environment.front_office.domain
-      }/#/quiz-answer`
+      }quiz-answer`
     );
   });
 });
