@@ -21,9 +21,11 @@ interface Fixtures {
 }
 
 const test = base.extend<{ fixtures: Fixtures }>({
-  baseURL: `${protocol(environment.front_office.secure)}://${
-    environment.front_office.domain
-  }`,
+  baseURL:
+    process.env.FRONT_OFFICE_URL ||
+    `${protocol(environment.front_office.secure)}://${
+      environment.front_office.domain
+    }`,
   fixtures: async ({ page }, use) => {
     await use(buildFixtures(page));
   },

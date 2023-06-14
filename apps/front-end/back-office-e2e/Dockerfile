@@ -5,4 +5,4 @@ RUN npm i
 COPY . .
 RUN npx prisma generate
 
-CMD [ "npx", "nx", "run", "front-end-cross-office-e2e:e2e:ci"]
+CMD [ "npx", "nx", "run", "front-end-cross-office-e2e:e2e:docker"]
