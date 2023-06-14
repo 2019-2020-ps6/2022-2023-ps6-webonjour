@@ -13,11 +13,9 @@ const config: PlaywrightTestConfig = {
   ),
   use: {
     ...baseConfig.use,
-    baseURL:
-      process.env.BASE_URL ||
-      `${protocol(environment.back_office.secure)}://${
-        environment.back_office.domain
-      }`,
+    baseURL: `${protocol(environment.back_office.secure)}://${
+      environment.back_office.domain
+    }`,
   },
 };
 
