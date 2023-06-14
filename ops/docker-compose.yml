@@ -1,0 +1,102 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:13.3-alpine
+    restart: unless-stopped
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    env_file:
+      - .env
+    healthcheck:
+      start_period: 10s
+      test: ['CMD', 'pg_isready', '-U', 'postgres']
+
+  api:
+    image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/backend-api
+    restart: unless-stopped
+
+    build:
+      context: ../
+      dockerfile: ./apps/backend/api/Dockerfile
+    ports:
+      - '8000:3000'
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
+      - PORT=3000
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    healthcheck:
+      start_period: 10s
+      test:
+        [
+          'CMD',
+          'wget',
+          '--tries=3',
+          '--quiet',
+          '--spider',
+          'http://localhost:3000/',
+        ]
+
+  front-end-back-office:
+    image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/front-end-back-office
+    restart: unless-stopped
+    build:
+      context: ../
+      dockerfile: ./apps/front-end/back-office/Dockerfile
+      args:
+        FRONT_OFFICE_DOMAIN: localhost/front
+        BACK_OFFICE_DOMAIN: localhost/back
+        API_DOMAIN: localhost
+        SECURE: 'false'
+    ports:
+      - '4200:80'
+    depends_on:
+      api:
+        condition: service_healthy
+
+  front-end-front-office:
+    image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/front-end-front-office
+    restart: unless-stopped
+    build:
+      context: ../
+      dockerfile: ./apps/front-end/front-office/Dockerfile
+      args:
+        FRONT_OFFICE_DOMAIN: localhost/front
+        BACK_OFFICE_DOMAIN: localhost/back
+        API_DOMAIN: localhost
+        SECURE: 'false'
+    ports:
+      - '4201:80'
+    depends_on:
+      api:
+        condition: service_healthy
+
+  reverse-proxy:
+    image: nginx:1.21.1-alpine
+    restart: unless-stopped
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  webonjour-seeder:
+    image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/util-scripts
+    build:
+      context: ../
+      dockerfile: ./apps/util-scripts/Dockerfile
+    restart: 'no'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
+
+volumes:
+  postgres:
