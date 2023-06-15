@@ -1,13 +1,8 @@
-FROM node:alpine as builder
-
+FROM node:18.12.1-alpine as builder
 WORKDIR /app
-
 COPY package.json .
-
 RUN npm i
-
 COPY . .
-
 RUN npx prisma generate
 
 # set env variables

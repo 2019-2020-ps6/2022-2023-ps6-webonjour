@@ -104,17 +104,16 @@ services:
       context: ../
       dockerfile: ./ops/e2e/Dockerfile
       args:
-        FRONT_OFFICE_DOMAIN: reverse-proxy/front
-        BACK_OFFICE_DOMAIN: reverse-proxy/back
-        API_DOMAIN: reverse-proxy
+        FRONT_OFFICE_DOMAIN: reverse-proxy/front/
+        BACK_OFFICE_DOMAIN: reverse-proxy/back/
+        API_DOMAIN: reverse-proxy/
         SECURE: 'false'
     restart: 'no'
     depends_on:
       api:
         condition: service_healthy
     environment:
-      - FRONT_OFFICE_URL=http://reverse-proxy/front/
-      - BACK_OFFICE_URL=http://reverse-proxy/back/
+      - NODE_ENV=production
 
     volumes:
       - ./test-results:/app/test-results

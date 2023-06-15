@@ -62,7 +62,9 @@ export class AnswerFixture {
     if (isCorrect) {
       await this.isCorrect.check();
     }
-    await this.submit.click();
+    await this.submit.click({
+      noWaitAfter: true,
+    });
     // wait for the page to reload
     await this.page.waitForResponse((response) => {
       return response.url().includes('answers') && response.status() === 200;
@@ -73,7 +75,9 @@ export class AnswerFixture {
     await this.page.waitForLoadState('networkidle');
     const answer = await this.answers.nth(index);
     const deleteButton = await answer.locator('button:has-text("Supprimer")');
-    await deleteButton.click();
+    await deleteButton.click({
+      noWaitAfter: true,
+    });
     // wait for the page to reload
     await this.page.waitForResponse((response) => {
       return response.url().includes('answers') && response.status() === 200;

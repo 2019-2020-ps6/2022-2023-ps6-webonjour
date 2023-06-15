@@ -11,7 +11,7 @@ import { QuestionAddFixture } from './quiz/question.add.fixture';
 import { QuestionEditFixture } from './quiz/question.edit.fixture';
 import { AnswerFixture } from './quiz/answer.fixture';
 import { ClueFixture } from './quiz/clue.fixture';
-import { environment, protocol } from '@webonjour/shared/environments';
+import { getEnv, protocol } from '@webonjour/shared/environments';
 
 interface Fixtures {
   loginPage: LoginFixture;
@@ -26,6 +26,11 @@ interface Fixtures {
   questionEditPage: QuestionEditFixture;
   answerPage: AnswerFixture;
   cluePage: ClueFixture;
+}
+
+let environment = getEnv('development');
+if (process.env.NODE_ENV === 'production') {
+  environment = getEnv('production');
 }
 
 const baseURL = `${protocol(environment.back_office.secure)}://${

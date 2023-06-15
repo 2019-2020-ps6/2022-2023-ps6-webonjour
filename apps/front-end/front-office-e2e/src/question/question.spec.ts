@@ -40,11 +40,7 @@ test.describe('Quiz Selection', () => {
     await questionSelectionPage.selectAnswer(0);
     await questionSelectionPage.selectAnswer(0);
     await questionSelectionPage.selectAnswer(2);
-    await expect(questionSelectionPage.page).toHaveURL(
-      `${protocol(environment.front_office.secure)}://${
-        environment.front_office.domain
-      }result`
-    );
+    await expect(questionSelectionPage.page).toHaveURL(/result/);
   });
 
   test('should skip question', async ({
