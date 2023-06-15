@@ -50,9 +50,9 @@ services:
       context: ../
       dockerfile: ./apps/front-end/back-office/Dockerfile
       args:
-        FRONT_OFFICE_DOMAIN: localhost/front
-        BACK_OFFICE_DOMAIN: localhost/back
-        API_DOMAIN: localhost
+        FRONT_OFFICE_DOMAIN: reverse-proxy/front
+        BACK_OFFICE_DOMAIN: reverse-proxy/back
+        API_DOMAIN: reverse-proxy
         SECURE: 'false'
     ports:
       - '4200:8080'
@@ -67,9 +67,9 @@ services:
       context: ../
       dockerfile: ./apps/front-end/front-office/Dockerfile
       args:
-        FRONT_OFFICE_DOMAIN: localhost/front
-        BACK_OFFICE_DOMAIN: localhost/back
-        API_DOMAIN: localhost
+        FRONT_OFFICE_DOMAIN: reverse-proxy/front
+        BACK_OFFICE_DOMAIN: reverse-proxy/back
+        API_DOMAIN: reverse-proxy
         SECURE: 'false'
     ports:
       - '4201:8080'
@@ -98,17 +98,20 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
 
-  back-office-e2e:
+  e2e:
     image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/back-office-e2e
     build:
       context: ../
-      dockerfile: ./apps/front-end/back-office-e2e/Dockerfile
+      dockerfile: ./ops/e2e/Dockerfile
     restart: 'no'
     depends_on:
       api:
         condition: service_healthy
     environment:
-      - FRONT_OFFICE_URL=http://front-end-back-office:8080
-      - BACK_OFFICE_URL=http://front-end-front-office:8080
+      - FRONT_OFFICE_URL=http://reverse-proxy/front/
+      - BACK_OFFICE_URL=http://reverse-proxy/back/
+
+    volumes:
+      - ./test-results:/app/test-results
 volumes:
   postgres:

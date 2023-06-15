@@ -15,6 +15,7 @@ export class PatientEditFixture {
   }
 
   async deletePatient() {
+    await this.page.waitForLoadState('networkidle');
     await this.deletePatientButton.click();
     // wait for the page to reload
     const patientFixture = new PatientFixture(this.page);

@@ -29,7 +29,11 @@
         "ci": {
           "ui": false
         },
-        "development": {}
+        "development": {},
+        "docker": {
+          "ui": false,
+          "devServerTarget": null
+        }
       }
     },
     "ts-check": {

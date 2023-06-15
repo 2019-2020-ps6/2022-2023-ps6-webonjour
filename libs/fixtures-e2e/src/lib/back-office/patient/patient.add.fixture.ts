@@ -40,6 +40,7 @@ export class PatientAddFixture {
   }
 
   async addPatient(data: PatientData<string>) {
+    await this.page.waitForLoadState('networkidle');
     const { surname, firstname, age, image, diseaseStage, description, floor } =
       data;
 
