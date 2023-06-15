@@ -36,20 +36,36 @@ export class QuestionSelectionFixture {
     await this.answers.nth(quizNumber).click();
   }
 
+  async dragTo(current: Locator, next: Locator) {
+    // Don't change this code. `dragTo` is not working.
+    await current.hover();
+    await this.page.mouse.down();
+    const box = await next.boundingBox();
+    await this.page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await next.hover();
+    await this.page.mouse.up();
+  }
+
   async moveDragAndDropAnswer(current_index: number, new_index: number) {
     const current_element = this.answers.nth(current_index);
     const new_element = this.answers.nth(new_index);
 
-    // Don't change this code. `dragTo` is not working.
-    await current_element.hover();
-    await this.page.mouse.down();
-    const box = await new_element.boundingBox();
-    await this.page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-    await new_element.hover();
-    await this.page.mouse.up();
+    await this.dragTo(current_element, new_element);
+  }
+
+  async validateDragAndDrop() {
+    const answerComponent = this.page.locator('.answer-list');
+    const count = await this.answers.count();
+    for (let i = 0; i < count; i++) {
+      console.log('dragging', this.answers.first());
+      await this.dragTo(this.answers.first(), answerComponent);
+    }
+
+    await this.page.click('.validate-button');
   }
 
   async skipQuestion() {
     await this.skip_button.click();
+    await this.page.waitForLoadState('networkidle');
   }
 }
