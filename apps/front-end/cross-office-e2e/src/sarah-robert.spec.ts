@@ -130,3 +130,54 @@ test.describe('robert scenario', () => {
     expect(FrontOffice.resultSelectionPage.restart_button).toBeHidden();
   });
 });
+
+test.describe('sarah scenario after robert', () => {
+  test.afterEach(async ({ backOfficePage, frontOfficePage }) => {
+    await backOfficePage.close();
+    await frontOfficePage.close();
+  });
+
+  test('sarah should be able to see Robert stats', async ({ BackOffice }) => {
+    await BackOffice.patientPage.goto();
+    await BackOffice.patientPage.patients.last().click();
+    const stats = await BackOffice.patientEditPage.stats();
+    expect(stats).toEqual({
+      'Meilleur Quiz': 'Gardening',
+      'Pourcentage de réussite': '100%',
+      'Quiz joués': '1',
+      'Quiz le plus joué': 'Gardening',
+    });
+  });
+
+  test('sarah should be able to delete Robert', async ({ BackOffice }) => {
+    const patientPage = BackOffice.patientPage;
+    await patientPage.goto();
+    expect((await patientPage.patients.allInnerTexts()).join('')).toContain(
+      'Robert Trebor'
+    );
+    await BackOffice.patientEditPage.goto(
+      (await patientPage.patients.count()) - 1
+    );
+    await BackOffice.patientEditPage.deletePatient();
+    await patientPage.goto();
+    expect((await patientPage.patients.allInnerTexts()).join('')).not.toContain(
+      'Robert Trebor'
+    );
+  });
+
+  test('sarah should be able to delete the gardening quiz', async ({
+    BackOffice,
+  }) => {
+    const quizPage = BackOffice.quizPage;
+    await quizPage.goto();
+    expect((await quizPage.quizzes.allInnerTexts()).join('')).toContain(
+      'Gardening'
+    );
+    await BackOffice.quizEditPage.goto((await quizPage.quizzes.count()) - 1);
+    await BackOffice.quizEditPage.deleteQuiz();
+    await quizPage.goto();
+    expect((await quizPage.quizzes.allInnerTexts()).join('')).not.toContain(
+      'Gardening'
+    );
+  });
+});
