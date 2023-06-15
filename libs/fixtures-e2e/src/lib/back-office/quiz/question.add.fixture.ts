@@ -35,9 +35,6 @@ export class QuestionAddFixture {
       await this.type.selectOption({ label: type });
     }
     await this.submit.click();
-    // wait for the page to reload
-    await this.page.waitForResponse((response) => {
-      return response.url().includes('questions') && response.status() === 201;
-    });
+    await this.page.waitForLoadState('networkidle');
   }
 }

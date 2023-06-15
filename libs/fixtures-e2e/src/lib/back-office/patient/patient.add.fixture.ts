@@ -52,7 +52,9 @@ export class PatientAddFixture {
     await this.patient.floor.fill(floor);
     await this.patient.image.setInputFiles(image);
 
-    await this.addPatientButton.click();
+    await this.addPatientButton.click({
+      noWaitAfter: true,
+    });
     // wait for the page to reload
     await this.page.waitForResponse((response) => {
       return response.url().includes('patients') && response.status() === 201;

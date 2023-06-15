@@ -39,9 +39,7 @@ export class AnswerFixture {
     }
     await this.submit.click();
     // wait for the page to reload
-    await this.page.waitForResponse((response) => {
-      return response.url().includes('answers') && response.status() === 201;
-    });
+    await this.page.waitForLoadState('networkidle');
   }
 
   async updateAnswer(
@@ -65,10 +63,7 @@ export class AnswerFixture {
     await this.submit.click({
       noWaitAfter: true,
     });
-    // wait for the page to reload
-    await this.page.waitForResponse((response) => {
-      return response.url().includes('answers') && response.status() === 200;
-    });
+    await this.page.waitForLoadState('networkidle');
   }
 
   async deleteAnswer(index: number) {
@@ -79,8 +74,6 @@ export class AnswerFixture {
       noWaitAfter: true,
     });
     // wait for the page to reload
-    await this.page.waitForResponse((response) => {
-      return response.url().includes('answers') && response.status() === 200;
-    });
+    await this.page.waitForLoadState('networkidle');
   }
 }

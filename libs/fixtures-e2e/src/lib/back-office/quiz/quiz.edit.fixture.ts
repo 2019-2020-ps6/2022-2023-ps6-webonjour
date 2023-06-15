@@ -33,9 +33,7 @@ export class QuizEditFixture {
     await this.page.waitForLoadState('networkidle');
     await this.deleteQuizButton.click();
     // wait for the page to reload
-    await this.page.waitForResponse((response) => {
-      return response.url().includes('quizzes') && response.status() === 200;
-    });
+    await this.page.waitForLoadState('networkidle');
   }
 
   async updateQuiz(title: string, image?: string) {
@@ -45,8 +43,6 @@ export class QuizEditFixture {
       await this.quizGeneralImage.setInputFiles(image);
     }
     await this.quizUpdateButton.click();
-    await this.page.waitForResponse((response) => {
-      return response.url().includes('quizzes') && response.status() === 200;
-    });
+    await this.page.waitForLoadState('networkidle');
   }
 }
