@@ -10,6 +10,8 @@ services:
     healthcheck:
       start_period: 10s
       test: ['CMD', 'pg_isready', '-U', 'postgres']
+    networks:
+      - webonjour
 
   api:
     image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/backend-api
@@ -18,8 +20,6 @@ services:
     build:
       context: ../
       dockerfile: ./apps/backend/api/Dockerfile
-    ports:
-      - '8000:3000'
     env_file:
       - .env
     environment:
@@ -43,6 +43,9 @@ services:
           'http://localhost:3000/',
         ]
 
+    networks:
+      - webonjour
+
   front-end-back-office:
     image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/front-end-back-office
     restart: unless-stopped
@@ -54,11 +57,11 @@ services:
         BACK_OFFICE_DOMAIN: localhost/back
         API_DOMAIN: localhost
         SECURE: 'false'
-    ports:
-      - '4200:8080'
     depends_on:
       api:
         condition: service_healthy
+    networks:
+      - webonjour
 
   front-end-front-office:
     image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/front-end-front-office
@@ -71,20 +74,29 @@ services:
         BACK_OFFICE_DOMAIN: localhost/back
         API_DOMAIN: localhost
         SECURE: 'false'
-    ports:
-      - '4201:8080'
     depends_on:
       api:
         condition: service_healthy
+    networks:
+      - webonjour
 
   reverse-proxy:
     image: nginx:1.21.1-alpine
     restart: unless-stopped
-    ports:
-      - '80:80'
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - webonjour
+      - traefik
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.webonjour.entrypoints=websecure'
+      - 'traefik.http.routers.webonjour.rule=Host(`webonjour.ozeliurs.com`)'
+      - 'traefik.http.routers.webonjour.tls=true'
+      - 'traefik.http.routers.webonjour.tls.certresolver=cloudflare'
+      - 'traefik.http.routers.webonjour.service=webonjour'
+      - 'traefik.http.services.webonjour.loadbalancer.server.port=80'
 
   webonjour-seeder:
     image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/util-scripts
@@ -97,6 +109,13 @@ services:
         condition: service_healthy
     environment:
       - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
+    networks:
+      - webonjour
 
 volumes:
   postgres:
+
+networks:
+  webonjour:
+  traefik:
+    external: true
