@@ -120,4 +120,11 @@ test.describe('Drag and Drop Question', () => {
       'Réordonner par ordre logique pour faire des pâtes.'
     );
   });
+
+  test('should drag and drop answers', async ({
+    fixtures: { questionSelectionPage },
+  }) => {
+    await questionSelectionPage.goto(0, 0, 3);
+    await questionSelectionPage.validateDragAndDrop();
+  });
 });

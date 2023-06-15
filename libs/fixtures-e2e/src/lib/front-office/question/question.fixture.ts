@@ -41,7 +41,9 @@ export class QuestionSelectionFixture {
     await current.hover();
     await this.page.mouse.down();
     const box = await next.boundingBox();
-    await this.page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    // move to the BOTTOM RIGHT of the element
+    await this.page.mouse.move(box.x + box.width, box.y + box.height);
+    //await this.page.mouse.move(box.x + box.width, box.y + box.height);
     await next.hover();
     await this.page.mouse.up();
   }
@@ -56,12 +58,17 @@ export class QuestionSelectionFixture {
   async validateDragAndDrop() {
     const answerComponent = this.page.locator('.answer-list');
     const count = await this.answers.count();
-    for (let i = 0; i < count; i++) {
+    while (!(await this.isActionListEmpty())) {
       console.log('dragging', this.answers.first());
-      await this.dragTo(this.answers.first(), answerComponent);
+      const first = await this.answers.nth(0);
+      await this.dragTo(first, answerComponent);
     }
-
     await this.page.click('.validate-button');
+  }
+
+  async isActionListEmpty() {
+    const actionList = await this.page.locator('.action-list');
+    return (await actionList.innerText()) === '';
   }
 
   async skipQuestion() {
