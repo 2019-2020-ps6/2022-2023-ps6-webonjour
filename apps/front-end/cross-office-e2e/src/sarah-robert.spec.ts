@@ -125,12 +125,8 @@ test.describe('robert scenario', () => {
         expect(await FrontOffice.resultSelectionPage.score.innerText()).toEqual('1/2');
         */
     await FrontOffice.questionSelectionPage.skipQuestion();
-  });
 
-  test('robert should not be able to see the results', async ({
-    FrontOffice,
-  }) => {
-    //await FrontOffice.resultSelectionPage.
-    //expect(await FrontOffice.resultSelectionPage.title.innerText()).toEqual('You have not completed the quiz yet!');
+    expect(FrontOffice.resultSelectionPage.score).toHaveText('Bien Joué !');
+    expect(FrontOffice.resultSelectionPage.restart_button).toBeHidden();
   });
 });

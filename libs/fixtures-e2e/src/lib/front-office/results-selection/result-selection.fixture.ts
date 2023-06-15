@@ -4,6 +4,7 @@ import { SimpleQuestionSelectionFixture } from '../simple-question/simple-questi
 export class ResultSelectionFixture {
   readonly score: Locator;
   readonly restart_button: Locator;
+  readonly message: Locator;
 
   constructor(readonly page: Page) {
     this.score = page.locator('.result');
