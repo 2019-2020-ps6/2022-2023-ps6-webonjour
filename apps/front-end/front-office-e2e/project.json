@@ -21,7 +21,7 @@
           "devServerTarget": "front-end-front-office:serve:development"
         },
         "docker": {
-          "ui": true,
+          "ui": false,
           "devServerTarget": null,
           "config": "playwright.docker.config.ts"
         }

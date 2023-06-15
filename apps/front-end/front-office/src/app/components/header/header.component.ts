@@ -31,6 +31,6 @@ export class HeaderComponent {
   getBackOfficeUrl() {
     return `${protocol(environment.back_office.secure)}://${
       environment.back_office.domain
-    }`;
+    }/`;
   }
 }
