@@ -20,13 +20,9 @@ interface Fixtures {
   learningCardSelectionPage: LearningCardSelectionFixture;
 }
 
-let baseURL = `${protocol(environment.front_office.secure)}://${
+const baseURL = `${protocol(environment.front_office.secure)}://${
   environment.front_office.domain
 }`;
-if (process.env.FRONT_OFFICE_URL) {
-  baseURL = process.env.FRONT_OFFICE_URL;
-}
-
 const test = base.extend<{ fixtures: Fixtures }>({
   baseURL: baseURL,
   fixtures: async ({ page }, use) => {

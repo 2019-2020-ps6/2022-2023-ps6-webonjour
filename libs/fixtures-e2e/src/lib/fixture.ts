@@ -25,21 +25,17 @@ const test = base.extend<MergeFixtures>({
   },
   backOfficePage: async ({ browser }, use) => {
     const page = await browser.newPage({
-      baseURL:
-        process.env.BACK_OFFICE_URL ||
-        `${protocol(environment.back_office.secure)}://${
-          environment.back_office.domain
-        }`,
+      baseURL: `${protocol(environment.back_office.secure)}://${
+        environment.back_office.domain
+      }`,
     });
     await use(page);
   },
   frontOfficePage: async ({ browser }, use) => {
     const page = await browser.newPage({
-      baseURL:
-        process.env.FRONT_OFFICE_URL ||
-        `${protocol(environment.front_office.secure)}://${
-          environment.front_office.domain
-        }`,
+      baseURL: `${protocol(environment.front_office.secure)}://${
+        environment.front_office.domain
+      }`,
     });
     await use(page);
   },

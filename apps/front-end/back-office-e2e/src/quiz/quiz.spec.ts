@@ -198,6 +198,7 @@ test.describe('Quiz', () => {
     await fixtures.quizPage.quizzes.last().click();
     await fixtures.quizPage.page.waitForLoadState('networkidle');
     await fixtures.quizEditPage.deleteQuiz();
+    await fixtures.quizPage.page.waitForLoadState('networkidle');
     expect(await fixtures.quizPage.quizzes.count()).toBe(DEFAULT_QUIZ_COUNT);
   });
 });

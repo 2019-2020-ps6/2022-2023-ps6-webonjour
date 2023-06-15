@@ -28,14 +28,9 @@ interface Fixtures {
   cluePage: ClueFixture;
 }
 
-let baseURL = `${protocol(environment.back_office.secure)}://${
+const baseURL = `${protocol(environment.back_office.secure)}://${
   environment.back_office.domain
 }`;
-if (process.env.BACK_OFFICE_URL) {
-  baseURL = process.env.BACK_OFFICE_URL;
-}
-
-console.log('baseURL', baseURL);
 
 export const test = base.extend<{ fixtures: Fixtures }>({
   baseURL: baseURL,

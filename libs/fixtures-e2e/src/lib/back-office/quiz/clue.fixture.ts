@@ -31,7 +31,9 @@ export class ClueFixture {
     }
     await this.submit.click();
     // wait for the page to reload
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForResponse((response) => {
+      return response.url().includes('clues') && response.status() === 201;
+    });
   }
 
   async updateClue(index: number, text: string, image?: string) {
@@ -47,7 +49,9 @@ export class ClueFixture {
 
     await this.submit.click();
     // wait for the page to reload
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForResponse((response) => {
+      return response.url().includes('clues') && response.status() === 200;
+    });
   }
 
   async deleteClue(index: number) {
@@ -56,6 +60,8 @@ export class ClueFixture {
     const deleteButton = await answer.locator('button:has-text("Supprimer")');
     await deleteButton.click();
     // wait for the page to reload
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForResponse((response) => {
+      return response.url().includes('clues') && response.status() === 200;
+    });
   }
 }

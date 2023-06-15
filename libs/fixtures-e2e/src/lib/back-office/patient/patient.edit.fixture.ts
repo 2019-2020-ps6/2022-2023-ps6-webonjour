@@ -5,7 +5,9 @@ export class PatientEditFixture {
   readonly deletePatientButton: Locator;
 
   constructor(readonly page: Page) {
-    this.deletePatientButton = page.locator('button:has-text("Supprimer")');
+    this.deletePatientButton = page.locator(
+      'button:has-text("Supprimer le patient")'
+    );
   }
 
   async goto(patient: number) {
@@ -18,10 +20,8 @@ export class PatientEditFixture {
     await this.page.waitForLoadState('networkidle');
     await this.deletePatientButton.click();
     // wait for the page to reload
-    const patientFixture = new PatientFixture(this.page);
-    await this.page.waitForLoadState('networkidle');
-    await patientFixture.patients.first().waitFor({
-      state: 'attached',
+    await this.page.waitForResponse((response) => {
+      return response.url().includes('patients') && response.status() === 200;
     });
   }
 }

@@ -33,7 +33,9 @@ export class QuestionEditFixture {
     await this.page.waitForLoadState('networkidle');
     await this.deleteQuestionButton.click();
     // wait for the page to reload
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForResponse((response) => {
+      return response.url().includes('questions') && response.status() === 200;
+    });
   }
 
   async updateQuestion(title: string, type?: string, image?: string) {
@@ -47,6 +49,8 @@ export class QuestionEditFixture {
     }
     await this.questionUpdateButton.click();
     // wait for the page to reload
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForResponse((response) => {
+      return response.url().includes('questions') && response.status() === 200;
+    });
   }
 }

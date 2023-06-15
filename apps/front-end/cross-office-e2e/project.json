@@ -32,7 +32,8 @@
         "development": {},
         "docker": {
           "ui": false,
-          "devServerTarget": null
+          "devServerTarget": null,
+          "config": "playwright.docker.config.ts"
         }
       }
     },

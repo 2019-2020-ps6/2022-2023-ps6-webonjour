@@ -27,6 +27,7 @@ test.describe('Patient', () => {
       description: 'Lorem ipsum',
       floor: '1',
     });
+    await fixtures.patientPage.goto();
     expect(await fixtures.patientPage.patients.count()).toBe(
       DEFAULT_PATIENT_COUNT + 1
     );
@@ -36,6 +37,7 @@ test.describe('Patient', () => {
     await fixtures.patientPage.goto();
     await fixtures.patientPage.patients.last().click();
     await fixtures.patientEditPage.deletePatient();
+    await fixtures.patientPage.goto();
     expect(await fixtures.patientPage.patients.count()).toBe(
       DEFAULT_PATIENT_COUNT
     );

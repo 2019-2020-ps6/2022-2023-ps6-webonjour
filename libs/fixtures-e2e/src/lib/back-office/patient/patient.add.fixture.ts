@@ -54,10 +54,8 @@ export class PatientAddFixture {
 
     await this.addPatientButton.click();
     // wait for the page to reload
-    const patientFixture = new PatientFixture(this.page);
-    await this.page.waitForLoadState('networkidle');
-    await patientFixture.patients.first().waitFor({
-      state: 'visible',
+    await this.page.waitForResponse((response) => {
+      return response.url().includes('patients') && response.status() === 201;
     });
   }
 }

@@ -11,5 +11,8 @@ export class QuizFixture {
   async goto() {
     const menuFixture = new MenuFixture(this.page);
     await menuFixture.goto();
+    await this.page.waitForResponse((response) => {
+      return response.url().includes('quiz') && response.status() === 200;
+    });
   }
 }
