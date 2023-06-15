@@ -4,16 +4,17 @@
 # Tip: Modify "container" options in project.json to change docker build args.
 #
 # Run the container with `docker run -p 3000:3000 -t util-scripts`.
-FROM node:alpine as builder
+FROM node:18.12.1-alpine3.17 as builder
 WORKDIR /app
 COPY package.json .
+RUN apk add --no-cache binutils-gold g++ gcc gnupg libgcc linux-headers make python3
 RUN npm i
 COPY . .
 RUN npx prisma generate
 RUN npx nx build util-scripts
 
 
-FROM node:alpine as runner
+FROM node:18.12.1-alpine3.17 as runner
 
 WORKDIR /app
 COPY --from=builder /app/dist/apps/util-scripts /app

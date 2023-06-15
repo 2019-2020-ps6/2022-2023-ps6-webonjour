@@ -217,3 +217,5 @@ Dockerfile
 tmp
 
 node_modules
+
+.angular/

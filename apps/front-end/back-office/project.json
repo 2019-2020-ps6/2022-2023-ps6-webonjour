@@ -104,6 +104,11 @@
       }
     },
     "container": {
+      "configurations": {
+        "podman": {
+          "engine": "podman"
+        }
+      },
       "executor": "@nx-tools/nx-container:build",
       "dependsOn": ["build"],
       "options": {
