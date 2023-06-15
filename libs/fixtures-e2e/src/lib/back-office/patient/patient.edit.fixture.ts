@@ -42,8 +42,7 @@ export class PatientEditFixture {
     const rows = this.page.locator('tbody tr');
     await rows.nth(quiz).locator('button:has-text("Ajouter")').click();
     await this.page.waitForLoadState('networkidle');
-    this.page.reload();
-    await this.page.waitForLoadState('networkidle');
+    await this.page.press('body', 'Escape');
   }
 
   async flipAccommodation(accommodation: number, forceState?: boolean) {
@@ -70,9 +69,7 @@ export class PatientEditFixture {
       const title = this.page
         .locator('webonjour-patient-edit-stats')
         .getByText(el, { exact: true });
-      const value = await (
-        await title.locator('..').allTextContents()
-      ).join('');
+      const value = (await title.locator('..').allTextContents()).join('');
       res[el] = value.replace(el, '').trim();
     }
     return res;
