@@ -1,9 +1,9 @@
-FROM node:alpine as builder
+FROM node:20.3.0-alpine3.18 as builder
 
 WORKDIR /app
 
 COPY package.json .
-
+RUN apk add --no-cache binutils-gold g++ gcc gnupg libgcc linux-headers make python3
 RUN npm i
 
 COPY . .
