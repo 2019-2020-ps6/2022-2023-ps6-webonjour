@@ -18,18 +18,17 @@ services:
     build:
       context: ../
       dockerfile: ./apps/backend/api/Dockerfile
-    ports:
-      - '8000:3000'
     env_file:
       - .env
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
       - PORT=3000
       - NODE_ENV=production
       - HOST=0.0.0.0
     depends_on:
       postgres:
         condition: service_healthy
+      webonjour-seeder:
+        condition: service_completed_successfully
 
     healthcheck:
       start_period: 10s
@@ -54,11 +53,19 @@ services:
         BACK_OFFICE_DOMAIN: localhost/back
         API_DOMAIN: localhost
         SECURE: 'false'
-    ports:
-      - '4200:8080'
     depends_on:
       api:
         condition: service_healthy
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'wget',
+          '--tries=3',
+          '--quiet',
+          '--spider',
+          'http://localhost:8080/',
+        ]
 
   front-end-front-office:
     image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/front-end-front-office
@@ -71,11 +78,19 @@ services:
         BACK_OFFICE_DOMAIN: localhost/back
         API_DOMAIN: localhost
         SECURE: 'false'
-    ports:
-      - '4201:8080'
     depends_on:
       api:
         condition: service_healthy
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'wget',
+          '--tries=3',
+          '--quiet',
+          '--spider',
+          'http://localhost:8080/',
+        ]
 
   reverse-proxy:
     image: nginx:1.21.1-alpine
@@ -85,6 +100,15 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      front-end-back-office:
+        condition: service_healthy
+      front-end-front-office:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+      webonjour-seeder:
+        condition: service_completed_successfully
 
   webonjour-seeder:
     image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/util-scripts
@@ -95,8 +119,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    environment:
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
-
+    env_file:
+      - .env
 volumes:
   postgres:
