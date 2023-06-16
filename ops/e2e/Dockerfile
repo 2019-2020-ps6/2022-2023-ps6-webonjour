@@ -1,7 +1,8 @@
 FROM mcr.microsoft.com/playwright:bionic
 WORKDIR /app
 COPY package.json .
-RUN npm i
+COPY package-lock.json .
+RUN npm ci
 COPY . .
 
 # replace urls in the environment.prod.ts file

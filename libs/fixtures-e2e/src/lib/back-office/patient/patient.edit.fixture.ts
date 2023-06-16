@@ -59,8 +59,8 @@ export class PatientEditFixture {
   }
 
   async stats() {
-    let res = {};
-    for (let el of [
+    const res = {};
+    for (const el of [
       this.STAT_BEST_QUIZ,
       this.STAT_MOST_PLAYED_QUIZ,
       this.STAT_QUIZ_PLAYED,
