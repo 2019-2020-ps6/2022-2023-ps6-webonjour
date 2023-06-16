@@ -1,4 +1,5 @@
 version: '3.8'
+name: 'webonjour'
 services:
   postgres:
     image: postgres:13.3-alpine
