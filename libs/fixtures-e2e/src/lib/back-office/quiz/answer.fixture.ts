@@ -12,18 +12,20 @@ export class AnswerFixture {
     this.answerAddButton = page.locator(
       'button:has-text("Ajouter une réponse")'
     );
-    this.text = page.locator(
-      'webonjour-question-answer-add-popup input[formcontrolname="text"]'
-    );
-    this.image = page.locator(
-      'webonjour-question-answer-add-popup input[type="file"]'
-    );
-    this.submit = page.locator(
-      'webonjour-question-answer-add-popup button[type="submit"]'
-    );
-    this.isCorrect = page.locator(
-      'webonjour-question-answer-add-popup input[type="checkbox"]'
-    );
+    this.text = page
+      .locator(
+        'webonjour-question-answer-add-popup input[formcontrolname="text"]'
+      )
+      .first();
+    this.image = page
+      .locator('webonjour-question-answer-add-popup input[type="file"]')
+      .first();
+    this.submit = page
+      .locator('webonjour-question-answer-add-popup button[type="submit"]')
+      .first();
+    this.isCorrect = page
+      .locator('webonjour-question-answer-add-popup input[type="checkbox"]')
+      .first();
     this.answers = page.locator('webonjour-question-answer tbody tr');
   }
 
@@ -40,6 +42,7 @@ export class AnswerFixture {
     await this.submit.click();
     // wait for the page to reload
     await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('domcontentloaded');
   }
 
   async updateAnswer(

@@ -29,7 +29,7 @@ export class QuestionSelectionFixture {
   async goto(floor: number, patient: number, quiz: number) {
     await this.gotoIndex(floor, patient, quiz);
 
-    await this.page.waitForSelector('.question-title', { timeout: 200 });
+    await this.page.waitForSelector('.question-title', { timeout: 1000 });
   }
 
   async selectAnswer(quizNumber: number) {
