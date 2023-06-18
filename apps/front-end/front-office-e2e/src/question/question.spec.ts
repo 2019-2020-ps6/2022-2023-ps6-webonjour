@@ -32,7 +32,7 @@ test.describe('Quiz Selection', () => {
     );
   });
 
-  test('should redirect to /#/result when done', async ({
+  test('should redirect to /result when done', async ({
     fixtures: { questionSelectionPage },
   }) => {
     await questionSelectionPage.goto(0, 0, 0);
@@ -40,11 +40,7 @@ test.describe('Quiz Selection', () => {
     await questionSelectionPage.selectAnswer(0);
     await questionSelectionPage.selectAnswer(0);
     await questionSelectionPage.selectAnswer(2);
-    await expect(questionSelectionPage.page).toHaveURL(
-      `${protocol(environment.front_office.secure)}://${
-        environment.front_office.domain
-      }/#/result`
-    );
+    await expect(questionSelectionPage.page).toHaveURL(/result/);
   });
 
   test('should skip question', async ({
@@ -119,5 +115,12 @@ test.describe('Drag and Drop Question', () => {
     await expect(questionSelectionPage.title).toHaveText(
       'Réordonner par ordre logique pour faire des pâtes.'
     );
+  });
+
+  test('should drag and drop answers', async ({
+    fixtures: { questionSelectionPage },
+  }) => {
+    await questionSelectionPage.goto(0, 0, 3);
+    await questionSelectionPage.validateDragAndDrop();
   });
 });

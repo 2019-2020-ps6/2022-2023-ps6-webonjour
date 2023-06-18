@@ -11,6 +11,7 @@
       "options": {
         "outputPath": "dist/apps/front-end/front-office",
         "index": "apps/front-end/front-office/src/index.html",
+        "baseHref": "/front/",
         "main": "apps/front-end/front-office/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/front-end/front-office/tsconfig.app.json",
@@ -103,6 +104,11 @@
       }
     },
     "container": {
+      "configurations": {
+        "podman": {
+          "engine": "podman"
+        }
+      },
       "executor": "@nx-tools/nx-container:build",
       "dependsOn": ["build"],
       "options": {

@@ -7,13 +7,17 @@ import {
   frontOfficeBuildFixtures,
   FrontOfficeFixtures,
 } from './front-office/fixture';
-import { environment, protocol } from '@webonjour/shared/environments';
+import { getEnv, protocol } from '@webonjour/shared/environments';
 
 interface MergeFixtures {
   BackOffice: BackOfficeFixtures;
   FrontOffice: FrontOfficeFixtures;
   backOfficePage: Page;
   frontOfficePage: Page;
+}
+let environment = getEnv('development');
+if (process.env.NODE_ENV === 'production') {
+  environment = getEnv('production');
 }
 
 const test = base.extend<MergeFixtures>({

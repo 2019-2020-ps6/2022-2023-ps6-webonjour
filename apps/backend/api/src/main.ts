@@ -22,19 +22,18 @@ import clueRouter from './routes/clue.route';
 import questionRouter from './routes/question.route';
 import authRoute from './routes/auth.route';
 import quizSessionRouter from './routes/quiz-session.route';
-import questionResultRoute from './routes/question-result.route';
 import questionResultRouter from './routes/question-result.route';
 
 // Environment Variables
 export let host = getEnv(config.util.getEnv('NODE_ENV')).api.host;
 export let port = getEnv(config.util.getEnv('NODE_ENV')).api.port;
 
-if (config.util.getEnv('HOST')) {
-  host = config.util.getEnv('HOST');
+if (process.env.HOST) {
+  host = process.env.HOST;
 }
 
-if (config.util.getEnv('PORT')) {
-  port = parseInt(config.util.getEnv('PORT'));
+if (process.env.PORT) {
+  port = parseInt(process.env.PORT);
 
   if (isNaN(port)) {
     port = environment.api.port;
@@ -112,7 +111,6 @@ app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
 });
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
-  console.log(`[ ready ] https://${environment.api.domain}`);
   prisma.$connect().then(() => {
     console.log(`[ ready ] Database connected`);
   });

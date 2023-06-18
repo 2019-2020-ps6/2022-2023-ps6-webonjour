@@ -7,7 +7,7 @@ import { ResultSelectionFixture } from './results-selection/result-selection.fix
 import { QuestionSelectionFixture } from './question/question.fixture';
 import { HelpPageFixture } from './help-page/help-page.fixture';
 import { LearningCardSelectionFixture } from './learning-card-selection/learning-card-selection.fixture';
-import { environment, protocol } from '@webonjour/shared/environments';
+import { getEnv, protocol } from '@webonjour/shared/environments';
 
 interface Fixtures {
   floorSelectionPage: FloorSelectionFixture;
@@ -20,10 +20,16 @@ interface Fixtures {
   learningCardSelectionPage: LearningCardSelectionFixture;
 }
 
+let environment = getEnv('development');
+if (process.env.NODE_ENV === 'production') {
+  environment = getEnv('production');
+}
+
+const baseURL = `${protocol(environment.front_office.secure)}://${
+  environment.front_office.domain
+}`;
 const test = base.extend<{ fixtures: Fixtures }>({
-  baseURL: `${protocol(environment.front_office.secure)}://${
-    environment.front_office.domain
-  }`,
+  baseURL: baseURL,
   fixtures: async ({ page }, use) => {
     await use(buildFixtures(page));
   },

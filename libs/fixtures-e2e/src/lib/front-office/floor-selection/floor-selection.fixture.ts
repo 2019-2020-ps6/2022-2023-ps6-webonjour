@@ -8,7 +8,7 @@ export class FloorSelectionFixture {
   }
 
   async goto() {
-    await this.page.goto('/');
+    await this.page.goto('.');
   }
 
   async selectFloor(floorNumber: number) {

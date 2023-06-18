@@ -40,6 +40,7 @@ export class PatientAddFixture {
   }
 
   async addPatient(data: PatientData<string>) {
+    await this.page.waitForLoadState('networkidle');
     const { surname, firstname, age, image, diseaseStage, description, floor } =
       data;
 
@@ -51,12 +52,10 @@ export class PatientAddFixture {
     await this.patient.floor.fill(floor);
     await this.patient.image.setInputFiles(image);
 
-    await this.addPatientButton.click();
-    // wait for the page to reload
-    const patientFixture = new PatientFixture(this.page);
-    await this.page.waitForLoadState('networkidle');
-    await patientFixture.patients.first().waitFor({
-      state: 'visible',
+    await this.addPatientButton.click({
+      noWaitAfter: true,
     });
+    // wait for the page to reload
+    await this.page.waitForLoadState('networkidle');
   }
 }

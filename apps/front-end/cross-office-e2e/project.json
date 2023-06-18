@@ -29,7 +29,12 @@
         "ci": {
           "ui": false
         },
-        "development": {}
+        "development": {},
+        "docker": {
+          "ui": false,
+          "devServerTarget": null,
+          "config": "playwright.docker.config.ts"
+        }
       }
     },
     "ts-check": {

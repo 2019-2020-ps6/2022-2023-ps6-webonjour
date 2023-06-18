@@ -35,7 +35,6 @@ export class QuestionAddFixture {
       await this.type.selectOption({ label: type });
     }
     await this.submit.click();
-    // wait for the page to reload
     await this.page.waitForLoadState('networkidle');
   }
 }

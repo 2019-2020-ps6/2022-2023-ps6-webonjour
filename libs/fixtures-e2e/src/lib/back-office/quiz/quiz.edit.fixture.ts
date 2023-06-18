@@ -33,21 +33,16 @@ export class QuizEditFixture {
     await this.page.waitForLoadState('networkidle');
     await this.deleteQuizButton.click();
     // wait for the page to reload
-    const quizFixture = new QuizFixture(this.page);
     await this.page.waitForLoadState('networkidle');
-    await quizFixture.quizzes.first().waitFor({
-      state: 'attached',
-    });
   }
+
   async updateQuiz(title: string, image?: string) {
     await this.page.waitForLoadState('networkidle');
     await this.quizGeneralTitle.fill(title);
     if (image) {
-      console.log(image);
       await this.quizGeneralImage.setInputFiles(image);
     }
     await this.quizUpdateButton.click();
-    // wait for the page to reload
     await this.page.waitForLoadState('networkidle');
   }
 }

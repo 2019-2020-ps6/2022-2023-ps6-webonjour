@@ -29,27 +29,50 @@ export class QuestionSelectionFixture {
   async goto(floor: number, patient: number, quiz: number) {
     await this.gotoIndex(floor, patient, quiz);
 
-    await this.page.waitForSelector('.question-title', { timeout: 200 });
+    await this.page.waitForSelector('.question-title', { timeout: 1000 });
   }
 
   async selectAnswer(quizNumber: number) {
     await this.answers.nth(quizNumber).click();
   }
 
+  async dragTo(current: Locator, next: Locator) {
+    // Don't change this code. `dragTo` is not working.
+    await current.hover();
+    await this.page.mouse.down();
+    const box = await next.boundingBox();
+    // move to the BOTTOM RIGHT of the element
+    await this.page.mouse.move(box.x + box.width, box.y + box.height);
+    //await this.page.mouse.move(box.x + box.width, box.y + box.height);
+    await next.hover();
+    await this.page.mouse.up();
+  }
+
   async moveDragAndDropAnswer(current_index: number, new_index: number) {
     const current_element = this.answers.nth(current_index);
     const new_element = this.answers.nth(new_index);
 
-    // Don't change this code. `dragTo` is not working.
-    await current_element.hover();
-    await this.page.mouse.down();
-    const box = await new_element.boundingBox();
-    await this.page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-    await new_element.hover();
-    await this.page.mouse.up();
+    await this.dragTo(current_element, new_element);
+  }
+
+  async validateDragAndDrop() {
+    const answerComponent = this.page.locator('.answer-list');
+    const count = await this.answers.count();
+    while (!(await this.isActionListEmpty())) {
+      console.log('dragging', this.answers.first());
+      const first = await this.answers.nth(0);
+      await this.dragTo(first, answerComponent);
+    }
+    await this.page.click('.validate-button');
+  }
+
+  async isActionListEmpty() {
+    const actionList = await this.page.locator('.action-list');
+    return (await actionList.innerText()) === '';
   }
 
   async skipQuestion() {
     await this.skip_button.click();
+    await this.page.waitForLoadState('networkidle');
   }
 }

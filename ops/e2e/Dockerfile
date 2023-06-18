@@ -1,12 +1,11 @@
-FROM node:18.12.1-alpine as builder
+FROM mcr.microsoft.com/playwright:bionic
 WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
 RUN npm ci
 COPY . .
-RUN npx prisma generate
 
-# set env variables
+# replace urls in the environment.prod.ts file
 ARG SECURE
 ENV SECURE=$SECURE
 ARG FRONT_OFFICE_DOMAIN
@@ -22,13 +21,8 @@ RUN sed -i "s|front.webonjour.ozeliurs.com|$FRONT_OFFICE_DOMAIN|g" libs/shared/e
 RUN sed -i "s|back.webonjour.ozeliurs.com|$BACK_OFFICE_DOMAIN|g" libs/shared/environments/src/lib/environment.prod.ts
 RUN sed -i "s|secure: true|secure: $SECURE|g" libs/shared/environments/src/lib/environment.prod.ts
 
-RUN npx nx run front-end-back-office:build:production
+RUN npx prisma generate
+COPY ops/e2e/entrypoint.sh .
+RUN chmod +x ./entrypoint.sh
 
-# =========== Final Image ===========
-FROM nginxinc/nginx-unprivileged:stable-alpine
-
-COPY  --from=builder /app/dist/apps/front-end/back-office /usr/share/nginx/html/
-COPY apps/front-end/back-office/nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 8080
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["./entrypoint.sh"]

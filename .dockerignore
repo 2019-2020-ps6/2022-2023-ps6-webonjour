@@ -217,3 +217,7 @@ Dockerfile
 tmp
 
 node_modules
+
+.angular
+.nx-container
+.coverage

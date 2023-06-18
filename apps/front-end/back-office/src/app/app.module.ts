@@ -75,7 +75,6 @@ import { QuizEditGeneralComponent } from './components/quiz-creation/quiz-edit-g
     BrowserModule,
     RouterModule.forRoot(appRoutes, {
       initialNavigation: 'enabledBlocking',
-      useHash: true,
     }),
     BrowserModule,
     BrowserAnimationsModule,

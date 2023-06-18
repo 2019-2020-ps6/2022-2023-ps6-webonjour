@@ -16,12 +16,14 @@ export class LoginFixture {
   }
 
   async goto() {
-    await this.page.goto('/login');
+    await this.page.goto('./login');
   }
 
   async login(username: string, password: string) {
+    await this.page.waitForLoadState('networkidle');
     await this.email.fill(username);
     await this.password.fill(password);
     await this.loginButton.click();
+    await this.page.waitForLoadState('networkidle');
   }
 }

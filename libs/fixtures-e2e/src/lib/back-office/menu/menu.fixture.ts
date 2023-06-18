@@ -11,8 +11,8 @@ export class MenuFixture {
   }
 
   async goto() {
-    await this.page.goto('/menu');
     const loginFixture = new LoginFixture(this.page);
+    await loginFixture.goto();
     await loginFixture.login('email@email.com', 'password');
   }
 }
