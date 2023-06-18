@@ -110,7 +110,16 @@ services:
         condition: service_healthy
       webonjour-seeder:
         condition: service_completed_successfully
-
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'wget',
+          '--tries=3',
+          '--quiet',
+          '--spider',
+          'http://localhost:80/',
+        ]
   webonjour-seeder:
     image: ghcr.io/2019-2020-ps6/2022-2023-ps6-webonjour/util-scripts
     build:

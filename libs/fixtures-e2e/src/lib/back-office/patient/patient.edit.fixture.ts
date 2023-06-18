@@ -43,6 +43,7 @@ export class PatientEditFixture {
     await rows.nth(quiz).locator('button:has-text("Ajouter")').click();
     await this.page.waitForLoadState('networkidle');
     await this.page.press('body', 'Escape');
+    await this.page.waitForLoadState('networkidle');
   }
 
   async flipAccommodation(accommodation: number, forceState?: boolean) {

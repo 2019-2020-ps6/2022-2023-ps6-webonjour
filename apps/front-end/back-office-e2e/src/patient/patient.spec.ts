@@ -11,6 +11,7 @@ test.describe('Patient', () => {
     expect(
       await fixtures.patientPage.addPatientButton.isVisible()
     ).toBeTruthy();
+    await fixtures.patientPage.page.waitForLoadState('networkidle');
     expect(await fixtures.patientPage.patients.count()).toBe(
       DEFAULT_PATIENT_COUNT
     );
@@ -28,6 +29,7 @@ test.describe('Patient', () => {
       floor: '1',
     });
     await fixtures.patientPage.goto();
+    await fixtures.patientPage.page.waitForLoadState('networkidle');
     expect(await fixtures.patientPage.patients.count()).toBe(
       DEFAULT_PATIENT_COUNT + 1
     );
@@ -38,6 +40,7 @@ test.describe('Patient', () => {
     await fixtures.patientPage.patients.last().click();
     await fixtures.patientEditPage.deletePatient();
     await fixtures.patientPage.goto();
+    await fixtures.patientPage.page.waitForLoadState('networkidle');
     expect(await fixtures.patientPage.patients.count()).toBe(
       DEFAULT_PATIENT_COUNT
     );
