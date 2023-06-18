@@ -5,23 +5,45 @@
   "projectType": "application",
   "targets": {
     "e2e": {
-      "executor": "@nrwl/cypress:cypress",
+      "executor": "@mands/nx-playwright:playwright-executor",
       "options": {
-        "cypressConfig": "apps/front-end/front-office-e2e/cypress.config.ts",
-        "devServerTarget": "front-end-front-office:serve:development",
-        "testingType": "e2e"
+        "e2eFolder": "apps/front-end/front-office-e2e",
+        "devServerTarget": "front-end-front-office:serve",
+        "packageRunner": "npx",
+        "ui": true
       },
       "configurations": {
-        "production": {
-          "devServerTarget": "front-end-front-office:serve:production"
+        "ci": {
+          "ui": false,
+          "devServerTarget": "front-end-front-office:serve:development"
+        },
+        "development": {
+          "devServerTarget": "front-end-front-office:serve:development"
+        },
+        "docker": {
+          "ui": false,
+          "devServerTarget": null,
+          "config": "playwright.docker.config.ts"
         }
+      }
+    },
+    "ts-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --build --force --verbose apps/front-end-front-office-e2e/tsconfig.json"
+          }
+        ]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/front-end/front-office-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": [
+          "apps/front-end/front-office-e2e/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     }
   },

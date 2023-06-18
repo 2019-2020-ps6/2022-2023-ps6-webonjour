@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@webonjour/data-access-mocks": ["libs/data-access-mocks/src/index.ts"],
+      "@webonjour/fixtures-e2e": ["libs/fixtures-e2e/src/index.ts"],
       "@webonjour/front-end/shared/common": [
         "libs/front-end/shared/common/src/index.ts"
       ],

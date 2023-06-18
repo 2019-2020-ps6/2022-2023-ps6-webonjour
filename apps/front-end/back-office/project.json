@@ -11,6 +11,7 @@
       "options": {
         "outputPath": "dist/apps/front-end/back-office",
         "index": "apps/front-end/back-office/src/index.html",
+        "baseHref": "/back/",
         "main": "apps/front-end/back-office/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/front-end/back-office/tsconfig.app.json",
@@ -64,9 +65,13 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "front-end-back-office:build:production"
+          "browserTarget": "front-end-back-office:build:production",
+          "port": 4200,
+          "host": "0.0.0.0"
         },
         "development": {
+          "host": "127.0.0.1",
+          "port": 4200,
           "browserTarget": "front-end-back-office:build:development"
         }
       },
@@ -103,6 +108,11 @@
       }
     },
     "container": {
+      "configurations": {
+        "podman": {
+          "engine": "podman"
+        }
+      },
       "executor": "@nx-tools/nx-container:build",
       "dependsOn": ["build"],
       "options": {

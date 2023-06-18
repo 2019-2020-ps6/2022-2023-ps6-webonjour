@@ -4,16 +4,17 @@
 # Tip: Modify "container" options in project.json to change docker build args.
 #
 # Run the container with `docker run -p 3000:3000 -t backend-api`.
-FROM node:alpine as builder
+FROM node:18.12.1-alpine as builder
 WORKDIR /app
 COPY package.json .
-RUN npm i
+COPY package-lock.json .
+RUN npm ci
 COPY . .
 RUN npx prisma generate
 RUN npx nx run backend-api:build:production
 
 
-FROM node:alpine as runner
+FROM node:18.12.1-alpine as runner
 
 ENV HOST=0.0.0.0
 ENV PORT=3000

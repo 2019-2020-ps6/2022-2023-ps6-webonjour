@@ -23,15 +23,19 @@
           inherit inputs pkgs;
           modules = [
             {
-              packages = with pkgs; [git nodejs nodePackages_latest.pnpm nodePackages_latest.prisma openssl prisma-engines];
+              packages = with pkgs; [git nodejs nodePackages_latest.pnpm nodePackages_latest.prisma openssl prisma-engines playwright];
               languages.typescript.enable = true;
 
               env = with pkgs; {
-                  PRISMA_MIGRATION_ENGINE_BINARY = "${prisma-engines}/bin/migration-engine";
-                  PRISMA_QUERY_ENGINE_BINARY = "${prisma-engines}/bin/query-engine";
-                  PRISMA_QUERY_ENGINE_LIBRARY = "${prisma-engines}/lib/libquery_engine.node";
-                  PRISMA_INTROSPECTION_ENGINE_BINARY = "${prisma-engines}/bin/introspection-engine";
-                  PRISMA_FMT_BINARY = "${prisma-engines}/bin/prisma-fmt";
+                PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "true";
+                PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright.browsers}";
+                PLAYWRIGHT_BROWSERS_VERSION = "${pkgs.playwright.version}";
+
+                PRISMA_MIGRATION_ENGINE_BINARY = "${prisma-engines}/bin/migration-engine";
+                PRISMA_QUERY_ENGINE_BINARY = "${prisma-engines}/bin/query-engine";
+                PRISMA_QUERY_ENGINE_LIBRARY = "${prisma-engines}/lib/libquery_engine.node";
+                PRISMA_INTROSPECTION_ENGINE_BINARY = "${prisma-engines}/bin/introspection-engine";
+                PRISMA_FMT_BINARY = "${prisma-engines}/bin/prisma-fmt";
               };
             }
           ];

@@ -6,7 +6,27 @@ module.exports = async function () {
   // Start services that the app needs to run (e.g. database, docker-compose, etc.).
   console.log('\nSetting up...\n');
 
-  subProcessSync('docker compose -f docker-compose.yml up -d', true);
+  let executor = 'docker-compose';
+
+  // Check if docker compose is installed
+  try {
+    subProcessSync('docker-compose --version', true);
+  } catch (e) {
+    executor = 'podman-compose';
+    try {
+      subProcessSync('podman-compose --version', true);
+    } catch (e) {
+      executor = 'docker compose';
+      try {
+        subProcessSync('docker compose --version', true);
+      } catch (e) {
+        console.log('Please install docker-compose or podman-compose');
+        process.exit(1);
+      }
+    }
+  }
+
+  subProcessSync(`${executor} -f docker-compose.yml up -d`, true);
   // wait for the database to start
   for (let i = 0; i < 200; i++) {
     try {

@@ -16,6 +16,6 @@ export class ProfileComponent {
   logout() {
     this.authService.logout();
     // redirect to login page
-    this.router.navigate(['#/login']).then();
+    this.router.navigate(['/login']).then();
   }
 }
