@@ -54,7 +54,7 @@ export class PatientEditFixture {
     }
 
     // it doesn't reload automatically
-    this.page.reload();
+    await this.page.reload();
     await this.page.waitForLoadState('networkidle');
   }
 

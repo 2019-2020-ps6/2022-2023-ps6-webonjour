@@ -126,8 +126,10 @@ test.describe('robert scenario', () => {
         */
     await FrontOffice.questionSelectionPage.skipQuestion();
 
-    expect(FrontOffice.resultSelectionPage.score).toHaveText('Bien Joué !');
-    expect(FrontOffice.resultSelectionPage.restart_button).toBeHidden();
+    await expect(FrontOffice.resultSelectionPage.score).toHaveText(
+      'Bien Joué !'
+    );
+    await expect(FrontOffice.resultSelectionPage.restart_button).toBeHidden();
   });
 });
 

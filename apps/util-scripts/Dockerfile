@@ -1,7 +1,8 @@
 FROM node:18.12.1-alpine as builder
 WORKDIR /app
 COPY package.json .
-RUN npm i
+COPY package-lock.json .
+RUN npm ci
 COPY . .
 RUN npx prisma generate
 RUN npx nx build util-scripts

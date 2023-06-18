@@ -56,8 +56,6 @@ export class PatientAddFixture {
       noWaitAfter: true,
     });
     // wait for the page to reload
-    await this.page.waitForResponse((response) => {
-      return response.url().includes('patients') && response.status() === 201;
-    });
+    await this.page.waitForLoadState('networkidle');
   }
 }
